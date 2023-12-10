@@ -1,0 +1,69 @@
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet } from "react-native";
+// Fonts Header File
+import { useFonts } from "expo-font";
+
+export default function MyHeader() {
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
+    }
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Welcome</Text>
+      <Text style={styles.sec}>Sign in To Continue</Text>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  fir: {
+    // borderColor: "white",
+    // borderWidth: 1,
+    color: "white",
+    fontSize: 45,
+    marginTop: 20,
+    marginBottom: 0,
+    marginHorizontal: 49.5,
+    fontFamily:"HeeboExtra",
+    textShadowColor: "black",
+    textShadowRadius: 15,
+    letterSpacing: 2.6,
+  },
+  sec: {
+    // borderColor: "white",
+    // borderWidth: 1,
+    color: "#DAFE00",
+    fontSize: 21.1,
+    marginTop: 3,
+    marginBottom: 30,
+    marginHorizontal: 49.5,
+    fontFamily:"Heebo",
+    textAlign: "center",
+    textShadowColor: "black",
+    textShadowRadius: 15,
+    letterSpacing: 1,
+  },
+});
