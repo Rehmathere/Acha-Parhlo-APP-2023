@@ -1,0 +1,17 @@
+
+----------------- How To Create A New React Native App ( Steps ) ----------------   
+
+
+npx create-expo-app AwesomeProject
+
+cd AwesomeProject
+
+npx expo start
+
+------------------- Run App -------------------
+
+npm start 
+
+npm run start
+
+---------------------------------------------------------------------------------------
