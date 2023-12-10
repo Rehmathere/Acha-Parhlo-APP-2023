@@ -1,0 +1,792 @@
+------------------ App.js ------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from './component/MyFirst'
+import MySecond from './component/MySecond'
+import MyThird from './component/MyThird'
+import MyForth from './component/MyForth'
+// Navigation Header File
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+
+export default function App() {
+  // Stack Variable
+  const Stack = createStackNavigator();
+  // Main Body
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        {/* First Screen */}
+        <Stack.Screen name="MyFirst" component={MyFirst} />
+        {/* Second Screen */}
+        <Stack.Screen name="MySecond" component={MySecond} />
+        {/* Third Screen */}
+        <Stack.Screen name="MyThird" component={MyThird} />
+        {/* Forth Screen */}
+        <Stack.Screen name="MyForth" component={MyForth} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
+
+---------------- MyFirst.js ----------------
+
+import React, { useState, useEffect } from "react";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Button,
+  TextInput,
+  Pressable,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { firebase } from "./firestore";
+import { FlashList } from "@shopify/flash-list";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+
+export default function MyFirst() {
+  // 0 - Navigation Constant
+  const navigation = useNavigation();
+  // 1 - useState
+  const [notes, setNotes] = useState([]);
+  // 2 - useEffect ( Fetch Data From Firestore Firebase )
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("notes")
+      .onSnapshot((querySnapshot) => {
+        const newNotes = [];
+        querySnapshot.forEach((doc) => {
+          const { image, note, title, room, amount } = doc.data();
+          newNotes.push({ image, note, title, room, amount, id: doc.id });
+        });
+        setNotes(newNotes);
+      });
+  }, []);
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Start */}
+      {/* Flash List */}
+      <FlashList
+        data={notes}
+        numColumns={1}
+        estimatedItemSize={100}
+        renderItem={({ item }) => (
+          // Display Area
+          <View style={styles.noteView}>
+            <Pressable onPress={() => navigation.navigate("MyThird", { item })}>
+              <Image source={{ uri: item.image }} style={styles.img} />
+            </Pressable>
+            <Text style={styles.noteTitle}>{item.title}</Text>
+            <TouchableOpacity style={styles.noteLoc} onPress={() => navigation.navigate("MyForth", { locationName: item.note })}> 
+              <Text style={styles.noteDescription}>{item.note}</Text>
+            </TouchableOpacity>
+            {/* Room */}
+            <View style={styles.parentRoom}>
+              <View style={styles.subParentRoom}>
+                {/* 1 */}
+                <View style={styles.roomIcon}>
+                  <MaterialIcons name="house" size={20} color="black" />
+                </View>
+                {/* 2 */}
+                <View style={styles.room}>
+                  <Text style={styles.roomText}>Room {item.room}</Text>
+                </View>
+              </View>
+            </View>
+            {/* Price */}
+            <View style={styles.parentPrice}>
+              <View style={styles.subParentPrcie}>
+                {/* 1 */}
+                <View style={styles.price1}>
+                  <Text style={styles.price1Txt}>From</Text>
+                </View>
+                {/* 2 */}
+                <View style={styles.price2}>
+                  <Text style={styles.price2Txt}>{item.amount} PKR</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        )}
+      />
+      {/* Button */}
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => navigation.navigate("MySecond")}
+      >
+        <FontAwesome name="plus" size={40} color="white" />
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightblue",
+  },
+  fir: {
+    borderColor: "aqua",
+    borderWidth: 1,
+    color: "black",
+    // padding: 5,
+    fontSize: 30,
+    backgroundColor: "aqua",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  btn: {
+    borderColor: "brown",
+    paddingVertical: 5,
+    paddingHorizontal: 1,
+    width: 55,
+    height: 53,
+    borderWidth: 1,
+    padding: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 40,
+    backgroundColor: "brown",
+    position: "absolute",
+    bottom: 30,
+    right: 30,
+  },
+  noteView: {
+    flex: 1,
+    backgroundColor: "white",
+    marginVertical: 10,
+    marginHorizontal: 30,
+    paddingVertical: 0,
+    borderRadius: 10,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 7,
+  },
+  img: {
+    width: "100%",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    height: 130,
+    backgroundColor: "pink",
+  },
+  noteTitle: {
+    borderColor: "transparent",
+    borderWidth: 1,
+    paddingTop: 11,
+    paddingBottom: 5,
+    paddingHorizontal: 15,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  noteDescription: {
+    borderColor: "transparent",
+    borderWidth: 1,
+    paddingVertical: 2,
+    paddingHorizontal: 15,
+    fontSize: 16,
+  },
+  parentRoom: {
+    borderColor: "transparent",
+    borderWidth: 1,
+    paddingTop: 7,
+    paddingBottom: 3,
+    paddingHorizontal: 15,
+  },
+  subParentRoom: {
+    backgroundColor: "#E4DDDD",
+    borderColor: "#E4DDDD",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingVertical: 1.5,
+    width: "37%",
+    flexDirection: "row",
+  },
+  roomIcon: {
+    borderColor: "transparent",
+    borderWidth: 1,
+    width: "20%",
+  },
+  room: {
+    borderColor: "transparent",
+    borderWidth: 1,
+    width: "80%",
+  },
+  roomText: {
+    paddingHorizontal: 6,
+    paddingTop: 1,
+  },
+  parentPrice: {
+    borderColor: "transparent",
+    borderWidth: 1,
+    paddingVertical: 2,
+    paddingHorizontal: 10,
+  },
+  subParentPrcie: {
+    width: "60%",
+    borderColor: "transparent",
+    borderWidth: 1,
+    flexDirection: "row",
+  },
+  price1: {
+    borderColor: "transparent",
+    borderWidth: 1,
+    width: "25%",
+    paddingVertical: 2,
+  },
+  price1Txt: {
+    textAlign: "center",
+    paddingTop: 5,
+  },
+  price2Txt: {
+    fontWeight: "bold",
+    fontSize: 25,
+  },
+  price2: {
+    borderColor: "transparent",
+    // borderColor: "black",
+    borderWidth: 1,
+    width: "78%",
+    paddingVertical: 1,
+  },
+  noteLoc: {
+    borderColor: "transparent",
+    borderWidth: 1,
+  },
+});
+
+---------------- MySecond.js ---------------
+
+import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  Text,
+  Keyboard,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+  Image,
+} from "react-native";
+// Image Header File
+import * as ImagePicker from 'expo-image-picker'
+import { firebase } from "./firestore";
+
+export default function MySecond() {
+  // 1 - useState
+  const [image, setImage] = useState(null);
+  const [title, setTitle] = useState("");
+  const [note, setNote] = useState("");
+  const [room, setRoom] = useState("");
+  const [amount, setAmount] = useState("");
+  // 2 - Function ( Pick Image )
+  const pickImage = async () => {
+    // No Permission Required For Image Picker
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    // Console Result
+    console.log(result);
+    // 3 - If Condition
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+  // 2 - Function ( Add Data To Firestore Firebase )
+  const handleAdd = () => {
+    firebase
+      .firestore()
+      .collection("notes")
+      .add({
+        image,
+        title,
+        note,
+        room,
+        amount,
+      })
+      .then(() => {
+        setImage(null);
+        setTitle("");
+        setNote("");
+        setRoom("");
+        setAmount("");
+        Keyboard.dismiss(); // Dismiss The Keyboard
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Add Accomodation</Text>
+      {/* All Accomodation */}
+      <Image source={{ uri: image }} style={styles.image} />
+      <TouchableOpacity style={styles.btn1} onPress={pickImage}>
+        <Text style={styles.btnTxt}>Upload Image</Text>
+      </TouchableOpacity>
+      {/* 1 */}
+      <TextInput
+        placeholder=" Enter Title "
+        value={title}
+        onChangeText={(text) => setTitle(text)}
+        style={styles.inputTitle}
+      />
+      {/* 2 */}
+      <TextInput
+        placeholder=" Enter Location "
+        value={note}
+        onChangeText={(text) => setNote(text)}
+        style={styles.inputTitle}
+      />
+      {/* 3 */}
+      <TextInput
+        placeholder=" Enter Room No "
+        value={room}
+        onChangeText={(text) => setRoom(text)}
+        style={styles.inputTitle}
+        keyboardType="number-pad"
+      />
+      {/* 2 */}
+      <TextInput
+        placeholder=" Enter Amount "
+        value={amount}
+        onChangeText={(text) => setAmount(text)}
+        style={styles.inputTitle}
+        keyboardType="number-pad"
+      />
+      {/* Button */}
+      <TouchableOpacity style={styles.btn} onPress={handleAdd}>
+        <Text style={styles.btnTxt}>Add Data</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+    paddingHorizontal: 15,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 30,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  image: {
+    borderColor: "white",
+    borderWidth: 1,
+    width: 150,
+    height: 100,
+    marginLeft: 70,
+  },
+  inputTitle: {
+    borderWidth: 1,
+    borderColor: "black",
+    fontSize: 15,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    color: "black",
+    backgroundColor: "white",
+    marginVertical: 10,
+    borderRadius: 10,
+  },
+  btn: {
+    borderColor: "blue",
+    padding: 8,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: "blue",
+    marginVertical: 10,
+    marginHorizontal: 50,
+  },
+  btn1: {
+    borderColor: "black",
+    padding: 5,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: "black",
+    marginVertical: 10,
+    marginHorizontal: 80,
+  },
+  btnTxt: {
+    fontSize: 18,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+});
+
+---------------- MyThird.js ---------------
+
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import { firebase } from "./firestore";
+
+export default function MyThird({ route }) {
+  const navigation = useNavigation();
+
+  const [noteTitle, setNoteTitle] = useState(route.params.item.title);
+  const [noteText, setNoteText] = useState(route.params.item.note);
+  const [noteRoom, setNoteRoom] = useState(route.params.item.room);
+  const [noteAmount, setNoteAmount] = useState(route.params.item.amount);
+  const [noteImage, setNoteImage] = useState(route.params.item.image);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setNoteImage(result.uri);
+    }
+  };
+
+  const handleUpdate = () => {
+    if (noteTitle && noteText.length > 0) {
+      firebase
+        .firestore()
+        .collection("notes")
+        .doc(route.params.item.id)
+        .update({
+          image: noteImage,
+          title: noteTitle,
+          note: noteText,
+          room: noteRoom,
+          amount: noteAmount,
+        })
+        .then(() => {
+          navigation.navigate("MyFirst");
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  };
+
+  const handleDelete = () => {
+    firebase
+      .firestore()
+      .collection("notes")
+      .doc(route.params.item.id)
+      .delete()
+      .then(() => {
+        navigation.navigate("MyFirst");
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+
+  return (
+    <View style={styles.container}>
+      {noteImage && <Image source={{ uri: noteImage }} style={styles.image} />}
+      <TouchableOpacity style={styles.btn2} onPress={pickImage}>
+        <Text style={styles.btnimgTxt}>Change Image</Text>
+      </TouchableOpacity>
+      <TextInput
+        placeholder=" Update Title "
+        value={noteTitle}
+        onChangeText={(text) => setNoteTitle(text)}
+        style={styles.inputTitle}
+      />
+      <TextInput
+        placeholder=" Update Note "
+        value={noteText}
+        onChangeText={(text) => setNoteText(text)}
+        style={styles.inputTitle}
+        multiline={true}
+      />
+      <TextInput
+        placeholder=" Update Room "
+        value={noteRoom}
+        onChangeText={(text) => setNoteRoom(text)}
+        style={styles.inputTitle}
+      />
+      <TextInput
+        placeholder=" Enter Amount "
+        value={noteAmount}
+        onChangeText={(text) => setNoteAmount(text)}
+        style={styles.inputTitle}
+      />
+      <View style={styles.buttonView}>
+        <TouchableOpacity style={styles.btn} onPress={handleUpdate}>
+          <Text style={styles.btnTxt}>Update Data</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn1} onPress={handleDelete}>
+          <Text style={styles.btnTxt}>Delete Data</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "pink",
+    paddingHorizontal: 10,
+  },
+  inputTitle: {
+    borderWidth: 1,
+    borderColor: "black",
+    fontSize: 15,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    color: "black",
+    backgroundColor: "white",
+    marginVertical: 10,
+    borderRadius: 10,
+  },
+  btn: {
+    borderColor: "blue",
+    paddingVertical: 9,
+    paddingHorizontal: 25,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: "blue",
+    marginVertical: 10,
+    marginHorizontal: 11,
+  },
+  btn1: {
+    paddingVertical: 9,
+    paddingHorizontal: 25,
+    borderColor: "brown",
+    padding: 8,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: "brown",
+    marginVertical: 10,
+    // marginHorizontal: 50,
+  },
+  btn2: {
+    paddingVertical: 9,
+    paddingHorizontal: 25,
+    borderColor: "orange",
+    padding: 8,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: "orange",
+    marginVertical: 10,
+    marginHorizontal: 70,
+  },
+  btnimgTxt: {
+    fontSize: 18,
+    color: "black",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  btnTxt: {
+    fontSize: 18,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  buttonView:{
+    flexDirection: "row",
+  },
+  image: {
+    borderColor: "white",
+    borderWidth: 1,
+    width: 150,
+    height: 100,
+    marginVertical: 20,
+    marginLeft: 70,
+  },
+});
+
+---------------- MyForth.js ---------------
+
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Button,
+  TextInput,
+  Text,
+} from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import * as Location from "expo-location";
+
+export default function MyForth({ route }) {
+  // Fetch Value useState
+  const { locationName: initialLocationName } = route.params;
+
+  const [mapRegion, setMapRegion] = useState({
+    latitude: 37.78825,
+    longitude: -122.4324,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+
+  const [locationName, setLocationName] = useState(initialLocationName || "");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const userLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      setErrorMsg("Permission to Access Location Was Denied");
+    } else {
+      try {
+        let location = await Location.getCurrentPositionAsync({
+          enableHighAccuracy: true,
+        });
+        setMapRegion({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        });
+        console.log(location.coords.latitude, location.coords.longitude);
+      } catch (error) {
+        setErrorMsg("Error getting current location");
+      }
+    }
+  };
+
+  const pinLocationFromName = async () => {
+    if (locationName.trim() === "") {
+      setErrorMsg("Please enter a location name.");
+      return;
+    }
+
+    try {
+      const result = await Location.geocodeAsync(locationName);
+      if (result.length > 0) {
+        const { latitude, longitude } = result[0];
+        setMapRegion({
+          latitude,
+          longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        });
+      } else {
+        setErrorMsg("Location not found.");
+      }
+    } catch (error) {
+      setErrorMsg("Error geocoding location.");
+    }
+  };
+
+  useEffect(() => {
+    userLocation();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <MapView style={styles.map} region={mapRegion}>
+        <Marker coordinate={mapRegion} title="Marker" />
+      </MapView>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter Location Name (City or Country)"
+        onChangeText={(text) => setLocationName(text)}
+        value={locationName}
+      />
+      <View style={styles.btnSett}> 
+      <Button title="Pin Location" color={"red"} onPress={pinLocationFromName} />
+      <Button title="Current Location" color={"green"} onPress={userLocation} />
+      </View>
+      <Text style={styles.errorText}>{errorMsg}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "yellow",
+  },
+  map: {
+    flex: 1,
+  },
+  input: {
+    fontWeight: "bold",
+    backgroundColor:"white",
+    textAlign:"center",
+    fontSize: 20,
+    borderColor: "white",
+    borderWidth: 1,
+    margin: 10,
+    padding: 5,
+  },
+  errorText: {
+    color: "red",
+    // margin: 10,
+  },
+  btnSett:{
+    borderColor:"transparent",
+    borderWidth:1,
+    flexDirection: "row",
+    justifyContent:"space-around",
+    marginHorizontal: 10,
+  }
+});
+
+---------------- firestore.js --------------
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage'
+// ----------- Extra File ------------
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCpCthp0DyhjLpm5zbI5G1C_bCkY6Hqde8",
+  authDomain: "awpro-f81b1.firebaseapp.com",
+  databaseURL: "https://awpro-f81b1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "awpro-f81b1",
+  storageBucket: "awpro-f81b1.appspot.com",
+  messagingSenderId: "313818198041",
+  appId: "1:313818198041:web:b9e32aa1fc2bcc2c193a88"
+};
+
+if(!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig)
+}
+
+export{ firebase }
+
+---------------------------------------------------------------------

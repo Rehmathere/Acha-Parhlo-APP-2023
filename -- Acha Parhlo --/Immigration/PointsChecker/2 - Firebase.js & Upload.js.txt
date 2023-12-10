@@ -1,0 +1,44 @@
+
+-------------------- Firebase.js --------------------
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCpCthp0DyhjLpm5zbI5G1C_bCkY6Hqde8",
+  authDomain: "awpro-f81b1.firebaseapp.com",
+  databaseURL: "https://awpro-f81b1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "awpro-f81b1",
+  storageBucket: "awpro-f81b1.appspot.com",
+  messagingSenderId: "313818198041",
+  appId: "1:313818198041:web:b9e32aa1fc2bcc2c193a88"
+};
+
+if(!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig)
+}
+
+export{ firebase }
+
+-------------------- Upload.js --------------------
+
+const admin = require('firebase-admin')
+
+const serviceAccount = require('./serviceAccount.json')
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
+
+const db = admin.firestore();
+const data = require('./data.json')
+
+async function uploadData(){
+    for(const doc of data){
+        await db.collection('questions').add(doc);
+    }
+}
+
+uploadData();
+
+----------------------------------------------------------------------------------------------------------------

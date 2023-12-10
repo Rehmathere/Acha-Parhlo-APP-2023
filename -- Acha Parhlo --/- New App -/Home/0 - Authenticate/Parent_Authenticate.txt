@@ -1,0 +1,123 @@
+----------- Parent_Authenticate.js  -----------
+
+import React, { useState, useEffect } from "react";
+// import @ React
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+// Firebase Import File
+import { firebase } from "./firestore";
+// Importing Components
+import Login from "./Authentication/Login";
+import Registration from "./Authentication/Registration";
+import Dashboard from "./Authentication/Dashboard";
+import MyHeader from "./Authentication/MyHeader";
+// Fonts Header File
+import { useFonts } from "expo-font";
+
+// Constant
+const Stack = createStackNavigator();
+
+function Parent_Authenticate() {
+    // 1 - useState
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    // Expo Font Logic
+    let [loaded] = useFonts({
+        Archivo: require("../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    // It Will Load Font
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+    //   --------------------------------------
+    // 1 - useState
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+    // 2 - Handle User State Change
+    function onAuthStateChanged(user) {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+    // 3 - useEffect
+    useEffect(() => {
+        const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber;
+    }, []);
+    // 4 - If Condition
+    if (initializing) return null;
+    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+    if (!fontsLoaded) {
+        return null;
+    }
+    // 5 - ! User
+    if (!user) {
+        return (
+            <Stack.Navigator>
+                {/* 1 */}
+                <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    options={{
+                        headerTitle: () => <MyHeader />,
+                        headerStyle: {
+                            height: 150,
+                            borderBottomLeftRadius: 1000,
+                            borderBottomRightRadius: 1000,
+                            backgroundColor: "#EB2F06",
+                            shadowColor: "red",
+                            elevation: 25,
+                        },
+                    }}
+                />
+                {/* 2 */}
+                <Stack.Screen
+                    name="Registration"
+                    component={Registration}
+                    options={{
+                        headerTitle: () => <MyHeader />,
+                        headerStyle: {
+                            height: 150,
+                            borderBottomLeftRadius: 1000,
+                            borderBottomRightRadius: 1000,
+                            backgroundColor: "#EB2F06",
+                            shadowColor: "red",
+                            elevation: 25,
+                        },
+                        headerLeft: null,
+                    }}
+                />
+            </Stack.Navigator>
+        );
+    }
+    // 6 - Dashboard
+    return (
+        <Stack.Navigator>
+            {/* 1 */}
+            <Stack.Screen
+                name="Dashboard"
+                component={Dashboard}
+                options={{
+                    headerTitle: () => <MyHeader name="Dashboard" />,
+                    headerShown: false,
+                }}
+            />
+        </Stack.Navigator>
+    );
+}
+// Main Start
+export default () => {
+    // Main Body
+    return (
+        <NavigationContainer>
+            <Parent_Authenticate />
+        </NavigationContainer>
+    );
+};
+
+--------------------------------------------

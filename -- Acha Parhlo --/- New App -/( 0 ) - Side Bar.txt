@@ -1,0 +1,192 @@
+---------------- App.js ----------------
+
+import React from "react";
+import MyFirst from "./component/MyFirst";
+import Login from "./component/Login";
+import {
+  DrawerItemList,
+  createDrawerNavigator,
+} from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaView, View, Image } from "react-native";
+// Vector Icon
+import { FontAwesome , MaterialCommunityIcons } from '@expo/vector-icons';
+
+// Constant Drawer
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+  // Main Body
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        initialRouteName="MyFirst"
+        drawerContent={(props) => {
+          return (
+            <SafeAreaView>
+              <View
+                style={{
+                  height: 200,
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderBottomColor: "#EB2F06",
+                  borderBottomWidth: 1,
+                  backgroundColor: "#EB2F06",
+                  marginBottom: 20,
+                }}
+              >
+                <Image
+                source={ require("./component/Pics/User.png") }
+                style={{
+                  height: 130,
+                  width: 130,
+                  borderRadius: 65,
+                }}
+                />
+              </View>
+              <DrawerItemList {...props} />
+            </SafeAreaView>
+          );
+        }}
+        screenOptions={{
+          drawerStyle: {
+            backgroundColor: "white",
+            width: 250,
+          },
+          headerStyle: {
+            backgroundColor: "#EB2F06",
+          },
+          headerTintColor: "white",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          drawerActiveTintColor: "blue",
+          drawerLabelStyle: {
+            color: "black",
+          },
+        }}
+      >
+        {/* Option 1 */}
+        <Drawer.Screen name="MyFirst"
+        options={{
+          drawerLabel: "Home",
+          title: "MyFirst",
+          drawerIcon: () => (
+            <FontAwesome name="home" size={20} color="black" />
+          )
+        }}
+        component={MyFirst} />
+        {/* Option 2 */}
+        <Drawer.Screen name="Login"
+        options={{
+          drawerLabel: "Contact Us",
+          title: "Login",
+          style:{ fontWeight: "bold" },
+          drawerIcon: () => (
+          <MaterialCommunityIcons name="contacts" size={20} color="black" />          )
+        }}
+        component={Login} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+---------------- Option1.js ----------------
+
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
+
+export default function MyFirst() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Video Tour</Text>
+      {/* start */}
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingHorizontal: 10,
+    paddingTop: 24,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 30,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+});
+
+---------------- Option2.js ----------------
+
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  TextInput,
+} from "react-native";
+export default function Login() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor={"red"} />
+      <Text style={styles.fir}>Login Form</Text>
+      {/* TextInput 1 */}
+      <TextInput
+        style={styles.sec}
+        placeholder=" Enter Email "
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+  },
+  fir: {
+    borderColor: "white",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 50,
+    backgroundColor: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  sec: {
+    borderColor: "black",
+    backgroundColor: "white",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 18,
+    marginTop: 5,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    fontWeight: "bold",
+  },
+});
+
+---------------------------------------------------------
+
+
