@@ -1,0 +1,155 @@
+------------------- App.js ------------------- 
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingTop: 5,
+  },
+})
+
+------------------- MyFirst.js ------------------- 
+
+import React, { useState, useRef } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Image,
+  StatusBar,
+  TextInput,
+  Alert,
+} from "react-native";
+// Header File
+import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha'
+import { firebaseConfig } from './firestore'
+import firebase from 'firebase/compat/app'
+
+export default function MyFirst() {
+  // useState
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [code, setCode] = useState('');
+  const [verificationId, setVerificationId] = useState(null);
+  const recaptchaVerifier = useRef(null);
+  // Function
+  // 1 - Send Verify
+  const sendVerification = () =>{
+    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    phoneProvider.verifyPhoneNumber(phoneNumber,recaptchaVerifier.current).then(setVerificationId);
+    setPhoneNumber('');
+  }
+  // 2 - Confirm Code
+  const confirmCode = () =>{
+    const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, code);
+    firebase.auth().signInWithCredential(credential).then(()=>{
+      setCode('');
+    }).catch((err)=>{
+      alert(err)
+    })
+    Alert.alert(
+      ' Login Successful, Welcome To Dashboard '
+    )
+  }
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor={"red"} />
+      {/* Recaptcha */}
+      <FirebaseRecaptchaVerifierModal
+        ref={recaptchaVerifier}
+        firebaseConfig={firebaseConfig}  
+      />
+      <Text style={styles.fir}>Verify OTP Number</Text>
+      <TextInput
+        style={styles.sec}
+        placeholder="Enter Your Number - ( +92 ) "
+        onChangeText={setPhoneNumber}
+        // --- Extra ---
+        keyboardType="phone-pad"
+        autoCompleteType="tel"
+        />
+      <Button color={"green"} title=" Send OTP " onPress={sendVerification} />
+      <TextInput
+        style={styles.sec}
+        placeholder="Enter Your OTP Code"
+        onChangeText={setCode}
+        // --- Extra ---
+        keyboardType="number-pad"
+      />
+      <Button color={"red"} title=" Verify OTP " onPress={confirmCode} />
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+    paddingHorizontal: 15,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 50,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  sec: {
+    borderColor: "grey",
+    backgroundColor: "white",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 15,
+    marginTop: 20,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    fontWeight: "bold",
+  },
+});
+
+------------------- Firestore.js ------------------- 
+
+// -----------------------------------------------------------
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore'
+// -----------------------------------------------------------
+// Your web app's Firebase configuration
+export const firebaseConfig = {
+  apiKey: "AIzaSyCpCthp0DyhjLpm5zbI5G1C_bCkY6Hqde8",
+  authDomain: "awpro-f81b1.firebaseapp.com",
+  projectId: "awpro-f81b1",
+  storageBucket: "awpro-f81b1.appspot.com",
+  messagingSenderId: "313818198041",
+  appId: "1:313818198041:web:b9e32aa1fc2bcc2c193a88"
+};
+// -----------------------------------------------------------
+if(!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig)
+}
+// -----------------------------------------------------------
+
+----------------------------------------------------------------

@@ -1,0 +1,185 @@
+------------------- App.js ------------------- 
+
+import React from "react";
+import { StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Statusbar */}
+      <StatusBar backgroundColor={"red"} />
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingTop: 5,
+  },
+})
+
+------------------- MyFirst.js ------------------- 
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Button,
+  Image,
+  StatusBar,
+  Alert,
+} from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
+import { firebase } from "./firestore";
+
+export default function MyFirst() {
+  // 1 - useState
+  const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  // 2 - Image Function
+  const pickImage = async () => {
+    // no Premission required for image loading from files
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    // if condition
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+  // 3 - uploadImage Function
+  const uploadMedia = async () => {
+    setUploading(true);
+    // 3 ( A ) - Try & Catch
+    try {
+      const { uri } = await FileSystem.getInfoAsync(image);
+      const blob = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+          resolve(xhr.response);
+        };
+        xhr.onerror = (e) => {
+          reject(new TypeError("Netwrok Error"));
+        };
+        xhr.responseType = "blob";
+        xhr.open("GET", uri, true);
+        xhr.send(null);
+      });
+      const filename = image.substring(image.lastIndexOf("/") + 1);
+      const ref = firebase.storage().ref().child(filename);
+
+      await ref.put(blob);
+      setUploading(false);
+      Alert.alert("Photo Uploaded");
+      setImage(null);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor={"red"} />
+      <Text style={styles.fir}>Upload & Fetch Image From Firestore</Text>
+      {/* Start */}
+      <TouchableOpacity style={styles.btn} onPress={pickImage}>
+        <Text style={styles.btnTxt}>Pick Image</Text>
+      </TouchableOpacity>
+      {/* Image */}
+      <View style={styles.imgCont}>
+        {
+          image && <Image
+          source={{ uri: image}}
+          style={{width: 200, height: 200, marginLeft: 60,}}
+          />
+        }
+      <TouchableOpacity style={styles.btn2} onPress={uploadMedia}>
+        <Text style={styles.btnTxt}>Upload Image</Text>
+      </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+  },
+  fir: {
+    borderColor: "pink",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    padding: 5,
+    marginBottom: 50,
+    backgroundColor: "pink",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  btn:{
+    borderColor: "green",
+    borderWidth: 1,
+    backgroundColor: "green",
+    padding:8,
+    marginVertical: 10,
+    marginHorizontal: 50,
+    borderRadius: 50, 
+  },
+  btn2:{
+    borderColor: "red",
+    borderWidth: 1,
+    backgroundColor: "red",
+    marginVertical: 10,
+    padding:8,
+    marginHorizontal: 50,
+    borderRadius: 50, 
+  },
+  btnTxt:{
+    textAlign: "center",
+    color: "white",
+    fontSize: 25,
+  }
+});
+
+------------------- firestore.js ------------------- 
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage'
+// ----------- Extra File ------------
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCpCthp0DyhjLpm5zbI5G1C_bCkY6Hqde8",
+  authDomain: "awpro-f81b1.firebaseapp.com",
+  databaseURL: "https://awpro-f81b1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "awpro-f81b1",
+  storageBucket: "awpro-f81b1.appspot.com",
+  messagingSenderId: "313818198041",
+  appId: "1:313818198041:web:b9e32aa1fc2bcc2c193a88"
+};
+
+if(!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig)
+}
+
+export{ firebase }
+
+----------------------------------------------------------------

@@ -1,0 +1,168 @@
+------------------- App.js ------------------- 
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingTop: 5,
+  },
+})
+
+------------------- MyFirst.js ------------------- 
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Image,
+  StatusBar,
+  TextInput,
+  TouchableHighlight,
+} from "react-native";
+// Header File Authentication
+import { auth } from "./firestore";
+import { createUserWithEmailAndPassword ,signInWithEmailAndPassword ,signInAnonymously } from "firebase/auth";
+
+export default function MyFirst() {
+  // useState
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [message, setMessage] = useState("");
+  // Function
+  const handleLogin = async () => {
+    createUserWithEmailAndPassword(auth, email, pass)
+      .then((userCredential) => {
+        // Signed Up
+        const user = userCredential.user;
+        console.log("User Data", user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Errorr Code = ", errorCode);
+        console.log("Errorr Message = ", errorMessage);
+        // ..
+      });
+  };
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor={"red"} />
+      <Text style={styles.fir}>Login Form</Text>
+      <TextInput
+        style={styles.sec}
+        placeholder="Enter Your Email"
+        onChangeText={(value) => setEmail(value)}
+      />
+      <TextInput
+        style={styles.sec}
+        placeholder="Enter Your Password"
+        secureTextEntry={true}
+        onChangeText={(value) => setPass(value)}
+      />
+      <Button style={styles.third} title="SIGN UP" onPress={handleLogin} />
+      <Text style={styles.ez}>{message}</Text>
+      <TextInput />
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+    paddingHorizontal: 15,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 50,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  sec: {
+    borderColor: "grey",
+    backgroundColor: "white",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 15,
+    marginTop: 1,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    fontWeight: "bold",
+  },
+  third: {
+    borderColor: "blue",
+    borderWidth: 1,
+    color: "white",
+    fontSize: 20,
+    borderRadius: 20,
+    backgroundColor: "blue",
+    marginTop: 1,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    textAlign: "center",
+    paddingVertical: 3,
+    fontWeight: "bold",
+  },
+  ez: {
+    fontSize: 20,
+    textAlign: "center",
+    marginTop: 100,
+    borderColor: "white",
+    borderWidth: 1,
+    backgroundColor: "white",
+    padding: 5,
+  },
+});
+
+------------------- Firestore.js ------------------- 
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCpCthp0DyhjLpm5zbI5G1C_bCkY6Hqde8",
+  authDomain: "awpro-f81b1.firebaseapp.com",
+  projectId: "awpro-f81b1",
+  storageBucket: "awpro-f81b1.appspot.com",
+  messagingSenderId: "313818198041",
+  appId: "1:313818198041:web:b9e32aa1fc2bcc2c193a88"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+export{app, auth}
+
+----------------------------------------------------------------

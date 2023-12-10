@@ -1,0 +1,156 @@
+------------------- App.js ------------------- 
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingTop: 5,
+  },
+})
+
+------------------- MyFirst.js ------------------- 
+
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Image,
+  StatusBar,
+  TextInput,
+} from "react-native";
+// Header File
+import { db } from "./firestore";
+import { ref, onValue } from "firebase/database";
+
+export default function MyFirst() {
+  // useState
+  const [todoData, setTodoData] = useState([]);
+  // useEffect
+  useEffect(() => {
+    const startCountRef = ref(db, "posts/");
+    onValue(startCountRef, (snapshot) => {
+      const data = snapshot.val();
+      const newPosts = Object.keys(data).map((key) => ({
+        id: key,
+        ...data[key],
+      }));
+      console.log(newPosts);
+      setTodoData(newPosts);
+    });
+  }, []);
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor={"red"} />
+      <Text style={styles.fir}>Fetch & Retrieve Data To Realtime Firebase</Text>
+      {/* Main Working */}
+      {
+      todoData.map((item, index) => {
+        return (
+          <View style={styles.sec_fir}>
+            <Text style={styles.sec_head}> Title : {item.title}</Text>
+            <Text style={styles.sec}> Body : {item.body}</Text>
+          </View>
+        );
+      })}
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+    paddingHorizontal: 15,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 50,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  sec_head: {
+    borderColor: "black",
+    backgroundColor: "black",
+    borderWidth: 1,
+    color: "white",
+    fontSize: 20,
+    marginTop: 5,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  sec: {
+    textAlign: "center",
+    borderColor: "black",
+    backgroundColor: "black",
+    borderWidth: 1,
+    color: "white",
+    fontSize: 15,
+    marginTop: 5,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 1,
+    fontWeight: "bold",
+  },
+  sec_fir:{
+    borderColor: "black",
+    backgroundColor: "black",
+    borderWidth: 1,
+    marginVertical: 10,
+    borderRadius: 20,
+  },
+});
+
+------------------- Firestore.js -----------------
+
+// Header File
+import firebase from 'firebase/compat/app'
+import { getDatabase } from 'firebase/database'
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCpCthp0DyhjLpm5zbI5G1C_bCkY6Hqde8",
+  authDomain: "awpro-f81b1.firebaseapp.com",
+  databaseURL: "https://awpro-f81b1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "awpro-f81b1",
+  storageBucket: "awpro-f81b1.appspot.com",
+  messagingSenderId: "313818198041",
+  appId: "1:313818198041:web:b9e32aa1fc2bcc2c193a88"
+};
+// Condition
+if(firebase.apps.length === 0){
+  firebase.initializeApp(firebaseConfig)
+}
+// Export db
+const db = getDatabase();
+export{ db }
+
+----------------------------------------------------------------
