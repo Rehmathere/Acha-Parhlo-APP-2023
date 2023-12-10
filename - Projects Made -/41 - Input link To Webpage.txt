@@ -1,0 +1,124 @@
+---------------- App.js -------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Status Bar */}
+      <StatusBar backgroundColor={"black"} />
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
+
+---------------- MyFirst.js ---------------
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { WebView } from "react-native-webview";
+
+export default function Myfirst() {
+  // useState
+  const [open, setOpen] = useState("");
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Webview</Text>
+      {/* Parent View */}
+      <View style={styles.parent}>
+        {/* Text */}
+        <TextInput
+          placeholder=" Enter Link To Preview "
+          style={styles.sec}
+          value={open}
+          onChangeText={(txt) => setOpen(txt)}
+        />
+        {/* Button */}
+        <TouchableOpacity onPress={() => {}} style={styles.button}>
+          <Text style={styles.btnText}>Search</Text>
+        </TouchableOpacity>
+      </View>
+      {
+        open ? (
+          <WebView source={{ uri: open }} style={styles.web} />
+        ) : null
+      }
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  fir: {
+    borderColor: "aqua",
+    borderWidth: 1,
+    color: "black",
+    // padding: 5,
+    fontSize: 30,
+    backgroundColor: "aqua",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  parent:{
+    flexDirection: "row",
+    justifyContent:"center",
+  },
+  button: {
+    borderColor: "blue",
+    width: "25%",
+    marginTop: 20,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginLeft: 5,
+    padding: 5,
+    backgroundColor: "blue",
+  },
+  btnText: {
+    fontSize: 20,
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  sec: {
+    borderColor: "black",
+    borderWidth: 1.5,
+    color: "black",
+    borderRadius: 5,
+    width:"70%",
+    fontSize: 15,
+    marginTop: 20,
+    padding: 5,
+    backgroundColor: "white",
+    fontWeight: "bold",
+  },
+  web: {
+    flex: 1,
+    borderColor: "black",
+    borderWidth: 1,
+    width: "98%",
+  },
+});
+
+------------------------------------------------------------------

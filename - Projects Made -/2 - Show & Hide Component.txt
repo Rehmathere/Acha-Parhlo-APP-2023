@@ -1,0 +1,85 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+} from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Status Bar */}
+      <StatusBar backgroundColor={"#EB2F06"} />
+      {/* Component 1 */}
+      <MyFirst/>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+-------------------- Myfirst.js --------------------
+
+import React, { useState } from "react";
+import { Image, View, Text, StyleSheet, Button } from "react-native";
+
+export default function MyFirst() {
+  // useState
+  const [shouldShow, setShouldShow] = useState(true);
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Start */}
+      <Text style={styles.fir}>Show / Hide Component</Text>
+      {shouldShow ? (
+        <Image
+          source={{
+            uri: "https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1664&q=80",
+          }}
+          style={styles.img}
+        />
+      ) : null}
+      <Button title=" Show / Hide Component " color={"red"} onPress={() => setShouldShow(!shouldShow)} />
+      {/* start */}
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgrey",
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 5,
+    marginBottom: 5,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  img: {
+    width: 250,
+    height: 250,
+    marginTop: 30,
+    marginLeft: 30,
+    marginBottom: 10,
+  },
+});
+
+------------------------------------------------------------------------
+
+

@@ -1,0 +1,105 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Component 1 */}
+      <Myfirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Button, TextInput } from "react-native";
+
+export default function Myfirst() {
+  // fetch API 
+  // 0 - useState
+  const [mydata,setData] = useState(undefined)
+  // 1 - Function
+  const Fetch_API = async () =>{
+    const url = "https://jsonplaceholder.typicode.com/posts/1"
+    let result = await fetch(url);
+    result = await result.json();
+    setData(result)
+    // console.warn(result)
+  }
+  // 2 - useEffect
+  useEffect(()=>{
+    Fetch_API();
+  },[])
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Simple Fetch API</Text>
+      {
+        mydata ? <View style={styles.sec}>
+          <Text style={{fontSize: 30,color: 'black'}}>{mydata.id}</Text>
+          <Text style={{fontSize: 30,color: 'black'}}>{mydata.name}</Text>
+          <Text style={{fontSize: 30,color: 'black'}}>{mydata.email}</Text>
+          <Text style={{fontSize: 30,color: 'black'}}>{mydata.body}</Text>
+        </View> : null
+      }
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'yellow',
+  },
+  fir:{
+    borderColor: 'black',
+    borderWidth: 1,
+    color: 'black',
+    fontSize: 30,
+    marginTop: 20,
+    marginBottom: 50,
+    backgroundColor: 'yellow',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  sec:{
+    paddingLeft: 10,
+  }
+});
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,126 @@
+---------------- MyThird.js ------------
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  StatusBar,
+  Platform,
+} from "react-native";
+import DateTimePicker from '@react-native-community/datetimepicker'
+import { FontAwesome } from '@expo/vector-icons';
+
+export default function MyThird() {
+  // useState
+  const [date, setDate] = useState(new Date())
+  const [mode, setMode] = useState('date')
+  const [show, setShow] = useState(false)
+  const [text, setText] = useState('Empty')
+  // Function OnChange
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+    // Let Variable
+    let tempDate = new Date(currentDate);
+    let fDate = tempDate.getDate() + '  /  ' + (tempDate.getMonth() + 1) + '  /  ' + tempDate.getFullYear();
+    setText(fDate);
+  }
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  }
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* StatusBar */}
+      <StatusBar backgroundColor={"red"} />
+      {/* Main Body */}
+      <Text style={styles.fir0}>Current Date</Text>
+      {/* Date Design */}
+      <View style={styles.ParentDate}>
+        {/* 1 - Logo */}
+        <View style={styles.Date1}>
+          <FontAwesome name="calendar" size={24} color="black" />
+        </View>
+        {/* 2 - Date Place */}
+        <TouchableOpacity style={styles.Date2} onPress={() => showMode('date')}>
+          <Text style={styles.dateTxt}>{text}</Text> 
+        </TouchableOpacity>
+      </View>
+      {/* Date Condition */}
+      {
+        show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="calendar"
+            onChange={onChange}
+          />
+        )
+      }
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "pink",
+    paddingHorizontal: 10,
+  },
+  fir0: {
+    borderWidth: 0.5,
+    textAlign: "center",
+    paddingVertical: 10,
+    fontWeight: "bold",
+    fontSize: 20,
+    marginVertical: 10,
+  },
+  fir: {
+    borderWidth: 0.5,
+    textAlign: "center",
+    paddingVertical: 10,
+    fontWeight: "bold",
+    fontSize: 20,
+    marginVertical: 10,
+  },
+  ParentDate: {
+    borderWidth: 0.5,
+    marginVertical: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    flexDirection:"row",
+    justifyContent:"center",
+    alignItems:"center",
+  },
+  Date1:{
+    backgroundColor:"white",
+    borderColor:"black",
+    width: "14%",
+    borderWidth: 1,
+    padding: 7,
+  },
+  Date2:{
+    width:"86%",
+    backgroundColor:"white",
+    borderColor:"black",
+    borderWidth: 1,
+    padding: 8.5,
+  },
+  dateTxt:{
+    textAlign:"center",
+    fontSize: 18,
+    fontWeight:"bold",
+  },
+});
+
+-------------------------------------------------------------------------------

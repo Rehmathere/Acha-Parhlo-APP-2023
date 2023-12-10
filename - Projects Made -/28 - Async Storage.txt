@@ -1,0 +1,158 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Component 1 */}
+      <Myfirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TouchableHighlight,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export default function Myfirst() {
+  // useState
+  const [user, setUser] = useState("");
+  // Async Storage
+  // 1 - Set Data
+  const setData = async () => {
+    await AsyncStorage.setItem(" my_user ", " Rehmat Qazi ");
+  };
+  // 2 - Get Data
+  const getData = async () => {
+    const name = await AsyncStorage.getItem(" my_user ");
+    setUser(name);
+  };
+  // 3 - Remove Data
+  const removeData = async () => {
+    await AsyncStorage.removeItem(" my_user ");
+    setUser("");
+  };
+
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Async Storage</Text>
+      {/* 1 */}
+      <TouchableHighlight>
+        <Text style={[styles.btn, styles.sec_1]} onPress={setData}>
+          Set Data
+        </Text>
+      </TouchableHighlight>
+      {/* 2 */}
+      <TouchableHighlight>
+        <Text style={[styles.btn, styles.sec_2]} onPress={getData}>
+          Get Data
+        </Text>
+      </TouchableHighlight>
+      {/* 3 */}
+      <TouchableHighlight>
+        <Text style={[styles.btn, styles.sec_3]} onPress={removeData}>
+          Remove Data
+        </Text>
+      </TouchableHighlight>
+      {/* Name Get Were */}
+      <Text style={styles.third}>{user}</Text>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+  },
+  fir: {
+    borderColor: "black",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 20,
+    marginBottom: 50,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  btn: {
+    fontSize: 20,
+    textAlign: "center",
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    marginVertical: 10,
+    borderRadius: 30,
+    marginHorizontal: 30,
+  },
+  sec_1: {
+    borderWidth: 1,
+    borderColor: "green",
+    color: "white",
+    backgroundColor: "green",
+  },
+  sec_2: {
+    borderWidth: 1,
+    borderColor: "blue",
+    color: "white",
+    backgroundColor: "blue",
+  },
+  sec_3: {
+    borderWidth: 1,
+    borderColor: "red",
+    color: "white",
+    backgroundColor: "red",
+  },
+  third:{
+    borderColor: 'black',
+    borderWidth: 1,
+    marginVertical: 10,
+    fontSize: 25,
+    textAlign: "center",
+  },
+});
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

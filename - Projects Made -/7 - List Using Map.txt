@@ -1,0 +1,138 @@
+
+-------------------- App.js --------------------
+
+import React from "react";
+import { StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#006266",
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, View, Text, ScrollView } from "react-native";
+// Main Project Function
+export default function Myfirst() {
+  {
+    /* Users Array */
+  }
+  let users = [
+    {
+      id: 1,
+      name: "Rehmat Qazi",
+    },
+    {
+      id: 2,
+      name: "M Ali",
+    },
+    {
+      id: 3,
+      name: "Saim Aqil",
+    },
+    {
+      id: 4,
+      name: "Samarey Qazi",
+    },
+    {
+      id: 5,
+      name: "Qazi Mohsiz Ijaz",
+    },
+    {
+      id: 1,
+      name: "Rehmat Qazi",
+    },
+    {
+      id: 2,
+      name: "M Ali",
+    },
+    {
+      id: 3,
+      name: "Saim Aqil",
+    },
+    {
+      id: 4,
+      name: "Samarey Qazi",
+    },
+    {
+      id: 5,
+      name: "Qazi Mohsiz Ijaz",
+    },
+    {
+      id: 3,
+      name: "Saim Aqil",
+    },
+    {
+      id: 4,
+      name: "Samarey Qazi",
+    },
+    {
+      id: 5,
+      name: "Qazi Mohsiz Ijaz",
+    },
+  ];
+  return (
+    // Main
+    <View style={styles.container}>
+      <Text style={styles.fir}>Custom Making List Through Map Function</Text>
+      {/* --- Simple Custom List Making Through Map Function --- */}
+      <ScrollView>
+        {users.map((item) => (
+          <Text style={styles.sec}>
+            {" "}
+            {item.id} - {item.name}{" "}
+          </Text>
+        ))}
+      </ScrollView>
+      {/* <StatusBar style='auto'/> */}
+    </View>
+  );
+}
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    borderWidth: 1,
+    padding: 10,
+    flex: 1,
+  },
+  fir: {
+    borderWidth: 1,
+    borderColor: "transparent",
+    fontSize: 30,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  sec: {
+    borderColor: "red",
+    backgroundColor: "yellow",
+    margin: 10,
+    color: "black",
+    fontWeight: "bold",
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    fontSize: 20,
+    borderRadius: 10,
+  },
+});
+
+------------------------------------------------------------------------
+
+

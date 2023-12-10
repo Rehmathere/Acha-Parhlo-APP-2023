@@ -1,0 +1,116 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Component 1 */}
+      <Myfirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import React, { useRef } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TextInput,
+} from "react-native";
+
+export default function Myfirst() {
+  // Variable Declare
+  const input = useRef();
+  // Function
+  const update_inp = () =>{
+    input.current.focus();
+    input.current.setNativeProps({
+      backgroundColor: "green",
+      color: "white",
+    })
+  }
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Ref With Example</Text>
+      <TextInput style={styles.sec} placeholder=" Enter Name " ref={input} />
+      <TextInput style={styles.sec} placeholder=" Enter City " />
+      <View style={styles.sec_x}> 
+        <Button title=" Submit Form " color={"red"} onPress={update_inp} />
+      </View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "yellow",
+  },
+  fir: {
+    borderColor: "black",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 20,
+    marginBottom: 50,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  sec: {
+    borderWidth: 1,
+    borderColor: "black",
+    fontSize: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    marginVertical: 10,
+    marginHorizontal: 30,
+  },
+  sec_x: {
+    borderWidth: 1,
+    borderColor: "yellow",
+    fontSize: 25,
+    marginVertical: 10,
+    marginHorizontal: 27,
+  },
+});
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

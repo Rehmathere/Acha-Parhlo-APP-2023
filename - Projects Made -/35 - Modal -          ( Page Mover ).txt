@@ -1,0 +1,118 @@
+
+----------- App.js -----------
+
+import React from "react";
+import { StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Status Bar */}
+      <StatusBar backgroundColor={"black"} />
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
+
+----------- MyFirst.js -----------
+
+import React, { useState } from "react";
+import { Button, TouchableOpacity, View, Text, StyleSheet, Alert, Pressable, Modal } from "react-native";
+
+export default function Myfirst() {
+  // 1 - useState
+  const [showContent, setShowContent] = useState(false)
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* First Page */}
+      <Text style={styles.fir}>Modal View</Text>
+      <TouchableOpacity 
+      style={styles.sec}
+      >
+        <Text style={styles.sec_text} onPress={() => setShowContent(true)} >View Modal Page</Text>
+      </TouchableOpacity>
+      {/* Modal Page */}
+      <Modal
+      animationType="slide"
+      transparent={true}
+      visible={showContent}
+      >
+        <View style={styles.modal_parent}>
+          <View style={styles.modal_child}>
+            <Text style={styles.modal_text}> Hello Rehmat , It's Modal Page</Text>
+            <Button title=" Close Modal " onPress={() => setShowContent(!showContent)} />
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'yellow',
+  },
+  fir:{
+    borderColor: 'yellow',
+    borderWidth: 1,
+    color: 'white',
+    // padding: 5,
+    fontSize: 50,
+    marginBottom: 20,
+    backgroundColor: 'red',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  sec:{
+    borderColor: 'yellow',
+    borderWidth: 1,
+    padding: 5,
+    fontSize: 50,
+    margin: 20,
+    marginVertical: 200,
+    backgroundColor: 'blue',
+    fontWeight: 'bold',
+    borderRadius: 50,
+  },
+  sec_text:{
+    color: "white",
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  modal_parent:{
+    flex: 1,
+    backgroundColor:"black",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modal_child:{
+    backgroundColor:"white",
+    borderColor: "black",
+    borderWidth: 1,
+    paddingHorizontal: 25,
+    width: 200,
+    height: 200,
+    borderRadius: 20,
+  },
+  modal_text:{
+    fontSize: 25,
+    fontWeight: "bold",
+    paddingVertical: 33,
+    textAlign: "center",
+  }
+});
+
+------------------------------------------------------

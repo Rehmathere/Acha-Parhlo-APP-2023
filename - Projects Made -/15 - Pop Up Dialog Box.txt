@@ -1,0 +1,105 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+      {/* Start */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button, Modal } from "react-native";
+
+export default function Myfirst() {
+  // 1 - useState
+  const [show, setShow] = useState(false)
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Pop Up Dialog Box ( Modal )</Text>
+      {/* Modal - ( Dialog Box ) */}
+      <Modal
+       transparent={true}
+       visible={show}
+       animationType="slide"
+       >
+        {/* Parent View */}
+        <View style={styles.parent_view}>
+          {/* Child View */}
+          <View style={styles.child_view}>
+            <Text style={styles.te}>Rehmat, This Is Custom Dialog Box...</Text>
+            <Button title="Close Dialog Box" onPress={()=>{setShow(false)}} color={'red'} />
+          </View>
+        </View>
+      </Modal>
+      {/* Button For Bottom View */}
+      <View style={styles.ext}>
+        <Button title="Click For Dialog Box" onPress={()=>{setShow(true)}} />
+      </View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  fir:{
+    borderColor: 'aqua',
+    borderWidth: 1,
+    padding: 5,
+    fontSize: 30,
+    backgroundColor: 'aqua',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  ext:{
+    flex: 1,
+    justifyContent: 'flex-end'
+  },
+  parent_view:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  child_view:{
+    backgroundColor: 'white',
+    padding: 30,
+    borderRadius: 20,
+    shadowColor: 'black',
+    elevation: 15,
+  },
+  te:{
+    fontSize: 20,
+    textAlign: 'center',
+    padding: 20,
+    fontWeight: 'bold',
+  }
+
+});
+
+------------------------------------------------------------------------
+
+

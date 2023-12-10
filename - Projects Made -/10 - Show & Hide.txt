@@ -1,0 +1,73 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  // useState
+  const [show , setShow] = useState(false)
+  return (
+    <View style={styles.container}>
+      <Button title=" Show / Hide " color={'green'} onPress={()=>setShow(!show)} />
+      {
+        show == true ? <Myfirst/> : null
+      }
+      {/* <Myfirst /> */}
+      {/* Start */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    paddingTop: 40,
+    // paddingHorizontal: 5,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from 'expo-status-bar'
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
+
+export default function Myfirst() {
+  return (
+    // Main Body
+    <View style={styles.container}>
+      <Text style={styles.fir}>My First App</Text>
+      {/* Start */}
+      {/* <StatusBar style='auto'/> */}
+    </View>
+  )
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+  },
+  fir:{
+    borderWidth: 1,
+    borderColor: 'transparent',
+    fontSize: 50,
+    backgroundColor: 'lightgreen',
+    textAlign: 'center',
+    color: 'black',
+    marginTop: 10,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: 'darkblue',
+    paddingVertical: 10,
+  },
+})
+
+------------------------------------------------------------------------
+
+

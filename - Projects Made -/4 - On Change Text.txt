@@ -1,0 +1,72 @@
+
+-------------------- App.js --------------------
+
+import React from "react";
+import { StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#006266",
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import React, { useState } from 'react'
+import { StyleSheet , View , Text, Button, TextInput } from 'react-native'
+
+export default function Myfirst() {
+  // UseState
+  const [name, setName] = useState('');
+  // Function 1
+  function MyName(mytext){
+    setName(mytext)
+  }
+  // Function 2
+  function RemMyName(mytext){
+    setName('')
+  }
+  // Main
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Enter Your Full Name</Text>
+      <Text style={styles.fir}>Name : {name}</Text>
+      <TextInput style={styles.fir} placeholder='Enter Name' value={name} onChangeText={MyName} />
+      <Button color="red" title=" Click Me " onPress={RemMyName} />
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container:{
+    paddingVertical: 40,
+  },
+  fir:{
+    color:'white',
+    borderWidth: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginBottom: 10,
+    fontSize: 20,
+    width: '100%',
+    fontWeight: 'bold',
+  }
+})
+
+------------------------------------------------------------------------
+
+

@@ -1,0 +1,93 @@
+
+----------- App.js -----------
+
+import React from "react";
+import { StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Status Bar */}
+      <StatusBar backgroundColor={"black"} />
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
+
+----------- MyFirst.js -----------
+
+import React from "react";
+import { Text, View, StyleSheet } from "react-native";
+import { SliderBox } from "react-native-image-slider-box";
+
+export default function Myfirst() {
+  // 1 - Images Array
+  const myimages = [
+    require("../assets/Pics/8.jpg"),
+    require("../assets/Pics/9.jpg"),
+    require("../assets/Pics/10.jpg"),
+    require("../assets/Pics/11.jpg"),
+    require("../assets/Pics/12.jpg"),
+  ];
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Image Slider */}
+      <View style={styles.parent_img}>
+        <SliderBox
+          images={myimages}
+          dotColor="red"
+          inactiveDotColor="white"
+          dotStyle={{ height: 15, width: 15, borderRadius: 50 }}
+          imageLoadingColor="black"
+          autoplay={true}
+          autoplayInterval={4000}
+          circleLoop={true}
+          paginationBoxVerticalPadding={10}
+          style={styles.img}
+        />
+        {/* Text */}
+        <Text style={styles.img_text}>Image Slider</Text>
+      </View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "yellow",
+  },
+  img:{
+    width: 255,
+    height: 150,
+  },
+  parent_img: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "black",
+    margin: 20,
+    padding: 10,
+  },
+  img_text: {
+    backgroundColor: "red",
+    color: "white",
+    padding: 5,
+    textAlign: "center",
+    fontSize: 20,
+    marginVertical: 10,
+  },
+});
+
+------------------------------------------------------

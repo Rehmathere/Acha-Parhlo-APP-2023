@@ -1,0 +1,94 @@
+import React from 'react'
+import { StyleSheet, View, Text, Button, TextInput, TouchableOpacity } from 'react-native'
+// Vector Header File
+import { Entypo } from '@expo/vector-icons';
+
+export default function MyFirst() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Search Bar</Text>
+      {/* Parent Search Box */}
+      <View style={styles.parent}>
+        {/* 1 - Search Area */}
+        <View style={styles.sea_1}>
+          <TextInput placeholder=' Search Here ... ' style={styles.sea_se} />
+        </View>
+        {/* 2 - Search Button */}
+        <View style={styles.sea_2}>
+          <TouchableOpacity style={styles.sea_se_2}>
+            <Entypo name="magnifying-glass" size={31} color="white" />
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+  },
+  fir: {
+    borderWidth: 1,
+    borderColor: "yellow",
+    backgroundColor: "yellow",
+    color: 'black',
+    borderWidth: 1,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    marginBottom: 50,
+    textAlign: "center",
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
+  parent:{
+    flexDirection: "row",
+  },
+  sea_1: {
+    width: "65%",
+    borderWidth: 1,
+    borderColor: "white",
+    backgroundColor: "white",
+    paddingVertical: 4,
+    marginLeft: 30,
+    backgroundColor: "white",
+    borderTopLeftRadius: 50,
+    borderBottomLeftRadius: 50,
+  },
+  sea_se: {
+    borderWidth: 1,
+    fontSize: 19,
+    borderTopLeftRadius: 7,
+    borderBottomLeftRadius: 7,
+    paddingHorizontal: 10,
+    borderRightColor: "transparent",
+    paddingVertical: 2,
+    borderColor: "white",
+    backgroundColor: "white",
+    marginHorizontal: 10,
+  },
+  sea_2: {
+    borderWidth: 1,
+    borderColor: "black",
+    width: "15%",
+    backgroundColor: "royalblue",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 1,
+    borderLeftColor:"transparent",
+    paddingRight: 7,
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+  },
+  sea_se_2: {
+    borderWidth: 1,
+    borderColor: "transparent",
+    // width: "10%",
+    padding: 1,
+  },
+})
+
+
+----------------------------------------------------------------------------------------------

@@ -1,0 +1,101 @@
+
+-------------------- App.js --------------------
+
+import React from "react";
+import { StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Status Bar */}
+      <StatusBar backgroundColor={"black"} />
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
+
+-------------------- Myfirst.js --------------------
+
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, Button } from "react-native";
+// Image Header File
+import * as ImagePicker from 'expo-image-picker'
+
+export default function MyFirst() {
+  // Image
+  // 1 - useState
+  const [image, setImage] = useState(null);
+  // 2 - Function
+  const pickImage = async () => {
+    // No Permission Required For Image Picker
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4,3],
+      quality: 1,
+    });
+    // Console Result
+    console.log(result)
+    // 3 - If Condition
+    if(!result.cancelled){
+      setImage(result.uri);
+    }
+  }
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Image Picker</Text>
+      {/* Start */}
+      <Button
+      title=" Pick An Image "
+      onPress={pickImage}
+      />
+      { image && <Image source={{ uri: image }} style={styles.image} /> }
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#EB2F06",
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    borderColor: "transparent",
+    borderWidth: 1,
+  },
+  fir: {
+    borderColor: "transparent",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 30,
+    backgroundColor:"yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  image: {
+    borderColor: "white",
+    borderWidth: 1,
+    width: 200,
+    height: 200,
+    marginTop: 30,
+    marginLeft: 50,
+  },
+});
+
+------------------------------------------------------------------------
+
+

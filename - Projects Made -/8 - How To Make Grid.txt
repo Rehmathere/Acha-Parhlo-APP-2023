@@ -1,0 +1,237 @@
+
+-------------------- App.js --------------------
+
+import React from "react";
+import { StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#006266",
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import React from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+
+export default function Myfirst() {
+  // Defining Values Array
+  let users = [
+    {
+      id: 1,
+      name: "Rehmat",
+    },
+    {
+      id: 2,
+      name: "Shajjar",
+    },
+    {
+      id: 3,
+      name: "Imran",
+    },
+    {
+      id: 4,
+      name: "Wasif",
+    },
+    {
+      id: 5,
+      name: "Ali",
+    },
+    {
+      id: 2,
+      name: "Shajjar",
+    },
+    {
+      id: 3,
+      name: "Imran",
+    },
+    {
+      id: 4,
+      name: "Wasif",
+    },
+    {
+      id: 5,
+      name: "Ali",
+    },
+    {
+      id: 2,
+      name: "Shajjar",
+    },
+    {
+      id: 3,
+      name: "Imran",
+    },
+    {
+      id: 4,
+      name: "Wasif",
+    },
+    {
+      id: 5,
+      name: "Ali",
+    },
+    {
+      id: 2,
+      name: "Shajjar",
+    },
+    {
+      id: 3,
+      name: "Imran",
+    },
+    {
+      id: 4,
+      name: "Wasif",
+    },
+    {
+      id: 5,
+      name: "Ali",
+    },
+    {
+      id: 2,
+      name: "Shajjar",
+    },
+    {
+      id: 3,
+      name: "Imran",
+    },
+    {
+      id: 4,
+      name: "Wasif",
+    },
+    {
+      id: 5,
+      name: "Ali",
+    },
+    {
+      id: 2,
+      name: "Shajjar",
+    },
+    {
+      id: 3,
+      name: "Imran",
+    },
+    {
+      id: 4,
+      name: "Wasif",
+    },
+    {
+      id: 5,
+      name: "Ali",
+    },
+    {
+      id: 2,
+      name: "Shajjar",
+    },
+    {
+      id: 3,
+      name: "Imran",
+    },
+    {
+      id: 4,
+      name: "Wasif",
+    },
+    {
+      id: 5,
+      name: "Ali",
+    },
+    {
+      id: 2,
+      name: "Shajjar",
+    },
+    {
+      id: 3,
+      name: "Imran",
+    },
+    {
+      id: 4,
+      name: "Wasif",
+    },
+    {
+      id: 5,
+      name: "Ali",
+    },
+    {
+      id: 2,
+      name: "Shajjar",
+    },
+    {
+      id: 3,
+      name: "Imran",
+    },
+    {
+      id: 4,
+      name: "Wasif",
+    },
+    {
+      id: 5,
+      name: "Ali",
+    },
+  ];
+  // Main Function
+  return (
+    // Main Body
+    <View style={styles.container}>
+      <Text style={styles.fir}>How To Make Automatic Dynamic Grid</Text>
+      {/* Grid Using Area */}
+      <ScrollView>
+        <View style={styles.sec}>
+          {users.map((item) => (
+            <Text style={styles.third}>{item.name}</Text>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "balck",
+    padding: 1,
+  },
+  fir: {
+    borderWidth: 1,
+    borderColor: "black",
+    fontSize: 35,
+    textAlign: "center",
+    color: "white",
+    fontWeight: "bold",
+  },
+  sec: {
+    padding: 3,
+    borderWidth: 1,
+    borderColor: "black",
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  third: {
+    borderWidth: 1,
+    borderColor: "red",
+    margin: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    color: "white",
+    backgroundColor: "red",
+  },
+});
+
+------------------------------------------------------------------------
+
+

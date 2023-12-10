@@ -1,0 +1,90 @@
+
+-------------------- App.js --------------------
+
+import React from "react";
+import { StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Status Bar */}
+      <StatusBar backgroundColor={"black"} />
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
+
+-------------------- Myfirst.js --------------------
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TextInput,
+  Switch,
+} from "react-native";
+export default function Myfirst() {
+  // 1 - useState
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleButton = () => {
+    setIsEnabled((isPrevious) => !isPrevious);
+  };
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Are You React Native Developer ?</Text>
+      <View style={styles.togg}>
+        {/* Switch Button */}
+        <Switch
+          trackColor={{ false: "green", true: "red" }}
+          thumbColor={isEnabled ? "blue" : "orange"}
+          ios_backgroundColor="white"
+          onValueChange={toggleButton}
+          value={isEnabled}
+          onChange={isEnabled ? console.log("Yes") : console.log("No")}
+        />
+      </View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "yellow",
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    // padding: 5,
+    fontSize: 25,
+    paddingHorizontal: 10,
+    marginTop: 100,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  togg:{
+    borderColor: "black",
+    borderWidth: 1,
+    alignItems:"center",
+  }
+});
+
+------------------------------------------------------------------------
+
+

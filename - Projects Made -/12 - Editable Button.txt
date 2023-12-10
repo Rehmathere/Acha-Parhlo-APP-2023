@@ -1,0 +1,105 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+      {/* Start */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+
+export default function Myfirst() {
+  return (
+    // Main Body
+    <View style={styles.container}>
+      <TouchableHighlight>
+        <Text style={[styles.button , styles.fir_1]}>Editable Button 1</Text>
+      </TouchableHighlight>
+      <TouchableHighlight>
+        <Text style={[styles.button , styles.fir_2]}>Editable Button 2</Text>
+      </TouchableHighlight>
+      <TouchableHighlight>
+        <Text style={[styles.button , styles.fir_3]}>Editable Button 3</Text>
+      </TouchableHighlight>
+      <TouchableHighlight>
+        <Text style={[styles.button , styles.fir_4]}>Editable Button 4</Text>
+      </TouchableHighlight>
+      <TouchableHighlight>
+        <Text style={[styles.button , styles.fir_5]}>Editable Button 5</Text>
+      </TouchableHighlight>
+      <TouchableHighlight>
+        <Text style={[styles.button , styles.fir_6]}>Editable Button 6</Text>
+      </TouchableHighlight>
+      <TouchableHighlight>
+        <Text style={[styles.button , styles.fir_7]}>Editable Button 7</Text>
+      </TouchableHighlight>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  button:{
+    color: 'white',
+    textAlign: 'center',
+    paddingVertical: 5,
+    borderRadius: 10,
+    fontSize: 30,
+    marginHorizontal: 10,
+    marginVertical: 10,
+    shadowColor: 'black',
+    elevation: 100,
+    shadowOpacity: 1,
+  },
+  fir_1:{
+    backgroundColor: 'red',
+  },
+  fir_2:{
+    backgroundColor: 'green',
+  },
+  fir_3:{
+    backgroundColor: 'salmon',
+  },
+  fir_4:{
+    backgroundColor: 'blue',
+  },
+  fir_5:{
+    backgroundColor: 'orange',
+  },
+  fir_6:{
+    backgroundColor: 'purple',
+  },
+  fir_7:{
+    backgroundColor: 'black',
+  },
+});
+
+------------------------------------------------------------------------
+
+

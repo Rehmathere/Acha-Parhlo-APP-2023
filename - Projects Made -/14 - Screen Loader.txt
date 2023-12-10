@@ -1,0 +1,72 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+      {/* Start */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Button } from "react-native";
+
+export default function Myfirst() {
+  // 1 - useState
+  const [load,setload] = useState(false)
+  // 2 - Function
+  const My_Func = () =>{
+    setload(true);
+    setTimeout(()=>{
+      setload(false);
+    },5000)
+  }
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Screen Loader</Text>
+      <ActivityIndicator color={'purple'} size={200} animating={load} />
+      <Button title="Click Me" onPress={My_Func} />
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  fir:{
+    borderColor: 'aqua',
+    borderWidth: 1,
+    fontSize: 30,
+    backgroundColor: 'aqua',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  }
+
+});
+
+------------------------------------------------------------------------
+
+

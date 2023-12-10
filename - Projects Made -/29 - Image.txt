@@ -1,0 +1,145 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Component 1 */}
+      <Myfirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Image,
+  StatusBar
+} from "react-native";
+
+export default function MyFirst() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor={"red"} />
+      <Text style={styles.fir}>Image In R-N</Text>
+      {/* 1 */}
+      <View style={styles.parent}>
+        {/* 1 */}
+        <View style={styles.child}>
+          {/* Assets Folder */}
+          <Image source={require("./Pics/1.jpg")} style={styles.img} />
+          <Text style={styles.txt}>First Image</Text>
+        </View>
+        {/* 2 */}
+        <View style={styles.child}>
+          {/* Online Pic URL */}
+          <Image source={{uri:"https://fastly.picsum.photos/id/629/200/300.jpg?grayscale&hmac=FH5burBzQDbTnAxhjej5wgtFo8DEADypwvdI5hBFGZY"}} style={styles.img} />
+          <Text style={styles.txt}>Second Image</Text>
+        </View>
+      </View>
+      {/* 2 */}
+      <View style={styles.parent}>
+        {/* 1 */}
+        <View style={styles.child}>
+          {/* Assets Folder */}
+          <Image source={require("./Pics/2.jpg")} style={styles.img} />
+          <Text style={styles.txt}>First Image</Text>
+        </View>
+        {/* 2 */}
+        <View style={styles.child}>
+          {/* Online Pic URL */}
+          <Image source={{uri:"https://picsum.photos/id/237/200/300"}} style={styles.img} />
+          <Text style={styles.txt}>Second Image</Text>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+  },
+  fir: {
+    borderColor: "pink",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 50,
+    backgroundColor: "pink",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  parent:{
+    flexDirection: "row",
+    borderColor: "lightgreen",
+    borderWidth: 1,
+    marginVertical: 10,
+    width: "100%",
+    height: "17%",
+  },
+  child:{
+    marginHorizontal: 15,
+    borderWidth: 1,
+    backgroundColor: "yellow",
+    borderColor: "yellow",
+    borderRadius: 10,
+    width: "40%",
+    height: "100%",
+    padding: 8,
+  },
+  img:{
+    borderRadius: 5,
+    width: "99%",
+    height: "80%",
+  },
+  txt:{
+    fontSize: 18,
+    textAlign: "center",
+    paddingTop: 3,
+  },
+});
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

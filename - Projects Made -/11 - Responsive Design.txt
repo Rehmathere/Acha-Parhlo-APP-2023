@@ -1,0 +1,97 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  // useState
+  const [show , setShow] = useState(false)
+  return (
+    <View style={styles.container}>
+      <Button title=" Show Application " color={'green'} onPress={()=>setShow(false)} />
+      <Button title=" Hide Application " color={'red'} onPress={()=>setShow(true)} />
+      {
+        show == true ? <Myfirst/> : null
+      }
+      {/* <Myfirst /> */}
+      {/* Start */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    paddingTop: 40,
+    // paddingHorizontal: 5,
+  },
+})
+
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+
+export default function Myfirst() {
+  return (
+    // Main Body
+    <View style={styles.container}>
+      <View style={styles.fir_1}>
+        <View style={styles.sec_1}></View>
+        <View style={styles.sec_2}></View>
+        <View style={styles.sec_3}></View>
+      </View>
+      <View style={styles.fir_2}></View>
+      <View style={styles.fir_3}></View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  fir_1: {
+    flex: 2,
+    flexDirection: "row",
+    backgroundColor: "green",
+  },
+  sec_1: {
+    flex: 1,
+    borderWidth: 8,
+    borderColor: "red",
+    backgroundColor: "orange",
+  },
+  sec_2: {
+    flex: 2,
+    borderWidth: 8,
+    borderColor: "red",
+    backgroundColor: "green",
+  },
+  sec_3: {
+    flex: 1,
+    borderWidth: 8,
+    borderColor: "red",
+    backgroundColor: "blue",
+  },
+  fir_2: {
+    flex: 1,
+    backgroundColor: "yellow",
+  },
+  fir_3: {
+    flex: 1,
+    backgroundColor: "red",
+  },
+});
+
+------------------------------------------------------------------------
+
+

@@ -1,0 +1,113 @@
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingTop: 5,
+  },
+})
+
+------------------- Myfirst.js -----------------
+
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, StatusBar } from "react-native";
+// Fonts Header File
+import AppLoading from 'expo-app-loading'
+import { useFonts } from 'expo-font'
+
+export default function MyFirst() {
+  // 1 - Expo Font Logic
+  let [fontsLoaded] = useFonts({
+    'Soul': require('../assets/fonts/My_Soul/MySoul-Regular.ttf'),
+    'Oswald': require('../assets/fonts/My_Soul/Oswald-VariableFont_wght.ttf'),
+    'Roboto': require('../assets/fonts/My_Soul/Roboto-Black.ttf')
+  })
+  // 2 - If Condition
+  if(!fontsLoaded){
+    return <AppLoading/>
+  }
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor={"red"} />
+      <Text style={styles.fir}>Fetch Image From Firebase</Text>
+      {/* Fonts Applied */}
+      <Text style={{ fontFamily: 'Soul' , fontSize: 30, }} > Soul Font </Text>
+      <Text style={{ fontFamily: 'Oswald' , fontSize: 30, }} > Oswald Font </Text>
+      <Text style={{ fontFamily: 'Roboto' , fontSize: 30, }} > Roboto Font </Text>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+    paddingHorizontal: 15,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 30,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  ext: {
+    borderColor: "white",
+    backgroundColor: "white",
+    borderWidth: 1,
+    width: 290,
+    height: 230,
+    margin: "auto",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    borderColor: "white",
+    backgroundColor: "white",
+    borderWidth: 1,
+    width: 200,
+    height: 200,
+    borderRadius: 20,
+  },
+});
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

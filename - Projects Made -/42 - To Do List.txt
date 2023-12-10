@@ -1,0 +1,431 @@
+------------------ App.js ------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from './component/MyFirst'
+import MySecond from './component/MySecond'
+import MyThird from './component/MyThird'
+// Navigation Header File
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+
+export default function App() {
+  // Stack Variable
+  const Stack = createStackNavigator();
+  // Main Body
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        {/* First Screen */}
+        <Stack.Screen name="MyFirst" component={MyFirst} />
+        {/* Second Screen */}
+        <Stack.Screen name="MySecond" component={MySecond} />
+        {/* Third Screen */}
+        <Stack.Screen name="MyThird" component={MyThird} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
+
+---------------- MyFirst.js ----------------
+
+import React, { useState, useEffect } from "react";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TextInput,
+  Pressable,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { firebase } from "./firestore";
+import { FlashList } from "@shopify/flash-list";
+import { FontAwesome } from '@expo/vector-icons';
+
+export default function MyFirst() {
+  // 0 - Navigation Constant
+  const navigation = useNavigation();
+  // 1 - useState
+  const [notes, setNotes] = useState([]);
+  // 2 - useEffect ( Fetch Data From Firestore Firebase )
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("notes")
+      .onSnapshot((querySnapshot) => {
+        const newNotes = [];
+        querySnapshot.forEach((doc) => {
+          const { note, title } = doc.data();
+          newNotes.push({ note, title, id: doc.id });
+        });
+        setNotes(newNotes);
+      });
+  }, []);
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Start */}
+      {/* Flash List */}
+      <FlashList
+        data={notes}
+        numColumns={2}
+        estimatedItemSize={100}
+        renderItem={({ item }) => (
+          // Display Area
+          <View style={styles.noteView}>
+            <Pressable onPress={() => navigation.navigate('MyThird', {item})}>
+              <Text style={styles.noteTitle}>{item.title}</Text>
+              <Text style={styles.noteDescription}>{item.note}</Text>
+            </Pressable>
+          </View>
+        )}
+      />
+      {/* Button */}
+      <TouchableOpacity
+        style={styles.btn}
+        onPress={() => navigation.navigate("MySecond")}
+      >
+        <FontAwesome name="plus" size={40} color="black" />
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+  },
+  fir: {
+    borderColor: "aqua",
+    borderWidth: 1,
+    color: "black",
+    // padding: 5,
+    fontSize: 30,
+    backgroundColor: "aqua",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  btn: {
+    borderColor: "white",
+    paddingVertical: 5,
+    paddingHorizontal: 1,
+    width: 55,
+    height: 53,
+    borderWidth: 1,
+    padding: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 40,
+    backgroundColor: "white",
+    position: "absolute",
+    bottom: 30,
+    right: 30,
+  },
+  noteView: {
+    flex: 1,
+    backgroundColor: "white",
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 7,
+  },
+  noteTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  noteDescription: {
+    fontSize: 16,
+    marginTop: 6,
+  },
+});
+
+---------------- MySecond.js ---------------
+
+import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  Text,
+  Keyboard,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
+import { firebase } from "./firestore";
+
+export default function MySecond() {
+  // 1 - useState
+  const [title, setTitle] = useState("");
+  const [note, setNote] = useState("");
+  // 2 - Function ( Add Data To Firestore Firebase )
+  const handleAdd = () => {
+    firebase
+      .firestore()
+      .collection("notes")
+      .add({
+        title,
+        note,
+      })
+      .then(() => {
+        setTitle("");
+        setNote("");
+        Keyboard.dismiss(); // Dismiss The Keyboard
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Add Notes To Firebase</Text>
+      {/* All Accomodation */}
+      {/* 1 */}
+      <TextInput
+        placeholder=" Enter Title "
+        value={title}
+        onChangeText={(text) => setTitle(text)}
+        style={styles.inputTitle}
+      />
+      {/* 2 */}
+      <TextInput
+        placeholder=" Enter Note "
+        value={note}
+        onChangeText={(text) => setNote(text)}
+        style={styles.inputTitle}
+      />
+      {/* Button */}
+      <TouchableOpacity style={styles.btn} onPress={handleAdd}>
+        <Text style={styles.btnTxt}>Add Data</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+    paddingHorizontal: 15,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 30,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  inputTitle: {
+    borderWidth: 1,
+    borderColor: "black",
+    fontSize: 15,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    color: "black",
+    backgroundColor: "white",
+    marginVertical: 10,
+    borderRadius: 10,
+  },
+  btn: {
+    borderColor: "blue",
+    padding: 8,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: "blue",
+    marginVertical: 10,
+    marginHorizontal: 50,
+  },
+  btnTxt: {
+    fontSize: 18,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+});
+
+---------------- MyThird.js ---------------
+
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { firebase } from "./firestore";
+
+export default function MyThird({ route }) {
+  // 0 - Navigation Constant
+  const navigation = useNavigation();
+  // 1 - useState
+  const [noteText, setNoteText] = useState(route.params.item.note);
+  const [noteTitle, setNoteTitle] = useState(route.params.item.title);
+  // 2 - Update Function
+  const handleUpdate = () => {
+    if (noteTitle && noteText.length > 0) {
+      firebase
+        .firestore()
+        .collection("notes")
+        .doc(route.params.item.id)
+        .update({
+          title: noteTitle,
+          note: noteText,
+        })
+        .then(() => {
+          navigation.navigate("MyFirst");
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  };
+  // 3 - Delete Function
+  const handleDelete = () => {
+    if (noteTitle && noteText.length > 0) {
+      firebase
+        .firestore()
+        .collection("notes")
+        .doc(route.params.item.id)
+        .delete()
+        .then(() => {
+          navigation.navigate("MyFirst");
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  };
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}></Text>
+      {/* Updation Data */}
+      {/* 1 */}
+      <TextInput
+        placeholder=" Update Enter Title "
+        value={noteTitle}
+        onChangeText={(text) => setNoteTitle(text)}
+        style={styles.inputTitle}
+      />
+      {/* 2 */}
+      <TextInput
+        placeholder=" Enter Note "
+        value={noteText}
+        onChangeText={(text) => setNoteText(text)}
+        style={styles.inputTitle}
+        multiline={true}
+      />
+      {/* Button */}
+      <View style={styles.buttonView}>
+        {/* 1 - Update Button */}
+        <TouchableOpacity style={styles.btn} onPress={handleUpdate}>
+          <Text style={styles.btnTxt}>Update Data</Text>
+        </TouchableOpacity>
+        {/* 1 - Delete Button */}
+        <TouchableOpacity style={styles.btn1} onPress={handleDelete}>
+          <Text style={styles.btnTxt}>Delete Data</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "pink",
+    paddingHorizontal: 10,
+  },
+  inputTitle: {
+    borderWidth: 1,
+    borderColor: "black",
+    fontSize: 15,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    color: "black",
+    backgroundColor: "white",
+    marginVertical: 10,
+    borderRadius: 10,
+  },
+  btn: {
+    borderColor: "blue",
+    paddingVertical: 9,
+    paddingHorizontal: 25,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: "blue",
+    marginVertical: 10,
+    marginHorizontal: 11,
+  },
+  btn1: {
+    paddingVertical: 9,
+    paddingHorizontal: 25,
+    borderColor: "red",
+    padding: 8,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: "red",
+    marginVertical: 10,
+    // marginHorizontal: 50,
+  },
+  btnTxt: {
+    fontSize: 18,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  buttonView:{
+    flexDirection: "row",
+  }
+});
+
+---------------- firestore.js --------------
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCpCthp0DyhjLpm5zbI5G1C_bCkY6Hqde8",
+  authDomain: "awpro-f81b1.firebaseapp.com",
+  databaseURL: "https://awpro-f81b1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "awpro-f81b1",
+  storageBucket: "awpro-f81b1.appspot.com",
+  messagingSenderId: "313818198041",
+  appId: "1:313818198041:web:b9e32aa1fc2bcc2c193a88"
+};
+
+if(!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig)
+}
+
+export{ firebase }
+
+---------------------------------------------------------------------

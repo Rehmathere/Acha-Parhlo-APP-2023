@@ -1,0 +1,98 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+      {/* Start */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+
+export default function Myfirst() {
+  // Function
+  const [selectradio, setSelectRadio] = useState(1);
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Radio 1 */}
+      <TouchableOpacity onPress={()=>setSelectRadio(1)}>
+        <View style={styles.ext}>
+          <View style={styles.fir}>
+            {selectradio === 1 ? <View style={styles.extr}></View> : null}
+          </View>
+          <Text style={styles.sec}> Radio Button 1 </Text>
+        </View>
+      </TouchableOpacity>
+      {/* Radio 2 */}
+      <TouchableOpacity onPress={()=>setSelectRadio(2)} style={styles.za}>
+        <View style={styles.ext}>
+          <View style={styles.fir}>
+            {selectradio === 2 ? <View style={styles.extr}></View> : null}
+          </View>
+          <Text style={styles.sec}> Radio Button 2 </Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  ext: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  extr: {
+    backgroundColor: "black",
+    width: 26,
+    height: 26,
+    margin: 2.8,
+    borderRadius: 13,
+  },
+  za:{
+    marginTop: 20,
+  },
+  fir: {
+    borderWidth: 4,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderColor: "black",
+  },
+  sec: {
+    fontSize: 20,
+    marginLeft: 10,
+  },
+});
+
+------------------------------------------------------------------------
+
+

@@ -1,0 +1,19 @@
+default: This is the default keyboard type, which provides a general-purpose keyboard with letters, numbers, and symbols.
+
+numeric: This keyboard type displays a numeric keypad, making it suitable for numeric input like phone numbers or PINs.
+
+number-pad: Similar to numeric, this keyboard type is designed for numeric input, but it may include additional symbols and special characters.
+
+decimal-pad: This keyboard type is used for decimal numbers and includes a decimal point.
+
+email-address: This keyboard type is tailored for email addresses, providing easy access to "@" and ".com" keys.
+
+phone-pad: It's optimized for phone number input and includes keys for common phone-related characters like parentheses and hyphens.
+
+visible-password: This keyboard type displays letters and symbols, but it shows the entered characters as plain text (no masking with dots or asterisks). It's often used for password fields that require visible input.
+
+url: This keyboard type is designed for entering URLs and includes keys for common URL characters like slashes and periods.
+
+numeric-password: Similar to number-pad, this keyboard type is optimized for numeric input, but it may also include keys for special characters used in numeric passwords.
+
+ascii-capable: This keyboard type is designed for text input that may include ASCII characters, including special symbols and non-Latin characters.

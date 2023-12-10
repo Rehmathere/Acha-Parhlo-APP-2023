@@ -1,0 +1,136 @@
+------------------ App.js ------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Status Bar */}
+      <StatusBar backgroundColor={"black"} />
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
+
+------------------ MyFirst.js ------------------
+
+import * as React from "react";
+import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+// Import Video File
+import { Video } from "expo-av";
+import * as ScreenOrientation from "expo-screen-orientation";
+
+export default function MyFirst() {
+  // Video
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
+  const [orientationIsLandscape, setOrientation] = React.useState(true);
+  // Function 1
+  async function changeScreenOreientation() {
+    if (orientationIsLandscape == true) {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    } else if (orientationIsLandscape == false) {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    }
+  }
+  // Function 2
+  const toggleOrientation = () => {
+    setOrientation(!orientationIsLandscape);
+    changeScreenOreientation();
+  };
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Video Tour</Text>
+      <ScrollView>
+        {/* 1 */}
+        {/* Video */}
+        <View style={styles.video_parent}>
+          <Video
+            ref={video}
+            style={styles.video}
+            // source={ require("./Pics/b.mp4") }
+            source={{
+              uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+            }}
+            useNativeControls
+            resizeMode="contain"
+            isLooping
+            onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+          />
+        </View>
+        {/* Button */}
+        <View style={styles.button}>
+          {/* 1 */}
+          <Button
+            title={status.isPlaying ? "Pause" : "Play"}
+            onPress={() =>
+              status.isPlaying
+                ? video.current.pauseAsync()
+                : video.current.playAsync()
+            }
+          />
+        </View>
+        <View style={styles.button}>
+          {/* 2 */}
+        {/* 2 */}
+        <Button
+          title=" Change Orientation "
+          onPress={toggleOrientation}
+          color={"green"}
+        />
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#EB2F06",
+    paddingHorizontal: 10,
+    paddingTop: 24,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 30,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  video_parent: {
+    borderColor: "white",
+    borderWidth: 1,
+    margin: "auto",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  video: {
+    width: 250,
+    height: 250,
+  },
+  button: {
+    margin: 5,
+  },
+});
+
+-------------------------------------------------------------
+
+

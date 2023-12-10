@@ -1,0 +1,144 @@
+
+----------- App.js -----------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View, StatusBar } from "react-native";
+import MyFirst from "./component/MyFirst";
+
+export default function App() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* Status Bar */}
+      <StatusBar backgroundColor={"black"} />
+      {/* Component 1 */}
+      <MyFirst/>
+      {/* - */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
+
+----------- MyFirst.js -----------
+
+import * as React from "react";
+import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+// Import Video File
+import { Video } from "expo-av";
+
+export default function MyFirst() {
+  // Video 1
+  const video1 = React.useRef(null);
+  const [status1, setStatus1] = React.useState({});
+  // Video 2
+  const video2 = React.useRef(null);
+  const [status2, setStatus2] = React.useState({});
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Video Tour</Text>
+      <ScrollView>
+        {/* 1 */}
+        {/* Video */}
+        <View style={styles.video_parent}>
+          <Video
+            ref={video1}
+            style={styles.video}
+            // source={ require("./Pics/b.mp4") }
+            source={{
+              uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+            }}
+            useNativeControls
+            resizeMode="contain"
+            isLooping
+            onPlaybackStatusUpdate={(status) => setStatus1(() => status)}
+          />
+        </View>
+        {/* Button */}
+        <View style={styles.button}>
+          {/* 1 */}
+          <Button
+            title={status1.isPlaying ? "Pause" : "Play"}
+            onPress={() =>
+              status1.isPlaying
+                ? video1.current.pauseAsync()
+                : video1.current.playAsync()
+            }
+          />
+        </View>
+        {/* 2 */}
+        {/* Video */}
+        <View style={styles.video_parent}>
+          <Video
+            ref={video2}
+            style={styles.video}
+            // source={ require("./Pics/b.mp4") }
+            source={{
+              uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+            }}
+            useNativeControls
+            resizeMode="contain"
+            isLooping
+            onPlaybackStatusUpdate={(status) => setStatus2(() => status)}
+          />
+        </View>
+        {/* Button */}
+        <View style={styles.button}>
+          {/* 1 */}
+          <Button
+            title={status2.isPlaying ? "Pause" : "Play"}
+            onPress={() =>
+              status2.isPlaying
+                ? video2.current.pauseAsync()
+                : video2.current.playAsync()
+            }
+          />
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#EB2F06",
+    paddingHorizontal: 10,
+    paddingTop: 24,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 30,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  video_parent: {
+    borderColor: "white",
+    borderWidth: 1,
+    margin: "auto",
+    borderRadius: 20,
+    marginHorizontal: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  video: {
+    width: 250,
+    height: 250,
+  },
+  button: {
+    margin: 5,
+  },
+});
+
+------------------------------------------------------

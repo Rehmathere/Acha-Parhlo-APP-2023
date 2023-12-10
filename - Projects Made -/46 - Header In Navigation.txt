@@ -1,0 +1,207 @@
+------------------ App.js --------------------
+
+import React from "react";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import MyFirst from "./component/MyFirst";
+import MySecond from "./component/MySecond";
+import Header from "./component/Header";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Entypo } from "@expo/vector-icons";
+
+export default function App() {
+  // Constant Variable
+  const Stack = createStackNavigator();
+  // Main Body
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        {/* Screen 1 */}
+        <Stack.Screen
+          name="MyFirst"
+          component={MyFirst}
+          options={{
+            headerTitle: () => <Header name=" First " />,
+            headerRight: () => (
+              <View>
+                <TouchableOpacity style={{marginRight: 20}}>
+                  <Entypo name="dots-three-vertical" size={25} color="black" />
+                </TouchableOpacity>
+              </View>
+            ),
+            headerStyle: {
+              height: 100,
+              backgroundColor: "lightgrey",
+              borderBottomLeftRadius: 50,
+              borderBottomRightRadius: 50,
+            },
+            headerBackgroundContainerStyle: {
+              backgroundColor: "orange",
+            },
+          }}
+        />
+        {/* Screen 2 */}
+        <Stack.Screen name="MySecond" component={MySecond} 
+        options={{
+          headerTitle: () => <Header name=" Second " />,
+          headerRight: () => (
+            <View>
+              <TouchableOpacity style={{marginRight: 20}}>
+                <Entypo name="dots-three-vertical" size={25} color="black" />
+              </TouchableOpacity>
+            </View>
+          ),
+          headerStyle:{
+            backgroundColor:"orange",
+          }
+        }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+------------------ MyFirst.js ----------------
+
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from '@react-navigation/native'
+
+export default function Myfirst() {
+  const navigation = useNavigation();
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Are You React Native Developer ?</Text>
+      <View style={styles.btnView}>
+        <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate("MySecond")}>
+          <Text style={styles.btnTxt}>Procceed</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "yellow",
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    // padding: 5,
+    fontSize: 25,
+    paddingHorizontal: 10,
+    marginTop: 200,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  btnView: {
+    borderColor:"transparent",
+    borderWidth: 1,
+    padding: 15,
+    alignItems:"center"
+  },
+  btn: {
+    borderWidth: 1,
+    borderColor: "black",
+    width: "30%",
+    padding: 4,
+    borderRadius: 50,
+    backgroundColor: "black",
+  },
+  btnTxt: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "white",
+  },
+});
+
+------------------ MySecond.js ---------------
+
+import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  Text,
+  Keyboard,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+  ScrollView,
+  Image,
+} from "react-native";
+
+export default function MySecond() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Screen No: - 2</Text>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "green",
+    paddingHorizontal: 15,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    borderRadius: 50,
+    padding: 5,
+    fontSize: 30,
+    marginTop: 200,
+    marginBottom: 30,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+});
+
+------------------ Header.js -----------------
+
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+
+export default function Header(props) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>{props.name}</Text>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 15,
+  },
+  fir: {
+    borderColor: "transparent",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 40,
+    textAlign: "center",
+    fontWeight: "bold",
+    textShadowColor: "green",
+    textShadowRadius: 2,
+  },
+});
+
+-----------------------------------------------------------------------------------

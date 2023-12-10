@@ -1,0 +1,66 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+      {/* Start */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button, TextInput } from "react-native";
+import {WebView} from 'react-native-webview'
+
+export default function Myfirst() {
+  // useState
+  const [open,setOpen] = useState(false)
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Webview</Text>
+      <WebView source={{uri:"www.google.com.pk"}} />
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  fir:{
+    borderColor: 'aqua',
+    borderWidth: 1,
+    color: 'black',
+    // padding: 5,
+    fontSize: 30,
+    backgroundColor: 'aqua',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+});
+
+------------------------------------------------------------------------
+
+

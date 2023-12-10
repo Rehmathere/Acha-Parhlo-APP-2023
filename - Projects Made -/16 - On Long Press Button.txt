@@ -1,0 +1,81 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+      {/* Start */}
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    paddingVertical: 30,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button, Pressable } from "react-native";
+
+export default function Myfirst() {
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Pressable | Long Press</Text>
+      {/* Pressable Long Press */}
+      <Pressable
+      onPress={()=>{console.warn(" On Press ")}}
+      onLongPress={()=>{console.warn(" On Long Press ")}}
+      onPressIn={()=>{console.warn(" Press In ")}}
+      onPressOut={()=>{console.warn(" Press Out ")}}
+      >
+        <Text style={styles.sec}>My Button</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  fir:{
+    borderColor: 'aqua',
+    borderWidth: 1,
+    padding: 5,
+    fontSize: 30,
+    backgroundColor: 'aqua',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  sec:{
+    backgroundColor: 'red',
+    color: 'white',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 200,
+    marginHorizontal: 30,
+    borderRadius: 10,
+  }
+});
+
+------------------------------------------------------------------------
+
+

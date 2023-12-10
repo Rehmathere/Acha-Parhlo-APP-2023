@@ -1,0 +1,87 @@
+
+-------------------- App.js --------------------
+
+import React from "react";
+import { StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* 1 */}
+      <Myfirst />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#006266",
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from 'expo-status-bar'
+import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
+
+export default function Myfirst() {
+  // useState
+  const [count,setCount] = useState(0);
+  // useEffect
+  useEffect(()=>{
+    console.warn(" Rehmat Please Alert ")
+  })
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>useEffect Hook</Text>
+      <Button title=" Please Click " onPress={()=>setCount(count+1)} />
+      {/* <StatusBar style='auto'/> */}
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 1,
+  },
+  fir:{
+    borderColor: 'black',
+    borderWidth: 1,
+    fontSize: 35,
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  sec:{
+    borderColor: 'black',
+    borderWidth: 1,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
+  third:{
+    borderColor: 'black',
+    borderWidth: 1,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
+  
+})
+
+------------------------------------------------------------------------
+
+

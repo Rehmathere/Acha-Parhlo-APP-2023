@@ -1,0 +1,149 @@
+
+-------------------- App.js --------------------
+
+import React, { useState } from "react";
+import { Text, Button, StyleSheet , View } from "react-native";
+import Myfirst from "./component/Myfirst";
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
+const stack = createNativeStackNavigator();
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* Navigation Process */}
+      <NavigationContainer>
+        <stack.Navigator>
+          {/* Component 1 */}
+          <stack.Screen name="Myfirst" component={Myfirst}
+          options={{
+            title:" Mere First Screen 😉 ",
+            headerStyle:{
+              backgroundColor:"lightgreen",
+            },
+            headerTitleStyle:{
+              fontSize: 25,
+              fontWeight: "bold",
+              color: "red",
+            }
+          }}
+          />
+          {/* Component 2 */}
+          <stack.Screen name="Screen2" component={Screen2} 
+          options={{
+          title:" Screen No 2 ",
+          headerStyle:{
+          backgroundColor: "yellow",
+          },
+          headerTitleStyle:{
+          color: "red",
+          fontSize: 30,
+          fontWeight: "bold",
+          }
+          }}
+          />
+        </stack.Navigator>
+      </NavigationContainer>
+    </View>
+  );
+}
+
+// Component 2
+const Screen2 = () =>{
+  return(
+    <View style={styles.fir}>
+      <Text style={styles.sec}>Screen No : 2</Text>
+      <Text style={styles.third}>😉</Text>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F6E58D",
+    flex: 1,
+    // paddingVertical: 30,
+  },
+  fir:{
+    flex: 1,
+    backgroundColor:'green',
+  },
+  sec:{
+    backgroundColor: 'white',
+    // borderColor: 'white',
+    borderWidth: 1,
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'green',
+    marginTop: 200,
+  },
+  third:{
+    borderWidth: 1,
+    borderColor: ' white',
+    textAlign: 'center',
+    fontSize: 100,
+    marginTop: 50,
+  }
+})
+
+------------------------------------------------------------------------
+
+-------------------- Myfirst.js --------------------
+
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button, TextInput } from "react-native";
+import {WebView} from 'react-native-webview'
+
+export default function Myfirst(props) {
+  // useState
+  const [open,setOpen] = useState(false)
+  // Main Body
+  return (
+    <View style={styles.container}>
+      <Text style={styles.fir}>Screen No : 1</Text>
+      <Button title=" Move Screen 2 " color={'red'} onPress={()=>props.navigation.navigate("screen2")} />
+    </View>
+  );
+}
+
+// CSS
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'yellow',
+  },
+  fir:{
+    borderColor: 'yellow',
+    borderWidth: 1,
+    color: 'black',
+    // padding: 5,
+    fontSize: 50,
+    marginTop: 200,
+    marginBottom: 50,
+    backgroundColor: 'yellow',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+});
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
