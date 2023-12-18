@@ -1,5 +1,3 @@
------------ Dashboard.js  -----------
-
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -11,7 +9,7 @@ import { firebase } from "../firestore";
 
 export default function Dashboard() {
   // useState
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   // Change Password
   const changePassword = () => {
     firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
@@ -25,29 +23,26 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const snapshot = await firebase
-          .firestore()
-          .collection("users")
-          .doc(firebase.auth().currentUser.uid)
-          .get();
-  
-        if (snapshot.exists) {
-          const userData = snapshot.data();
-          setName(userData); // Update state with the user data
+        const user = firebase.auth().currentUser;
+        if (user) {
+          // Get the user's email
+          const userEmail = user.email;
+          // Update the state with the user's email
+          setEmail(userEmail);
         } else {
-          console.log("User Does Not Exist");
+          console.log("User not logged in");
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-
     fetchUserData();
-  }, []);  
+  }, []);
   // Main Body
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.fir}>Hello, {name.firstName}</Text>
+      {/* Name */}
+      <Text style={styles.fir}>Hello, {email.slice(0, 6)}</Text>
       {/* Button 1 */}
       <TouchableOpacity
         onPress={() => {firebase.auth().signOut()}}
@@ -120,5 +115,3 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
 });
-
---------------------------------------------

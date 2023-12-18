@@ -4,8 +4,10 @@ import Parent_Appoint from "./component/Parent_Appoint";
 import Parent_Splash from "./component/Parent_Splash";
 import Parent_Authenticate from "./component/Parent_Authenticate";
 import Parent_Search from "./component/Parent_Search";
-import Parent_Faqs from "./component/Parent_Faqs";
-import MyFirst from "./component/MyFirst";
+import Parent_Drawer from "./component/Parent_Drawer";
+import ApplicationStatus from "./component/Application/ApplicationStatus";
+import Parent_Application from "./component/Parent_Application";
+import MySecond from "./component/MySecond";
 
 export default function App() {
   // Main Body
@@ -19,9 +21,12 @@ export default function App() {
     {/* <Parent_Appoint /> */}
     {/* 2 - Search Uni */}
     {/* <Parent_Search /> */}
-    {/* 3 - Faqs */}
-    {/* <Parent_Faqs /> */}
-    <MyFirst />
+    {/* 3 - Parent_Drawer */}
+    {/* <Parent_Drawer /> */}
+    {/* 3 - Parent_Application */}
+    {/* <Parent_Application /> */}
+    {/* - Extra - */}
+    <MySecond />
     </View>
   );
 }
