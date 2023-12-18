@@ -1,0 +1,102 @@
+[
+    {
+        "question": "which Country Is Providing Most Scholarship?",
+        "option1": "Australia",
+        "option2": "U-K",
+        "option3": "U-S-A",
+        "option4": "Turkey",
+        "correctOption": 1,
+        "category": "science",
+        "difficulty": "easy"
+    },
+    {
+        "question": "which Platform Is Most Popular?",
+        "option1": "WhatsAap",
+        "option2": "Instagram",
+        "option3": "Facebook",
+        "option4": "Twitter",
+        "correctOption": 2,
+        "category": "technology",
+        "difficulty": "medium"
+    },
+    {
+        "question": "Which Country Has Smallest populatiom?",
+        "option1": "India",
+        "option2": "China",
+        "option3": "Russia",
+        "option4": "U-S-A",
+        "correctOption": 3,
+        "category": "World-Affais",
+        "difficulty": "hard"
+    },
+    {
+        "question": "Who Is No 1 ODI Batter in ICC?",
+        "option1": "Babar Azam",
+        "option2": "Chris Gayle",
+        "option3": "Steve Simth",
+        "option4": "Jora Archer",
+        "correctOption": 1,
+        "category": "sports",
+        "difficulty": "medium"
+    },
+    {
+        "question": "Time When Full Moon Appears?",
+        "option1": "Super Moon",
+        "option2": "Blue Moon",
+        "option3": "Harvest Moon",
+        "option4": "Blood Moon",
+        "correctOption": 1,
+        "category": "science",
+        "difficulty": "hard"
+    },
+    {
+        "question": "Tell Demanding Field In Industry?",
+        "option1": "Information Technology",
+        "option2": "Computer Science",
+        "option3": "Artificial Intelligence",
+        "option4": "Arts & Design",
+        "correctOption": 3,
+        "category": "technology",
+        "difficulty": "medium"
+    },
+    {
+        "question": "Nowadays, Which Country Is Having Border Issues?",
+        "option1": "Pakistan Vs India",
+        "option2": "China Vs India",
+        "option3": "Canada Vs England",
+        "option4": "Russia Vs Austria",
+        "correctOption": 2,
+        "category": "World-Affais",
+        "difficulty": "hard"
+    },
+    {
+        "question": "Name Current Fast Bowler Who Is Famous For First Over Wicket Taker?",
+        "option1": "Mitchel Starc",
+        "option2": "Harsh Patel",
+        "option3": "Mustufisur Rahman",
+        "option4": "Shaheen Afridi",
+        "correctOption": 4,
+        "category": "sports",
+        "difficulty": "easy"
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
