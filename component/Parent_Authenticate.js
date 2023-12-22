@@ -64,7 +64,7 @@ function Parent_Authenticate() {
                     options={{
                         headerTitle: () => <MyHeader />,
                         headerStyle: {
-                            height: 150,
+                            height: 155,
                             borderBottomLeftRadius: 1000,
                             borderBottomRightRadius: 1000,
                             backgroundColor: "#EB2F06",
