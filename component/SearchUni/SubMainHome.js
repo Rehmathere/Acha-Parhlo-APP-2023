@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, Button, StyleSheet, View, StatusBar, Image, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, View, StatusBar, Image, TouchableOpacity, Modal } from "react-native";
 import { useNavigation } from '@react-navigation/native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import Overview1 from "./Overview1";
@@ -11,6 +11,8 @@ import { useFonts } from "expo-font";
 const top = createMaterialTopTabNavigator();
 
 export default function SubMainHome() {
+    // Pre 0 - Modal useState
+    const [showModal, setShowModal] = useState(false)
     // 0 - useNavigation
     const navigation = useNavigation();
     // 1 - useState
@@ -92,15 +94,15 @@ export default function SubMainHome() {
             {/* Apply Button */}
             <View style={styles.ParentApplyButton}>
                 {/* Button */}
-                <TouchableOpacity style={styles.SubParentApplyButton} onPress={() => navigation.navigate('DocHome')}>
+                <TouchableOpacity style={styles.SubParentApplyButton} onPress={() => navigation.navigate('Doc_HomeMain')}>
                     <Text style={styles.ApplyButton}>Apply</Text>
                 </TouchableOpacity>
             </View>
-
         </View>
     );
 }
 
+// CSS
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "white",
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor:"white",
+        backgroundColor: "white",
     },
     SubParentApplyButton: {
         // borderWidth: 0.5,
@@ -192,5 +194,44 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
         fontFamily: "Heebo",
         textAlign: "center",
+    },
+    S_Modal_Parent: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.70)',
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    sub_S_Modal_Parent: {
+        backgroundColor: "white",
+        paddingHorizontal: 20,
+        paddingVertical: 20,
+        width: "75%",
+        borderRadius: 15,
+    },
+    Modal_Txt1: {
+        // borderWidth: 1,
+        textAlign: "center",
+        fontFamily: "HeeboExtra",
+        fontSize: 23,
+        marginVertical: 13,
+        marginBottom: 15,
+        letterSpacing: 1.5,
+    },
+    Modal_Btn1: {
+        borderWidth: 0.5,
+        marginVertical: 10,
+        // backgroundColor:"#EB2F06",
+        backgroundColor: "orangered",
+        borderColor: "orangered",
+        paddingVertical: 8,
+        borderRadius: 15,
+    },
+    Modal_BtnTxt: {
+        color: "white",
+        fontSize: 16,
+        textAlign: "center",
+        letterSpacing: 2,
+        textTransform: "uppercase",
+        fontFamily: "Heebo",
     },
 })
