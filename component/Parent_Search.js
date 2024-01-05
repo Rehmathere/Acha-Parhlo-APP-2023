@@ -14,6 +14,7 @@ import D5_Ielts from './SearchUni/DocumentPage/D5_Ielts'
 import D6_Gap from './SearchUni/DocumentPage/D6_Gap'
 import D7_Resume from './SearchUni/DocumentPage/D7_Resume'
 import D8_Passport from './SearchUni/DocumentPage/D8_Passport'
+import Doc_HomeMain from './SearchUni/Doc_HomeMain'
 
 
 // Stack Variable
@@ -141,6 +142,20 @@ export default function Parent_Search() {
                         fontSize: 17,
                     },
                     headerPressColor: "grey"
+                }} />
+                {/* Doc 9 */}
+                <Stack.Screen name='Doc_HomeMain' component={Doc_HomeMain} options={{
+                    headerTitle: "Documents",
+                    headerTitleStyle: {
+                        fontFamily: "Heebo",
+                        fontSize: 17,
+                        color: "white",
+                    },
+                    headerStyle:{
+                        backgroundColor: "#EB2F06",
+                    },
+                    headerPressColor: "grey",
+                    headerTintColor: "white",
                 }} />
             </Stack.Navigator>
         </NavigationContainer>

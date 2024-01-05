@@ -3,6 +3,7 @@ import MyDrawer from "./DrawerOption/Drawer";
 import Rate from './DrawerOption/RateUs/Rate'
 import faqs from './DrawerOption/Faqs/MainFaqs'
 import Profile from "./DrawerOption/Profile/Profile";
+import Logout from "./DrawerOption/Logout/Logout";
 import { DrawerItemList, createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView, View, Image } from "react-native";
@@ -177,7 +178,7 @@ export default function Parent_Drawer() {
               <MaterialCommunityIcons name="logout" size={29} color="#EA2027" style={{ marginLeft: 2 }} />
             )
           }}
-          component={faqs} />
+          component={Logout} />
         {/* End */}
       </Drawer.Navigator>
     </NavigationContainer>

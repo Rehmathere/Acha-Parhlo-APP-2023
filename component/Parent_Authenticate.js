@@ -71,8 +71,11 @@ function Parent_Authenticate() {
                             shadowColor: "red",
                             elevation: 25,
                         },
+                        headerBackgroundContainerStyle: {
+                            backgroundColor: "white",
+                        }
                     }}
-                />
+                    />
                 {/* 2 */}
                 <Stack.Screen
                     name="Registration"
@@ -88,6 +91,9 @@ function Parent_Authenticate() {
                             elevation: 25,
                         },
                         headerLeft: null,
+                        headerBackgroundContainerStyle: {
+                            backgroundColor: "white",
+                        }
                     }}
                 />
             </Stack.Navigator>

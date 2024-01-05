@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 15,
+    backgroundColor: "white",
   },
   fir: {
     // borderColor: "black",

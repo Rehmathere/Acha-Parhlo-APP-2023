@@ -187,14 +187,14 @@ const styles = StyleSheet.create({
     },
     for_2: {
         color: "#009432",
-        fontSize: 17,
+        fontSize: 16,
         fontFamily: "Heebo",
     },
     for_22: {
         // borderWidth: 0.5,
         marginBottom: 1,
         color: "#eb2f06",
-        fontSize: 17,
+        fontSize: 16,
         fontFamily: "Heebo"
     },
     fifth: {
