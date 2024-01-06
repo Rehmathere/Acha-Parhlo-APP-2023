@@ -15,6 +15,8 @@ import D6_Gap from './SearchUni/DocumentPage/D6_Gap'
 import D7_Resume from './SearchUni/DocumentPage/D7_Resume'
 import D8_Passport from './SearchUni/DocumentPage/D8_Passport'
 import Doc_HomeMain from './SearchUni/Doc_HomeMain'
+import S_FinalSubmit from './SearchUni/S_FinalSubmit'
+import S_PersonalData from './SearchUni/S_PersonalData'
 
 
 // Stack Variable
@@ -146,6 +148,24 @@ export default function Parent_Search() {
                 {/* Doc 9 */}
                 <Stack.Screen name='Doc_HomeMain' component={Doc_HomeMain} options={{
                     headerTitle: "Documents",
+                    headerTitleStyle: {
+                        fontFamily: "Heebo",
+                        fontSize: 17,
+                        color: "white",
+                    },
+                    headerStyle:{
+                        backgroundColor: "#EB2F06",
+                    },
+                    headerPressColor: "grey",
+                    headerTintColor: "white",
+                }} />
+                {/* Doc 10 */}
+                <Stack.Screen name='S_FinalSubmit' component={S_FinalSubmit} options={{
+                    headerShown: false,
+                }} />
+                {/* Doc 11 */}
+                <Stack.Screen name='S_PersonalData' component={S_PersonalData} options={{
+                    headerTitle: "Personal Data",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 17,
