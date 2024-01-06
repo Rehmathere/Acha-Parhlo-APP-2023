@@ -151,7 +151,11 @@ export default function DocHome() {
                     </TouchableOpacity>
                 </View>
                 {/* Button */}
-                {/* Start */}
+                <View style={styles.DH_Last_Btn_Parent}>
+                    <TouchableOpacity style={styles.DH_Last_Btn_Box} onPress={() => navigation.navigate('S_FinalSubmit')}>
+                        <Text style={styles.DH_Last_Btn}>Submit Application</Text> 
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         </View>
     )
@@ -181,6 +185,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textAlign: "center",
         letterSpacing: 0.5,
+        color: "#EB2F06",
     },
     DocTxt2: {
         // borderWidth: 0.5,
@@ -240,6 +245,28 @@ const styles = StyleSheet.create({
         fontSize: 14,
         letterSpacing: 0.3,
         paddingHorizontal: 10,
+    },
+    DH_Last_Btn_Parent:{
+        // borderWidth: 0.5,
+        paddingTop: 15,
+        paddingBottom: 25,
+    },
+    DH_Last_Btn_Box:{
+        borderWidth: 1,
+        borderColor: "#EB2F06",
+        marginHorizontal: 30,
+        paddingVertical: 6,
+        borderRadius: 10,
+        backgroundColor:"#EB2F06",
+    },
+    DH_Last_Btn:{
+        // borderWidth: 1,
+        paddingVertical: 5,
+        textAlign:"center",
+        letterSpacing: 2,
+        fontFamily: "Heebo",
+        color: "white",
+        fontSize: 18,
     },
 })
 
