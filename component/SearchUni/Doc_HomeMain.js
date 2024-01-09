@@ -46,7 +46,7 @@ export default function Doc_HomeMain() {
             {/* 2 Documents Button */}
             <View style={styles.DMH_Button_Parent}>
                 {/* Button 1 */}
-                <TouchableOpacity style={styles.BTn_1_Parent} onPress={() => navigation.navigate('S_PersonalData')}>
+                <TouchableOpacity style={styles.BTn_1_Parent} onPress={() => navigation.navigate('PersonalData_HomeMain')}>
                     <View style={styles.BTn_1_Parent_Box}>
                         {/* Part 1 */}
                         <View style={styles.BTn_1_Parent_Box_P1}>
