@@ -16,8 +16,8 @@ import D7_Resume from './SearchUni/DocumentPage/D7_Resume'
 import D8_Passport from './SearchUni/DocumentPage/D8_Passport'
 import Doc_HomeMain from './SearchUni/Doc_HomeMain'
 import S_FinalSubmit from './SearchUni/S_FinalSubmit'
-import S_PersonalData from './SearchUni/S_PersonalData'
-
+import S_PersonalData_1 from './SearchUni/PersonalData/S_PersonalData_1'
+import PersonalData_HomeMain from './SearchUni/PersonalData_HomeMain'
 
 // Stack Variable
 const Stack = createStackNavigator();
@@ -66,7 +66,7 @@ export default function Parent_Search() {
                 }} />
                 {/* 3 */}
                 <Stack.Screen name='DocHome' component={DocHome} options={{
-                    headerTitle: "Requirements",
+                    headerTitle: "Upload Docs",
                     headerTitleStyle: {
                         fontFamily: "Heebo",    
                     },
@@ -163,9 +163,21 @@ export default function Parent_Search() {
                 <Stack.Screen name='S_FinalSubmit' component={S_FinalSubmit} options={{
                     headerShown: false,
                 }} />
-                {/* Doc 11 */}
-                <Stack.Screen name='S_PersonalData' component={S_PersonalData} options={{
+                {/* Now For Personal Data Navigation */}
+                {/* P D 1 */}
+                <Stack.Screen name='PersonalData_HomeMain' component={PersonalData_HomeMain} options={{
                     headerTitle: "Personal Data",
+                    headerTitleStyle: {
+                        fontFamily: "Heebo",
+                        fontSize: 17,
+                        color: "black",
+                    },
+                    headerPressColor: "grey",
+                    headerTintColor: "black",
+                }} />
+                {/* P D 2 */}
+                <Stack.Screen name='S_PersonalData_1' component={S_PersonalData_1} options={{
+                    headerTitle: "Personal Data 1",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 17,
