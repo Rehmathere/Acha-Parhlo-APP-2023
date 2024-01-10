@@ -177,7 +177,7 @@ export default function Parent_Search() {
                 }} />
                 {/* P D 2 */}
                 <Stack.Screen name='S_PersonalData_1' component={S_PersonalData_1} options={{
-                    headerTitle: "Personal Data 1",
+                    headerTitle: "Page 1",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 17,
