@@ -42,11 +42,11 @@ export default function PersonalData_HomeMain() {
                     <Image source={require('../Pics/fill_1.png')} style={styles.docimg} />
                 </View>
                 <Text style={styles.DocTxt}>Fill Personal Detail</Text>
-                <Text style={styles.DocTxt2}>Please Fill your Correct required Information to facilitate the smooth progression of your application.</Text>
+                <Text style={styles.DocTxt2}>Please Fill your Correct Information to facilitate the progression of your application.</Text>
                 {/* Documents */}
                 <View style={styles.ParentDoc}>
                     {/* 1 */}
-                    <TouchableOpacity onPress={() => navigation.navigate('')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('S_PersonalData_1')}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
@@ -127,7 +127,7 @@ export default function PersonalData_HomeMain() {
                 {/* Button */}
                 <View style={styles.DH_Last_Btn_Parent}>
                     <TouchableOpacity style={styles.DH_Last_Btn_Box} onPress={() => navigation.navigate('Doc_HomeMain')}>
-                        <Text style={styles.DH_Last_Btn}>Confirm Proceed</Text>
+                        <Text style={styles.DH_Last_Btn}>Submit Details</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -223,15 +223,15 @@ const styles = StyleSheet.create({
     },
     DH_Last_Btn_Parent: {
         // borderWidth: 0.5,
-        // paddingTop: 5,
+        paddingTop: 13,
         paddingBottom: 25,
     },
     DH_Last_Btn_Box: {
         borderWidth: 1,
         borderColor: "#EB2F06",
-        marginHorizontal: 30,
+        marginHorizontal: 20,
         paddingVertical: 4,
-        borderRadius: 10,
+        borderRadius: 50,
         backgroundColor: "#EB2F06",
     },
     DH_Last_Btn: {
