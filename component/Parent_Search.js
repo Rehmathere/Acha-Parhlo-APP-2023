@@ -18,6 +18,7 @@ import Doc_HomeMain from './SearchUni/Doc_HomeMain'
 import S_FinalSubmit from './SearchUni/S_FinalSubmit'
 import S_PersonalData_1 from './SearchUni/PersonalData/S_PersonalData_1'
 import PersonalData_HomeMain from './SearchUni/PersonalData_HomeMain'
+import S_PersonalData_2 from './SearchUni/PersonalData/S_PersonalData_2'
 
 // Stack Variable
 const Stack = createStackNavigator();
@@ -177,6 +178,20 @@ export default function Parent_Search() {
                 }} />
                 {/* P D 2 */}
                 <Stack.Screen name='S_PersonalData_1' component={S_PersonalData_1} options={{
+                    headerTitle: "Page 1",
+                    headerTitleStyle: {
+                        fontFamily: "Heebo",
+                        fontSize: 17,
+                        color: "white",
+                    },
+                    headerStyle:{
+                        backgroundColor: "#EB2F06",
+                    },
+                    headerPressColor: "grey",
+                    headerTintColor: "white",
+                }} />
+                {/* P D 2 */}
+                <Stack.Screen name='S_PersonalData_2' component={S_PersonalData_2} options={{
                     headerTitle: "Page 1",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
