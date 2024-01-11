@@ -59,7 +59,7 @@ export default function PersonalData_HomeMain() {
                         </View>
                     </TouchableOpacity>
                     {/* 2 */}
-                    <TouchableOpacity onPress={() => navigation.navigate('')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('S_PersonalData_2')}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
