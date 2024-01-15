@@ -19,6 +19,10 @@ import S_FinalSubmit from './SearchUni/S_FinalSubmit'
 import S_PersonalData_1 from './SearchUni/PersonalData/S_PersonalData_1'
 import PersonalData_HomeMain from './SearchUni/PersonalData_HomeMain'
 import S_PersonalData_2 from './SearchUni/PersonalData/S_PersonalData_2'
+import S_PersonalData_3 from './SearchUni/PersonalData/S_PersonalData_3'
+import S_PersonalData_4 from './SearchUni/PersonalData/S_PersonalData_4'
+import S_PersonalData_5 from './SearchUni/PersonalData/S_PersonalData_5'
+import S_PersonalData_6 from './SearchUni/PersonalData/S_PersonalData_6'
 
 // Stack Variable
 const Stack = createStackNavigator();
@@ -180,7 +184,7 @@ export default function Parent_Search() {
                 <Stack.Screen name='S_PersonalData_1' component={S_PersonalData_1} options={{
                     headerTitle: "Page 1",
                     headerTitleStyle: {
-                        fontFamily: "Heebo",
+                        // fontFamily: "Heebo",
                         fontSize: 17,
                         color: "white",
                     },
@@ -192,7 +196,63 @@ export default function Parent_Search() {
                 }} />
                 {/* P D 2 */}
                 <Stack.Screen name='S_PersonalData_2' component={S_PersonalData_2} options={{
-                    headerTitle: "Page 1",
+                    headerTitle: "Page 2",
+                    headerTitleStyle: {
+                        fontFamily: "Heebo",
+                        fontSize: 17,
+                        color: "white",
+                    },
+                    headerStyle:{
+                        backgroundColor: "#EB2F06",
+                    },
+                    headerPressColor: "grey",
+                    headerTintColor: "white",
+                }} />
+                {/* P D 3 */}
+                <Stack.Screen name='S_PersonalData_3' component={S_PersonalData_3} options={{
+                    headerTitle: "Page 3",
+                    headerTitleStyle: {
+                        fontFamily: "Heebo",
+                        fontSize: 17,
+                        color: "white",
+                    },
+                    headerStyle:{
+                        backgroundColor: "#EB2F06",
+                    },
+                    headerPressColor: "grey",
+                    headerTintColor: "white",
+                }} />
+                {/* P D 4 */}
+                <Stack.Screen name='S_PersonalData_4' component={S_PersonalData_4} options={{
+                    headerTitle: "Page 4",
+                    headerTitleStyle: {
+                        fontFamily: "Heebo",
+                        fontSize: 17,
+                        color: "white",
+                    },
+                    headerStyle:{
+                        backgroundColor: "#EB2F06",
+                    },
+                    headerPressColor: "grey",
+                    headerTintColor: "white",
+                }} />
+                {/* P D 5 */}
+                <Stack.Screen name='S_PersonalData_5' component={S_PersonalData_5} options={{
+                    headerTitle: "Page 5",
+                    headerTitleStyle: {
+                        fontFamily: "Heebo",
+                        fontSize: 17,
+                        color: "white",
+                    },
+                    headerStyle:{
+                        backgroundColor: "#EB2F06",
+                    },
+                    headerPressColor: "grey",
+                    headerTintColor: "white",
+                }} />
+                {/* P D 6 */}
+                <Stack.Screen name='S_PersonalData_6' component={S_PersonalData_6} options={{
+                    headerTitle: "Page 6",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 17,
