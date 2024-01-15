@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native'
 // Fonts Header File
 import { useFonts } from "expo-font";
 
-export default function S_PersonalData_1() {
+export default function S_PersonalData_5() {
     // Pre 0 - useState
     const [info1, setInfo1] = useState("");
     const [info2, setInfo2] = useState("");
@@ -38,38 +38,37 @@ export default function S_PersonalData_1() {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.fir_1}>University Detail</Text>
+                <Text style={styles.fir_1}>Additional Detail</Text>
                 {/* Information Area */}
                 <View style={styles.Sec_Parent}>
                     {/* 1 */}
-                    <Text style={styles.inputTitleTxt}>University Name</Text>
+                    <Text style={styles.inputTitleTxt}>Father's Highest Qualification</Text>
                     <TextInput
-                        placeholder=" Enter University Name "
+                        placeholder=" Enter Answer "
                         value={info1}
                         onChangeText={(text) => setInfo1(text)}
                         style={styles.inputTitle}
                     />
                     {/* 2 */}
-                    <Text style={styles.inputTitleTxt}>Campus Name</Text>
+                    <Text style={styles.inputTitleTxt}>Mother's Highest Qualification</Text>
                     <TextInput
-                        placeholder=" Enter Campus Name "
+                        placeholder=" Enter Answer "
                         value={info2}
                         onChangeText={(text) => setInfo2(text)}
                         style={styles.inputTitle}
                     />
                     {/* 3 */}
-                    <Text style={styles.inputTitleTxt}>Intake</Text>
+                    <Text style={styles.inputTitleTxt}>Have you granted Scholarship (Government or Private) before</Text>
                     <TextInput
-                        placeholder=" Enter Intake "
+                        placeholder=" Enter Answer "
                         value={info3}
                         onChangeText={(text) => setInfo3(text)}
                         style={styles.inputTitle}
-                        keyboardType="number-pad"
                     />
                     {/* 4 */}
-                    <Text style={styles.inputTitleTxt}>Course Name as per University Website</Text>
+                    <Text style={styles.inputTitleTxt}>Are you applying for Scholarship (Government or Private)</Text>
                     <TextInput
-                        placeholder=" Enter Course Name "
+                        placeholder=" Enter Answer "
                         value={info4}
                         onChangeText={(text) => setInfo4(text)}
                         style={styles.inputTitle}
@@ -110,38 +109,38 @@ const styles = StyleSheet.create({
         borderColor: "#EB2F06",
         borderRadius: 20,
         paddingVertical: 1.5,
-        paddingLeft: 20,
-        fontSize: 15,
-        letterSpacing: 1,
-        fontFamily:"Kanit",
-        marginBottom: 17,
+        paddingLeft: 13,
+        fontSize: 14,
+        letterSpacing: 0.5,
+        fontFamily: "Kanit",
+        marginBottom: 15,
         textDecorationColor: "white",
     },
-    inputTitleTxt:{
+    inputTitleTxt: {
         marginHorizontal: 16,
         // borderWidth: 0.5,
-        fontSize: 13.5,
-        fontFamily:"Heebo",
+        fontSize: 13,
+        fontFamily: "Heebo",
         paddingVertical: 6,
-        letterSpacing: 0.7,
-        textTransform:"capitalize",
+        letterSpacing: 0.5,
+        textTransform: "capitalize",
     },
-    BtnBox:{
+    BtnBox: {
         marginVertical: 15,
         marginHorizontal: 16,
         borderColor: "#EB2F06",
-        backgroundColor:"#EB2F06",
+        backgroundColor: "#EB2F06",
         borderWidth: 1,
         paddingVertical: 4.5,
         borderRadius: 20,
     },
-    BtnBoxTxt:{
+    BtnBoxTxt: {
         color: "white",
         borderRadius: 20,
         borderColor: "transparent",
         borderWidth: 1,
         paddingVertical: 1,
-        textAlign:"center",
+        textAlign: "center",
         fontFamily: "Heebo",
         letterSpacing: 2.5,
         fontSize: 20,

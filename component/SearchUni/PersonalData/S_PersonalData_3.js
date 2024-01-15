@@ -5,12 +5,17 @@ import { useNavigation } from '@react-navigation/native'
 // Fonts Header File
 import { useFonts } from "expo-font";
 
-export default function S_PersonalData_1() {
+export default function S_PersonalData_3() {
     // Pre 0 - useState
     const [info1, setInfo1] = useState("");
-    const [info2, setInfo2] = useState("");
+    // const [info2, setInfo2] = useState("");
     const [info3, setInfo3] = useState("");
     const [info4, setInfo4] = useState("");
+    const [info5, setInfo5] = useState("");
+    const [info6, setInfo6] = useState("");
+    const [info7, setInfo7] = useState("");
+    const [info8, setInfo8] = useState("");
+    const [info9, setInfo9] = useState("");
     // 0 - useNavigate
     const navigation = useNavigation();
     // 1 - useState
@@ -38,40 +43,77 @@ export default function S_PersonalData_1() {
     return (
         <View style={styles.container}>
             <ScrollView>
-                <Text style={styles.fir_1}>University Detail</Text>
+                <Text style={styles.fir_1}>English Ability</Text>
                 {/* Information Area */}
                 <View style={styles.Sec_Parent}>
                     {/* 1 */}
-                    <Text style={styles.inputTitleTxt}>University Name</Text>
+                    <Text style={styles.inputTitleTxt}>English Test Name (PTE/IELTS)</Text>
                     <TextInput
-                        placeholder=" Enter University Name "
+                        placeholder=" Enter English Test Name (PTE/IELTS) "
                         value={info1}
                         onChangeText={(text) => setInfo1(text)}
                         style={styles.inputTitle}
                     />
                     {/* 2 */}
-                    <Text style={styles.inputTitleTxt}>Campus Name</Text>
-                    <TextInput
-                        placeholder=" Enter Campus Name "
-                        value={info2}
-                        onChangeText={(text) => setInfo2(text)}
-                        style={styles.inputTitle}
-                    />
                     {/* 3 */}
-                    <Text style={styles.inputTitleTxt}>Intake</Text>
+                    <Text style={styles.inputTitleTxt}>Overall Score</Text>
                     <TextInput
-                        placeholder=" Enter Intake "
+                        placeholder=" Enter Overall Score "
                         value={info3}
                         onChangeText={(text) => setInfo3(text)}
                         style={styles.inputTitle}
                         keyboardType="number-pad"
-                    />
+                        />
                     {/* 4 */}
-                    <Text style={styles.inputTitleTxt}>Course Name as per University Website</Text>
+                    <Text style={styles.inputTitleTxt}>Listening Score</Text>
                     <TextInput
-                        placeholder=" Enter Course Name "
+                        placeholder=" Enter Listening Score "
                         value={info4}
                         onChangeText={(text) => setInfo4(text)}
+                        style={styles.inputTitle}
+                        keyboardType="number-pad"
+                        />
+                    {/* 5 */}
+                    <Text style={styles.inputTitleTxt}>Reading Score</Text>
+                    <TextInput
+                        placeholder=" Enter Reading Score "
+                        value={info5}
+                        onChangeText={(text) => setInfo5(text)}
+                        style={styles.inputTitle}
+                        keyboardType="number-pad"
+                        />
+                    {/* 6 */}
+                    <Text style={styles.inputTitleTxt}>Writing Score</Text>
+                    <TextInput
+                        placeholder=" Enter Writing Score "
+                        value={info6}
+                        onChangeText={(text) => setInfo6(text)}
+                        style={styles.inputTitle}
+                        keyboardType="number-pad"
+                        />
+                    {/* 7 */}
+                    <Text style={styles.inputTitleTxt}>Speaking Score</Text>
+                    <TextInput
+                        placeholder=" Enter Speaking Score "
+                        value={info7}
+                        onChangeText={(text) => setInfo7(text)}
+                        style={styles.inputTitle}
+                        keyboardType="number-pad"
+                    />
+                    {/* 8 */}
+                    <Text style={styles.inputTitleTxt}>Test Reference Number</Text>
+                    <TextInput
+                        placeholder=" Enter Test Reference Number "
+                        value={info8}
+                        onChangeText={(text) => setInfo8(text)}
+                        style={styles.inputTitle}
+                    />
+                    {/* 9 */}
+                    <Text style={styles.inputTitleTxt}>Have you undertaken and completed any study where English is language of instruction? </Text>
+                    <TextInput
+                        placeholder=" Enter Answer "
+                        value={info9}
+                        onChangeText={(text) => setInfo9(text)}
                         style={styles.inputTitle}
                     />
                     {/* Button */}
@@ -110,20 +152,20 @@ const styles = StyleSheet.create({
         borderColor: "#EB2F06",
         borderRadius: 20,
         paddingVertical: 1.5,
-        paddingLeft: 20,
-        fontSize: 15,
-        letterSpacing: 1,
+        paddingLeft: 13,
+        fontSize: 14,
+        letterSpacing: 0.5,
         fontFamily:"Kanit",
-        marginBottom: 17,
+        marginBottom: 15,
         textDecorationColor: "white",
     },
     inputTitleTxt:{
         marginHorizontal: 16,
         // borderWidth: 0.5,
-        fontSize: 13.5,
+        fontSize: 13,
         fontFamily:"Heebo",
         paddingVertical: 6,
-        letterSpacing: 0.7,
+        letterSpacing: 0.5,
         textTransform:"capitalize",
     },
     BtnBox:{

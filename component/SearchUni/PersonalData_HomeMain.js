@@ -72,7 +72,7 @@ export default function PersonalData_HomeMain() {
                         </View>
                     </TouchableOpacity>
                     {/* 3 */}
-                    <TouchableOpacity onPress={() => navigation.navigate('')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('S_PersonalData_3')}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
@@ -85,7 +85,7 @@ export default function PersonalData_HomeMain() {
                         </View>
                     </TouchableOpacity>
                     {/* 4 */}
-                    <TouchableOpacity onPress={() => navigation.navigate('')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('S_PersonalData_4')}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
@@ -98,7 +98,7 @@ export default function PersonalData_HomeMain() {
                         </View>
                     </TouchableOpacity>
                     {/* 5 */}
-                    <TouchableOpacity onPress={() => navigation.navigate('')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('S_PersonalData_5')}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
@@ -111,7 +111,7 @@ export default function PersonalData_HomeMain() {
                         </View>
                     </TouchableOpacity>
                     {/* 6 */}
-                    <TouchableOpacity onPress={() => navigation.navigate('')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('S_PersonalData_6')}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
