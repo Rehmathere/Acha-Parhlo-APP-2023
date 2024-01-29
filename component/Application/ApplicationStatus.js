@@ -15,7 +15,16 @@ export default function ApplicationStatus() {
     // Functions
     // 1
     const handleButton1Click = () => {
+        // Button 1 
         setButton1Color('orange');
+        // Rest Buttons Will White
+        setButton2Color('transparent');
+        setButton3Color('transparent');
+        setButton4Color('transparent');
+        setButton5Color('transparent');
+        setButton6Color('transparent');
+        setButton7Color('transparent');
+        setButton8Color('transparent');
     };
     // 2
     const handleButton2Click = () => {
@@ -23,6 +32,14 @@ export default function ApplicationStatus() {
         setButton2Color('orange');
         // Button 1 
         setButton1Color('lightyellow');
+        // Rest Buttons Will White
+        setButton3Color('transparent');
+        setButton4Color('transparent');
+        setButton5Color('transparent');
+        setButton6Color('transparent');
+        setButton7Color('transparent');
+        setButton8Color('transparent');
+
     };
     // 3
     const handleButton3Click = () => {
@@ -32,6 +49,13 @@ export default function ApplicationStatus() {
         setButton1Color('lightyellow');
         // Button 2
         setButton2Color('lightyellow');
+        // Rest Buttons Will White
+        setButton4Color('transparent');
+        setButton5Color('transparent');
+        setButton6Color('transparent');
+        setButton7Color('transparent');
+        setButton8Color('transparent');
+
     };
     // 4
     const handleButton4Click = () => {
@@ -43,6 +67,11 @@ export default function ApplicationStatus() {
         setButton2Color('lightyellow');
         // Button 3
         setButton3Color('lightyellow');
+        // Rest Buttons Will White
+        setButton5Color('transparent');
+        setButton6Color('transparent');
+        setButton7Color('transparent');
+        setButton8Color('transparent');
     };
     // 5
     const handleButton5Click = () => {
@@ -56,6 +85,10 @@ export default function ApplicationStatus() {
         setButton3Color('lightyellow');
         // Button 4
         setButton4Color('lightyellow');
+        // Rest Buttons Will White
+        setButton6Color('transparent');
+        setButton7Color('transparent');
+        setButton8Color('transparent');
     };
     // 6
     const handleButton6Click = () => {
@@ -71,6 +104,9 @@ export default function ApplicationStatus() {
         setButton4Color('lightyellow');
         // Button 5
         setButton5Color('lightyellow');
+        // Rest Buttons Will White
+        setButton7Color('transparent');
+        setButton8Color('transparent');
     };
     // 7
     const handleButton7Click = () => {
@@ -88,6 +124,8 @@ export default function ApplicationStatus() {
         setButton5Color('lightyellow');
         // Button 6
         setButton6Color('lightyellow');
+        // Rest Buttons Will White
+        setButton8Color('transparent');
     };
     // 8
     const handleButton8Click = () => {
@@ -306,7 +344,6 @@ export default function ApplicationStatus() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor:"white"
     },
     ParentMiniCourseDetail: {
         // borderWidth: 0.5,

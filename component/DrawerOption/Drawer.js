@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         flexDirection: "row",
         paddingHorizontal: 4,
-        paddingVertical: 3,
+        paddingBottom: 5,
     },
     fir: {
         fontFamily: "Heebo",
@@ -161,13 +161,13 @@ const styles = StyleSheet.create({
     ParentSecond: {
         // borderWidth: 1,
         borderColor: "red",
-        paddingVertical: 9,
+        paddingVertical: 10,
     },
     secLinear: {
         // borderWidth: 1,
         paddingVertical: 0,
         marginHorizontal: 23,
-        borderRadius: 5,
+        borderRadius: 25,
         backgroundColor:"#ced6e0",
         elevation: 10,
         shadowColor:"blue",
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     },
     second1Txt: {
         // borderWidth: 0.5,
-        textShadowRadius: 10,
+        textShadowRadius: 15,
         textShadowColor: "black",
         textAlign: "center",
         fontFamily: "Heebo",
@@ -212,12 +212,12 @@ const styles = StyleSheet.create({
     },
     third: {
         marginTop: 25,
-        marginHorizontal: 10,
+        marginHorizontal: 11,
         // borderWidth: 0.5,
         fontSize: 15,
         paddingHorizontal: 15,
         fontFamily: "HeeboExtra",
-        letterSpacing: 1,
+        letterSpacing: 1.2,
     },
     ParentThird: {
         // borderWidth: 0.5,
