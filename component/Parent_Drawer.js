@@ -64,6 +64,8 @@ export default function Parent_Drawer() {
                     height: 130,
                     width: 130,
                     borderRadius: 65,
+                    borderWidth: 5,
+                    borderColor: "#E2DEDE",
                   }}
                 />
               </View>
@@ -79,17 +81,18 @@ export default function Parent_Drawer() {
           headerTitle: "Home",
           headerStyle: {
             backgroundColor: "#EB2F06",
+            // backgroundColor: "white",
           },
           headerTintColor: "white",
           headerTitleStyle: {
-            fontFamily:"Heebo",
+            fontFamily: "Heebo",
             letterSpacing: 1.9,
           },
-          drawerActiveTintColor: "blue",
+          drawerActiveTintColor: "red",
           drawerLabelStyle: {
             color: "black",
             fontSize: 16,
-            fontFamily:"Kanit",
+            fontFamily: "Kanit",
             letterSpacing: 0.5,
           },
         }}
@@ -97,12 +100,17 @@ export default function Parent_Drawer() {
         {/* Option 1 */}
         <Drawer.Screen name="MyDrawer"
           options={{
-            drawerLabel: "Home",
+            drawerLabel: "Dashboard",
+            headerPressColor: "#EB2F06",
+            headerStyle: {
+              backgroundColor: "white",
+            },
+            headerTintColor: "#EB2F06",
             title: "My_Drawer",
-            headerTitle:"Home",
-            headerTitleStyle:{
-              fontFamily:"Kanit",
-              letterSpacing: 1.4,
+            headerTitle: " ",
+            headerTitleStyle: {
+              fontFamily: "Kanit",
+              letterSpacing: 2,
             },
             drawerIcon: () => (
               <FontAwesome name="home" size={21} color="#EA2027" style={{ marginLeft: 2 }} />
@@ -115,8 +123,8 @@ export default function Parent_Drawer() {
             drawerLabel: "Edit Profile",
             headerTitle: "Edit Profile",
             title: "Edit Profile",
-            headerTitleStyle:{
-              fontFamily:"Kanit",
+            headerTitleStyle: {
+              fontFamily: "Kanit",
               letterSpacing: 1.4,
             },
             drawerIcon: () => (
@@ -129,23 +137,23 @@ export default function Parent_Drawer() {
           options={{
             drawerLabel: "Wishlist",
             headerTitle: "Wishlist",
-            headerTitleStyle:{
-              fontFamily:"Kanit",
+            headerTitleStyle: {
+              fontFamily: "Kanit",
               letterSpacing: 1.4,
             },
             title: "WishList",
             drawerIcon: () => (
               <MaterialCommunityIcons name="heart-box" size={27} color="#EA2027" />
-              )
-            }}
-            component={WishList} />
+            )
+          }}
+          component={WishList} />
         {/* Option 4 */}
         <Drawer.Screen name="faqs"
           options={{
             drawerLabel: "FAQ's",
             headerTitle: "FAQ's",
-            headerTitleStyle:{
-              fontFamily:"Kanit",
+            headerTitleStyle: {
+              fontFamily: "Kanit",
               letterSpacing: 1.4,
             },
             title: "MyThird",
@@ -159,9 +167,9 @@ export default function Parent_Drawer() {
           options={{
             drawerLabel: "Rate Us",
             title: "Rate",
-            headerTitle:"Rate Us",
-            headerTitleStyle:{
-              fontFamily:"Kanit",
+            headerTitle: "Rate Us",
+            headerTitleStyle: {
+              fontFamily: "Kanit",
               letterSpacing: 1.4,
             },
             drawerIcon: () => (
@@ -173,6 +181,7 @@ export default function Parent_Drawer() {
         <Drawer.Screen name="Logout"
           options={{
             drawerLabel: "Logout",
+            headerTitle: "Logout",
             title: "Logout",
             drawerIcon: () => (
               <MaterialCommunityIcons name="logout" size={29} color="#EA2027" style={{ marginLeft: 2 }} />
