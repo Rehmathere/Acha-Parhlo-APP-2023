@@ -11,6 +11,7 @@ import Dashboard from "./Authentication/Dashboard";
 import MyHeader from "./Authentication/MyHeader";
 // Fonts Header File
 import { useFonts } from "expo-font";
+import ForgetPass from "./Authentication/ForgetPass";
 
 // Constant
 const Stack = createStackNavigator();
@@ -75,7 +76,7 @@ function Parent_Authenticate() {
                             backgroundColor: "white",
                         }
                     }}
-                    />
+                />
                 {/* 2 */}
                 <Stack.Screen
                     name="Registration"
@@ -94,6 +95,24 @@ function Parent_Authenticate() {
                         headerBackgroundContainerStyle: {
                             backgroundColor: "white",
                         }
+                    }}
+                />
+                {/* 3 */}
+                <Stack.Screen
+                    name="ForgetPass"
+                    component={ForgetPass}
+                    options={{
+                        headerTitle: "Forget Password",
+                        headerTitleStyle: {
+                            fontFamily: "Heebo",
+                            color: "white",
+                            letterSpacing: 0.7,
+                        },
+                        headerPressColor: "white",
+                        headerStyle: {
+                            backgroundColor: "#EB2F06",
+                        },
+                        headerTintColor: "white",
                     }}
                 />
             </Stack.Navigator>

@@ -136,10 +136,10 @@ export default function Parent_Drawer() {
         <Drawer.Screen name="Wishlist"
           options={{
             drawerLabel: "Wishlist",
-            headerTitle: "Wishlist",
+            headerTitle: "My Wishlist",
             headerTitleStyle: {
               fontFamily: "Kanit",
-              letterSpacing: 1.4,
+              letterSpacing: 1.6,
             },
             title: "WishList",
             drawerIcon: () => (

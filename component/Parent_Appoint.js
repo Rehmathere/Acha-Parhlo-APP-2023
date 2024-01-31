@@ -6,7 +6,6 @@ import Home from "./Appointment/Home";
 import BookAppointment from './Appointment/BookAppointment'
 import Success from "./Appointment/Success";
 import Completed from "./Appointment/Completed";
-import Pending from "./Appointment/Pending";
 
 // Stack Variable
 const Stack = createStackNavigator();
@@ -27,9 +26,6 @@ export default function Parent_Appoint() {
                     options={{ headerShown: false }} />
                 {/* 4 - Completed Appointments Screen */}
                 <Stack.Screen component={Completed} name="Completed"
-                    options={{ headerShown: false }} />
-                {/* 5 - Pending Appointments Screen */}
-                <Stack.Screen component={Pending} name="Pending"
                     options={{ headerShown: false }} />
                 {/*  */}
             </Stack.Navigator>
