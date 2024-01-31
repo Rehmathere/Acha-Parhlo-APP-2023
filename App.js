@@ -9,6 +9,8 @@ import ApplicationStatus from "./component/Application/ApplicationStatus";
 import Parent_Application from "./component/Parent_Application";
 import MySecond from "./component/MySecond";
 import Logout from "./component/DrawerOption/Logout/Logout";
+import Parent_Chat from "./component/Parent_Chat";
+import Main from "./component/SearchUni/Main";
 
 export default function App() {
   // Main Body
@@ -21,13 +23,16 @@ export default function App() {
     {/* 1 - Apointment */}
     {/* <Parent_Appoint /> */}
     {/* 2 - Search Uni */}
-    <Parent_Search />
+    {/* <Parent_Search /> */}
     {/* 3 - Parent_Drawer */}
-    {/* <Parent_Drawer /> */}
-    {/* 3 - Parent_Application */}
+    <Parent_Drawer />
+    {/* 4 - Parent_Application */}
     {/* <Parent_Application /> */}
+    {/* 5 - Parent_Chat */}
+    {/* <Parent_Chat /> */}
     {/* - Extra - */}
     {/* <MySecond /> */}
+    {/* <Splash /> */}
     </View>
   );
 }
