@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
         color: 'red',
         letterSpacing: 1,
         // borderWidth: 1,
-        color: "grey",
+        color: "#EB2F06",
         textAlign: "center",
-        marginTop: 10,
+        marginTop: 25,
         fontFamily: "Kanit",
     },
     ParentEmpty:{
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         justifyContent:"center",
         alignItems:"center",
-        marginTop: 200,
+        marginTop: 190,
     },
     EmptyPic:{
         // borderColor:"black",

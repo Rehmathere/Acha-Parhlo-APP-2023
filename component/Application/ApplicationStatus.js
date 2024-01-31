@@ -344,6 +344,7 @@ export default function ApplicationStatus() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // backgroundColor: "white",
     },
     ParentMiniCourseDetail: {
         // borderWidth: 0.5,
@@ -352,20 +353,21 @@ const styles = StyleSheet.create({
     },
     sub_ParentMiniCourseDetail: {
         borderWidth: 0.5,
-        borderColor: "#dff9fb",
+        borderColor: "#FCD5CC",
         paddingVertical: 25,
         paddingHorizontal: 20,
-        // backgroundColor: "#dff9fb",
-        backgroundColor: "#c7ecee",
-        borderRadius: 20,
+        // backgroundColor: "#c7ecee",
+        backgroundColor: "#FCD5CC",
+        borderRadius: 25,
     },
     MiniCourseDetail: {
         borderWidth: 0.5,
-        borderColor: "#218c74",
+        borderColor: "#DD583B",
         paddingHorizontal: 10,
         paddingVertical: 25,
-        borderRadius: 20,
-        backgroundColor: "#218c74",
+        borderRadius: 25,
+        // backgroundColor: "#218c74",
+        backgroundColor: "#DD583B",
     },
     Item1: {
         // borderWidth: 0.5,
@@ -399,9 +401,9 @@ const styles = StyleSheet.create({
     },
     CourseImg: {
         borderWidth: 0.5,
-        borderColor: "red",
-        width: 95,
-        height: 54,
+        borderColor: "#B92604",
+        width: 100,
+        height: 55,
         borderRadius: 5,
     },
     Item2: {

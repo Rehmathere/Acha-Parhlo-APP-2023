@@ -26,19 +26,6 @@ export default function Login() {
       alert(error.message);
     }
   };
-  // Change Password
-  const forgetPassword = () => {
-    firebase
-      .auth()
-      .sendPasswordResetEmail(email)
-      .then(() => {
-        alert(" Password Reset Email Sent ");
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  };
-
   // Main Body
   return (
     <View style={styles.container}>
@@ -49,7 +36,7 @@ export default function Login() {
       <Text style={styles.f_txt}>Email</Text>
       {/* TextInput 1 */}
       <TextInput
-        style={[styles.sec,{marginBottom: 17}]}
+        style={[styles.sec, { marginBottom: 17 }]}
         placeholder=" Enter Your Email "
         onChangeText={(email) => setEmail(email)}
         autoCapitalize="none"
@@ -69,7 +56,7 @@ export default function Login() {
       {/* Change Password */}
       <View style={styles.passView}>
         <TouchableOpacity
-          onPress={() => {forgetPassword()}}
+          onPress={() => navigation.navigate("ForgetPass")}
           style={styles.pass}
         >
           <Text style={styles.passTxt}>Forget Password</Text>
@@ -82,7 +69,7 @@ export default function Login() {
       >
         <Text
           style={{
-            fontFamily:"Heebo",
+            fontFamily: "Heebo",
             fontSize: 16,
             textAlign: "center",
             color: "white",
@@ -99,7 +86,7 @@ export default function Login() {
       >
         <Text
           style={{
-            fontFamily:"Heebo",
+            fontFamily: "Heebo",
             fontSize: 14,
             letterSpacing: 0.7,
             textAlign: "center",
@@ -128,13 +115,13 @@ const styles = StyleSheet.create({
     marginTop: 35,
     marginBottom: 15,
     letterSpacing: 1.5,
-    fontFamily:"HeeboExtra",
+    fontFamily: "HeeboExtra",
     paddingHorizontal: 14.8,
   },
-  f_txt:{
+  f_txt: {
     // borderWidth: 1,
     paddingHorizontal: 14.8,
-    fontFamily:"Heebo",
+    fontFamily: "Heebo",
     fontSize: 19,
   },
   sec: {
@@ -148,7 +135,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 15,
     paddingVertical: 5,
-    fontFamily:"Kanit",
+    fontFamily: "Kanit",
     letterSpacing: 0.5,
   },
   but: {
@@ -189,8 +176,8 @@ const styles = StyleSheet.create({
   passTxt: {
     color: "white",
     fontSize: 13,
-    textAlign:"center",
+    textAlign: "center",
     letterSpacing: 1,
-    fontFamily:"Kanit",
+    fontFamily: "Kanit",
   },
 });

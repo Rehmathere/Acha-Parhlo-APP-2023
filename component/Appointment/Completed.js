@@ -32,12 +32,12 @@ export default function Completed({ navigation }) {
     <View style={styles.container}>
       <Header
         icon={require('../Pics/back.png')}
-        Title={'Completed'}
+        Title={'Appointment List'}
         onClick={() => { navigation.navigate('Home') }}
       />
       <View>
         <FlatList
-          data={[1, 1,]}
+          data={[1]}
           renderItem={({ item, index }) => {
             return (
               <View style={styles.itemView}>
@@ -67,13 +67,13 @@ const styles = StyleSheet.create({
   },
   itemView: {
     width: '92%',
-    backgroundColor: "#EAE6E5",
+    backgroundColor: "#FCDFD8",
     height: 100,
     borderRadius: 10,
     borderWidth: 0.5,
-    borderColor: "#ADACAB",
+    borderColor: "#FEB4A2",
     alignSelf: 'center',
-    marginTop: 10,
+    marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -97,10 +97,12 @@ const styles = StyleSheet.create({
   status: {
     marginLeft: 30,
     fontFamily:"Heebo",
-    fontSize: 15,
-    borderRadius: 10,
-    backgroundColor: '#EAE6E5',
-    padding: 5,
+    fontSize: 14.5,
+    borderRadius: 20,
+    backgroundColor: '#E8E7E7',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
     color: 'green',
+    letterSpacing: 0.7,
   },
 });

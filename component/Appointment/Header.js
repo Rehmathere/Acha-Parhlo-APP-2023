@@ -65,8 +65,9 @@ const styles = StyleSheet.create({
         height: 36,
     },
     title: {
-        fontSize: 26,
+        fontSize: 22,
         fontFamily:"Heebo",
         marginLeft: 10,
+        letterSpacing: 1,
     },
 })

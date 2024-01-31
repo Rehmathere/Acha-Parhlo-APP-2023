@@ -84,11 +84,9 @@ export default function Home() {
       ListFooterComponentStyle={styles.bottomViewContainer}
       ListFooterComponent={
         <View style={styles.bottomView}>
+          {/* 1 */}
           <TouchableOpacity onPress={() => navigation.navigate('Completed')}>
             <Image source={require('../Pics/completed.png')} style={styles.bottomIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Pending')}>
-            <Image source={require('../Pics/pending.png')} style={styles.bottomIcon} />
           </TouchableOpacity>
         </View>
       }

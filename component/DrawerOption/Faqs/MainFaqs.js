@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Collapsible from 'react-native-collapsible';
 import { AntDesign } from '@expo/vector-icons';
-import { StyleSheet, View, Text, TouchableOpacity, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, StatusBar, ScrollView, Image } from 'react-native';
 // Fonts Header File
 import { useFonts } from "expo-font";
 
@@ -25,7 +25,7 @@ export default function MainFaqs() {
     const data = [
         {
             question: 'Why Acha Parhlo ?',
-            answer: 'Acha Parhlo offers a comprehensive range of services for Australia study visa aspirants. This includes guidance on visa application processes, university selection, appointment booking with consultants, and application tracking to ensure a smooth journey towards studying in Australia.',
+            answer: 'Acha Parhlo offers a comprehensive range of services for Australia study visa aspirants. This includes guidance on visa application processes, university selection, appointment booking with consultants, Application tracking to ensure a smooth journey towards studying in Australia.',
         },
         {
             question: 'Is there a dedicated portal for consultants on the Acha Parhlo website ?',
@@ -71,6 +71,10 @@ export default function MainFaqs() {
             <ScrollView>
                 {/* Status Bar */}
                 <StatusBar backgroundColor={"#EB2F06"} />
+                {/* Main Body */}
+                <View style={styles.Ext_Img_Parent}>
+                    <Image source={ require('../../Pics/ext_faq.png') } style={styles.Ext_Img} />
+                </View>
                 <Text style={styles.fir}>Frequently Asked Question ( FAQ's )</Text>
                 <Text style={styles.fir_par}>Explore Acha Parhlo's Comprehensive FAQs: Your Ultimate Guide to Navigating Australia Study Visas, University Applications, Consultant Services, Career Counseling, and More!</Text>
                 {/* View For Padding Purposes */}
@@ -111,6 +115,22 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "white",
     },
+    Ext_Img_Parent:{
+        borderWidth: 0.5,
+        borderColor:"transparent",
+        paddingTop: 35,
+        paddingBottom: 25,
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"center",
+        alignItems:"center",
+    },
+    Ext_Img:{
+        borderWidth: 0.5,
+        borderColor:"transparent",
+        width: 140,
+        height: 140,
+    },
     fir: {
         borderWidth: 1,
         borderColor:"transparent",
@@ -118,8 +138,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginHorizontal: 19,
         marginVertical: 10,
-        marginBottom: 15,
-        marginTop: 40,
+        marginBottom: 12,
+        marginTop: 0,
         textAlign: "center",
         fontSize: 22,
         letterSpacing: 1,
@@ -131,25 +151,26 @@ const styles = StyleSheet.create({
         color: 'black',
         borderWidth: 1,
         marginHorizontal: 33,
-        marginBottom: 30,
+        marginBottom: 5,
         textAlign: "center",
         fontSize: 13,
         letterSpacing: 1,
         fontFamily:"Kanit"
     },
     sub_ll: {
-        paddingTop: 10,
+        paddingTop: 8,
         paddingBottom: 80,
     },
     sec1: {
         borderWidth: 1,
         borderColor: "transparent",
-        backgroundColor: "#f6e58d",
+        // backgroundColor: "#f6e58d",
+        backgroundColor: "#F8B5A5",
         paddingVertical: 1,
         marginHorizontal: 20,
         marginTop: 20,
-        paddingHorizontal: 5,
-        borderRadius: 3,
+        paddingHorizontal: 7,
+        borderRadius: 5,
     },
     sec1_View: {
         borderWidth: 1,
@@ -160,13 +181,14 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     sec1_text: {
-        fontSize: 16,
+        fontSize: 15,
         paddingTop: 4,
         width: "85%",
         fontFamily:"Heebo",
         borderWidth: 1,
         borderColor: "transparent",
         letterSpacing: 0.2,
+        textTransform: "capitalize",
     },
     icon: {
         borderWidth: 1,
@@ -181,9 +203,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginVertical: 2,
         paddingVertical: 9,
-        backgroundColor: "#F8EDC9",
+        // backgroundColor: "#F8EDC9",
+        backgroundColor: "#FBDFD9",
         paddingHorizontal: 8,
-        borderRadius: 3,
+        borderRadius: 5,
     },
     ans: {
         borderWidth: 1,
@@ -193,5 +216,6 @@ const styles = StyleSheet.create({
         letterSpacing: 0.2,
         fontSize: 12.5,
         fontFamily:"Kanit",
+        textTransform: "capitalize",
     }
 })

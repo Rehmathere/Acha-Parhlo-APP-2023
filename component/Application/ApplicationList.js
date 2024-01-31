@@ -86,6 +86,7 @@ export default function ApplicationList() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // backgroundColor: "white",
     },
     box: {
         // borderWidth: 1,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         elevation: 10,
-        backgroundColor: "#dff9fb",
+        backgroundColor: "#FCDFD8",
         paddingVertical: 1,
     },
     box_2: {
