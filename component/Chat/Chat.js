@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { View, StyleSheet, Text, Image, StatusBar, TouchableOpacity } from "react-native";
 
 export default function PChat() {
+    // ---------- Font Family ----------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -25,6 +26,7 @@ export default function PChat() {
     if (!fontsLoaded) {
         return null;
     }
+    // ---------- Font Family ----------
     // Main Body
     return (
         <View style={styles.container}>
