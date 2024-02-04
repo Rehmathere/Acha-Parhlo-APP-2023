@@ -89,7 +89,7 @@ export default function Main() {
           <TextInput
             ref={searchRef}
             placeholder="search item here..."
-            style={{ width: '76%', height: 50, paddingHorizontal: 10, fontFamily:"Kanit" }}
+            style={{ width: '76%', height: 50, paddingHorizontal: 10, fontFamily: "Kanit" }}
             value={search}
             onChangeText={txt => {
               onSearch(txt);
@@ -168,12 +168,6 @@ export default function Main() {
                     <Text style={styles.for_22}>{item.id} Years</Text>
                   </View>
                 </View>
-                {/* Row 4 */}
-                <View style={styles.fifth}>
-                  <Text style={styles.fif_1}>Rating</Text>
-                  <Text style={styles.fif_2}>{item.rating.rate}</Text>
-                  <Image source={require('../Pics/star.png')} style={styles.fif_img} />
-                </View>
               </View>
             </View>
           );
@@ -197,7 +191,7 @@ export default function Main() {
           <View
             style={{
               width: '80%',
-              height: 200,
+              height: 157,
               borderRadius: 10,
               backgroundColor: '#fff',
             }}>
@@ -219,7 +213,7 @@ export default function Main() {
                 listRef.current.scrollToIndex({ animated: true, index: 0 });
                 setVisible(false);
               }}>
-              <Text style={{ fontSize: 18, color: '#000', fontFamily:"Kanit" }}> Sort By Name</Text>
+              <Text style={{ fontSize: 18, color: '#000', fontFamily: "Kanit" }}> Sort By Name</Text>
             </TouchableOpacity>
             {/* Button */}
             <TouchableOpacity
@@ -236,7 +230,7 @@ export default function Main() {
                 listRef.current.scrollToIndex({ animated: true, index: 0 });
                 setVisible(false);
               }}>
-              <Text style={{ fontSize: 18, color: '#000', fontFamily:"Kanit" }}>
+              <Text style={{ fontSize: 18, color: '#000', fontFamily: "Kanit" }}>
                 Low to High Price
               </Text>
             </TouchableOpacity>
@@ -255,24 +249,9 @@ export default function Main() {
                 listRef.current.scrollToIndex({ animated: true, index: 0 });
                 setVisible(false);
               }}>
-              <Text style={{ fontSize: 18, color: '#000', fontFamily:"Kanit" }}>
+              <Text style={{ fontSize: 18, color: '#000', fontFamily: "Kanit" }}>
                 Hight to Low Price
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: '100%',
-                height: 50,
-                borderBottomWidth: 0.5,
-                justifyContent: 'center',
-                paddingLeft: 20,
-              }}
-              onPress={() => {
-                setData(data.sort((a, b) => b.rating.rate - a.rating.rate));
-                listRef.current.scrollToIndex({ animated: true, index: 0 });
-                setVisible(false);
-              }}>
-              <Text style={{ fontSize: 18, color: '#000', fontFamily:"Kanit" }}> Sort By Rating</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -294,11 +273,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     elevation: 10,
-    backgroundColor: "#f7f1e3"
+    backgroundColor: "#FCDFD8"
   },
   box_2: {
     width: "100%",
-    height: 200,
     flexDirection: "column",
     paddingVertical: 10,
   },
@@ -319,7 +297,7 @@ const styles = StyleSheet.create({
   sec: {
     letterSpacing: 0.5,
     textAlign: "center",
-    fontFamily:"HeeboExtra",
+    fontFamily: "HeeboExtra",
     width: "70%",
     marginLeft: 10,
     color: "black",
@@ -338,7 +316,7 @@ const styles = StyleSheet.create({
   third_1: {
     letterSpacing: 0.3,
     textAlign: "left",
-    fontFamily:"Kanit",
+    fontFamily: "Kanit",
     color: "#636e72",
     marginTop: 1,
     marginHorizontal: 14,
@@ -349,7 +327,7 @@ const styles = StyleSheet.create({
   third_2: {
     letterSpacing: 1,
     textAlign: "left",
-    fontFamily:"Heebo",
+    fontFamily: "Heebo",
     marginHorizontal: 16,
     color: "black",
     marginTop: 3,
@@ -374,17 +352,17 @@ const styles = StyleSheet.create({
     color: "#636e72",
     fontSize: 14,
     letterSpacing: 0.3,
-    fontFamily:"Kanit"
+    fontFamily: "Kanit"
   },
   for_2: {
     color: "#009432",
     fontSize: 18,
-    fontFamily:"Heebo",
+    fontFamily: "Heebo",
   },
   for_22: {
     color: "#eb2f06",
     fontSize: 18,
-    fontFamily:"Heebo"
+    fontFamily: "Heebo"
   },
   fifth: {
     // borderWidth: 0.5,
@@ -400,14 +378,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingHorizontal: 3,
     letterSpacing: 0.3,
-    fontFamily:"Kanit"
+    fontFamily: "Kanit"
   },
   fif_2: {
     paddingHorizontal: 6,
     // borderWidth: 0.2,
     color: "#1B1464",
     fontSize: 17,
-    fontFamily:"Heebo",
+    fontFamily: "Heebo",
   },
   fif_img: {
     // borderWidth: 0.1,
