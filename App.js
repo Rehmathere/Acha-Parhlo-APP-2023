@@ -11,6 +11,7 @@ import MySecond from "./component/MySecond";
 import Logout from "./component/DrawerOption/Logout/Logout";
 import Parent_Chat from "./component/Parent_Chat";
 import Main from "./component/SearchUni/Main";
+import Z_Test_Parent_A from "./component/Z_Test_Demo/Z_Test_Parent_A";
 
 export default function App() {
   // Main Body
@@ -25,14 +26,16 @@ export default function App() {
     {/* 2 - Search Uni */}
     {/* <Parent_Search /> */}
     {/* 3 - Parent_Drawer */}
-    <Parent_Drawer />
+    {/* <Parent_Drawer /> */}
     {/* 4 - Parent_Application */}
     {/* <Parent_Application /> */}
     {/* 5 - Parent_Chat */}
     {/* <Parent_Chat /> */}
     {/* - Extra - */}
     {/* <MySecond /> */}
-    {/* <Splash /> */}
+    {/* <Main /> */}
+    {/* - Demo Practice Backend - */}
+    <Z_Test_Parent_A />
     </View>
   );
 }
