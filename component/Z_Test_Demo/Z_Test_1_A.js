@@ -11,8 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../firestore";
 // Fonts Header File
 import { useFonts } from "expo-font";
+import { FontAwesome5, AntDesign, FontAwesome } from '@expo/vector-icons';
 
-export default function MyFirst() {
+export default function Z_Test_1_A() {
     // 0 - Navigation Constant
     const navigation = useNavigation();
     // 1 - useState
@@ -89,26 +90,26 @@ export default function MyFirst() {
                                 {/* 2 - Title */}
                                 <Text
                                     style={styles.sec}>
-                                    {item.name1.substring(0, 20)}
+                                    {item.name1.substring(0, 15)}
                                 </Text>
                             </View>
                             {/* Row 2 */}
                             <View style={styles.third}>
                                 {/* 1 - Text */}
-                                <Text style={styles.third_1}>Course Title</Text>
+                                <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Courses</Text>
                                 {/* 2 - Title */}
-                                <Text style={styles.third_2}>{item.name3}</Text>
+                                <Text style={styles.third_2}>{item.name3.substring(0, 20)}</Text>
                             </View>
                             {/* Row 3 */}
                             <View style={styles.forth}>
                                 {/* 1 */}
                                 <View style={styles.forth_1}>
-                                    <Text style={styles.for_1}>Semester Fee</Text>
-                                    <Text style={styles.for_2}>{item.name4} $</Text>
+                                    <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" />  Semester Fee</Text>
+                                    <Text style={styles.for_2}>{item.name4.substring(0, 15)} $</Text>
                                 </View>
                                 {/* 2 */}
                                 <View style={styles.forth_1}>
-                                    <Text style={styles.for_1}>Duration</Text>
+                                    <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
                                     <Text style={styles.for_22}>{item.name5}</Text>
                                 </View>
                             </View>
@@ -130,39 +131,40 @@ const styles = StyleSheet.create({
     },
     box: {
         width: '88%',
-        borderRadius: 15,
+        borderRadius: 17,
         // borderWidth: 1,
         borderColor: "black",
         alignSelf: 'center',
-        marginTop: 20,
+        marginTop: 16,
         // marginBottom: 4,
         alignItems: 'center',
         flexDirection: 'row',
         elevation: 15,
         // backgroundColor: "#FCDFD8",
-        // backgroundColor: "#FCBBAC",
-        backgroundColor: "#FED1C7",
-        paddingHorizontal: 7,
+        backgroundColor: "#FCBBAC",
+        // backgroundColor: "#FED1C7",
+        paddingHorizontal: 5,
         paddingVertical: 6,
     },
     box_2: {
         width: "100%",
         flexDirection: "column",
-        paddingVertical: 10,
+        paddingVertical: 7,
     },
     in_box: {
         // borderWidth: 0.1,
         width: "100%",
-        height: 50,
+        height: 52,
         flexDirection: "row",
+        paddingVertical: 2,
     },
     img_fir: {
         // borderWidth: 1,
         // borderColor: "black",
-        width: "20%",
+        width: "23%",
         height: '100%',
         marginLeft: 9,
-        borderRadius: 5,
+        borderRadius: 7,
     },
     sec: {
         letterSpacing: 2,
@@ -172,10 +174,11 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         color: "black",
         marginTop: 11,
-        //   borderWidth: 1,
+        // borderWidth: 1,
         //   height: 20,
-        fontSize: 16.3,
+        fontSize: 16,
         textTransform: "uppercase",
+        paddingHorizontal: 2,
     },
     third: {
         marginTop: 10.5,
@@ -188,53 +191,65 @@ const styles = StyleSheet.create({
         letterSpacing: 0.6,
         textAlign: "left",
         fontFamily: "Kanit",
-        color: "#636e72",
-        marginHorizontal: 14,
-        // borderWidth: 1,
-        height: 15,
-        fontSize: 14
+        // color: "#636e72",
+        marginHorizontal: 10,
+        fontSize: 13.5,
+        paddingVertical: 3.2,
+        paddingHorizontal: 7.5,
+        backgroundColor: "#dff9fb",
+        borderRadius: 7,
+        width: "29%",
+        marginTop: 5,
     },
     third_2: {
         letterSpacing: 1.6,
         textAlign: "left",
         fontFamily: "Heebo",
-        marginHorizontal: 16,
+        marginHorizontal: 12,
         color: "black",
         marginTop: 2,
-        //   borderWidth: 1,
-        //   height: 25,
-        fontSize: 15,
-        paddingVertical: 2,
+        // borderWidth: 1,
+        fontSize: 14,
+        paddingVertical: 4.5,
+        paddingHorizontal: 2,
+        marginBottom: 2,
     },
     forth: {
         // borderWidth: 1,
-        marginTop: 2,
+        marginTop: 5,
         paddingVertical: 1,
-        paddingHorizontal: 12,
         flexDirection: "row",
         justifyContent: "space-between",
-        paddingHorizontal: 14,
+        paddingHorizontal: 10,
     },
     forth_1: {
         // borderWidth: 0.5,
         paddingVertical: 1,
     },
     for_1: {
-        color: "#636e72",
-        fontSize: 14,
+        // color: "#636e72",
+        fontSize: 13.5,
         letterSpacing: 0.6,
-        fontFamily: "Kanit"
+        fontFamily: "Kanit",
+        paddingVertical: 3.2,
+        paddingHorizontal: 7.5,
+        backgroundColor: "#dff9fb",
+        borderRadius: 7,
     },
     for_2: {
-        color: "#009432",
-        letterSpacing: 1.4,
-        fontSize: 15,
+        // color: "#009432",
+        letterSpacing: 1.5,
+        fontSize: 14,
         fontFamily: "Heebo",
+        marginTop: 6,
+        paddingHorizontal: 4.5,
     },
     for_22: {
-        color: "#eb2f06",
-        fontSize: 15,
-        letterSpacing: 1.4,
-        fontFamily: "Heebo"
+        // color: "#e84118",
+        letterSpacing: 1.5,
+        fontSize: 14,
+        fontFamily: "Heebo",
+        marginTop: 6,
+        paddingHorizontal: 4,
     },
 });  

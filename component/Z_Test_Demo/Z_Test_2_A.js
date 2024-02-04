@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { firebase } from "../firestore";
-// Fonts Header File
 import { useFonts } from "expo-font";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+import Z_Test_Part_1 from "./Z_Test_Part_1";
+import Z_Test_Part_2 from "./Z_Test_Part_2";
+
+const top = createMaterialTopTabNavigator();
 
 export default function Z_Test_2_A({ route }) {
-  // Navigation
+
   const navigation = useNavigation();
   const [noteImage, setNoteImage] = useState(route.params.item.MyImage);
   const [noteTitle, setNoteTitle] = useState(route.params.item.name1);
@@ -32,50 +30,80 @@ export default function Z_Test_2_A({ route }) {
     KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
     KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
   });
-  // It Will Load Font
+
   useEffect(() => {
     if (loaded) {
       setFontsLoaded(true);
     }
   }, [loaded]);
-  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+
   if (!fontsLoaded) {
     return null;
   }
-  // ---------- Font Family ----------
-  // Main Body
+
   return (
     <View style={styles.container}>
       <Image source={{ uri: noteImage }} style={styles.image} />
-      <Text style={styles.label}>University : </Text>
+      <Text style={styles.label}>University: </Text>
       <Text style={styles.text}>{noteTitle}</Text>
-      <Text style={styles.label}>Basic Overview :</Text>
-      <Text style={styles.text}>{noteText}</Text>
-      <Text style={styles.label}>Courses Offered :</Text>
-      <Text style={styles.text}>{noteRoom}</Text>
-      <Text style={styles.label}>Semester Fee :</Text>
-      <Text style={styles.text}>{noteAmount}</Text>
-      <Text style={styles.label}>Degree Duration :</Text>
-      <Text style={styles.text}>{noteDuration}</Text>
-      <View style={styles.buttonView}>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.navigate("Z_Test_1_A")}
-        >
-          <Text style={styles.btnTxt}>Move Back</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.btn_Move}
-          onPress={() => navigation.navigate("Z_Test_3_A", { item: route.params.item })}
-        >
-          <Text style={styles.btnTxt}>Move To Page 3</Text>
-        </TouchableOpacity>
-      </View>
+
+      {/* Drawer */}
+      <top.Navigator>
+        {/* Screen 1 */}
+        <top.Screen
+          name="Z_Test_Part_1"
+          component={Z_Test_Part_1}
+          initialParams={{
+            noteTitle,
+            noteText,
+            // Add other data to pass here
+          }}
+          options={{
+            tabBarLabel: "Overview",
+            tabBarLabelStyle: {
+              fontFamily: "Heebo",
+              letterSpacing: 0.8,
+            },
+            tabBarInactiveTintColor: "grey",
+            tabBarIndicatorStyle: {
+              backgroundColor: "#EB2F06",
+              borderWidth: 1.4,
+              borderColor: "#EB2F06",
+            },
+            tabBarActiveTintColor: "#EB2F06",
+          }}
+        />
+
+        {/* Screen 2 */}
+        <top.Screen
+          name="Z_Test_Part_2"
+          component={Z_Test_Part_2}
+          initialParams={{
+            noteRoom,
+            noteAmount,
+            noteDuration,
+            // Add other data to pass here
+          }}
+          options={{
+            tabBarLabel: "Admission",
+            tabBarLabelStyle: {
+              fontFamily: "Heebo",
+              letterSpacing: 0.8,
+            },
+            tabBarInactiveTintColor: "grey",
+            tabBarIndicatorStyle: {
+              backgroundColor: "#EB2F06",
+              borderWidth: 1.4,
+              borderColor: "#EB2F06",
+            },
+            tabBarActiveTintColor: "#EB2F06",
+          }}
+        />
+      </top.Navigator>
     </View>
   );
 }
 
-// CSS
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -97,38 +125,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 2,
     fontFamily: "KanitBold",
-  },
-  btn: {
-    borderColor: "blue",
-    paddingVertical: 6,
-    paddingHorizontal: 25,
-    borderWidth: 1,
-    borderRadius: 50,
-    backgroundColor: "blue",
-    marginVertical: 10,
-    marginHorizontal: 11,
-    width: "90%",
-  },
-  btn_Move: {
-    borderColor: "red",
-    paddingVertical: 6,
-    paddingHorizontal: 25,
-    borderWidth: 1,
-    borderRadius: 50,
-    backgroundColor: "red",
-    marginVertical: 5,
-    marginHorizontal: 11,
-    width: "90%",
-  },
-  btnTxt: {
-    fontSize: 15,
-    color: "white",
-    textAlign: "center",
-    fontFamily: "Heebo",
-    letterSpacing: 1.5,
-  },
-  buttonView: {
-    flexDirection: "column",
   },
   image: {
     borderColor: "white",
