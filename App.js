@@ -17,13 +17,13 @@ export default function App() {
   // Main Body
   return (
     <View style={styles.container}>
-    {/* Pre 0 - Splash */}
+    {/* Pre 0 - Splash --- ( Completed ) */}
     {/* <Parent_Splash /> */}
-    {/* 0 - Authenticate */}
+    {/* 0 - Authenticate --- ( Completed ) */}
     {/* <Parent_Authenticate /> */}
     {/* 1 - Apointment */}
     {/* <Parent_Appoint /> */}
-    {/* 2 - Search Uni */}
+    {/* 2 - Search Uni --- ( Completed ) */}
     {/* <Parent_Search /> */}
     {/* 3 - Parent_Drawer */}
     {/* <Parent_Drawer /> */}
@@ -31,9 +31,8 @@ export default function App() {
     {/* <Parent_Application /> */}
     {/* 5 - Parent_Chat */}
     {/* <Parent_Chat /> */}
-    {/* - Extra - */}
+    {/* -------- Extra -------- */}
     {/* <MySecond /> */}
-    {/* <Main /> */}
     {/* - Demo Practice Backend - */}
     <Z_Test_Parent_A />
     </View>
