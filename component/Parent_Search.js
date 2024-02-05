@@ -54,18 +54,22 @@ export default function Parent_Search() {
         <NavigationContainer>
             <Stack.Navigator>
                 {/* 1 */}
-                {/* <Stack.Screen name='Main' component={Main} options={{
-                    headerTitle: "Course Details",
+                <Stack.Screen name='Main' component={Main} options={{
+                    headerTitle: "Courses Offered",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
-                }} /> */}
+                }} />
                 {/* 2 */}
                 <Stack.Screen name='SubMainHome' component={SubMainHome} options={{
                     headerTitle: "Course Details",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey",
                 }} />
@@ -73,7 +77,9 @@ export default function Parent_Search() {
                 <Stack.Screen name='DocHome' component={DocHome} options={{
                     headerTitle: "Upload Docs",
                     headerTitleStyle: {
-                        fontFamily: "Heebo",    
+                        fontFamily: "Heebo",
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
                 }} />
@@ -83,7 +89,8 @@ export default function Parent_Search() {
                     headerTitle: "10th Marksheet And Certificate",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
                 }} />
@@ -92,7 +99,8 @@ export default function Parent_Search() {
                     headerTitle: "11th Marksheet And Certificate",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
                 }} />
@@ -101,7 +109,8 @@ export default function Parent_Search() {
                     headerTitle: "Bachelor Transcript And Degree",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 16.5,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
                 }} />
@@ -110,7 +119,8 @@ export default function Parent_Search() {
                     headerTitle: "ID Card ( Front And Back )",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 16.5,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
                 }} />
@@ -119,7 +129,8 @@ export default function Parent_Search() {
                     headerTitle: "IELTS Score Copy",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 16.5,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
                 }} />
@@ -128,7 +139,8 @@ export default function Parent_Search() {
                     headerTitle: "Any Gap Proof",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 16.5,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
                 }} />
@@ -137,7 +149,8 @@ export default function Parent_Search() {
                     headerTitle: "Updated Resume",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 16.5,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
                 }} />
@@ -146,7 +159,8 @@ export default function Parent_Search() {
                     headerTitle: "Passport",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey"
                 }} />
@@ -155,10 +169,11 @@ export default function Parent_Search() {
                     headerTitle: "Documents",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                         color: "white",
                     },
-                    headerStyle:{
+                    headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
                     headerPressColor: "grey",
@@ -174,8 +189,9 @@ export default function Parent_Search() {
                     headerTitle: "Personal Data",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
                         color: "black",
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "grey",
                     headerTintColor: "black",
@@ -184,11 +200,12 @@ export default function Parent_Search() {
                 <Stack.Screen name='S_PersonalData_1' component={S_PersonalData_1} options={{
                     headerTitle: "Page 1",
                     headerTitleStyle: {
-                        // fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontFamily: "Heebo",
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                         color: "white",
                     },
-                    headerStyle:{
+                    headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
                     headerPressColor: "grey",
@@ -199,10 +216,11 @@ export default function Parent_Search() {
                     headerTitle: "Page 2",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                         color: "white",
                     },
-                    headerStyle:{
+                    headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
                     headerPressColor: "grey",
@@ -213,10 +231,11 @@ export default function Parent_Search() {
                     headerTitle: "Page 3",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                         color: "white",
                     },
-                    headerStyle:{
+                    headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
                     headerPressColor: "grey",
@@ -227,10 +246,11 @@ export default function Parent_Search() {
                     headerTitle: "Page 4",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                         color: "white",
                     },
-                    headerStyle:{
+                    headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
                     headerPressColor: "grey",
@@ -241,10 +261,11 @@ export default function Parent_Search() {
                     headerTitle: "Page 5",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                         color: "white",
                     },
-                    headerStyle:{
+                    headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
                     headerPressColor: "grey",
@@ -255,10 +276,11 @@ export default function Parent_Search() {
                     headerTitle: "Page 6",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        fontSize: 17,
+                        fontSize: 16,
+                        letterSpacing: 1.5,
                         color: "white",
                     },
-                    headerStyle:{
+                    headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
                     headerPressColor: "grey",

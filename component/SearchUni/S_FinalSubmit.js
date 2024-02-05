@@ -37,7 +37,7 @@ export default function S_FinalSubmit() {
             </View>
             <Text style={styles.Txt}>Your Application Is Successfully Submitted</Text>
             <View style={styles.BtnParent}>
-                <TouchableOpacity style={styles.S_Btn_Box} onPress={() => navigation.navigate('SubMainHome')}>
+                <TouchableOpacity style={styles.S_Btn_Box} onPress={() => navigation.navigate('Main')}>
                     <Text style={styles.S_Btn_Box_Text}>Go To Dashboard</Text>
                 </TouchableOpacity>
             </View>

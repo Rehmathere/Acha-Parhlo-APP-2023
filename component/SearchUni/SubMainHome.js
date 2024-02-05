@@ -10,7 +10,15 @@ import { useFonts } from "expo-font";
 
 const top = createMaterialTopTabNavigator();
 
-export default function SubMainHome() {
+export default function SubMainHome({ route }) {
+    const item = route.params?.item || {};
+
+    const [noteImage, setNoteImage] = useState(item.MyImage || "");
+    const [noteTitle, setNoteTitle] = useState(item.name1 || "");
+    const [noteText, setNoteText] = useState(item.name2 || "");
+    const [noteRoom, setNoteRoom] = useState(item.name3 || "");
+    const [noteAmount, setNoteAmount] = useState(item.name4 || "");
+    const [noteDuration, setNoteDuration] = useState(item.name5 || "");
     // Pre 0 - Modal useState
     const [showModal, setShowModal] = useState(false)
     // 0 - useNavigation
@@ -47,49 +55,60 @@ export default function SubMainHome() {
                 <View style={styles.sub_SMH_First}>
                     {/* 1 */}
                     <View style={styles.SMH_First_Logo}>
-                        <Image source={require('../Pics/UniPics/Monash.png')} style={styles.SMH_FirstImg} />
+                        <Image source={{ uri: noteImage }} style={styles.SMH_FirstImg} />
                     </View>
                     {/* 2 */}
                     <View style={styles.SMH_First_Name}>
-                        <Text style={styles.SMH_First_Its_Name}>Monash University</Text>
+                        <Text style={styles.SMH_First_Its_Name}>{noteTitle.substring(0, 18)}</Text>
                     </View>
                 </View>
                 {/* Subject Name */}
-                <Text style={styles.SMH_First_Course}>Course :</Text>
-                <Text style={styles.SMH_First_CourseName}>Advance Computer Science (ACS)</Text>
+                <Text style={styles.SMH_First_Course}>Course Title :</Text>
+                <Text style={styles.SMH_First_CourseName}>{noteRoom}</Text>
             </View>
             {/* Navigation Process */}
             <top.Navigator>
                 {/* Screen 1 */}
-                <top.Screen name="Overview1" component={Overview1} options={{
-                    tabBarLabel: "Overview",
-                    tabBarLabelStyle: {
-                        fontFamily: "Heebo",
-                        letterSpacing: 0.8,
-                    },
-                    tabBarInactiveTintColor: "grey",
-                    tabBarIndicatorStyle: {
-                        backgroundColor: "#EB2F06",
-                        borderWidth: 1.4,
-                        borderColor: "#EB2F06",
-                    },
-                    tabBarActiveTintColor: "#EB2F06",
-                }} />
+                <top.Screen name="Overview1" component={Overview1} initialParams={{
+                    noteTitle,
+                    noteText,
+                    // Add other data to pass here
+                }}
+                    options={{
+                        tabBarLabel: "Overview",
+                        tabBarLabelStyle: {
+                            fontFamily: "Heebo",
+                            letterSpacing: 0.8,
+                        },
+                        tabBarInactiveTintColor: "grey",
+                        tabBarIndicatorStyle: {
+                            backgroundColor: "#EB2F06",
+                            borderWidth: 1.4,
+                            borderColor: "#EB2F06",
+                        },
+                        tabBarActiveTintColor: "#EB2F06",
+                    }} />
                 {/* Screen 2 */}
-                <top.Screen name="Admission2" component={Admission2} options={{
-                    tabBarLabel: "Admisssion",
-                    tabBarLabelStyle: {
-                        fontFamily: "Heebo",
-                        letterSpacing: 0.8,
-                    },
-                    tabBarInactiveTintColor: "grey",
-                    tabBarIndicatorStyle: {
-                        backgroundColor: "#EB2F06",
-                        borderWidth: 1.4,
-                        borderColor: "#EB2F06",
-                    },
-                    tabBarActiveTintColor: "#EB2F06",
-                }} />
+                <top.Screen name="Admission2" component={Admission2} initialParams={{
+                    noteRoom,
+                    noteAmount,
+                    noteDuration,
+                    // Add other data to pass here
+                }}
+                    options={{
+                        tabBarLabel: "Admisssion",
+                        tabBarLabelStyle: {
+                            fontFamily: "Heebo",
+                            letterSpacing: 0.8,
+                        },
+                        tabBarInactiveTintColor: "grey",
+                        tabBarIndicatorStyle: {
+                            backgroundColor: "#EB2F06",
+                            borderWidth: 1.4,
+                            borderColor: "#EB2F06",
+                        },
+                        tabBarActiveTintColor: "#EB2F06",
+                    }} />
             </top.Navigator>
             {/* Apply Button */}
             <View style={styles.ParentApplyButton}>
@@ -134,10 +153,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     SMH_FirstImg: {
-        width: 70,
-        height: 50,
-        // borderWidth: 0.5,
-        // borderColor:"black",
+        width: 75,
+        height: 55,
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        borderRadius: 5,
     },
     SMH_First_Name: {
         width: "70%",
@@ -147,14 +167,15 @@ const styles = StyleSheet.create({
     },
     SMH_First_Its_Name: {
         // borderWidth: 0.5,
-        fontSize: 16,
-        fontFamily: "Heebo",
-        letterSpacing: 0.1,
+        fontFamily: "KanitBold",
+        fontSize: 20,
+        // color: "#EB2F06",
+        letterSpacing: 0.8,
         paddingHorizontal: 10,
     },
     SMH_First_Course: {
         // borderWidth: 0.5,
-        marginVertical: 5,
+        marginVertical: 6,
         fontFamily: "Kanit",
         fontSize: 15,
         color: "grey",
@@ -162,12 +183,12 @@ const styles = StyleSheet.create({
     },
     SMH_First_CourseName: {
         // borderWidth: 0.5,
-        marginVertical: 0,
-        fontFamily: "KanitBold",
-        fontSize: 19,
-        color: "#EB2F06",
+        marginVertical: 1,
+        fontFamily: "HeeboExtra",
+        fontSize: 14.5,
+        // color: "#EB2F06",
         paddingHorizontal: 22,
-        letterSpacing: 0.1,
+        letterSpacing: 2,
     },
     ParentApplyButton: {
         // borderWidth: 0.5,
