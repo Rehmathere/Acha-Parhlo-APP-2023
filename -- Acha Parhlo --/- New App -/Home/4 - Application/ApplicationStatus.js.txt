@@ -262,7 +262,7 @@ export default function ApplicationStatus() {
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
-                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton6Click}>Confirmation Enrolment</Text>
+                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton6Click}>Confirmation Of Enrolment</Text>
                             <Text style={styles.Parent_Processing_Box1_Part2_Text2}>Step 6</Text>
                         </View>
                     </View>

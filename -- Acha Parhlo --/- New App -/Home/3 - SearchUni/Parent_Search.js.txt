@@ -46,20 +46,28 @@ export default function Parent_Search() {
         <NavigationContainer>
             <Stack.Navigator>
                 {/* 1 */}
-                {/* <Stack.Screen name='Main' component={Main} /> */}
+                {/* <Stack.Screen name='Main' component={Main} options={{
+                    headerTitle: "Course Details",
+                    headerTitleStyle: {
+                        fontFamily: "Heebo",
+                    },
+                    headerPressColor: "grey"
+                }} /> */}
                 {/* 2 */}
                 <Stack.Screen name='SubMainHome' component={SubMainHome} options={{
                     headerTitle: "Course Details",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                    }
+                    },
+                    headerPressColor: "grey",
                 }} />
                 {/* 3 */}
                 <Stack.Screen name='DocHome' component={DocHome} options={{
                     headerTitle: "Requirements",
                     headerTitleStyle: {
-                        fontFamily: "Heebo",
-                    }
+                        fontFamily: "Heebo",    
+                    },
+                    headerPressColor: "grey"
                 }} />
                 {/* Now For Doc Upload Navigation */}
                 {/* Doc 1 */}
@@ -68,7 +76,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 17,
-                    }
+                    },
+                    headerPressColor: "grey"
                 }} />
                 {/* Doc 2 */}
                 <Stack.Screen name='D2_11Mark' component={D2_11Mark} options={{
@@ -76,7 +85,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 17,
-                    }
+                    },
+                    headerPressColor: "grey"
                 }} />
                 {/* Doc 3 */}
                 <Stack.Screen name='D3_Bachelor' component={D3_Bachelor} options={{
@@ -84,7 +94,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 16.5,
-                    }
+                    },
+                    headerPressColor: "grey"
                 }} />
                 {/* Doc 4 */}
                 <Stack.Screen name='D4_ID' component={D4_ID} options={{
@@ -92,7 +103,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 16.5,
-                    }
+                    },
+                    headerPressColor: "grey"
                 }} />
                 {/* Doc 5 */}
                 <Stack.Screen name='D5_Ielts' component={D5_Ielts} options={{
@@ -100,7 +112,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 16.5,
-                    }
+                    },
+                    headerPressColor: "grey"
                 }} />
                 {/* Doc 6 */}
                 <Stack.Screen name='D6_Gap' component={D6_Gap} options={{
@@ -108,7 +121,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 16.5,
-                    }
+                    },
+                    headerPressColor: "grey"
                 }} />
                 {/* Doc 7 */}
                 <Stack.Screen name='D7_Resume' component={D7_Resume} options={{
@@ -116,7 +130,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 16.5,
-                    }
+                    },
+                    headerPressColor: "grey"
                 }} />
                 {/* Doc 8 */}
                 <Stack.Screen name='D8_Passport' component={D8_Passport} options={{
@@ -124,7 +139,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 17,
-                    }
+                    },
+                    headerPressColor: "grey"
                 }} />
             </Stack.Navigator>
         </NavigationContainer>
