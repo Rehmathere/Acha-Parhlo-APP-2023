@@ -28,13 +28,13 @@ export default function App() {
     {/* 3 - Parent_Drawer */}
     {/* <Parent_Drawer /> */}
     {/* 4 - Parent_Application */}
-    {/* <Parent_Application /> */}
+    <Parent_Application />
     {/* 5 - Parent_Chat */}
     {/* <Parent_Chat /> */}
     {/* -------- Extra -------- */}
     {/* <MySecond /> */}
     {/* - Demo Practice Backend - */}
-    <Z_Test_Parent_A />
+    {/* <Z_Test_Parent_A /> */}
     </View>
   );
 }
