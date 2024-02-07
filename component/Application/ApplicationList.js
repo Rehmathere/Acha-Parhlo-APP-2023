@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, StatusBar, Image, TouchableOpacity } from 'reac
 import { useFonts } from "expo-font";
 // useNavigate
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function ApplicationList() {
     // 0 - useNavigation
@@ -35,6 +36,15 @@ export default function ApplicationList() {
             {/* Status Bar */}
             <StatusBar backgroundColor={"#EB2F06"} />
             {/* Body */}
+            <View style={styles.Ext_AL_1}>
+                {/* Image */}
+                <View style={styles.Ext_AL_ParentImg}>
+                    <Image source={require("../Pics/AL_Track.png")} style={styles.Ext_AL_Img} />
+                </View>
+                {/* Heading */}
+                <Text style={styles.Ext_AL_Txt}>Submitted Application</Text>
+                <Text style={styles.Ext_AL_Txt_1}>You have the ability to track the status of your submitted application.</Text>
+            </View>
             {/* Applied Application Universities  */}
             {/* Box 1 */}
             <TouchableOpacity style={styles.box} onPress={() => navigation.navigate("ApplicationStatus")}>
@@ -44,37 +54,34 @@ export default function ApplicationList() {
                     <View style={styles.in_box}>
                         {/* 1 - Image */}
                         <Image
-                            source={require('../Pics/UniPics/Western.png')}
+                            source={require("../Pics/UniPics/Deakin.png")}
                             style={styles.img_fir}
                         />
                         {/* 2 - Title */}
-                        <Text style={styles.sec}>Western Sydney University</Text>
+                        <Text
+                            style={styles.sec}>
+                            Deakin University
+                        </Text>
                     </View>
                     {/* Row 2 */}
                     <View style={styles.third}>
                         {/* 1 - Text */}
-                        <Text style={styles.third_1}>Course Title</Text>
+                        <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Courses</Text>
                         {/* 2 - Title */}
-                        <Text style={styles.third_2}>Applied Sciences</Text>
+                        <Text style={styles.third_2}>Arts</Text>
                     </View>
                     {/* Row 3 */}
                     <View style={styles.forth}>
                         {/* 1 */}
                         <View style={styles.forth_1}>
-                            <Text style={styles.for_1}>Fee</Text>
-                            <Text style={styles.for_2}>100 - 150 $</Text>
+                            <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" />  Semester Fee</Text>
+                            <Text style={styles.for_2}>1000 $</Text>
                         </View>
                         {/* 2 */}
                         <View style={styles.forth_1}>
-                            <Text style={styles.for_1}>Duration</Text>
-                            <Text style={styles.for_22}>5 Years</Text>
+                            <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
+                            <Text style={styles.for_22}>2 Years</Text>
                         </View>
-                    </View>
-                    {/* Row 4 */}
-                    <View style={styles.fifth}>
-                        <Text style={styles.fif_1}>Rating</Text>
-                        <Text style={styles.fif_2}>3.2</Text>
-                        <Image source={require('../Pics/star.png')} style={styles.fif_img} />
                     </View>
                 </View>
             </TouchableOpacity>
@@ -86,117 +93,130 @@ export default function ApplicationList() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: "white",
+        backgroundColor: "white",
     },
     box: {
+        width: '88%',
+        borderRadius: 17,
         // borderWidth: 1,
-        // borderColor: "black",
-        width: '91%',
-        borderRadius: 15,
+        borderColor: "black",
         alignSelf: 'center',
-        marginTop: 20,
+        marginTop: 16,
         // marginBottom: 4,
         alignItems: 'center',
         flexDirection: 'row',
-        elevation: 10,
-        backgroundColor: "#FCDFD8",
-        paddingVertical: 1,
+        elevation: 15,
+        // backgroundColor: "#FCDFD8",
+        backgroundColor: "#FCBBAC",
+        // backgroundColor: "#FED1C7",
+        paddingHorizontal: 5,
+        paddingVertical: 6,
     },
     box_2: {
-        // borderWidth: 0.5,
         width: "100%",
-        height: 202,
         flexDirection: "column",
-        paddingVertical: 12,
+        paddingVertical: 7,
     },
     in_box: {
         // borderWidth: 0.1,
-        // borderColor:"black",
         width: "100%",
-        height: 50,
+        height: 52,
         flexDirection: "row",
+        paddingVertical: 2,
     },
     img_fir: {
         // borderWidth: 1,
-        // borderColor: "black",
-        width: "22%",
-        height: '90%',
+        // borderColor: "red",
+        width: "23%",
+        height: '100%',
         marginLeft: 9,
-        borderRadius: 10,
+        borderRadius: 7,
     },
     sec: {
-        // borderWidth: 1,
-        letterSpacing: 1,
+        letterSpacing: 2,
         textAlign: "center",
-        fontFamily: "HeeboExtra",
+        fontFamily: "KanitBold",
         width: "70%",
-        marginLeft: 5,
+        marginLeft: 10,
         color: "black",
         marginTop: 11,
-        height: 20,
-        fontSize: 14
+        // borderWidth: 1,
+        //   height: 20,
+        fontSize: 16,
+        textTransform: "uppercase",
+        paddingHorizontal: 2,
     },
     third: {
-        marginTop: 8,
+        marginTop: 10.5,
         // borderWidth: 1,
         width: "100%",
-        height: 48,
+        // height: 48,
         flexDirection: "column",
     },
     third_1: {
-        letterSpacing: 0.3,
+        letterSpacing: 0.6,
         textAlign: "left",
         fontFamily: "Kanit",
-        color: "#636e72",
-        marginTop: 1,
-        marginHorizontal: 14,
-        // borderWidth: 1,
-        height: 15,
-        fontSize: 14
+        // color: "#636e72",
+        marginHorizontal: 10,
+        fontSize: 13.5,
+        paddingVertical: 3.2,
+        paddingHorizontal: 7.5,
+        backgroundColor: "#dff9fb",
+        borderRadius: 7,
+        width: "29%",
+        marginTop: 5,
     },
     third_2: {
-        letterSpacing: 1,
+        letterSpacing: 1.6,
         textAlign: "left",
         fontFamily: "Heebo",
-        marginHorizontal: 16,
+        marginHorizontal: 12,
         color: "black",
-        marginTop: 4,
+        marginTop: 2,
         // borderWidth: 1,
-        height: 25,
-        fontSize: 14.5,
+        fontSize: 13,
+        paddingVertical: 4.5,
+        paddingHorizontal: 2,
+        marginBottom: 2,
     },
     forth: {
         // borderWidth: 1,
-        marginTop: 2,
+        marginTop: 5,
         paddingVertical: 1,
-        paddingHorizontal: 12,
         flexDirection: "row",
         justifyContent: "space-between",
-        paddingHorizontal: 14,
+        paddingHorizontal: 10,
     },
     forth_1: {
         // borderWidth: 0.5,
         paddingVertical: 1,
     },
     for_1: {
-        // borderWidth: 0.5,
-        marginBottom: 1,
-        color: "#636e72",
-        fontSize: 14,
-        letterSpacing: 0.3,
-        fontFamily: "Kanit"
+        // color: "#636e72",
+        fontSize: 13.5,
+        letterSpacing: 0.6,
+        fontFamily: "Kanit",
+        paddingVertical: 3.2,
+        paddingHorizontal: 7.5,
+        backgroundColor: "#dff9fb",
+        borderRadius: 7,
     },
     for_2: {
-        color: "#009432",
-        fontSize: 16,
+        // color: "#009432",
+        letterSpacing: 1.5,
+        fontSize: 13,
         fontFamily: "Heebo",
+        marginTop: 6,
+        paddingHorizontal: 4.5,
     },
     for_22: {
-        // borderWidth: 0.5,
-        marginBottom: 1,
-        color: "#eb2f06",
-        fontSize: 16,
-        fontFamily: "Heebo"
+        // color: "#e84118",
+        letterSpacing: 1.5,
+        fontSize: 13,
+        fontFamily: "Heebo",
+        marginTop: 6,
+        paddingHorizontal: 4,
     },
     fifth: {
         // borderWidth: 0.5,
@@ -226,5 +246,42 @@ const styles = StyleSheet.create({
         // borderColor: "black",
         width: 18,
         height: 18,
+    },
+    Ext_AL_1: {
+        // borderWidth: 0.5,
+        paddingVertical: 20,
+    },
+    Ext_AL_ParentImg: {
+        // borderWidth: 0.5,
+        paddingVertical: 0,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    Ext_AL_Img: {
+        // borderWidth: 0.1,
+        // borderColor: "black",
+        width: 100,
+        height: 100,
+    },
+    Ext_AL_Txt: {
+        // borderWidth: 0.5,
+        textAlign: "center",
+        fontFamily: "HeeboExtra",
+        fontSize: 22,
+        letterSpacing: 1.3,
+    },
+    Ext_AL_Txt_1: {
+        // borderWidth: 0.5,
+        textAlign: "center",
+        fontFamily: "Kanit",
+        fontSize: 12,
+        letterSpacing: 1,
+        paddingHorizontal: 30,
+        color: "grey",
+        textTransform: "capitalize",
+        letterSpacing: 1,
+        paddingVertical: 6,
     }
 })

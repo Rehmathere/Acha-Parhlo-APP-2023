@@ -1,19 +1,127 @@
-import React, { useState, useEffect } from "react";
-import {
-    TouchableOpacity,
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    FlatList
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-// Fonts Header File
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import firestore from '../firestore';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 import { useFonts } from "expo-font";
 
-export default function Z_Test_1_A() {
-    // 0 - Navigation Constant
+export default function Z_Test_1() {
+    // useState
+    const [button1Color, setButton1Color] = useState('white');
+    const [button2Color, setButton2Color] = useState('white');
+    const [button3Color, setButton3Color] = useState('white');
+    const [button4Color, setButton4Color] = useState('white');
+    const [button5Color, setButton5Color] = useState('white');
+    const [button6Color, setButton6Color] = useState('white');
+    const [button7Color, setButton7Color] = useState('white');
+    const [button8Color, setButton8Color] = useState('white');
+
+    // ------------- Backend Logic -------------
     const navigation = useNavigation();
+    const [name1, setName1] = useState('');
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const db = getFirestore();
+                const value = collection(db, '2 - Application Tracking');
+                const querySnapshot = await getDocs(value);
+                const data = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+                // Assuming setVal is a state setter, you can use it if needed
+                // setVal(data);
+                // Setting name1
+                setName1(data.length > 0 ? data[data.length - 1].name1 : '');
+            } catch (error) {
+                console.error('Error fetching data: ', error);
+            }
+        };
+        fetchData();
+    }, []);
+    // Matching Name1 value to change Background Color (For Tracking)
+    useEffect(() => {
+        if (name1 === "Application Received") {
+            setButton1Color("#FFC300");
+            setButton2Color("transparent");
+            setButton3Color("transparent");
+            setButton4Color("transparent");
+            setButton5Color("transparent");
+            setButton6Color("transparent");
+            setButton7Color("transparent");
+            setButton8Color("transparent");
+        } else if (name1 === "Document Verification") {
+            setButton1Color('#FBD1A5');
+            setButton2Color('#FFC300');
+            setButton3Color("transparent");
+            setButton4Color("transparent");
+            setButton5Color("transparent");
+            setButton6Color("transparent");
+            setButton7Color("transparent");
+            setButton8Color("transparent");
+        } else if (name1 === "Conditional Offer") {
+            setButton1Color('#FBD1A5');
+            setButton2Color('#FBD1A5');
+            setButton3Color('#FFC300');
+            setButton4Color("transparent");
+            setButton5Color("transparent");
+            setButton6Color("transparent");
+            setButton7Color("transparent");
+            setButton8Color("transparent");
+        } else if (name1 === "Document Request") {
+            setButton1Color('#FBD1A5');
+            setButton2Color('#FBD1A5');
+            setButton3Color('#FBD1A5');
+            setButton4Color('#FFC300');
+            setButton5Color("transparent");
+            setButton6Color("transparent");
+            setButton7Color("transparent");
+            setButton8Color("transparent");
+        } else if (name1 === "Unconditional Offer") {
+            setButton1Color('#FBD1A5');
+            setButton2Color('#FBD1A5');
+            setButton3Color('#FBD1A5');
+            setButton4Color('#FBD1A5');
+            setButton5Color('#FFC300');
+            setButton6Color("transparent");
+            setButton7Color("transparent");
+            setButton8Color("transparent");
+        } else if (name1 === "Confirmation Enrolment") {
+            setButton1Color('#FBD1A5');
+            setButton2Color('#FBD1A5');
+            setButton3Color('#FBD1A5');
+            setButton4Color('#FBD1A5');
+            setButton5Color('#FBD1A5');
+            setButton6Color('#FFC300');
+            setButton7Color("transparent");
+            setButton8Color("transparent");
+        } else if (name1 === "Visa App Submitted") {
+            setButton1Color('#FBD1A5');
+            setButton2Color('#FBD1A5');
+            setButton3Color('#FBD1A5');
+            setButton4Color('#FBD1A5');
+            setButton5Color('#FBD1A5');
+            setButton6Color('#FBD1A5');
+            setButton7Color('#FFC300');
+            setButton8Color("transparent");
+        } else if (name1 === "Visa Granted") {
+            setButton1Color('#FBD1A5');
+            setButton2Color('#FBD1A5');
+            setButton3Color('#FBD1A5');
+            setButton4Color('#FBD1A5');
+            setButton5Color('#FBD1A5');
+            setButton6Color('#FBD1A5');
+            setButton7Color('#FBD1A5');
+            setButton8Color('#FFC300');
+        } else {
+            setButton1Color("transparent");
+            setButton2Color("transparent");
+            setButton3Color("transparent");
+            setButton4Color("transparent");
+            setButton5Color("transparent");
+            setButton6Color("transparent");
+            setButton7Color("transparent");
+            setButton8Color("transparent");
+        }
+    }, [name1]);
+    // ------------- Backend Logic -------------
     // ---------- Font Family ----------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -38,24 +146,89 @@ export default function Z_Test_1_A() {
     }
     // Main Body
     return (
-        <View style={styles.container}>
-            <Text style={styles.fir}>Page 1</Text>
-            {/* Start */}
-        </View>
+        <>
+            {/* Value Fetch */}
+            <Text style={styles.Txt1}>Value Fetch Were :</Text>
+            <Text style={styles.Txt2}>{name1}</Text>
+            {/* Boxes Portion */}
+            <View style={styles.parentBox}>
+                {/* - Color Box - */}
+                <View style={[styles.box, { backgroundColor: button1Color }]}>
+                    <Text>Box 1</Text>
+                </View>
+                {/* - Color Box - */}
+                <View style={[styles.box, { backgroundColor: button2Color }]}>
+                    <Text>Box 2</Text>
+                </View>
+                {/* - Color Box - */}
+                <View style={[styles.box, { backgroundColor: button3Color }]}>
+                    <Text>Box 3</Text>
+                </View>
+                {/* - Color Box - */}
+                <View style={[styles.box, { backgroundColor: button4Color }]}>
+                    <Text>Box 4</Text>
+                </View>
+                {/* - Color Box - */}
+                <View style={[styles.box, { backgroundColor: button5Color }]}>
+                    <Text>Box 5</Text>
+                </View>
+                {/* - Color Box - */}
+                <View style={[styles.box, { backgroundColor: button6Color }]}>
+                    <Text>Box 6</Text>
+                </View>
+                {/* - Color Box - */}
+                <View style={[styles.box, { backgroundColor: button7Color }]}>
+                    <Text>Box 7</Text>
+                </View>
+                {/* - Color Box - */}
+                <View style={[styles.box, { backgroundColor: button8Color }]}>
+                    <Text>Box 8</Text>
+                </View>
+            </View>
+        </>
     );
-}
+};
 
-// CSS
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "yellow",
-        paddingTop: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    fir: {
-        fontFamily: "HeeboExtra",
-        paddingVertical: 20,
-        fontSize: 30,
+    Txt1: {
+        borderWidth: 1,
+        fontFamily: "Kanit",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        marginVertical: 10,
+    },
+    Txt2: {
+        borderWidth: 1,
+        fontFamily: "Heebo",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        marginVertical: 10,
+        fontSize: 15,
         textAlign: "center",
-    }
-});  
+    },
+    buttonContainer: {
+        backgroundColor: '#DDDDDD',
+        padding: 10,
+    },
+    parentBox: {
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: "center",
+    },
+    box: {
+        borderWidth: 0.5,
+        width: 50,
+        height: 50,
+        margin: 5,
+        justifyContent: 'center',
+        alignItems: "center",
+        borderRadius: 100,
+    },
+});
+

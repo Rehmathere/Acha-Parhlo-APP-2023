@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StyleSheet, StatusBar, Image, ScrollView } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
+import firestore from '../firestore';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 export default function ApplicationStatus() {
     const [button1Color, setButton1Color] = useState('#EEF0F2');
@@ -12,140 +14,160 @@ export default function ApplicationStatus() {
     const [button6Color, setButton6Color] = useState('#EEF0F2');
     const [button7Color, setButton7Color] = useState('#EEF0F2');
     const [button8Color, setButton8Color] = useState('#EEF0F2');
-    // Functions
-    // 1
-    const handleButton1Click = () => {
-        // Button 1 
-        setButton1Color('orange');
-        // Rest Buttons Will White
-        setButton2Color('transparent');
-        setButton3Color('transparent');
-        setButton4Color('transparent');
-        setButton5Color('transparent');
-        setButton6Color('transparent');
-        setButton7Color('transparent');
-        setButton8Color('transparent');
-    };
-    // 2
-    const handleButton2Click = () => {
-        // Button 2
-        setButton2Color('orange');
-        // Button 1 
-        setButton1Color('lightyellow');
-        // Rest Buttons Will White
-        setButton3Color('transparent');
-        setButton4Color('transparent');
-        setButton5Color('transparent');
-        setButton6Color('transparent');
-        setButton7Color('transparent');
-        setButton8Color('transparent');
+    const [name1, setName1] = useState('');
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const db = getFirestore();
+                const value = collection(db, '2 - Application Tracking');
+                const querySnapshot = await getDocs(value);
+                const data = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+                // Assuming setVal is a state setter, you can use it if needed
+                // setVal(data);
+                // Setting name1
+                setName1(data.length > 0 ? data[data.length - 1].name1 : '');
+            } catch (error) {
+                console.error('Error fetching data: ', error);
+            }
+        };
+        fetchData();
+    }, []);
+    // Matching Name1 value to change Background Color (For Tracking)
+    useEffect(() => {
+        if (name1 === "Application Received") {
+            // Button 1 
+            setButton1Color('orange');
+            // Rest Buttons Will White
+            setButton2Color('transparent');
+            setButton3Color('transparent');
+            setButton4Color('transparent');
+            setButton5Color('transparent');
+            setButton6Color('transparent');
+            setButton7Color('transparent');
+            setButton8Color('transparent');
+        }
+        else if (name1 === "Document Verification") {
+            // Button 2
+            setButton2Color('orange');
+            // Button 1 
+            setButton1Color('lightyellow');
+            // Rest Buttons Will White
+            setButton3Color('transparent');
+            setButton4Color('transparent');
+            setButton5Color('transparent');
+            setButton6Color('transparent');
+            setButton7Color('transparent');
+            setButton8Color('transparent');
+        }
+        else if (name1 === "Conditional Offer") {
+            // Button 3
+            setButton3Color('orange');
+            // Button 1 
+            setButton1Color('lightyellow');
+            // Button 2
+            setButton2Color('lightyellow');
+            // Rest Buttons Will White
+            setButton4Color('transparent');
+            setButton5Color('transparent');
+            setButton6Color('transparent');
+            setButton7Color('transparent');
+            setButton8Color('transparent');
+        }
+        else if (name1 === "Document Request") {
+            // Button 4
+            setButton4Color('orange');
+            // Button 1 
+            setButton1Color('lightyellow');
+            // Button 2
+            setButton2Color('lightyellow');
+            // Button 3
+            setButton3Color('lightyellow');
+            // Rest Buttons Will White
+            setButton5Color('transparent');
+            setButton6Color('transparent');
+            setButton7Color('transparent');
+            setButton8Color('transparent');
+        }
+        else if (name1 === "Unconditional Offer") {
+            // Button 5
+            setButton5Color('orange');
+            // Button 1 
+            setButton1Color('lightyellow');
+            // Button 2
+            setButton2Color('lightyellow');
+            // Button 3
+            setButton3Color('lightyellow');
+            // Button 4
+            setButton4Color('lightyellow');
+            // Rest Buttons Will White
+            setButton6Color('transparent');
+            setButton7Color('transparent');
+            setButton8Color('transparent');
+        }
+        else if (name1 === "Confirmation Enrolment") {
+            // Button 6
+            setButton6Color('orange');
+            // Button 1 
+            setButton1Color('lightyellow');
+            // Button 2
+            setButton2Color('lightyellow');
+            // Button 3
+            setButton3Color('lightyellow');
+            // Button 4
+            setButton4Color('lightyellow');
+            // Button 5
+            setButton5Color('lightyellow');
+            // Rest Buttons Will White
+            setButton7Color('transparent');
+            setButton8Color('transparent');
+        }
+        else if (name1 === "Visa App Submitted") {
+            // Button 7
+            setButton7Color('orange');
+            // Button 1 
+            setButton1Color('lightyellow');
+            // Button 2
+            setButton2Color('lightyellow');
+            // Button 3
+            setButton3Color('lightyellow');
+            // Button 4
+            setButton4Color('lightyellow');
+            // Button 5
+            setButton5Color('lightyellow');
+            // Button 6
+            setButton6Color('lightyellow');
+            // Rest Buttons Will White
+            setButton8Color('transparent');
+        } else if (name1 === "Visa Granted") {
+            // Button 8
+            setButton8Color('orange');
+            // Button 1 
+            setButton1Color('lightyellow');
+            // Button 2
+            setButton2Color('lightyellow');
+            // Button 3
+            setButton3Color('lightyellow');
+            // Button 4
+            setButton4Color('lightyellow');
+            // Button 5
+            setButton5Color('lightyellow');
+            // Button 6
+            setButton6Color('lightyellow');
+            // Button 7
+            setButton7Color('lightyellow');
 
-    };
-    // 3
-    const handleButton3Click = () => {
-        // Button 3
-        setButton3Color('orange');
-        // Button 1 
-        setButton1Color('lightyellow');
-        // Button 2
-        setButton2Color('lightyellow');
-        // Rest Buttons Will White
-        setButton4Color('transparent');
-        setButton5Color('transparent');
-        setButton6Color('transparent');
-        setButton7Color('transparent');
-        setButton8Color('transparent');
-
-    };
-    // 4
-    const handleButton4Click = () => {
-        // Button 4
-        setButton4Color('orange');
-        // Button 1 
-        setButton1Color('lightyellow');
-        // Button 2
-        setButton2Color('lightyellow');
-        // Button 3
-        setButton3Color('lightyellow');
-        // Rest Buttons Will White
-        setButton5Color('transparent');
-        setButton6Color('transparent');
-        setButton7Color('transparent');
-        setButton8Color('transparent');
-    };
-    // 5
-    const handleButton5Click = () => {
-        // Button 5
-        setButton5Color('orange');
-        // Button 1 
-        setButton1Color('lightyellow');
-        // Button 2
-        setButton2Color('lightyellow');
-        // Button 3
-        setButton3Color('lightyellow');
-        // Button 4
-        setButton4Color('lightyellow');
-        // Rest Buttons Will White
-        setButton6Color('transparent');
-        setButton7Color('transparent');
-        setButton8Color('transparent');
-    };
-    // 6
-    const handleButton6Click = () => {
-        // Button 6
-        setButton6Color('orange');
-        // Button 1 
-        setButton1Color('lightyellow');
-        // Button 2
-        setButton2Color('lightyellow');
-        // Button 3
-        setButton3Color('lightyellow');
-        // Button 4
-        setButton4Color('lightyellow');
-        // Button 5
-        setButton5Color('lightyellow');
-        // Rest Buttons Will White
-        setButton7Color('transparent');
-        setButton8Color('transparent');
-    };
-    // 7
-    const handleButton7Click = () => {
-        // Button 7
-        setButton7Color('orange');
-        // Button 1 
-        setButton1Color('lightyellow');
-        // Button 2
-        setButton2Color('lightyellow');
-        // Button 3
-        setButton3Color('lightyellow');
-        // Button 4
-        setButton4Color('lightyellow');
-        // Button 5
-        setButton5Color('lightyellow');
-        // Button 6
-        setButton6Color('lightyellow');
-        // Rest Buttons Will White
-        setButton8Color('transparent');
-    };
-    // 8
-    const handleButton8Click = () => {
-        // Button 8
-        setButton8Color('orange');
-        // Button 1 
-        setButton1Color('lightyellow');
-        // Button 2
-        setButton2Color('lightyellow');
-        // Button 3
-        setButton3Color('lightyellow');
-        // Button 4
-        setButton4Color('lightyellow');
-        // Button 5
-        setButton5Color('lightyellow');
-        // Button 6
-        setButton6Color('lightyellow');
-        // Button 7
-        setButton7Color('lightyellow');
-    };
+        } else {
+            setButton1Color("transparent");
+            setButton2Color("transparent");
+            setButton3Color("transparent");
+            setButton4Color("transparent");
+            setButton5Color("transparent");
+            setButton6Color("transparent");
+            setButton7Color("transparent");
+            setButton8Color("transparent");
+        }
+    }, [name1]);
+    // ------------- Backend Logic -------------
     // -----------------------------------------------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -183,21 +205,24 @@ export default function ApplicationStatus() {
                         <View style={styles.MiniCourseDetail}>
                             {/* Item 1 */}
                             <Text style={styles.Item1}>Track Number</Text>
-                            <Text style={styles.Item1_2}>QWERTY1357910</Text>
+                            <Text style={styles.Item1_2}>42501-3205936-9</Text>
                             {/* Item Image */}
                             <View style={styles.ParentCourseImg}>
                                 <View style={styles.subParentCourseImg}>
-                                    <Image source={require('../Pics/UniPics/Western.png')} style={styles.CourseImg} />
+                                    <Image source={require('../Pics/UniPics/Deakin.png')} style={styles.CourseImg} />
                                 </View>
                             </View>
                             {/* Item 2 */}
                             <Text style={styles.Item2_1}>University :</Text>
-                            <Text style={styles.Item2}>Western Sdyney University</Text>
+                            <Text style={styles.Item2}>Deakin University</Text>
                             <Text style={styles.Item2_1}>Course :</Text>
-                            <Text style={styles.Item2_2}>Applied Sciences</Text>
+                            <Text style={styles.Item2_2}>Arts</Text>
                         </View>
                     </View>
                 </View>
+                {/* 2 - Application Status */}
+                <Text style={styles.AppStatus}>Status</Text>
+                <Text style={styles.AppStatus_Ans}>{name1}</Text>
                 {/* 2 - Application Status */}
                 <Text style={styles.AppStatus}>Application Status</Text>
                 {/* 3 - 5 Processing Parts */}
@@ -215,7 +240,7 @@ export default function ApplicationStatus() {
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
-                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton1Click}>Application Received</Text>
+                            <Text style={styles.Parent_Processing_Box1_Part2_Text1}>Application Received</Text>
                             <Text style={styles.Parent_Processing_Box1_Part2_Text2}>Step 1</Text>
                         </View>
                     </View>
@@ -232,7 +257,7 @@ export default function ApplicationStatus() {
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
-                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton2Click}>Document Verification</Text>
+                            <Text style={styles.Parent_Processing_Box1_Part2_Text1}>Document Verification</Text>
                             <Text style={styles.Parent_Processing_Box1_Part2_Text2}>Step 2</Text>
                         </View>
                     </View>
@@ -249,7 +274,7 @@ export default function ApplicationStatus() {
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
-                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton3Click}>Conditional Offer</Text>
+                            <Text style={styles.Parent_Processing_Box1_Part2_Text1}>Conditional Offer</Text>
                             <Text style={styles.Parent_Processing_Box1_Part2_Text2}>Step 3</Text>
                         </View>
                     </View>
@@ -266,7 +291,7 @@ export default function ApplicationStatus() {
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
-                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton4Click}>Document Request</Text>
+                            <Text style={styles.Parent_Processing_Box1_Part2_Text1}>Document Request</Text>
                             <Text style={styles.Parent_Processing_Box1_Part2_Text2}>Step 4</Text>
                         </View>
                     </View>
@@ -283,7 +308,7 @@ export default function ApplicationStatus() {
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
-                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton5Click}>Unconditional Offer</Text>
+                            <Text style={styles.Parent_Processing_Box1_Part2_Text1}>Unconditional Offer</Text>
                             <Text style={styles.Parent_Processing_Box1_Part2_Text2}>Step 5</Text>
                         </View>
                     </View>
@@ -300,7 +325,7 @@ export default function ApplicationStatus() {
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
-                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton6Click}>Confirmation Of Enrolment</Text>
+                            <Text style={styles.Parent_Processing_Box1_Part2_Text1}>Confirmation Of Enrolment</Text>
                             <Text style={styles.Parent_Processing_Box1_Part2_Text2}>Step 6</Text>
                         </View>
                     </View>
@@ -317,7 +342,7 @@ export default function ApplicationStatus() {
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
-                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton7Click}>Visa Application Submitted</Text>
+                            <Text style={styles.Parent_Processing_Box1_Part2_Text1}>Visa Application Submitted</Text>
                             <Text style={styles.Parent_Processing_Box1_Part2_Text2}>Step 7</Text>
                         </View>
                     </View>
@@ -331,7 +356,7 @@ export default function ApplicationStatus() {
                             {/* No Line Part */}
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
-                            <Text style={styles.Parent_Processing_Box1_Part2_Text1} onPress={handleButton8Click}>Visa Granted</Text>
+                            <Text style={styles.Parent_Processing_Box1_Part2_Text1}>Visa Granted</Text>
                             <Text style={styles.Parent_Processing_Box1_Part2_Text2}>Step 8</Text>
                         </View>
                     </View>
@@ -344,7 +369,7 @@ export default function ApplicationStatus() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: "white",
+        backgroundColor: "white",
     },
     ParentMiniCourseDetail: {
         // borderWidth: 0.5,
@@ -385,6 +410,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginVertical: 3,
         letterSpacing: 2,
+        paddingVertical: 5,
     },
     ParentCourseImg: {
         // borderWidth: 0.5,
@@ -410,11 +436,11 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         textAlign: "center",
         color: "white",
-        fontFamily: "Archivo",
-        fontSize: 14,
-        letterSpacing: 0.2,
+        fontFamily: "KanitBold",
+        fontSize: 13,
         marginVertical: 5,
         paddingHorizontal: 10,
+        letterSpacing: 1.5,
     },
     Item2_1: {
         // borderWidth: 0.5,
@@ -428,9 +454,9 @@ const styles = StyleSheet.create({
     Item2_2: {
         // borderWidth: 0.5,
         color: "white",
-        fontFamily: "Archivo",
-        fontSize: 14,
-        letterSpacing: 1,
+        fontFamily: "KanitBold",
+        fontSize: 13,
+        letterSpacing: 1.5,
         marginTop: 3,
         paddingHorizontal: 15,
         textAlign: "center",
@@ -443,6 +469,18 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 15,
         paddingHorizontal: 28,
+    },
+    AppStatus_Ans: {
+        // borderWidth: 0.5,
+        fontFamily: "Heebo",
+        fontSize: 17,
+        letterSpacing: 1,
+        marginTop: 0,
+        marginBottom: 5,
+        paddingBottom: 20,
+        paddingHorizontal: 10,
+        textAlign: "center",
+        color: "darkred",
     },
     Parent_Processing: {
         // borderWidth: 0.5,

@@ -42,17 +42,17 @@ export default function Parent_Application() {
                 <Stack.Screen component={ApplicationList} name='ApplicationList' options={{
                     headerTitleStyle:{
                         fontFamily: "Heebo",
-                        letterSpacing: 0.8,
-                        fontSize: 18,
+                        letterSpacing: 1.5,
+                        fontSize: 16,
                     },
-                    title: "Applications Submitted"
+                    title: "Application List"
                 }} />
                 {/* 2 */}
                 <Stack.Screen component={ApplicationStatus} name='ApplicationStatus' options={{
                     headerTitleStyle:{
                         fontFamily: "Heebo",
-                        letterSpacing: 0.8,
-                        fontSize: 18,
+                        letterSpacing: 1.5,
+                        fontSize: 16,
                     },
                     title: "Application Tracking"
                 }} />

@@ -110,7 +110,7 @@ export default function Main() {
                 {/* 1 */}
                 <View style={styles.forth_1}>
                   <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" />  Semester Fee</Text>
-                  <Text style={styles.for_2}>{item.name4.substring(0, 15)} $</Text>
+                  <Text style={styles.for_2}>{item.name4.substring(0, 15)}</Text>
                 </View>
                 {/* 2 */}
                 <View style={styles.forth_1}>
