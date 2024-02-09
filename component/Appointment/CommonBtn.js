@@ -35,14 +35,14 @@ export default function CommonBtn({ w, h, txt, onClick, status }) {
                     style={{
                         width: w, height: h, justifyContent: "center", alignItems: "center", marginVertical: 7, marginHorizontal: 8, borderRadius: 12, paddingVertical: 2,
                     }}>
-                    <Text style={{ color: "white", fontSize: 13, padding: 1, fontFamily:"Kanit", letterSpacing: 0.5, }}>{txt}</Text>
+                    <Text style={{ color: "white", fontSize: 12, padding: 1, fontFamily:"Kanit", letterSpacing: 0.5, }}>{txt}</Text>
                 </LinearGradient>) : (
                 <LinearGradient
-                    colors={['#8e8e8e', '#8e8e8e']}
+                    colors={['#8e8e8e', '#B7B6B6']}
                     style={{
                         width: "89%", height: 25, justifyContent: "center", alignItems: "center", marginVertical: 7, marginHorizontal: 8, borderRadius: 12, paddingVertical: 2, opacity: 0.9,
                     }}>
-                    <Text style={{ color: "white", fontSize: 14.2, padding: 1, fontFamily:"Kanit", letterSpacing: 0.5, }}>{txt}</Text>
+                    <Text style={{ color: "white", fontSize: 12, padding: 1, fontFamily:"Kanit", letterSpacing: 0.5, }}>{txt}</Text>
                 </LinearGradient>
             )}
         </TouchableOpacity>

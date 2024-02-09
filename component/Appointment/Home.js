@@ -31,16 +31,15 @@ export default function Home() {
     return null;
   }
   // Create data for FlatList rendering
-  const data = Array.from({ length: 8 }, (_, index) => index + 1);
-
+  const data = Array.from({ length: 6 }, (_, index) => index + 1);
   const renderItem = ({ item, index }) => {
     const isAvailable = index / 2 === 1;
-
+    // Function 
     return (
       <View style={styles.thirdItem}>
-        <Image source={require('../Pics/Man.png')} style={styles.third_img} />
+        <Image source={require('../Pics/man_2.png')} style={styles.third_img} />
         <Text style={styles.third_txt}>{`Consultant ${index + 1}`}</Text>
-        <Text style={[styles.third_txt_1, { color: isAvailable ? 'green' : 'red' }]}>
+        <Text style={[styles.third_txt_1, { color: isAvailable ? 'green' : 'red', fontSize: 12.5, letterSpacing: 1.5, }]}>
           {isAvailable ? 'Available' : 'Busy'}
         </Text>
         <CommonBtn
@@ -57,7 +56,7 @@ export default function Home() {
       </View>
     );
   };
-
+  // Main Body
   return (
     <FlatList
       style={styles.container}
@@ -75,7 +74,8 @@ export default function Home() {
           <View style={styles.MyParentImg}>
             <Image source={require('../Pics/Appointment.png')} style={styles.fir_img} />
           </View>
-          <Text style={styles.third}>Top Rated Consultant</Text>
+          <Text style={styles.third}>Book Appointment</Text>
+          <Text style={styles.third_Txt_1_E}>Please feel free to schedule appointments with our team of expert consultants.</Text>
         </>
       }
       numColumns={2}
@@ -86,7 +86,11 @@ export default function Home() {
         <View style={styles.bottomView}>
           {/* 1 */}
           <TouchableOpacity onPress={() => navigation.navigate('Completed')}>
-            <Image source={require('../Pics/completed.png')} style={styles.bottomIcon} />
+            <Image source={require('../Pics/completed_1.png')} style={styles.bottomIcon} />
+          </TouchableOpacity>
+          {/* 1 */}
+          <TouchableOpacity onPress={() => navigation.navigate('BookAppointment')}>
+            <Image source={require('../Pics/Home_1.png')} style={styles.bottomIcon} />
           </TouchableOpacity>
         </View>
       }
@@ -111,27 +115,39 @@ const styles = StyleSheet.create({
     padding: 1,
   },
   MyParentImg: {
-    // borderWidth: 1,
+    // borderWidth: 0.5,
     // borderColor:"red",
-    paddingVertical: 7,
+    paddingVertical: 30,
+    justifyContent: "center",
+    alignItems: "center",
   },
   fir_img: {
-    // borderWidth: 1,
+    // borderWidth: 0.5,
     // borderColor: "black",
-    width: 240,
-    height: 175,
-    alignSelf: "center",
-    marginHorizontal: "auto"
+    width: 170,
+    height: 170,
   },
   third: {
     // borderWidth: 1,
     // color: "black",
-    paddingTop: 10,
-    paddingBottom: 9,
-    fontSize: 26,
-    letterSpacing: 0.5,
+    paddingTop: 0,
+    paddingBottom: 7,
+    fontSize: 25,
+    letterSpacing: 1,
     textAlign: "center",
-    fontFamily: "HeeboExtra",
+    fontFamily: "KanitBold",
+  },
+  third_Txt_1_E: {
+    // borderWidth: 0.5,
+    paddingTop: 1,
+    paddingBottom: 30,
+    paddingHorizontal: 30,
+    fontSize: 13,
+    letterSpacing: 1,
+    textAlign: "center",
+    fontFamily: "Kanit",
+    color: "grey",
+    textTransform: "capitalize",
   },
   third_view: {
     paddingHorizontal: 5,
@@ -142,13 +158,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   thirdItem: {
-    width: "44.5%",
-    height: 161,
-    borderWidth: 0.3,
-    borderRadius: 10,
+    width: "42%",
+    height: 168,
+    borderWidth: 0.5,
+    borderColor: "red",
+    borderRadius: 15,
     marginVertical: 6,
-    marginHorizontal: 8.5,
-    elevation: 1,
+    marginHorizontal: 13,
+    elevation: 8,
+    paddingVertical: 3,
+    paddingHorizontal: 1.5,
+    backgroundColor: "#FCF3F3",
+    shadowColor: "black",
   },
   third_img: {
     width: 55,
@@ -161,22 +182,23 @@ const styles = StyleSheet.create({
   third_txt: {
     // borderWidth: 1,
     textAlign: "center",
-    padding: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 7,
     fontFamily: "Heebo",
+    fontSize: 13.5,
   },
   third_txt_1: {
     // borderWidth: 1,
-    fontSize: 14,
     letterSpacing: 5,
     textAlign: "center",
-    backgroundColor: "#E2DFDF",
+    backgroundColor: "#EAE9E9",
     alignSelf: "center",
     fontFamily: "Heebo",
     borderRadius: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingTop: 2,
     paddingBottom: 3,
-    letterSpacing: 0.5,
+    letterSpacing: 1,
     marginHorizontal: 0,
   },
   bottomViewContainer: {
@@ -188,12 +210,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: '#c8d6e5',
-    paddingVertical: 10,
+    backgroundColor: '#D3E0EF',
+    paddingVertical: 15,
     borderRadius: 10,
     marginHorizontal: 10,
     elevation: 5,
-    shadowColor:"black",
+    shadowColor: "black",
   },
   bottomIcon: {
     width: 25,

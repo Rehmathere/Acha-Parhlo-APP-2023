@@ -3,12 +3,14 @@ import { Text, View, StyleSheet, Image, FlatList, TouchableOpacity, ScrollView, 
 import Header from './Header';
 import CommonBtn from './CommonBtn';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native'
 // Fonts Header File
 import { useFonts } from "expo-font";
 // Array For Date
 let DaysList = [];
 
-export default function BookAppointment({ navigation }) {
+export default function BookAppointment() {
+    const navigation = useNavigation();
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -100,12 +102,12 @@ export default function BookAppointment({ navigation }) {
                         />
                     );
                 } else if (item === 'image') {
-                    return <Image source={require('../Pics/Man.png')} style={styles.docImg} />;
+                    return <Image source={require('../Pics/man_2.png')} style={styles.docImg} />;
                 } else if (item === 'title') {
                     return (
                         <>
                             <Text style={styles.name}>Mr. Rehmat Qazi</Text>
-                            <Text style={styles.cate}>International Study Consultant</Text>
+                            <Text style={styles.cate}>Student Consultant</Text>
                         </>
                     );
                 } else if (item === 'selectDate') {
@@ -186,6 +188,10 @@ export default function BookAppointment({ navigation }) {
                             <Text style={styles.StudInfo}>Student Information</Text>
                             <Text style={styles.StudName}>Student Name</Text>
                             <TextInput placeholder=' Enter Your Full Name ' value={name} onChangeText={(text) => setName(text)} style={styles.inp} keyboardType="default" />
+                            <Text style={styles.StudName}>Student Email</Text>
+                            <TextInput placeholder=' Enter Your Correct Email ' value={name} onChangeText={(text) => setName(text)} style={styles.inp} keyboardType="email-address" />
+                            <Text style={styles.StudName}>Student Contact No</Text>
+                            <TextInput placeholder=' Enter Your Contact Number ' value={name} onChangeText={(text) => setName(text)} style={styles.inp} keyboardType="number-pad" />
                             <Text style={styles.StudName}>Select Gender</Text>
                             <View style={styles.gender}>
                                 {/* 1 - Male */}
@@ -205,17 +211,9 @@ export default function BookAppointment({ navigation }) {
                     );
                 } else if (item === 'confirmButton') {
                     return (
-                        <View style={styles.successView}>
-                            <CommonBtn
-                                w={250}
-                                h={35}
-                                txt={' Book Now '}
-                                status={true}
-                                onClick={() => {
-                                    navigation.navigate('Success');
-                                }}
-                            />
-                        </View>
+                        <TouchableOpacity style={styles.successView} onPress={() => { navigation.navigate('Success') }}>
+                           <Text style={styles.successView_Txt}>Book Appointment</Text>
+                        </TouchableOpacity>
                     );
                 }
             }}
@@ -247,16 +245,17 @@ const styles = StyleSheet.create({
         fontFamily:"HeeboExtra",
     },
     cate: {
-        fontSize: 16,
+        fontSize: 14,
         // borderWidth: 1,
         borderColor: "#DAF7D8",
         alignSelf: "center",
         paddingHorizontal: 20,
-        backgroundColor: "#DAF7D8",
+        backgroundColor: "#F8E0E0",
         color: "#021601",
         borderRadius: 30,
         paddingVertical: 5,
         fontFamily:"Heebo",
+        letterSpacing: 1.2,
     },
     time: {
         // borderWidth: 1,
@@ -293,19 +292,22 @@ const styles = StyleSheet.create({
         color: "black",
         paddingTop: 15,
         paddingBottom: 13,
-        fontSize: 18,
+        fontSize: 14,
         fontFamily:"Heebo",
         textAlign: "left",
         marginLeft: 20,
+        letterSpacing: 1,
     },
     inp: {
-        borderWidth: 1,
+        borderWidth: 0.5,
+        borderColor: "red",
         marginHorizontal: 20,
         borderRadius: 10,
-        fontSize: 16,
+        fontSize: 14,
         paddingHorizontal: 15,
-        paddingVertical: 4,
+        paddingVertical: 3,
         fontFamily:"Kanit",
+        letterSpacing: 1.5,
     },
     gender: {
         // borderWidth: 1,
@@ -338,7 +340,20 @@ const styles = StyleSheet.create({
     successView: {
         // borderWidth: 1,
         paddingVertical: 10,
-        paddingLeft: 25,
-        // paddingRight: 20, 
+        // paddingRight: 20,
+        backgroundColor: "#EB2F06",
+        marginTop: 12,
+        marginBottom: 30,
+        marginHorizontal: 20,
+        borderRadius: 50, 
+    },
+    successView_Txt: {
+        // borderWidth: 1,
+        paddingVertical: 1,
+        fontSize: 15,
+        fontFamily: "Heebo",
+        color: "white",
+        textAlign: "center",
+        letterSpacing: 2.5,
     },
 })  
