@@ -22,13 +22,13 @@ export default function App() {
     {/* 0 - Authenticate --- ( Completed ) */}
     {/* <Parent_Authenticate /> */}
     {/* 1 - Apointment */}
-    {/* <Parent_Appoint /> */}
+    <Parent_Appoint />
     {/* 2 - Search Uni --- ( Completed ) */}
     {/* <Parent_Search /> */}
     {/* 3 - Parent_Drawer */}
     {/* <Parent_Drawer /> */}
     {/* 4 - Parent_Application */}
-    <Parent_Application />
+    {/* <Parent_Application /> */}
     {/* 5 - Parent_Chat */}
     {/* <Parent_Chat /> */}
     {/* -------- Extra -------- */}
