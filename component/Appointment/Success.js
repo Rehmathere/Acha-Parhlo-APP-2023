@@ -14,7 +14,7 @@ export default function Success({ navigation }) {
         Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
         HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
         KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf")
     });
     // It Will Load Font
     useEffect(() => {

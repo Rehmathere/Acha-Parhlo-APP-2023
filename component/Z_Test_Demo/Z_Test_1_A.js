@@ -1,131 +1,97 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import firestore from '../firestore';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, FlatList } from 'react-native';
+import { firebase } from "../firestore";
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from "expo-font";
+import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function Z_Test_1() {
-    // useState
-    const [button1Color, setButton1Color] = useState('white');
-    const [button2Color, setButton2Color] = useState('white');
-    const [button3Color, setButton3Color] = useState('white');
-    const [button4Color, setButton4Color] = useState('white');
-    const [button5Color, setButton5Color] = useState('white');
-    const [button6Color, setButton6Color] = useState('white');
-    const [button7Color, setButton7Color] = useState('white');
-    const [button8Color, setButton8Color] = useState('white');
-
-    // ------------- Backend Logic -------------
+export default function Z_Test_1_A() {
+    // Navigation
     const navigation = useNavigation();
-    const [name1, setName1] = useState('');
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const db = getFirestore();
-                const value = collection(db, '2 - Application Tracking');
-                const querySnapshot = await getDocs(value);
-                const data = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-                // Assuming setVal is a state setter, you can use it if needed
-                // setVal(data);
-                // Setting name1
-                setName1(data.length > 0 ? data[data.length - 1].name1 : '');
-            } catch (error) {
-                console.error('Error fetching data: ', error);
-            }
-        };
-        fetchData();
-    }, []);
-    // Matching Name1 value to change Background Color (For Tracking)
-    useEffect(() => {
-        if (name1 === "Application Received") {
-            setButton1Color("#FFC300");
-            setButton2Color("transparent");
-            setButton3Color("transparent");
-            setButton4Color("transparent");
-            setButton5Color("transparent");
-            setButton6Color("transparent");
-            setButton7Color("transparent");
-            setButton8Color("transparent");
-        } else if (name1 === "Document Verification") {
-            setButton1Color('#FBD1A5');
-            setButton2Color('#FFC300');
-            setButton3Color("transparent");
-            setButton4Color("transparent");
-            setButton5Color("transparent");
-            setButton6Color("transparent");
-            setButton7Color("transparent");
-            setButton8Color("transparent");
-        } else if (name1 === "Conditional Offer") {
-            setButton1Color('#FBD1A5');
-            setButton2Color('#FBD1A5');
-            setButton3Color('#FFC300');
-            setButton4Color("transparent");
-            setButton5Color("transparent");
-            setButton6Color("transparent");
-            setButton7Color("transparent");
-            setButton8Color("transparent");
-        } else if (name1 === "Document Request") {
-            setButton1Color('#FBD1A5');
-            setButton2Color('#FBD1A5');
-            setButton3Color('#FBD1A5');
-            setButton4Color('#FFC300');
-            setButton5Color("transparent");
-            setButton6Color("transparent");
-            setButton7Color("transparent");
-            setButton8Color("transparent");
-        } else if (name1 === "Unconditional Offer") {
-            setButton1Color('#FBD1A5');
-            setButton2Color('#FBD1A5');
-            setButton3Color('#FBD1A5');
-            setButton4Color('#FBD1A5');
-            setButton5Color('#FFC300');
-            setButton6Color("transparent");
-            setButton7Color("transparent");
-            setButton8Color("transparent");
-        } else if (name1 === "Confirmation Enrolment") {
-            setButton1Color('#FBD1A5');
-            setButton2Color('#FBD1A5');
-            setButton3Color('#FBD1A5');
-            setButton4Color('#FBD1A5');
-            setButton5Color('#FBD1A5');
-            setButton6Color('#FFC300');
-            setButton7Color("transparent");
-            setButton8Color("transparent");
-        } else if (name1 === "Visa App Submitted") {
-            setButton1Color('#FBD1A5');
-            setButton2Color('#FBD1A5');
-            setButton3Color('#FBD1A5');
-            setButton4Color('#FBD1A5');
-            setButton5Color('#FBD1A5');
-            setButton6Color('#FBD1A5');
-            setButton7Color('#FFC300');
-            setButton8Color("transparent");
-        } else if (name1 === "Visa Granted") {
-            setButton1Color('#FBD1A5');
-            setButton2Color('#FBD1A5');
-            setButton3Color('#FBD1A5');
-            setButton4Color('#FBD1A5');
-            setButton5Color('#FBD1A5');
-            setButton6Color('#FBD1A5');
-            setButton7Color('#FBD1A5');
-            setButton8Color('#FFC300');
-        } else {
-            setButton1Color("transparent");
-            setButton2Color("transparent");
-            setButton3Color("transparent");
-            setButton4Color("transparent");
-            setButton5Color("transparent");
-            setButton6Color("transparent");
-            setButton7Color("transparent");
-            setButton8Color("transparent");
+    // ----------- Backend Part Logic -----------
+    const todoRef = firebase.firestore().collection("Practice App");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [contactNo, setContactNo] = useState("");
+    const [selectedGender, setSelectedGender] = useState(null);
+    const [selectedDay, setSelectedDay] = useState(-1);
+    const [selectedSlot, setSelectedSlot] = useState(-1);
+    const addField = () => {
+        if (name && name.length > 0 && email && contactNo && selectedGender !== null && selectedDay !== -1 && selectedSlot !== -1) {
+            const data = {
+                value_1: name,
+                value_2: email,
+                value_3: contactNo,
+                gender: selectedGender === 0 ? "Male" : "Female",
+                Date: selectedDay + 1,
+                TimeSlot: slots[selectedSlot].sloT,
+            };
+            todoRef
+                .add(data)
+                .then(() => {
+                    setName("");
+                    setEmail("");
+                    setContactNo("");
+                    setSelectedGender(null);
+                    setSelectedDay(-1);
+                    setSelectedSlot(-1); // Reset selectedSlot state
+                    Keyboard.dismiss();
+                })
+                .catch((err) => {
+                    alert(err);
+                });
         }
-    }, [name1]);
-    // ------------- Backend Logic -------------
-    // ---------- Font Family ----------
-    // 1 - useState
+    };
+    // ----------- Backend Part Logic -----------
+    // Date
+    const [days, setDays] = useState([]);
+    useEffect(() => {
+        const DaysList = [];
+        for (let i = 1; i <= getDays(new Date().getMonth() + 1); i++) {
+            DaysList.push({ day: i, selected: false });
+        }
+        setDays(DaysList);
+    }, []);
+    const getDays = (month) => {
+        let days = 0;
+        if (month == 1) {
+            days = 31;
+        } else if (month == 2) {
+            days = 28;
+        } else if (month == 3) {
+            days = 31;
+        } else if (month == 4) {
+            days = 30;
+        } else if (month == 5) {
+            days = 31;
+        } else if (month == 6) {
+            days = 30;
+        } else if (month == 7) {
+            days = 31;
+        } else if (month == 8) {
+            days = 31;
+        } else if (month == 9) {
+            days = 30;
+        } else if (month == 10) {
+            days = 31;
+        } else if (month == 11) {
+            days = 30;
+        } else if (month == 12) {
+            days = 31;
+        }
+        return days;
+    };
+    // Time
+    const [slots, setSlots] = useState([
+        { sloT: '2:00 - 4:00 PM', selected: false },
+        { sloT: '4:00 - 6:00 PM', selected: false },
+        { sloT: '6:00 - 8:00 PM', selected: false },
+        { sloT: '8:00 - 10:00 PM', selected: false },
+        { sloT: '10:00 - 12:00 PM', selected: false },
+        { sloT: '12:00 - 02:00 PM', selected: false },
+    ]);
+    // Fonts
     const [fontsLoaded, setFontsLoaded] = useState(false);
-    // Expo Font Logic
     let [loaded] = useFonts({
         Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -134,61 +100,135 @@ export default function Z_Test_1() {
         KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
         KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
-    // It Will Load Font
     useEffect(() => {
         if (loaded) {
             setFontsLoaded(true);
         }
     }, [loaded]);
-    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
     if (!fontsLoaded) {
         return null;
     }
     // Main Body
     return (
-        <>
-            {/* Value Fetch */}
-            <Text style={styles.Txt1}>Value Fetch Were :</Text>
-            <Text style={styles.Txt2}>{name1}</Text>
-            {/* Boxes Portion */}
-            <View style={styles.parentBox}>
-                {/* - Color Box - */}
-                <View style={[styles.box, { backgroundColor: button1Color }]}>
-                    <Text>Box 1</Text>
-                </View>
-                {/* - Color Box - */}
-                <View style={[styles.box, { backgroundColor: button2Color }]}>
-                    <Text>Box 2</Text>
-                </View>
-                {/* - Color Box - */}
-                <View style={[styles.box, { backgroundColor: button3Color }]}>
-                    <Text>Box 3</Text>
-                </View>
-                {/* - Color Box - */}
-                <View style={[styles.box, { backgroundColor: button4Color }]}>
-                    <Text>Box 4</Text>
-                </View>
-                {/* - Color Box - */}
-                <View style={[styles.box, { backgroundColor: button5Color }]}>
-                    <Text>Box 5</Text>
-                </View>
-                {/* - Color Box - */}
-                <View style={[styles.box, { backgroundColor: button6Color }]}>
-                    <Text>Box 6</Text>
-                </View>
-                {/* - Color Box - */}
-                <View style={[styles.box, { backgroundColor: button7Color }]}>
-                    <Text>Box 7</Text>
-                </View>
-                {/* - Color Box - */}
-                <View style={[styles.box, { backgroundColor: button8Color }]}>
-                    <Text>Box 8</Text>
-                </View>
+        <View>
+            <Text style={styles.Txt1}>Appointment Detail's</Text>
+            {/* Text Input */}
+            <Text style={styles.Detail_Txt}>Name :</Text>
+            <TextInput
+                placeholder=' Enter Name '
+                onChangeText={(heading) => setName(heading)}
+                value={name}
+                style={styles.Inp_1}
+                keyboardType="default"
+            />
+            {/* Text Input */}
+            <Text style={styles.Detail_Txt}>Email :</Text>
+            <TextInput
+                placeholder=' Enter Email '
+                onChangeText={(email) => setEmail(email)}
+                value={email}
+                style={styles.Inp_1}
+                keyboardType="email-address"
+            />
+            {/* Text Input */}
+            <Text style={styles.Detail_Txt}>Contact No :</Text>
+            <TextInput
+                placeholder=' Enter Contact No'
+                onChangeText={(contactNo) => setContactNo(contactNo)}
+                value={contactNo}
+                style={styles.Inp_1}
+                keyboardType="phone-pad"
+            />
+            {/* Text Input */}
+            <Text style={styles.Detail_Txt}>Gender :</Text>
+            <View style={styles.gender}>
+                {/* 1 - Male */}
+                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 0 ? 'lightblue' : 'white' }]} onPress={() => { setSelectedGender(0) }}>
+                    <View style={styles.subGenderBox}>
+                        <FontAwesome5 name="male" size={20} color="blue" />
+                    </View>
+                </TouchableOpacity>
+                {/* 2 - Female */}
+                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 1 ? 'pink' : 'white' }]} onPress={() => { setSelectedGender(1) }}>
+                    <View style={styles.subGenderBox}>
+                        <FontAwesome5 name="female" size={20} color="#FF033A" />
+                    </View>
+                </TouchableOpacity>
             </View>
-        </>
+            {/* Text Input */}
+            <Text style={styles.Detail_Txt}>Date :</Text>
+            <View style={{ marginTop: 20 }}>
+                {/* Flatlist For Day */}
+                <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={days}
+                    keyExtractor={(item) => item.day.toString()}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <TouchableOpacity
+                                key={item.day}
+                                style={{
+                                    width: 50,
+                                    height: 25,
+                                    borderRadius: 7,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    backgroundColor: selectedDay === index ? 'orangered' : 'white',
+                                    borderWidth: selectedDay === index ? 0 : 0.5,
+                                    marginLeft: 13,
+                                }}
+                                onPress={() => {
+                                    if (item.day < new Date().getDate()) {
+                                    } else {
+                                        setSelectedDay(index);
+                                    }
+                                }}>
+                                <Text style={[styles.date_fig, { color: selectedDay === index ? 'white' : 'black' }]}>
+                                    {item.day}
+                                </Text>
+                            </TouchableOpacity>
+                        );
+                    }}
+                />
+            </View>
+            {/* Text Input */}
+            <Text style={styles.Detail_Txt}>TimeSlot :</Text>
+            <View>
+                {/* Flatlist For Time Slots */}
+                <FlatList
+                    numColumns={2}
+                    data={slots}
+                    keyExtractor={(item) => item.sloT}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <TouchableOpacity
+                                key={item.sloT}
+                                style={[
+                                    styles.timeSlot,
+                                    { backgroundColor: index === selectedSlot ? 'blue' : 'white' },
+                                ]}
+                                onPress={() => {
+                                    setSelectedSlot(index);
+                                }}>
+                                <Text
+                                    style={{ fontFamily: "Heebo", fontSize: 11, color: index === selectedSlot ? 'white' : 'black' }}>
+                                    {item.sloT}
+                                </Text>
+                            </TouchableOpacity>
+                        );
+                    }}
+                />
+            </View>
+            {/* ----- Button ----- */}
+            <TouchableOpacity style={styles.Btn_Parent} onPress={addField}>
+                <Text style={styles.Btn_Txt}>Book Appointment</Text>
+            </TouchableOpacity>
+        </View>
     );
-};
+}
 
+// CSS
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -197,38 +237,80 @@ const styles = StyleSheet.create({
     },
     Txt1: {
         borderWidth: 1,
-        fontFamily: "Kanit",
+        borderColor: "yellow",
+        backgroundColor: "yellow",
+        fontFamily: "KanitBold",
         paddingHorizontal: 10,
         paddingVertical: 10,
-        marginVertical: 10,
-    },
-    Txt2: {
-        borderWidth: 1,
-        fontFamily: "Heebo",
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        marginVertical: 10,
-        fontSize: 15,
         textAlign: "center",
+        letterSpacing: 1.5,
+        fontSize: 20,
+        marginVertical: 5,
     },
-    buttonContainer: {
-        backgroundColor: '#DDDDDD',
-        padding: 10,
+    Detail_Txt: {
+        marginTop: 15,
+        paddingHorizontal: 25,
+        fontFamily: "Heebo",
+        fontSize: 13,
+        letterSpacing: 1,
     },
-    parentBox: {
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: "center",
-    },
-    box: {
+    Inp_1: {
+        marginTop: 0,
         borderWidth: 0.5,
-        width: 50,
-        height: 50,
-        margin: 5,
+        borderColor: "black",
+        paddingVertical: 2,
+        marginHorizontal: 25,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        letterSpacing: 2,
+        fontSize: 12.5,
+        fontFamily: "Kanit",
+    },
+    Btn_Parent: {
+        paddingVertical: 5,
+        backgroundColor: "red",
+        marginVertical: 5,
+        marginHorizontal: 15,
+        borderRadius: 20,
+    },
+    Btn_Txt: {
+        paddingVertical: 1,
+        textAlign: "center",
+        fontFamily: "HeeboExtra",
+        fontSize: 16,
+        color: "white",
+        letterSpacing: 1,
+    },
+    gender: {
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    genderBox: {
+        borderWidth: 0.5,
+        borderColor: "grey",
+        width: "30%",
+        height: 30,
+        borderRadius: 10,
+        justifyContent: "center",
+        marginHorizontal: 17,
+    },
+    subGenderBox: {
+        alignSelf: "center",
+    },
+    date_fig: {
+        fontSize: 18,
+        fontFamily: "Heebo",
+    },
+    timeSlot: {
+        width: '40.2%',
+        height: 25,
+        borderRadius: 10,
+        borderWidth: 0.5,
+        marginVertical: 10,
+        marginHorizontal: 15,
         justifyContent: 'center',
-        alignItems: "center",
-        borderRadius: 100,
+        alignItems: 'center',
     },
 });
-

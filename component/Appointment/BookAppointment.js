@@ -12,27 +12,11 @@ let DaysList = [];
 export default function BookAppointment() {
     const navigation = useNavigation();
     // 1 - useState
-    const [fontsLoaded, setFontsLoaded] = useState(false);
-    // Expo Font Logic
-    let [loaded] = useFonts({
-        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
-    });
-    // It Will Load Font
-    useEffect(() => {
-        if (loaded) {
-            setFontsLoaded(true);
-        }
-    }, [loaded]);
     // --------------------------------------------------
     // 1 - useState
     const [name, setName] = useState("")
-    const [selectedSlot, setSelectedSlot] = useState(-1);
     const [selectedGender, setSelectedGender] = useState(null);
+    const [selectedSlot, setSelectedSlot] = useState(-1);
     const [slots, setSlots] = useState([
         { sloT: '2:00 - 4:00 PM', selected: false },
         { sloT: '4:00 - 6:00 PM', selected: false },
@@ -80,6 +64,22 @@ export default function BookAppointment() {
         }
         return days;
     };
+    // Expo Font Logic
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    // It Will Load Font
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
     // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
     if (!fontsLoaded) {
         return null;
@@ -172,7 +172,7 @@ export default function BookAppointment() {
                                                     setSelectedSlot(index);
                                                 }}>
                                                 <Text
-                                                    style={{ fontFamily:"Heebo", fontSize: 14.5 ,color: index == selectedSlot ? 'white' : 'black' }}>
+                                                    style={{ fontFamily: "Heebo", fontSize: 14.5, color: index == selectedSlot ? 'white' : 'black' }}>
                                                     {item.sloT}
                                                 </Text>
                                             </TouchableOpacity>
@@ -212,7 +212,7 @@ export default function BookAppointment() {
                 } else if (item === 'confirmButton') {
                     return (
                         <TouchableOpacity style={styles.successView} onPress={() => { navigation.navigate('Success') }}>
-                           <Text style={styles.successView_Txt}>Book Appointment</Text>
+                            <Text style={styles.successView_Txt}>Book Appointment</Text>
                         </TouchableOpacity>
                     );
                 }
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         paddingVertical: 10,
         letterSpacing: 1,
-        fontFamily:"HeeboExtra",
+        fontFamily: "HeeboExtra",
     },
     cate: {
         fontSize: 14,
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
         color: "#021601",
         borderRadius: 30,
         paddingVertical: 5,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
         letterSpacing: 1.2,
     },
     time: {
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
         paddingTop: 25,
         paddingBottom: 10,
         fontSize: 18,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
         textAlign: "left",
         marginLeft: 20,
     },
@@ -286,14 +286,14 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 30,
         letterSpacing: 1,
-        fontFamily:"HeeboExtra"
+        fontFamily: "HeeboExtra"
     },
     StudName: {
         color: "black",
         paddingTop: 15,
         paddingBottom: 13,
         fontSize: 14,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
         textAlign: "left",
         marginLeft: 20,
         letterSpacing: 1,
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         paddingHorizontal: 15,
         paddingVertical: 3,
-        fontFamily:"Kanit",
+        fontFamily: "Kanit",
         letterSpacing: 1.5,
     },
     gender: {
@@ -335,7 +335,7 @@ const styles = StyleSheet.create({
     },
     date_fig: {
         fontSize: 25,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
     },
     successView: {
         // borderWidth: 1,
@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
         marginTop: 12,
         marginBottom: 30,
         marginHorizontal: 20,
-        borderRadius: 50, 
+        borderRadius: 50,
     },
     successView_Txt: {
         // borderWidth: 1,

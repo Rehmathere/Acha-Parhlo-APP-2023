@@ -32,28 +32,39 @@ export default function Completed({ navigation }) {
     <View style={styles.container}>
       <Header
         icon={require('../Pics/back.png')}
-        Title={'Appointment List'}
+        Title={'List'}
         onClick={() => { navigation.navigate('Home') }}
       />
+      {/* List Text */}
       <View>
-        <FlatList
-          data={[1]}
-          renderItem={({ item, index }) => {
-            return (
-              <View style={styles.itemView}>
-                <Image
-                  source={require('../Pics/Man.png')}
-                  style={styles.docImage}
-                />
-                <View>
-                  <Text style={styles.name}>{'Doctor XYZ'}</Text>
-                  <Text style={styles.timing}>{'8 : 10 PM'}</Text>
-                </View>
-                <Text style={styles.status}>{'Completed'}</Text>
-              </View>
-            );
-          }}
-        />
+        {/* Image */}
+        <View style={styles.Head_Img_Parent}>
+          <Image source={ require("../Pics/completed_1.png") } style={styles.Head_Img} />
+        </View>
+        {/* Text */}
+        <Text style={styles.Head_Txt_1}>Appointment List</Text>
+        <Text style={styles.Head_Txt_2}>You Can Check Appointment List & Their Status From Here.</Text>
+      </View>
+      {/* Box Parent */}
+      <View style={styles.itemView_Parent}>
+        {/* Box */}
+        <View style={styles.itemView}>
+          {/* Status */}
+          <Text style={styles.itemStatus}>Status : <Text style={styles.itemStatus_Span}>Processing</Text></Text>
+          {/* Rest Box Data */}
+          <View style={styles.Sub_itemView}>
+            {/* 1 */}
+            <View style={styles.itemImg_Parent}>
+              <Image source={require("../Pics/man_2.png")} style={styles.itemImg} />
+            </View>
+            {/* 2 */}
+            <View style={styles.itemDetail_Parent}>
+              <Text style={styles.itemDetail_Txt_1}>Rehmat Qazi</Text>
+              <Text style={styles.itemDetail_Txt_1}>Day: 22</Text>
+              <Text style={styles.itemDetail_Txt_1}>10:00 - 12:00</Text>
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -65,44 +76,103 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  itemView: {
-    width: '92%',
-    backgroundColor: "#FCDFD8",
-    height: 100,
-    borderRadius: 10,
-    borderWidth: 0.5,
-    borderColor: "#FEB4A2",
-    alignSelf: 'center',
-    marginTop: 12,
+  itemView_Parent: {
+    flex: 1,
+    // borderWidth: 0.5,
+    paddingVertical: 10,
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "baseline",
   },
-  docImage: {
+  itemView: {
+    width: '85%',
+    backgroundColor: "#FCDFD8",
+    borderWidth: 0.5,
+    borderColor: "#FF977F",
+    marginTop: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 8,
+    borderRadius: 20,
+  },
+  Sub_itemView: {
+    // borderWidth: 0.5,
+    padding: 5,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  itemImg_Parent: {
+    // borderWidth: 0.5,
+    width: "33%",
+    paddingVertical: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  itemImg: {
+    // borderWidth: 0.5,
+    // borderColor: "black",
     width: 60,
     height: 60,
-    borderRadius: 30,
-    marginLeft: 10,
+    paddingVertical: 10,
   },
-  name: {
-    fontSize: 18,
-    fontFamily:"Heebo",
-    marginLeft: 20,
+  itemDetail_Parent: {
+    // borderWidth: 0.5,
+    width: "67%",
+    paddingVertical: 1,
   },
-  timing: {
-    fontSize: 16,
-    marginLeft: 20,
-    marginTop: 5,
-    fontFamily:"Kanit",
+  itemDetail_Txt_1: {
+    // borderWidth: 0.5,
+    textAlign: "center",
+    fontFamily: "Heebo",
+    fontSize: 13.5,
+    letterSpacing: 2,
+    marginTop: 4,
   },
-  status: {
-    marginLeft: 30,
-    fontFamily:"Heebo",
-    fontSize: 14.5,
-    borderRadius: 20,
-    backgroundColor: '#E8E7E7',
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    color: 'green',
-    letterSpacing: 0.7,
+  itemStatus: {
+    // borderWidth: 0.5,
+    fontFamily: "Kanit",
+    fontSize: 12,
+    letterSpacing: 1,
+    textAlign: "right",
+    paddingHorizontal: 11,
+    paddingVertical: 2,
+    borderRadius: 5,
+  },
+  itemStatus_Span: {
+    fontFamily: "KanitBold",
+    fontSize: 12.3,
+    letterSpacing: 1.5,
+  },
+  Head_Img_Parent:{
+    // borderWidth: 0.5,
+    paddingVertical: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  Head_Img:{
+    // borderWidth: 0.5,
+    borderColor: "black",
+    width: 80,
+    height: 80,
+  },
+  Head_Txt_1:{
+    // borderWidth: 0.5,
+    textAlign: "center",
+    fontFamily: "HeeboExtra",
+    fontSize: 20,
+    letterSpacing: 1.5,
+    paddingBottom: 5,
+  },
+  Head_Txt_2:{
+    // borderWidth: 0.5,
+    textAlign: "center",
+    fontFamily: "Kanit",
+    fontSize: 13,
+    letterSpacing: 1.5,
+    textTransform: "capitalize",
+    paddingHorizontal: 30,
+    paddingBottom: 20,
   },
 });
