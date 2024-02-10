@@ -1,0 +1,307 @@
+--------------- Z_Test_Parent_A.js ---------------
+
+import React from 'react'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+// Files
+import Z_Test_1_A from './Z_Test_1_A'
+import Z_Test_2_A from './Z_Test_2_A'
+// Navigation
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Z_Test_3_A from './Z_Test_3_A';
+
+// Constant Variable
+const Stack = createStackNavigator();
+
+export default function Z_Test_Parent_A() {
+    // Main Body
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                {/* 1 */}
+                <Stack.Screen component={Z_Test_1_A} name="Z_Test_1_A"
+                    options={{ headerShown: false }} />
+                {/* 2 */}
+                <Stack.Screen component={Z_Test_2_A} name="Z_Test_2_A"
+                    options={{ headerShown: false }} />
+                {/* 3 */}
+                <Stack.Screen component={Z_Test_3_A} name="Z_Test_3_A"
+                    options={{ headerShown: false }} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
+}
+
+--------------- Z_Test_1_A.js ---------------
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, FlatList } from 'react-native';
+import { firebase } from "../firestore";
+import { useNavigation } from '@react-navigation/native';
+import { useFonts } from "expo-font";
+import { FontAwesome5 } from '@expo/vector-icons';
+
+export default function Z_Test_1_A() {
+    const navigation = useNavigation();
+
+    const todoRef = firebase.firestore().collection("Practice App");
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [contactNo, setContactNo] = useState("");
+    const [selectedGender, setSelectedGender] = useState(null);
+    const [selectedDay, setSelectedDay] = useState(-1);
+
+    const addField = () => {
+        if (name && name.length > 0 && email && contactNo && selectedGender !== null && selectedDay !== -1) {
+            const data = {
+                value_1: name,
+                value_2: email,
+                value_3: contactNo,
+                gender: selectedGender === 0 ? "Male" : "Female",
+                Date: selectedDay + 1, // Include selectedDate in the data object
+            };
+            todoRef
+                .add(data)
+                .then(() => {
+                    setName("");
+                    setEmail("");
+                    setContactNo("");
+                    setSelectedGender(null);
+                    setSelectedDay(-1); // Reset selectedDay state
+                    Keyboard.dismiss();
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        }
+    };
+
+
+    const [days, setDays] = useState([]);
+    useEffect(() => {
+        const DaysList = [];
+        for (let i = 1; i <= getDays(new Date().getMonth() + 1); i++) {
+            DaysList.push({ day: i, selected: false });
+        }
+        setDays(DaysList);
+    }, []);
+
+    const getDays = (month) => {
+        let days = 0;
+        if (month == 1) {
+            days = 31;
+        } else if (month == 2) {
+            days = 28;
+        } else if (month == 3) {
+            days = 31;
+        } else if (month == 4) {
+            days = 30;
+        } else if (month == 5) {
+            days = 31;
+        } else if (month == 6) {
+            days = 30;
+        } else if (month == 7) {
+            days = 31;
+        } else if (month == 8) {
+            days = 31;
+        } else if (month == 9) {
+            days = 30;
+        } else if (month == 10) {
+            days = 31;
+        } else if (month == 11) {
+            days = 30;
+        } else if (month == 12) {
+            days = 31;
+        }
+        return days;
+    };
+
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+
+    if (!fontsLoaded) {
+        return null;
+    }
+    return (
+        <View>
+            <Text style={styles.Txt1}>Appointment Detail's</Text>
+
+            <Text style={styles.Detail_Txt}>Name :</Text>
+            <TextInput
+                placeholder=' Enter Name '
+                onChangeText={(heading) => setName(heading)}
+                value={name}
+                style={styles.Inp_1}
+                keyboardType="default"
+            />
+
+            <Text style={styles.Detail_Txt}>Email :</Text>
+            <TextInput
+                placeholder=' Enter Email '
+                onChangeText={(email) => setEmail(email)}
+                value={email}
+                style={styles.Inp_1}
+                keyboardType="email-address"
+            />
+
+            <Text style={styles.Detail_Txt}>Contact No :</Text>
+            <TextInput
+                placeholder=' Enter Contact No'
+                onChangeText={(contactNo) => setContactNo(contactNo)}
+                value={contactNo}
+                style={styles.Inp_1}
+                keyboardType="phone-pad"
+            />
+
+            <Text style={styles.Detail_Txt}>Gender :</Text>
+            <View style={styles.gender}>
+                {/* 1 - Male */}
+                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 0 ? 'lightblue' : 'white' }]} onPress={() => { setSelectedGender(0) }}>
+                    <View style={styles.subGenderBox}>
+                        <FontAwesome5 name="male" size={28} color="blue" />
+                    </View>
+                </TouchableOpacity>
+                {/* 2 - Female */}
+                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 1 ? 'pink' : 'white' }]} onPress={() => { setSelectedGender(1) }}>
+                    <View style={styles.subGenderBox}>
+                        <FontAwesome5 name="female" size={28} color="#FF033A" />
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <Text style={styles.Detail_Txt}>Date :</Text>
+            <View style={{ marginTop: 20 }}>
+                {/* Flatlist For Day */}
+                <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={days}
+                    keyExtractor={(item) => item.day.toString()}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <TouchableOpacity
+                                key={item.day}
+                                style={{
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: 7,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    backgroundColor: selectedDay === index ? 'orangered' : 'white',
+                                    borderWidth: selectedDay === index ? 0 : 0.5,
+                                    marginLeft: 13,
+                                }}
+                                onPress={() => {
+                                    if (item.day < new Date().getDate()) {
+                                    } else {
+                                        setSelectedDay(index);
+                                    }
+                                }}>
+                                <Text style={[styles.date_fig, { color: selectedDay === index ? 'white' : 'black' }]}>
+                                    {item.day}
+                                </Text>
+                            </TouchableOpacity>
+                        );
+                    }}
+                />
+            </View>
+
+            <TouchableOpacity style={styles.Btn_Parent} onPress={addField}>
+                <Text style={styles.Btn_Txt}>Book Appointment</Text>
+            </TouchableOpacity>
+        </View>
+    );
+};
+
+// CSS
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    Txt1: {
+        borderWidth: 1,
+        borderColor: "yellow",
+        backgroundColor: "yellow",
+        fontFamily: "KanitBold",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        textAlign: "center",
+        letterSpacing: 1.5,
+        fontSize: 20,
+        marginVertical: 15,
+    },
+    Detail_Txt: {
+        marginTop: 15,
+        // borderWidth: 0.5,
+        paddingHorizontal: 25,
+        fontFamily: "Heebo",
+        fontSize: 13,
+        letterSpacing: 1,
+    },
+    Inp_1: {
+        marginTop: 5,
+        borderWidth: 0.5,
+        borderColor: "black",
+        paddingVertical: 5,
+        marginHorizontal: 25,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        letterSpacing: 2,
+        fontSize: 15,
+        fontFamily: "Kanit",
+    },
+    Btn_Parent: {
+        paddingVertical: 10,
+        backgroundColor: "red",
+        marginVertical: 30,
+        marginHorizontal: 15,
+        borderRadius: 20,
+    },
+    Btn_Txt: {
+        paddingVertical: 1,
+        textAlign: "center",
+        fontFamily: "HeeboExtra",
+        fontSize: 16,
+        color: "white",
+        letterSpacing: 1,
+    },
+    gender: {
+        // borderWidth: 1,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+    genderBox: {
+        borderWidth: 0.5,
+        borderColor: "grey",
+        width: "18%",
+        height: 50,
+        borderRadius: 10,
+        justifyContent: "center",
+        marginHorizontal: 17,
+    },
+    subGenderBox: {
+        // borderWidth: 1,
+        // borderColor: "black",
+        alignSelf: "center",
+    },
+});
+
+-----------------------------------------------------------------
