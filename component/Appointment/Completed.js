@@ -1,16 +1,14 @@
 import { View, Text, StyleSheet, FlatList, Image, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
-// Fonts Header File
 import { useFonts } from "expo-font";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-// Firebase
 import { firebase } from "../firestore";
 
 export default function Completed({ navigation }) {
-  // --------- Backend Part Logic ---------
   const [appointments, setAppointments] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,22 +25,43 @@ export default function Completed({ navigation }) {
     };
     fetchData();
   }, []);
-  // Delete 
+
   const handleDelete = async (id) => {
     try {
       const todoRef = firebase.firestore().collection("3 - Appointment").doc(id);
       await todoRef.delete();
-      // Refresh the data after deletion
       const updatedAppointments = appointments.filter(appointment => appointment.id !== id);
       setAppointments(updatedAppointments);
     } catch (error) {
       console.error("Error deleting data:", error);
     }
   };
-  // --------- Backend Part Logic ---------
-  // 1 - useState
+
+  const getStatusText = (status) => {
+    let statusColor;
+    switch (status) {
+      case "Accepted":
+        statusColor = "green";
+        break;
+      case "Rejected":
+        statusColor = "red";
+        break;
+      case "Delayed":
+        statusColor = "blue";
+        break;
+      default:
+        statusColor = "black";
+    }
+
+    return (
+      <Text style={[styles.itemStatus, { color: statusColor }]}>
+        Status: <Text style={styles.itemStatus_Span}>{status || "Processing"}</Text>
+      </Text>
+    );
+  };
+
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  // Expo Font Logic
+
   let [loaded] = useFonts({
     Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
     Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -51,17 +70,16 @@ export default function Completed({ navigation }) {
     KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
     KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
   });
-  // It Will Load Font
+
   useEffect(() => {
     if (loaded) {
       setFontsLoaded(true);
     }
   }, [loaded]);
-  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+
   if (!fontsLoaded) {
     return null;
   }
-  // Main Body
 
   return (
     <View style={styles.container}>
@@ -72,44 +90,32 @@ export default function Completed({ navigation }) {
             Title={'List'}
             onClick={() => { navigation.navigate('Home') }}
           />
-          {/* List Text */}
           <View>
-            {/* Image */}
             <View style={styles.Head_Img_Parent}>
               <Image source={require("../Pics/completed_1.png")} style={styles.Head_Img} />
             </View>
-            {/* Text */}
             <Text style={styles.Head_Txt_1}>Appointment List</Text>
             <Text style={styles.Head_Txt_2}>You Can Check Appointment List & Their Status From Here.</Text>
           </View>
-          {/* Box Parent */}
           <View style={styles.itemView_Parent}>
-            {/* - Box - */}
-            {/* <ScrollView> */}
             {appointments.map((appointment) => (
               <View style={styles.itemView} key={appointment.id}>
-                {/* Status */}
-                <Text style={styles.itemStatus}>Status : <Text style={styles.itemStatus_Span}>Processing</Text></Text>
-                {/* Rest Box Data */}
+                {getStatusText(appointment.status)}
                 <View style={styles.Sub_itemView}>
-                  {/* 1 */}
                   <View style={styles.itemImg_Parent}>
                     <Image source={require("../Pics/man_2.png")} style={styles.itemImg} />
                   </View>
-                  {/* 2 */}
                   <View style={styles.itemDetail_Parent}>
                     <Text style={styles.itemDetail_Txt_1}>{appointment.value_1}</Text>
                     <Text style={styles.itemDetail_Txt_1}>Day: {appointment.Date}</Text>
                     <Text style={styles.itemDetail_Txt_1}>{appointment.TimeSlot}</Text>
                   </View>
                 </View>
-                {/* Delete Button */}
                 <TouchableOpacity style={styles.Del_Btn} onPress={() => handleDelete(appointment.id)}>
                   <Text style={styles.Del_Btn_Txt}>Delete <MaterialCommunityIcons name="delete" size={15} color="white" /></Text>
                 </TouchableOpacity>
               </View>
             ))}
-            {/* </ScrollView> */}
           </View>
         </View>
       </ScrollView>
