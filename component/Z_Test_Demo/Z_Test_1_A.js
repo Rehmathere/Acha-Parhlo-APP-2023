@@ -118,8 +118,8 @@ export default function Z_Test_1_A() {
                 placeholder=' Enter Name '
                 onChangeText={(heading) => setName(heading)}
                 value={name}
-                style={styles.Inp_1}
                 keyboardType="default"
+                style={styles.Inp_1}
             />
             {/* Text Input */}
             <Text style={styles.Detail_Txt}>Email :</Text>
@@ -221,8 +221,13 @@ export default function Z_Test_1_A() {
                 />
             </View>
             {/* ----- Button ----- */}
+            {/* 1 Btn */}
             <TouchableOpacity style={styles.Btn_Parent} onPress={addField}>
                 <Text style={styles.Btn_Txt}>Book Appointment</Text>
+            </TouchableOpacity>
+            {/* 2 Btn */}
+            <TouchableOpacity style={styles.Btn_Parent_1} onPress={() => navigation.navigate("Z_Test_2_A")}>
+                <Text style={styles.Btn_Txt}>Move To Page 2</Text>
             </TouchableOpacity>
         </View>
     );
@@ -258,7 +263,7 @@ const styles = StyleSheet.create({
         marginTop: 0,
         borderWidth: 0.5,
         borderColor: "black",
-        paddingVertical: 2,
+        paddingVertical: 0,
         marginHorizontal: 25,
         borderRadius: 8,
         paddingHorizontal: 10,
@@ -267,9 +272,16 @@ const styles = StyleSheet.create({
         fontFamily: "Kanit",
     },
     Btn_Parent: {
-        paddingVertical: 5,
+        paddingVertical: 1,
         backgroundColor: "red",
         marginVertical: 5,
+        marginHorizontal: 15,
+        borderRadius: 20,
+    },
+    Btn_Parent_1: {
+        paddingVertical: 1,
+        backgroundColor: "blue",
+        marginVertical: 1,
         marginHorizontal: 15,
         borderRadius: 20,
     },

@@ -1,10 +1,45 @@
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 // Fonts Header File
 import { useFonts } from "expo-font";
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+// Firebase
+import { firebase } from "../firestore";
 
 export default function Completed({ navigation }) {
+  // --------- Backend Part Logic ---------
+  const [appointments, setAppointments] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const todoRef = firebase.firestore().collection("3 - Appointment");
+        const snapshot = await todoRef.get();
+        const appointmentsData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setAppointments(appointmentsData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+  // Delete 
+  const handleDelete = async (id) => {
+    try {
+      const todoRef = firebase.firestore().collection("3 - Appointment").doc(id);
+      await todoRef.delete();
+      // Refresh the data after deletion
+      const updatedAppointments = appointments.filter(appointment => appointment.id !== id);
+      setAppointments(updatedAppointments);
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
+  };
+  // --------- Backend Part Logic ---------
   // 1 - useState
   const [fontsLoaded, setFontsLoaded] = useState(false);
   // Expo Font Logic
@@ -30,42 +65,54 @@ export default function Completed({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Header
-        icon={require('../Pics/back.png')}
-        Title={'List'}
-        onClick={() => { navigation.navigate('Home') }}
-      />
-      {/* List Text */}
-      <View>
-        {/* Image */}
-        <View style={styles.Head_Img_Parent}>
-          <Image source={ require("../Pics/completed_1.png") } style={styles.Head_Img} />
-        </View>
-        {/* Text */}
-        <Text style={styles.Head_Txt_1}>Appointment List</Text>
-        <Text style={styles.Head_Txt_2}>You Can Check Appointment List & Their Status From Here.</Text>
-      </View>
-      {/* Box Parent */}
-      <View style={styles.itemView_Parent}>
-        {/* Box */}
-        <View style={styles.itemView}>
-          {/* Status */}
-          <Text style={styles.itemStatus}>Status : <Text style={styles.itemStatus_Span}>Processing</Text></Text>
-          {/* Rest Box Data */}
-          <View style={styles.Sub_itemView}>
-            {/* 1 */}
-            <View style={styles.itemImg_Parent}>
-              <Image source={require("../Pics/man_2.png")} style={styles.itemImg} />
+      <ScrollView>
+        <View>
+          <Header
+            icon={require('../Pics/back.png')}
+            Title={'List'}
+            onClick={() => { navigation.navigate('Home') }}
+          />
+          {/* List Text */}
+          <View>
+            {/* Image */}
+            <View style={styles.Head_Img_Parent}>
+              <Image source={require("../Pics/completed_1.png")} style={styles.Head_Img} />
             </View>
-            {/* 2 */}
-            <View style={styles.itemDetail_Parent}>
-              <Text style={styles.itemDetail_Txt_1}>Rehmat Qazi</Text>
-              <Text style={styles.itemDetail_Txt_1}>Day: 22</Text>
-              <Text style={styles.itemDetail_Txt_1}>10:00 - 12:00</Text>
-            </View>
+            {/* Text */}
+            <Text style={styles.Head_Txt_1}>Appointment List</Text>
+            <Text style={styles.Head_Txt_2}>You Can Check Appointment List & Their Status From Here.</Text>
+          </View>
+          {/* Box Parent */}
+          <View style={styles.itemView_Parent}>
+            {/* - Box - */}
+            {/* <ScrollView> */}
+            {appointments.map((appointment) => (
+              <View style={styles.itemView} key={appointment.id}>
+                {/* Status */}
+                <Text style={styles.itemStatus}>Status : <Text style={styles.itemStatus_Span}>Processing</Text></Text>
+                {/* Rest Box Data */}
+                <View style={styles.Sub_itemView}>
+                  {/* 1 */}
+                  <View style={styles.itemImg_Parent}>
+                    <Image source={require("../Pics/man_2.png")} style={styles.itemImg} />
+                  </View>
+                  {/* 2 */}
+                  <View style={styles.itemDetail_Parent}>
+                    <Text style={styles.itemDetail_Txt_1}>{appointment.value_1}</Text>
+                    <Text style={styles.itemDetail_Txt_1}>Day: {appointment.Date}</Text>
+                    <Text style={styles.itemDetail_Txt_1}>{appointment.TimeSlot}</Text>
+                  </View>
+                </View>
+                {/* Delete Button */}
+                <TouchableOpacity style={styles.Del_Btn} onPress={() => handleDelete(appointment.id)}>
+                  <Text style={styles.Del_Btn_Txt}>Delete <MaterialCommunityIcons name="delete" size={15} color="white" /></Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+            {/* </ScrollView> */}
           </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -80,7 +127,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // borderWidth: 0.5,
     paddingVertical: 10,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: "center",
     alignItems: "baseline",
   },
@@ -93,6 +140,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 8,
     borderRadius: 20,
+    alignSelf: "center",
   },
   Sub_itemView: {
     // borderWidth: 0.5,
@@ -126,7 +174,7 @@ const styles = StyleSheet.create({
     // borderWidth: 0.5,
     textAlign: "center",
     fontFamily: "Heebo",
-    fontSize: 13.5,
+    fontSize: 13,
     letterSpacing: 2,
     marginTop: 4,
   },
@@ -145,19 +193,19 @@ const styles = StyleSheet.create({
     fontSize: 12.3,
     letterSpacing: 1.5,
   },
-  Head_Img_Parent:{
+  Head_Img_Parent: {
     // borderWidth: 0.5,
     paddingVertical: 30,
     justifyContent: "center",
     alignItems: "center",
   },
-  Head_Img:{
+  Head_Img: {
     // borderWidth: 0.5,
     borderColor: "black",
     width: 80,
     height: 80,
   },
-  Head_Txt_1:{
+  Head_Txt_1: {
     // borderWidth: 0.5,
     textAlign: "center",
     fontFamily: "HeeboExtra",
@@ -165,7 +213,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     paddingBottom: 5,
   },
-  Head_Txt_2:{
+  Head_Txt_2: {
     // borderWidth: 0.5,
     textAlign: "center",
     fontFamily: "Kanit",
@@ -174,5 +222,20 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
     paddingHorizontal: 30,
     paddingBottom: 20,
+  },
+  Del_Btn: {
+    backgroundColor: "red",
+    paddingVertical: 4,
+    marginHorizontal: 20,
+    marginTop: 15,
+    borderRadius: 10,
+  },
+  Del_Btn_Txt: {
+    // borderWidth: 0.5,
+    textAlign: "center",
+    fontFamily: "HeeboExtra",
+    letterSpacing: 2,
+    color: "white",
+    fontSize: 14
   },
 });

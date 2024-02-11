@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Image, FlatList, TouchableOpacity, ScrollView, TextInput } from 'react-native'
+import { Text, View, StyleSheet, Image, FlatList, TouchableOpacity, ScrollView, TextInput, Keyboard } from 'react-native'
 import Header from './Header';
 import CommonBtn from './CommonBtn';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native'
+// Firebase
+import { firebase } from "../firestore";
 // Fonts Header File
 import { useFonts } from "expo-font";
 // Array For Date
@@ -11,12 +13,42 @@ let DaysList = [];
 
 export default function BookAppointment() {
     const navigation = useNavigation();
+    // ----------- Backend Part Logic -----------
+    const todoRef = firebase.firestore().collection("3 - Appointment");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [contactNo, setContactNo] = useState("");
+    const [selectedGender, setSelectedGender] = useState(null);
+    const [selectedDay, setSelectedDay] = useState(-1);
+    const [selectedSlot, setSelectedSlot] = useState(-1);
+    const addField = () => {
+        if (name && name.length > 0 && email && contactNo && selectedGender !== null && selectedDay !== -1 && selectedSlot !== -1) {
+            const data = {
+                value_1: name,
+                value_2: email,
+                value_3: contactNo,
+                gender: selectedGender === 0 ? "Male" : "Female",
+                Date: selectedDay + 1,
+                TimeSlot: slots[selectedSlot].sloT,
+            };
+            todoRef
+                .add(data)
+                .then(() => {
+                    setName("");
+                    setEmail("");
+                    setContactNo("");
+                    setSelectedGender(null);
+                    setSelectedDay(-1);
+                    setSelectedSlot(-1); // Reset selectedSlot state
+                    Keyboard.dismiss();
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        }
+    };
     // 1 - useState
     // --------------------------------------------------
-    // 1 - useState
-    const [name, setName] = useState("")
-    const [selectedGender, setSelectedGender] = useState(null);
-    const [selectedSlot, setSelectedSlot] = useState(-1);
     const [slots, setSlots] = useState([
         { sloT: '2:00 - 4:00 PM', selected: false },
         { sloT: '4:00 - 6:00 PM', selected: false },
@@ -27,7 +59,6 @@ export default function BookAppointment() {
     ]);
     // useState For Date
     const [days, setDays] = useState([]);
-    const [selectedDay, setSelectedDay] = useState(-1);
     useEffect(() => {
         DaysList = [];
         for (let i = 1; i <= getDays(new Date().getMonth() + 1); i++) {
@@ -40,7 +71,7 @@ export default function BookAppointment() {
         if (month == 1) {
             days = 31;
         } else if (month == 2) {
-            days = 28;
+            days = 29;
         } else if (month == 3) {
             days = 31;
         } else if (month == 4) {
@@ -131,8 +162,8 @@ export default function BookAppointment() {
                                                 borderRadius: 7,
                                                 justifyContent: 'center',
                                                 alignItems: 'center',
-                                                backgroundColor: selectedDay == index ? 'orangered' : 'white',
-                                                borderWidth: selectedDay == index ? 0 : 0.5,
+                                                backgroundColor: selectedDay === index ? 'orangered' : 'white',
+                                                borderWidth: selectedDay === index ? 0 : 0.5,
                                                 marginLeft: 13,
                                             }}
                                             onPress={() => {
@@ -141,7 +172,7 @@ export default function BookAppointment() {
                                                     setSelectedDay(index);
                                                 }
                                             }}>
-                                            <Text style={[styles.date_fig, { color: selectedDay == index ? 'white' : 'black' }]}>
+                                            <Text style={[styles.date_fig, { color: selectedDay === index ? 'white' : 'black' }]}>
                                                 {item.day}
                                             </Text>
                                         </TouchableOpacity>
@@ -166,13 +197,13 @@ export default function BookAppointment() {
                                                 key={item.sloT}
                                                 style={[
                                                     styles.timeSlot,
-                                                    { backgroundColor: index == selectedSlot ? 'blue' : 'white' },
+                                                    { backgroundColor: index === selectedSlot ? 'blue' : 'white' },
                                                 ]}
                                                 onPress={() => {
                                                     setSelectedSlot(index);
                                                 }}>
                                                 <Text
-                                                    style={{ fontFamily: "Heebo", fontSize: 14.5, color: index == selectedSlot ? 'white' : 'black' }}>
+                                                    style={{ fontFamily: "Heebo", fontSize: 13, color: index === selectedSlot ? 'white' : 'black' }}>
                                                     {item.sloT}
                                                 </Text>
                                             </TouchableOpacity>
@@ -187,23 +218,25 @@ export default function BookAppointment() {
                         <View style={styles.info}>
                             <Text style={styles.StudInfo}>Student Information</Text>
                             <Text style={styles.StudName}>Student Name</Text>
-                            <TextInput placeholder=' Enter Your Full Name ' value={name} onChangeText={(text) => setName(text)} style={styles.inp} keyboardType="default" />
+                            <TextInput placeholder=' Enter Your Full Name ' onChangeText={(heading) => setName(heading)}
+                                value={name} keyboardType="default" style={styles.inp} />
                             <Text style={styles.StudName}>Student Email</Text>
-                            <TextInput placeholder=' Enter Your Correct Email ' value={name} onChangeText={(text) => setName(text)} style={styles.inp} keyboardType="email-address" />
+                            <TextInput placeholder=' Enter Your Email ' onChangeText={(email) => setEmail(email)} value={email} style={styles.inp} keyboardType="email-address" />
                             <Text style={styles.StudName}>Student Contact No</Text>
-                            <TextInput placeholder=' Enter Your Contact Number ' value={name} onChangeText={(text) => setName(text)} style={styles.inp} keyboardType="number-pad" />
+                            <TextInput placeholder=' Enter Your Contact Number ' onChangeText={(contactNo) => setContactNo(contactNo)}
+                                value={contactNo} style={styles.inp} keyboardType="phone-pad" />
                             <Text style={styles.StudName}>Select Gender</Text>
                             <View style={styles.gender}>
                                 {/* 1 - Male */}
-                                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender == 0 ? 'lightblue' : 'white' }]} onPress={() => { setSelectedGender(0) }}>
+                                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 0 ? 'lightblue' : 'white' }]} onPress={() => { setSelectedGender(0) }}>
                                     <View style={styles.subGenderBox}>
-                                        <FontAwesome5 name="male" size={28} color="blue" />
+                                        <FontAwesome5 name="male" size={20} color="blue" />
                                     </View>
                                 </TouchableOpacity>
                                 {/* 2 - Female */}
-                                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender == 1 ? 'pink' : 'white' }]} onPress={() => { setSelectedGender(1) }}>
+                                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 1 ? 'pink' : 'white' }]} onPress={() => { setSelectedGender(1) }}>
                                     <View style={styles.subGenderBox}>
-                                        <FontAwesome5 name="female" size={28} color="#FF033A" />
+                                        <FontAwesome5 name="female" size={20} color="#FF033A" />
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -211,7 +244,11 @@ export default function BookAppointment() {
                     );
                 } else if (item === 'confirmButton') {
                     return (
-                        <TouchableOpacity style={styles.successView} onPress={() => { navigation.navigate('Success') }}>
+                        <TouchableOpacity style={styles.successView} onPress={() => {
+                            addField();
+                            navigation.navigate('Success');
+                        }}
+                        >
                             <Text style={styles.successView_Txt}>Book Appointment</Text>
                         </TouchableOpacity>
                     );
