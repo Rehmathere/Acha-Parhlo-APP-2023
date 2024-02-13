@@ -1,40 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, FlatList } from 'react-native';
-import { firebase } from "../firestore";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from "expo-font";
-import { FontAwesome5 } from '@expo/vector-icons';
+// Firebase
+import { firebase } from "../firestore";
 
 export default function Z_Test_1_A() {
     // Navigation
     const navigation = useNavigation();
     // ----------- Backend Part Logic -----------
-    const todoRef = firebase.firestore().collection("Practice App");
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [contactNo, setContactNo] = useState("");
-    const [selectedGender, setSelectedGender] = useState(null);
-    const [selectedDay, setSelectedDay] = useState(-1);
-    const [selectedSlot, setSelectedSlot] = useState(-1);
-    const addField = () => {
-        if (name && name.length > 0 && email && contactNo && selectedGender !== null && selectedDay !== -1 && selectedSlot !== -1) {
+    const universityRef = firebase.firestore().collection("4 - Student Records");
+    const [U1_universityName, setU1_universityName] = useState("");
+    const [U2_campus, setU2_campus] = useState("");
+    const [U3_intake, setU3_intake] = useState("");
+    const [U4_courseName, setU4_courseName] = useState("");
+    // Add Function
+    const addData = () => {
+        if (U1_universityName && U1_universityName.length > 0 && U2_campus && U3_intake && U4_courseName) {
             const data = {
-                value_1: name,
-                value_2: email,
-                value_3: contactNo,
-                gender: selectedGender === 0 ? "Male" : "Female",
-                Date: selectedDay + 1,
-                TimeSlot: slots[selectedSlot].sloT,
+                U1_universityName,
+                U2_campus,
+                U3_intake,
+                U4_courseName,
             };
-            todoRef
-                .add(data)
+            const docRef = universityRef.doc(); // Create a new document with a random ID
+            docRef
+                .set(data)
                 .then(() => {
-                    setName("");
-                    setEmail("");
-                    setContactNo("");
-                    setSelectedGender(null);
-                    setSelectedDay(-1);
-                    setSelectedSlot(-1); // Reset selectedSlot state
+                    // Pass the document ID to the next page
+                    navigation.navigate("Z_Test_2_A", { documentId: docRef.id });
+                    setU1_universityName("");
+                    setU2_campus("");
+                    setU3_intake("");
+                    setU4_courseName("");
                     Keyboard.dismiss();
                 })
                 .catch((err) => {
@@ -43,53 +41,6 @@ export default function Z_Test_1_A() {
         }
     };
     // ----------- Backend Part Logic -----------
-    // Date
-    const [days, setDays] = useState([]);
-    useEffect(() => {
-        const DaysList = [];
-        for (let i = 1; i <= getDays(new Date().getMonth() + 1); i++) {
-            DaysList.push({ day: i, selected: false });
-        }
-        setDays(DaysList);
-    }, []);
-    const getDays = (month) => {
-        let days = 0;
-        if (month == 1) {
-            days = 31;
-        } else if (month == 2) {
-            days = 28;
-        } else if (month == 3) {
-            days = 31;
-        } else if (month == 4) {
-            days = 30;
-        } else if (month == 5) {
-            days = 31;
-        } else if (month == 6) {
-            days = 30;
-        } else if (month == 7) {
-            days = 31;
-        } else if (month == 8) {
-            days = 31;
-        } else if (month == 9) {
-            days = 30;
-        } else if (month == 10) {
-            days = 31;
-        } else if (month == 11) {
-            days = 30;
-        } else if (month == 12) {
-            days = 31;
-        }
-        return days;
-    };
-    // Time
-    const [slots, setSlots] = useState([
-        { sloT: '2:00 - 4:00 PM', selected: false },
-        { sloT: '4:00 - 6:00 PM', selected: false },
-        { sloT: '6:00 - 8:00 PM', selected: false },
-        { sloT: '8:00 - 10:00 PM', selected: false },
-        { sloT: '10:00 - 12:00 PM', selected: false },
-        { sloT: '12:00 - 02:00 PM', selected: false },
-    ]);
     // Fonts
     const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
@@ -111,124 +62,52 @@ export default function Z_Test_1_A() {
     // Main Body
     return (
         <View>
-            <Text style={styles.Txt1}>Appointment Detail's</Text>
-            {/* Text Input */}
-            <Text style={styles.Detail_Txt}>Name :</Text>
-            <TextInput
-                placeholder=' Enter Name '
-                onChangeText={(heading) => setName(heading)}
-                value={name}
-                keyboardType="default"
-                style={styles.Inp_1}
-            />
-            {/* Text Input */}
-            <Text style={styles.Detail_Txt}>Email :</Text>
-            <TextInput
-                placeholder=' Enter Email '
-                onChangeText={(email) => setEmail(email)}
-                value={email}
-                style={styles.Inp_1}
-                keyboardType="email-address"
-            />
-            {/* Text Input */}
-            <Text style={styles.Detail_Txt}>Contact No :</Text>
-            <TextInput
-                placeholder=' Enter Contact No'
-                onChangeText={(contactNo) => setContactNo(contactNo)}
-                value={contactNo}
-                style={styles.Inp_1}
-                keyboardType="phone-pad"
-            />
-            {/* Text Input */}
-            <Text style={styles.Detail_Txt}>Gender :</Text>
-            <View style={styles.gender}>
-                {/* 1 - Male */}
-                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 0 ? 'lightblue' : 'white' }]} onPress={() => { setSelectedGender(0) }}>
-                    <View style={styles.subGenderBox}>
-                        <FontAwesome5 name="male" size={20} color="blue" />
-                    </View>
-                </TouchableOpacity>
-                {/* 2 - Female */}
-                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 1 ? 'pink' : 'white' }]} onPress={() => { setSelectedGender(1) }}>
-                    <View style={styles.subGenderBox}>
-                        <FontAwesome5 name="female" size={20} color="#FF033A" />
-                    </View>
-                </TouchableOpacity>
-            </View>
-            {/* Text Input */}
-            <Text style={styles.Detail_Txt}>Date :</Text>
-            <View style={{ marginTop: 20 }}>
-                {/* Flatlist For Day */}
-                <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={days}
-                    keyExtractor={(item) => item.day.toString()}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <TouchableOpacity
-                                key={item.day}
-                                style={{
-                                    width: 50,
-                                    height: 25,
-                                    borderRadius: 7,
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    backgroundColor: selectedDay === index ? 'orangered' : 'white',
-                                    borderWidth: selectedDay === index ? 0 : 0.5,
-                                    marginLeft: 13,
-                                }}
-                                onPress={() => {
-                                    if (item.day < new Date().getDate()) {
-                                    } else {
-                                        setSelectedDay(index);
-                                    }
-                                }}>
-                                <Text style={[styles.date_fig, { color: selectedDay === index ? 'white' : 'black' }]}>
-                                    {item.day}
-                                </Text>
-                            </TouchableOpacity>
-                        );
-                    }}
+            <ScrollView>
+                {/* Heading */}
+                <Text style={styles.Txt1}>1 - University Detail</Text>
+                {/* --- Main Body --- */}
+                {/* Text Input */}
+                <Text style={styles.Detail_Txt}>1 - University Name :</Text>
+                <TextInput
+                    placeholder=' Enter University Name '
+                    onChangeText={(text) => setU1_universityName(text)}
+                    value={U1_universityName}
+                    keyboardType="default"
+                    style={styles.Inp_1}
                 />
-            </View>
-            {/* Text Input */}
-            <Text style={styles.Detail_Txt}>TimeSlot :</Text>
-            <View>
-                {/* Flatlist For Time Slots */}
-                <FlatList
-                    numColumns={2}
-                    data={slots}
-                    keyExtractor={(item) => item.sloT}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <TouchableOpacity
-                                key={item.sloT}
-                                style={[
-                                    styles.timeSlot,
-                                    { backgroundColor: index === selectedSlot ? 'blue' : 'white' },
-                                ]}
-                                onPress={() => {
-                                    setSelectedSlot(index);
-                                }}>
-                                <Text
-                                    style={{ fontFamily: "Heebo", fontSize: 11, color: index === selectedSlot ? 'white' : 'black' }}>
-                                    {item.sloT}
-                                </Text>
-                            </TouchableOpacity>
-                        );
-                    }}
+                {/* Text Input */}
+                <Text style={styles.Detail_Txt}>2 - Campus :</Text>
+                <TextInput
+                    placeholder=' Enter Campus '
+                    onChangeText={(text) => setU2_campus(text)}
+                    value={U2_campus}
+                    keyboardType="default"
+                    style={styles.Inp_1}
                 />
-            </View>
-            {/* ----- Button ----- */}
-            {/* 1 Btn */}
-            <TouchableOpacity style={styles.Btn_Parent} onPress={addField}>
-                <Text style={styles.Btn_Txt}>Book Appointment</Text>
-            </TouchableOpacity>
-            {/* 2 Btn */}
-            <TouchableOpacity style={styles.Btn_Parent_1} onPress={() => navigation.navigate("Z_Test_2_A")}>
-                <Text style={styles.Btn_Txt}>Move To Page 2</Text>
-            </TouchableOpacity>
+                {/* Text Input */}
+                <Text style={styles.Detail_Txt}>3 - Intake :</Text>
+                <TextInput
+                    placeholder=' Enter Intake '
+                    onChangeText={(text) => setU3_intake(text)}
+                    value={U3_intake}
+                    keyboardType="default"
+                    style={styles.Inp_1}
+                />
+                {/* Text Input */}
+                <Text style={styles.Detail_Txt}>4 - Course Name as per University Website :</Text>
+                <TextInput
+                    placeholder=' Enter Course '
+                    onChangeText={(text) => setU4_courseName(text)}
+                    value={U4_courseName}
+                    keyboardType="default"
+                    style={styles.Inp_1}
+                />
+                {/* ----- Button ----- */}
+                {/* 1 Btn */}
+                <TouchableOpacity style={styles.Btn_Parent} onPress={addData}>
+                    <Text style={styles.Btn_Txt}>Add Data</Text>
+                </TouchableOpacity>
+            </ScrollView>
         </View>
     );
 }
@@ -250,79 +129,46 @@ const styles = StyleSheet.create({
         textAlign: "center",
         letterSpacing: 1.5,
         fontSize: 20,
-        marginVertical: 5,
+        marginVertical: 25,
     },
     Detail_Txt: {
-        marginTop: 15,
+        marginTop: 1.5,
         paddingHorizontal: 25,
         fontFamily: "Heebo",
-        fontSize: 13,
+        fontSize: 12,
         letterSpacing: 1,
     },
     Inp_1: {
-        marginTop: 0,
+        marginTop: 1,
         borderWidth: 0.5,
         borderColor: "black",
-        paddingVertical: 0,
         marginHorizontal: 25,
         borderRadius: 8,
         paddingHorizontal: 10,
-        letterSpacing: 2,
-        fontSize: 12.5,
+        letterSpacing: 1.5,
+        fontSize: 12,
         fontFamily: "Kanit",
     },
     Btn_Parent: {
-        paddingVertical: 1,
+        paddingVertical: 2,
         backgroundColor: "red",
-        marginVertical: 5,
+        marginVertical: 20,
         marginHorizontal: 15,
         borderRadius: 20,
     },
     Btn_Parent_1: {
-        paddingVertical: 1,
+        paddingVertical: 2,
         backgroundColor: "blue",
-        marginVertical: 1,
+        marginVertical: 0,
         marginHorizontal: 15,
         borderRadius: 20,
     },
     Btn_Txt: {
-        paddingVertical: 1,
+        paddingVertical: 2,
         textAlign: "center",
         fontFamily: "HeeboExtra",
         fontSize: 16,
         color: "white",
         letterSpacing: 1,
-    },
-    gender: {
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        flexDirection: "row",
-        justifyContent: "center",
-    },
-    genderBox: {
-        borderWidth: 0.5,
-        borderColor: "grey",
-        width: "30%",
-        height: 30,
-        borderRadius: 10,
-        justifyContent: "center",
-        marginHorizontal: 17,
-    },
-    subGenderBox: {
-        alignSelf: "center",
-    },
-    date_fig: {
-        fontSize: 18,
-        fontFamily: "Heebo",
-    },
-    timeSlot: {
-        width: '40.2%',
-        height: 25,
-        borderRadius: 10,
-        borderWidth: 0.5,
-        marginVertical: 10,
-        marginHorizontal: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });

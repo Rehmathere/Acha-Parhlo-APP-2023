@@ -37,7 +37,7 @@ export default function Doc_HomeMain() {
             <View style={styles.DHM_first}>
                 {/* Image Parent */}
                 <View style={styles.DMH_Img_Parent}>
-                    <Image source={require("../Pics/Docs_1.png")} style={styles.DMH_Img} />
+                    <Image source={require("../Pics/Docs_2.png")} style={styles.DMH_Img} />
                 </View>
                 <Text style={styles.DHM_fir_1}>You need to upload your</Text>
                 <Text style={styles.DHM_fir_2}>Required Documents</Text>

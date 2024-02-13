@@ -49,19 +49,10 @@ export default function D4_ID() {
     });
     // It Will Load Font
     useEffect(() => {
-        const checkImagesUploaded = () => {
-            // If both images are uploaded, navigate to the DocHome page
-            if (image_Front && image_Back) {
-                navigation.navigate('DocHome');
-            }
-        };
-        // Check for font loading
         if (loaded) {
             setFontsLoaded(true);
         }
-        // Check for both images uploaded whenever image states change
-        checkImagesUploaded();
-    }, [image_Front, image_Back, loaded, navigation]);
+    }, [loaded]);
     // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
     if (!fontsLoaded) {
         return null;
@@ -103,6 +94,10 @@ export default function D4_ID() {
                     </TouchableOpacity>
                 </View>
             </View>
+            {/* Submit Button */}
+            <TouchableOpacity style={styles.My_Submit_Btn}>
+                <Text style={styles.My_Submit_Btn_Txt}>Submit File</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -121,11 +116,12 @@ const styles = StyleSheet.create({
     fir: {
         // borderWidth: 1,
         color: "black",
-        fontSize: 22,
-        marginTop: 3,
+        fontSize: 20,
+        marginTop: 15,
         marginBottom: 2,
         textAlign: "center",
-        fontFamily: "HeeboExtra"
+        fontFamily: "HeeboExtra",
+        letterSpacing: 1,
     },
     firPar: {
         // borderWidth: 0.5,
@@ -141,10 +137,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     image: {
-        borderColor: "white",
-        borderWidth: 1,
-        width: 150,
-        height: 90,
+        borderColor: "#EB2F06",
+        borderWidth: 0.5,
+        width: 100,
+        height: 70,
         borderRadius: 10,
     },
     ParentBtn: {
@@ -153,25 +149,41 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     btn1: {
-        borderColor: "#EB2F06",
-        padding: 5,
-        width: "37%",
+        borderColor: "#f39c12",
+        paddingVertical: 4,
+        width: "28%",
         borderWidth: 1,
-        borderRadius: 8,
-        backgroundColor: "#EB2F06",
-        marginVertical: 10,
+        borderRadius: 10,
+        backgroundColor: "#f39c12",
+        marginVertical: 1,
     },
     btnTxt: {
-        fontSize: 17,
-        letterSpacing: 1,
-        color: "white",
+        fontSize: 14,
+        letterSpacing: 1.5,
         textAlign: "center",
         fontFamily: "Kanit",
     },
     line: {
         borderWidth: 0.5,
-        marginVertical: 12,
+        marginTop: 23,
         marginHorizontal: 35,
         borderColor: "darkgrey",
-    }
+    },
+    My_Submit_Btn: {
+        // borderWidth: 0.5,
+        marginVertical: 15,
+        width: "70%",
+        alignSelf: "center",
+        paddingVertical: 8,
+        borderRadius: 50,
+        backgroundColor: "#EB2F06"
+    },
+    My_Submit_Btn_Txt: {
+        textAlign: "center",
+        letterSpacing: 2.5,
+        fontSize: 15,
+        fontFamily: "HeeboExtra",
+        color: "white",
+        textTransform: "uppercase",
+    },
 })

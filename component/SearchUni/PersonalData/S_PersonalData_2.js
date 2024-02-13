@@ -6,29 +6,30 @@ import { useNavigation } from '@react-navigation/native'
 import { useFonts } from "expo-font";
 
 export default function S_PersonalData_2() {
-    // Pre 0 - useState
-    const [info1, setInfo1] = useState("");
-    const [info2, setInfo2] = useState("");
-    const [info3, setInfo3] = useState("");
-    const [info4, setInfo4] = useState("");
-    const [info5, setInfo5] = useState("");
-    const [info6, setInfo6] = useState("");
-    const [info7, setInfo7] = useState("");
-    const [info8, setInfo8] = useState("");
-    const [info9, setInfo9] = useState("");
-    const [info10, setInfo10] = useState("");
-    const [info11, setInfo11] = useState("");
-    const [info12, setInfo12] = useState("");
-    const [info13, setInfo13] = useState("");
-    const [info14, setInfo14] = useState("");
-    const [info15, setInfo15] = useState("");
-    const [info16, setInfo16] = useState("");
-    const [info17, setInfo17] = useState("");
     // 0 - useNavigate
     const navigation = useNavigation();
+    // Updated useState names
+    const [P1_title, setP1_title] = useState("");
+    const [P2_familyName, setP2_familyName] = useState("");
+    const [P3_givenName, setP3_givenName] = useState("");
+    const [P4_countryOfBirth, setP4_countryOfBirth] = useState("");
+    const [P5_cityOfBirth, setP5_cityOfBirth] = useState("");
+    const [P6_countryOfCitizenship, setP6_countryOfCitizenship] = useState("");
+    const [P7_dualCitizen, setP7_dualCitizen] = useState("");
+    const [P8_email, setP8_email] = useState("");
+    const [P9_firstLanguageSpoken, setP9_firstLanguageSpoken] = useState("");
+    const [P10_maritalStatus, setP10_maritalStatus] = useState("");
+    const [P11_medicalIssue, setP11_medicalIssue] = useState("");
+    const [P12_disability, setP12_disability] = useState("");
+    const [P13_crimeConviction, setP13_crimeConviction] = useState("");
+    const [P14_homeCountryAddress, setP14_homeCountryAddress] = useState("");
+    const [P15_homeCountryPhoneNumber, setP15_homeCountryPhoneNumber] = useState("");
+    const [P16_visaRefusal, setP16_visaRefusal] = useState("");
+    const [P17_refusedEntry, setP17_refusedEntry] = useState("");
+
+    // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
-    // Expo Font Logic
     let [loaded] = useFonts({
         Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -58,26 +59,28 @@ export default function S_PersonalData_2() {
                     <Text style={styles.inputTitleTxt}>Title</Text>
                     <TextInput
                         placeholder=" Enter Title "
-                        value={info1}
-                        onChangeText={(text) => setInfo1(text)}
+                        value={P1_title}
+                        onChangeText={(text) => setP1_title(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 2 */}
                     <Text style={styles.inputTitleTxt}>Family Name as per Passport</Text>
                     <TextInput
                         placeholder=" Enter Family Name as per Passport "
-                        value={info2}
-                        onChangeText={(text) => setInfo2(text)}
+                        value={P2_familyName}
+                        onChangeText={(text) => setP2_familyName(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 3 */}
                     <Text style={styles.inputTitleTxt}>Given Name as per Passport</Text>
                     <TextInput
                         placeholder=" Enter Given Name as per Passport "
-                        value={info3}
-                        onChangeText={(text) => setInfo3(text)}
+                        value={P3_givenName}
+                        onChangeText={(text) => setP3_givenName(text)}
                         style={styles.inputTitle}
-                        keyboardType="number-pad"
+                        keyboardType="default"
                     />
                     {/* 4 - Date */}
                     {/* 5 - Gender */}
@@ -85,96 +88,107 @@ export default function S_PersonalData_2() {
                     <Text style={styles.inputTitleTxt}>Country Of Birth</Text>
                     <TextInput
                         placeholder=" Enter Country Of Birth "
-                        value={info4}
-                        onChangeText={(text) => setInfo4(text)}
+                        value={P4_countryOfBirth}
+                        onChangeText={(text) => setP4_countryOfBirth(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 7 */}
                     <Text style={styles.inputTitleTxt}>City Of Birth</Text>
                     <TextInput
                         placeholder=" Enter City Of Birth "
-                        value={info5}
-                        onChangeText={(text) => setInfo5(text)}
+                        value={P5_cityOfBirth}
+                        onChangeText={(text) => setP5_cityOfBirth(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 8 */}
                     <Text style={styles.inputTitleTxt}>Country of Citizenship</Text>
                     <TextInput
                         placeholder=" Enter Country of Citizenship "
-                        value={info6}
-                        onChangeText={(text) => setInfo6(text)}
+                        value={P6_countryOfCitizenship}
+                        onChangeText={(text) => setP6_countryOfCitizenship(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 9 */}
                     <Text style={styles.inputTitleTxt}>Dual Citizen</Text>
                     <TextInput
                         placeholder=" Enter Dual Citizen "
-                        value={info7}
-                        onChangeText={(text) => setInfo7(text)}
+                        value={P7_dualCitizen}
+                        onChangeText={(text) => setP7_dualCitizen(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 10 */}
                     <Text style={styles.inputTitleTxt}>Email Address</Text>
                     <TextInput
                         placeholder=" Enter Email Address "
-                        value={info8}
-                        onChangeText={(text) => setInfo8(text)}
+                        value={P8_email}
+                        onChangeText={(text) => setP8_email(text)}
                         style={styles.inputTitle}
+                        keyboardType="email-address"
                     />
                     {/* 11 */}
                     <Text style={styles.inputTitleTxt}>First Language Spoken</Text>
                     <TextInput
                         placeholder=" Enter First Language Spoken "
-                        value={info9}
-                        onChangeText={(text) => setInfo9(text)}
+                        value={P9_firstLanguageSpoken}
+                        onChangeText={(text) => setP9_firstLanguageSpoken(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 12 */}
                     <Text style={styles.inputTitleTxt}>Marital Status</Text>
                     <TextInput
                         placeholder=" Enter Marital Status "
-                        value={info10}
-                        onChangeText={(text) => setInfo10(text)}
+                        value={P10_maritalStatus}
+                        onChangeText={(text) => setP10_maritalStatus(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 13 */}
                     <Text style={styles.inputTitleTxt}>Have any medical or health issue that may prevent you from getting your visa</Text>
                     <TextInput
                         placeholder=" Enter Yes / No "
-                        value={info11}
-                        onChangeText={(text) => setInfo11(text)}
+                        value={P11_medicalIssue}
+                        onChangeText={(text) => setP11_medicalIssue(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 14 */}
                     <Text style={styles.inputTitleTxt}>Do you have disability, impairment or long term medical condition?</Text>
                     <TextInput
                         placeholder=" Enter Yes / No "
-                        value={info12}
-                        onChangeText={(text) => setInfo12(text)}
+                        value={P12_disability}
+                        onChangeText={(text) => setP12_disability(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 14 */}
                     <Text style={styles.inputTitleTxt}>Been convicted of any crime or offence in any Country</Text>
                     <TextInput
                         placeholder=" Enter Yes / No "
-                        value={info13}
-                        onChangeText={(text) => setInfo13(text)}
+                        value={P13_crimeConviction}
+                        onChangeText={(text) => setP13_crimeConviction(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 15 */}
                     <Text style={styles.inputTitleTxt}>Home Country Address with Suburb, City, State, Country & postcode</Text>
                     <TextInput
                         placeholder=" Enter Answer "
-                        value={info14}
-                        onChangeText={(text) => setInfo14(text)}
+                        value={P14_homeCountryAddress}
+                        onChangeText={(text) => setP14_homeCountryAddress(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 16 */}
                     <Text style={styles.inputTitleTxt}>Home Country Phone Number with Area & Country Code</Text>
                     <TextInput
                         placeholder=" Enter Answer "
-                        value={info15}
-                        onChangeText={(text) => setInfo15(text)}
+                        value={P15_homeCountryPhoneNumber}
+                        onChangeText={(text) => setP15_homeCountryPhoneNumber(text)}
                         style={styles.inputTitle}
                         keyboardType="number-pad"
                     />
@@ -182,20 +196,22 @@ export default function S_PersonalData_2() {
                     <Text style={styles.inputTitleTxt}>Visa refusal of Australia</Text>
                     <TextInput
                         placeholder=" Enter Answer "
-                        value={info16}
-                        onChangeText={(text) => setInfo16(text)}
+                        value={P16_visaRefusal}
+                        onChangeText={(text) => setP16_visaRefusal(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 18 */}
                     <Text style={styles.inputTitleTxt}>Been refused entry to any Country</Text>
                     <TextInput
                         placeholder=" Enter Answer "
-                        value={info17}
-                        onChangeText={(text) => setInfo17(text)}
+                        value={P17_refusedEntry}
+                        onChangeText={(text) => setP17_refusedEntry(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* Button */}
-                    <TouchableOpacity style={styles.BtnBox} onPress={() => navigation.navigate('PersonalData_HomeMain')}>
+                    <TouchableOpacity style={styles.BtnBox} >
                         <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
                     </TouchableOpacity>
                 </View>
@@ -233,35 +249,35 @@ const styles = StyleSheet.create({
         paddingLeft: 13,
         fontSize: 14,
         letterSpacing: 0.5,
-        fontFamily:"Kanit",
+        fontFamily: "Kanit",
         marginBottom: 15,
         textDecorationColor: "white",
     },
-    inputTitleTxt:{
+    inputTitleTxt: {
         marginHorizontal: 16,
         // borderWidth: 0.5,
         fontSize: 13,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
         paddingVertical: 6,
         letterSpacing: 0.5,
-        textTransform:"capitalize",
+        textTransform: "capitalize",
     },
-    BtnBox:{
+    BtnBox: {
         marginVertical: 15,
         marginHorizontal: 16,
         borderColor: "#EB2F06",
-        backgroundColor:"#EB2F06",
+        backgroundColor: "#EB2F06",
         borderWidth: 1,
         paddingVertical: 4.5,
         borderRadius: 20,
     },
-    BtnBoxTxt:{
+    BtnBoxTxt: {
         color: "white",
         borderRadius: 20,
         borderColor: "transparent",
         borderWidth: 1,
         paddingVertical: 1,
-        textAlign:"center",
+        textAlign: "center",
         fontFamily: "Heebo",
         letterSpacing: 2.5,
         fontSize: 20,

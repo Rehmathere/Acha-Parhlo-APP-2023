@@ -6,16 +6,17 @@ import { useNavigation } from '@react-navigation/native'
 import { useFonts } from "expo-font";
 
 export default function S_PersonalData_5() {
+    // 0 - useNavigate
+    const navigation = useNavigation();
     // Pre 0 - useState
     const [info1, setInfo1] = useState("");
     const [info2, setInfo2] = useState("");
     const [info3, setInfo3] = useState("");
     const [info4, setInfo4] = useState("");
-    // 0 - useNavigate
-    const navigation = useNavigation();
+    
+    // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
-    // Expo Font Logic
     let [loaded] = useFonts({
         Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -48,6 +49,7 @@ export default function S_PersonalData_5() {
                         value={info1}
                         onChangeText={(text) => setInfo1(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 2 */}
                     <Text style={styles.inputTitleTxt}>Mother's Highest Qualification</Text>
@@ -56,6 +58,7 @@ export default function S_PersonalData_5() {
                         value={info2}
                         onChangeText={(text) => setInfo2(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 3 */}
                     <Text style={styles.inputTitleTxt}>Have you granted Scholarship (Government or Private) before</Text>
@@ -64,6 +67,7 @@ export default function S_PersonalData_5() {
                         value={info3}
                         onChangeText={(text) => setInfo3(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 4 */}
                     <Text style={styles.inputTitleTxt}>Are you applying for Scholarship (Government or Private)</Text>
@@ -72,9 +76,10 @@ export default function S_PersonalData_5() {
                         value={info4}
                         onChangeText={(text) => setInfo4(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* Button */}
-                    <TouchableOpacity style={styles.BtnBox} onPress={() => navigation.navigate('PersonalData_HomeMain')}>
+                    <TouchableOpacity style={styles.BtnBox} >
                         <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
                     </TouchableOpacity>
                 </View>

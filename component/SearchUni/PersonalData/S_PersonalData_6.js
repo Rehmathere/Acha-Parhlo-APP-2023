@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native'
 import { useFonts } from "expo-font";
 
 export default function S_PersonalData_6() {
+    // 0 - useNavigate
+    const navigation = useNavigation();
     // Pre 0 - useState
     const [info1, setInfo1] = useState("");
     const [info2, setInfo2] = useState("");
@@ -18,11 +20,10 @@ export default function S_PersonalData_6() {
     const [info9, setInfo9] = useState("");
     const [info10, setInfo10] = useState("");
     const [info11, setInfo11] = useState("");
-    // 0 - useNavigate
-    const navigation = useNavigation();
+    
+    // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
-    // Expo Font Logic
     let [loaded] = useFonts({
         Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -55,6 +56,7 @@ export default function S_PersonalData_6() {
                         value={info1}
                         onChangeText={(text) => setInfo1(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 2 */}
                     <Text style={styles.inputTitleTxt}>Program Name</Text>
@@ -63,6 +65,7 @@ export default function S_PersonalData_6() {
                         value={info2}
                         onChangeText={(text) => setInfo2(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 3 */}
                     <Text style={styles.inputTitleTxt}>Course Length - Medium (Language) of Instruction</Text>
@@ -71,6 +74,7 @@ export default function S_PersonalData_6() {
                         value={info3}
                         onChangeText={(text) => setInfo3(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 4 */}
                     <Text style={styles.inputTitleTxt}>Country</Text>
@@ -79,6 +83,7 @@ export default function S_PersonalData_6() {
                         value={info4}
                         onChangeText={(text) => setInfo4(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 5 */}
                     <Text style={styles.inputTitleTxt}>Month / Year Started</Text>
@@ -87,6 +92,7 @@ export default function S_PersonalData_6() {
                         value={info5}
                         onChangeText={(text) => setInfo5(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 6 */}
                     <Text style={styles.inputTitleTxt}>Month / Year Finished</Text>
@@ -95,6 +101,7 @@ export default function S_PersonalData_6() {
                         value={info6}
                         onChangeText={(text) => setInfo6(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 7 */}
                     <Text style={styles.inputTitleTxt}>Complete or Incomplete or Withdrawn</Text>
@@ -103,6 +110,7 @@ export default function S_PersonalData_6() {
                         value={info7}
                         onChangeText={(text) => setInfo7(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 8 */}
                     <Text style={styles.inputTitleTxt}>If incomplete then when will finish</Text>
@@ -111,6 +119,7 @@ export default function S_PersonalData_6() {
                         value={info8}
                         onChangeText={(text) => setInfo8(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 9 */}
                     <Text style={styles.inputTitleTxt}>If incomplete then result available Date</Text>
@@ -119,6 +128,7 @@ export default function S_PersonalData_6() {
                         value={info9}
                         onChangeText={(text) => setInfo9(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 10 */}
                     <Text style={styles.inputTitleTxt}>Are you applying for Credits base on this study</Text>
@@ -127,6 +137,7 @@ export default function S_PersonalData_6() {
                         value={info10}
                         onChangeText={(text) => setInfo10(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* 11 */}
                     <Text style={styles.inputTitleTxt}>Have you completed a master's degree?</Text>
@@ -135,9 +146,10 @@ export default function S_PersonalData_6() {
                         value={info11}
                         onChangeText={(text) => setInfo11(text)}
                         style={styles.inputTitle}
+                        keyboardType="default"
                     />
                     {/* Button */}
-                    <TouchableOpacity style={styles.BtnBox} onPress={() => navigation.navigate('PersonalData_HomeMain')}>
+                    <TouchableOpacity style={styles.BtnBox} >
                         <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
                     </TouchableOpacity>
                 </View>

@@ -39,7 +39,7 @@ export default function PersonalData_HomeMain() {
             <ScrollView>
                 {/* Picture */}
                 <View style={styles.ParentImg}>
-                    <Image source={require('../Pics/fill_1.png')} style={styles.docimg} />
+                    <Image source={require('../Pics/fill_2.png')} style={styles.docimg} />
                 </View>
                 <Text style={styles.DocTxt}>Fill Personal Detail</Text>
                 <Text style={styles.DocTxt2}>Please Fill your Correct Information to facilitate the progression of your application.</Text>
@@ -54,7 +54,7 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="black" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -67,7 +67,7 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="black" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -80,7 +80,7 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="black" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -93,7 +93,7 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="black" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -106,7 +106,7 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="black" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -119,7 +119,7 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="black" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     },
     ParentImg: {
         // borderWidth: 0.5,
-        paddingVertical: 15,
+        paddingVertical: 20,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -181,14 +181,14 @@ const styles = StyleSheet.create({
     },
     DocBox: {
         // borderWidth: 0.5,
-        borderColor: "#FBF3D7",
+        borderColor: "#FFDF77",
         paddingVertical: 5,
         paddingHorizontal: 5,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 50,
-        backgroundColor: "#FBF3D7",
+        borderRadius: 10,
+        backgroundColor: "#FFDF77",
         marginVertical: 5,
     },
     DocBoxPart1: {
@@ -201,8 +201,8 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         padding: 2,
         fontFamily: "Heebo",
-        fontSize: 15,
-        letterSpacing: 1.21,
+        fontSize: 14.5,
+        letterSpacing: 1.55,
         paddingHorizontal: 18.5,
         color: "#EB2F06"
     },

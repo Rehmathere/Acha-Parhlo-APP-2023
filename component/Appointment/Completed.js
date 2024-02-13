@@ -95,7 +95,7 @@ export default function Completed({ navigation }) {
               <Image source={require("../Pics/completed_1.png")} style={styles.Head_Img} />
             </View>
             <Text style={styles.Head_Txt_1}>Appointment List</Text>
-            <Text style={styles.Head_Txt_2}>You Can Check Appointment List & Their Status From Here.</Text>
+            <Text style={styles.Head_Txt_2}>You Can Check Appointment List And Their Status, And Delete Your Appointment Request From Here.</Text>
           </View>
           <View style={styles.itemView_Parent}>
             {appointments.map((appointment) => (
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     letterSpacing: 1.5,
     textTransform: "capitalize",
-    paddingHorizontal: 30,
+    paddingHorizontal: 25,
     paddingBottom: 20,
   },
   Del_Btn: {

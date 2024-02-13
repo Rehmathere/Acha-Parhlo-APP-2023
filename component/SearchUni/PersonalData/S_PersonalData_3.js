@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/native'
 import { useFonts } from "expo-font";
 
 export default function S_PersonalData_3() {
+    // 0 - useNavigate
+    const navigation = useNavigation();
     // Pre 0 - useState
     const [info1, setInfo1] = useState("");
     // const [info2, setInfo2] = useState("");
@@ -16,11 +18,10 @@ export default function S_PersonalData_3() {
     const [info7, setInfo7] = useState("");
     const [info8, setInfo8] = useState("");
     const [info9, setInfo9] = useState("");
-    // 0 - useNavigate
-    const navigation = useNavigation();
+    
+    // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
-    // Expo Font Logic
     let [loaded] = useFonts({
         Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -117,7 +118,7 @@ export default function S_PersonalData_3() {
                         style={styles.inputTitle}
                     />
                     {/* Button */}
-                    <TouchableOpacity style={styles.BtnBox} onPress={() => navigation.navigate('PersonalData_HomeMain')}>
+                    <TouchableOpacity style={styles.BtnBox} >
                         <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
                     </TouchableOpacity>
                 </View>
