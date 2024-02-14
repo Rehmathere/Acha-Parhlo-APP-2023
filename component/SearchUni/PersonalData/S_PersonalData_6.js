@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native'
-// useNavigate
-import { useNavigation } from '@react-navigation/native'
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput, Keyboard } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
+// Firebase
+import { firebase } from "../../firestore";
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function S_PersonalData_6() {
-    // 0 - useNavigate
+    // Navigation
     const navigation = useNavigation();
-    // Pre 0 - useState
+    // ----------- Backend Part Logic -----------
+    // Get the document ID passed from the previous page
+    const route = useRoute();
+    const { documentId } = route.params;
+    const bachelorDetailRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
     const [info1, setInfo1] = useState("");
     const [info2, setInfo2] = useState("");
     const [info3, setInfo3] = useState("");
@@ -20,7 +25,44 @@ export default function S_PersonalData_6() {
     const [info9, setInfo9] = useState("");
     const [info10, setInfo10] = useState("");
     const [info11, setInfo11] = useState("");
-    
+    // Add Function
+    const addData = () => {
+        const data = {
+            B1_UniversityName: info1,
+            B2_ProgramName: info2,
+            B3_CourseLengthMedium: info3,
+            B4_Country: info4,
+            B5_MonthYearStarted: info5,
+            B6_MonthYearFinished: info6,
+            B7_CompleteIncompleteWithdrawn: info7,
+            B8_IfIncompleteThenWhenFinish: info8,
+            B9_IfIncompleteThenResultAvailableDate: info9,
+            B10_ApplyingForCredits: info10,
+            B11_CompletedMastersDegree: info11,
+        };
+        bachelorDetailRef
+            .set(data, { merge: true }) // Use merge option to merge the new data with existing data
+            .then(() => {
+                setInfo1("");
+                setInfo2("");
+                setInfo3("");
+                setInfo4("");
+                setInfo5("");
+                setInfo6("");
+                setInfo7("");
+                setInfo8("");
+                setInfo9("");
+                setInfo10("");
+                setInfo11("");
+                Keyboard.dismiss();
+                // Navigate to the next page or perform any other action
+                navigation.navigate("D1_10Mark", { documentId: documentId });
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    };
+    // ----------- Backend Part Logic -----------
     // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -149,7 +191,7 @@ export default function S_PersonalData_6() {
                         keyboardType="default"
                     />
                     {/* Button */}
-                    <TouchableOpacity style={styles.BtnBox} >
+                    <TouchableOpacity style={styles.BtnBox} onPress={addData}>
                         <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
                     </TouchableOpacity>
                 </View>

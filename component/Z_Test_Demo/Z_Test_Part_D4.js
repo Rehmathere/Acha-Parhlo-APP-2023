@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } from 'react-native'
-// Fonts
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { useFonts } from "expo-font";
-// Image Header File
-import * as ImagePicker from 'expo-image-picker'
+import * as ImagePicker from 'expo-image-picker';
 // Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../../firestore";
+import { firebase } from "../firestore";
 
-export default function D4_ID() {
+export default function Z_Test_Part_D4() {
     // Navigation
     const navigation = useNavigation();
     // ------------------- Backend Logic & Image Upload Functions -------------------
@@ -54,7 +52,7 @@ export default function D4_ID() {
                 setImage_Front(null);
                 setImage_Back(null);
                 // Navigate to the next screen if needed
-                navigation.navigate("D5_Ielts", { documentId: documentId });
+                navigation.navigate("Z_Test_Part_D5", { documentId: documentId });
             } catch (err) {
                 alert(err);
             }
@@ -69,16 +67,15 @@ export default function D4_ID() {
         return storageRef.put(blob);
     };
     // ------------------- Backend Logic & Image Upload Functions -------------------
-    // 1 - useState
-    const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
+    const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
-        Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
     // It Will Load Font
     useEffect(() => {

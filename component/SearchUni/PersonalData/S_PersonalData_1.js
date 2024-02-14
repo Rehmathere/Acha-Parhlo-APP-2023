@@ -1,19 +1,48 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput, Keyboard } from 'react-native'
 // useNavigate
 import { useNavigation } from '@react-navigation/native'
 // Fonts Header File
 import { useFonts } from "expo-font";
+// Firebase
+import { firebase } from "../../firestore";
 
 export default function S_PersonalData_1() {
-    // 0 - useNavigate
+    // Navigation
     const navigation = useNavigation();
-    // Updated useState names
+    // ----------- Backend Part Logic -----------
+    const universityRef = firebase.firestore().collection("4 - Student Records");
     const [U1_universityName, setU1_universityName] = useState("");
     const [U2_campus, setU2_campus] = useState("");
     const [U3_intake, setU3_intake] = useState("");
     const [U4_courseName, setU4_courseName] = useState("");
-
+    // Add Function
+    const addData = () => {
+        if (U1_universityName && U1_universityName.length > 0 && U2_campus && U3_intake && U4_courseName) {
+            const data = {
+                U1_universityName,
+                U2_campus,
+                U3_intake,
+                U4_courseName,
+            };
+            const docRef = universityRef.doc(); // Create a new document with a random ID
+            docRef
+                .set(data)
+                .then(() => {
+                    // Pass the document ID to the next page
+                    navigation.navigate("S_PersonalData_2", { documentId: docRef.id });
+                    setU1_universityName("");
+                    setU2_campus("");
+                    setU3_intake("");
+                    setU4_courseName("");
+                    Keyboard.dismiss();
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        }
+    };
+    // ----------- Backend Part Logic -----------
     // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -79,7 +108,7 @@ export default function S_PersonalData_1() {
                         keyboardType="default"
                     />
                     {/* Button */}
-                    <TouchableOpacity style={styles.BtnBox} >
+                    <TouchableOpacity style={styles.BtnBox} onPress={addData}>
                         <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
                     </TouchableOpacity>
                 </View>

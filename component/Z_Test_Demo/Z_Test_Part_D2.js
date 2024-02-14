@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 // Fonts
 import { useFonts } from "expo-font";
-// Image Header File
-import * as ImagePicker from 'expo-image-picker'
+import * as ImagePicker from 'expo-image-picker';
 // Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../../firestore";
+import { firebase } from "../firestore";
 
-export default function D4_ID() {
+export default function Z_Test_Part_D2() {
     // Navigation
     const navigation = useNavigation();
     // ------------------- Backend Logic & Image Upload Functions -------------------
     const route = useRoute();
     const documentId = route?.params?.documentId || null;
-    const [image_Front, setImage_Front] = useState(null);
-    const [image_Back, setImage_Back] = useState(null);
-    const pickFront = async () => {
+    const [image_11Mark, setImage_11Mark] = useState(null);
+    const [image_11Cert, setImage_11Cert] = useState(null);
+    const pickImage11Mark = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -24,10 +23,10 @@ export default function D4_ID() {
             quality: 1,
         });
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_Front(result.assets[0].uri);
+            setImage_11Mark(result.assets[0].uri);
         }
     }
-    const pickBack = async () => {
+    const pickImage11Cert = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -35,50 +34,41 @@ export default function D4_ID() {
             quality: 1,
         });
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_Back(result.assets[0].uri);
+            setImage_11Cert(result.assets[0].uri);
         }
     }
-    const submitFiles = async () => {
+    const submitFiles = () => {
+        console.log("Document ID from route params:", documentId);
         const data = {
-            D4_1_Image_Front: image_Front,
-            D4_2_Image_Back: image_Back,
+            D2_1_Image_11Mark: image_11Mark,
+            D2_2_Image_11Cert: image_11Cert,
         };
         if (documentId) {
             const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-            try {
-                await Promise.all([
-                    uploadImageToFirebase(documentId, 'D4_1_Image_Front', image_Front),
-                    uploadImageToFirebase(documentId, 'D4_2_Image_Back', image_Back),
-                    studentRecordsRef.set(data, { merge: true })
-                ]);
-                setImage_Front(null);
-                setImage_Back(null);
-                // Navigate to the next screen if needed
-                navigation.navigate("D5_Ielts", { documentId: documentId });
-            } catch (err) {
-                alert(err);
-            }
+            studentRecordsRef
+                .set(data, { merge: true })
+                .then(() => {
+                    setImage_11Mark(null);
+                    setImage_11Cert(null);
+                    navigation.navigate("Z_Test_Part_D3", { documentId: documentId });
+                })
+                .catch((err) => {
+                    alert(err);
+                });
         } else {
-            alert("Document ID is undefined.");
+            alert("Document ID is undefined. Check the navigation from Z_Test_Part_D1.");
         }
     };
-    const uploadImageToFirebase = async (documentId, field, imageUri) => {
-        const storageRef = firebase.storage().ref(`images/${documentId}/${field}`);
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-        return storageRef.put(blob);
-    };
     // ------------------- Backend Logic & Image Upload Functions -------------------
-    // 1 - useState
-    const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
+    const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
-        Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
     // It Will Load Font
     useEffect(() => {
@@ -97,15 +87,15 @@ export default function D4_ID() {
             <StatusBar backgroundColor={"#EB2F06"} />
             {/* 1 */}
             <View style={styles.firstParent}>
-                <Text style={styles.fir}>ID Card Front</Text>
-                <Text style={styles.firPar}>Kindly Upload Your ID Card Front In JPG / PNG Format.</Text>
+                <Text style={styles.fir}>11th Marksheet</Text>
+                <Text style={styles.firPar}>Kindly Upload Your 11th Class Marksheet In JPG / PNG Format.</Text>
                 {/* Image */}
                 <View style={styles.ParentImg}>
-                    <Image source={{ uri: image_Front }} style={styles.image} />
+                    <Image source={{ uri: image_11Mark }} style={styles.image} />
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickFront}>
+                    <TouchableOpacity style={styles.btn1} onPress={pickImage11Mark}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>
@@ -114,15 +104,15 @@ export default function D4_ID() {
             <View style={styles.line}></View>
             {/* 3 */}
             <View style={styles.firstParent}>
-                <Text style={styles.fir}>ID Card Back</Text>
-                <Text style={styles.firPar}>Kindly Upload Your ID Card Back In JPG / PNG Format.</Text>
+                <Text style={styles.fir}>11th Certificate</Text>
+                <Text style={styles.firPar}>Kindly Upload Your 11th Class Certificate In JPG / PNG Format.</Text>
                 {/* Image */}
                 <View style={styles.ParentImg}>
-                    <Image source={{ uri: image_Back }} style={styles.image} />
+                    <Image source={{ uri: image_11Cert }} style={styles.image} />
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickBack}>
+                    <TouchableOpacity style={styles.btn1} onPress={pickImage11Cert}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>

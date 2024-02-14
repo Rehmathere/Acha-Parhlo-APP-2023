@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -31,12 +31,14 @@ export default function Admission2() {
     // Main Body
     return (
         <View style={styles.container}>
-            {/* Firbase Item Data */}
-            <Text style={styles.heading}><FontAwesome5 name="money-bill-wave" size={15} color="#EB2F06" />  Semester Fee :</Text>
-            <Text style={styles.headingAns}>{route.params.noteAmount}</Text>
-            {/* Firbase Item Data */}
-            <Text style={styles.heading}><MaterialCommunityIcons name="clock" size={15} color="#EB2F06" />  Degree Duation :</Text>
-            <Text style={styles.headingAns}>{route.params.noteDuration}</Text>
+            <ScrollView>
+                {/* Firbase Item Data */}
+                <Text style={styles.heading}><FontAwesome5 name="money-bill-wave" size={15} color="#EB2F06" />  Semester Fee :</Text>
+                <Text style={styles.headingAns}>{route.params.noteAmount}</Text>
+                {/* Firbase Item Data */}
+                <Text style={styles.heading}><MaterialCommunityIcons name="clock" size={15} color="#EB2F06" />  Degree Duation :</Text>
+                <Text style={styles.headingAns}>{route.params.noteDuration}</Text>
+            </ScrollView>
         </View>
     )
 }

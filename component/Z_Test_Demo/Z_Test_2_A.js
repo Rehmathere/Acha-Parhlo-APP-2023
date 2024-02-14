@@ -251,14 +251,6 @@ export default function Z_Test_2_A() {
         <TouchableOpacity style={styles.Btn_Parent} onPress={addData}>
           <Text style={styles.Btn_Txt}>Add Data</Text>
         </TouchableOpacity>
-        {/* 2 Btn */}
-        <TouchableOpacity style={styles.Btn_Parent_1} onPress={() => navigation.navigate("Z_Test_3_A")}>
-          <Text style={styles.Btn_Txt}>Move To Page 3</Text>
-        </TouchableOpacity>
-        {/* 3 Btn */}
-        <TouchableOpacity style={styles.Btn_Parent_1} onPress={() => navigation.navigate("Z_Test_1_A")}>
-          <Text style={styles.Btn_Txt}>Move Back</Text>
-        </TouchableOpacity>
       </ScrollView>
     </View>
   );

@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } from 'react-native'
-// Fonts
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { useFonts } from "expo-font";
-// Image Header File
-import * as ImagePicker from 'expo-image-picker'
+import * as ImagePicker from 'expo-image-picker';
 // Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../../firestore";
+import { firebase } from "../firestore";
 
-export default function D4_ID() {
+export default function D_Test_Part_D6() {
     // Navigation
     const navigation = useNavigation();
     // ------------------- Backend Logic & Image Upload Functions -------------------
     const route = useRoute();
     const documentId = route?.params?.documentId || null;
-    const [image_Front, setImage_Front] = useState(null);
-    const [image_Back, setImage_Back] = useState(null);
-    const pickFront = async () => {
+    const [image_Gap, setImage_Gap] = useState(null);
+    const pick_Gap = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -24,37 +21,23 @@ export default function D4_ID() {
             quality: 1,
         });
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_Front(result.assets[0].uri);
-        }
-    }
-    const pickBack = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_Back(result.assets[0].uri);
+            setImage_Gap(result.assets[0].uri);
         }
     }
     const submitFiles = async () => {
         const data = {
-            D4_1_Image_Front: image_Front,
-            D4_2_Image_Back: image_Back,
+            D6_1_Image_Gap: image_Gap,
         };
         if (documentId) {
             const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
             try {
                 await Promise.all([
-                    uploadImageToFirebase(documentId, 'D4_1_Image_Front', image_Front),
-                    uploadImageToFirebase(documentId, 'D4_2_Image_Back', image_Back),
+                    uploadImageToFirebase(documentId, 'D6_1_Image_Gap', image_Gap),
                     studentRecordsRef.set(data, { merge: true })
                 ]);
-                setImage_Front(null);
-                setImage_Back(null);
+                setImage_Gap(null);
                 // Navigate to the next screen if needed
-                navigation.navigate("D5_Ielts", { documentId: documentId });
+                navigation.navigate("Z_Test_Part_D7", { documentId: documentId });
             } catch (err) {
                 alert(err);
             }
@@ -69,16 +52,15 @@ export default function D4_ID() {
         return storageRef.put(blob);
     };
     // ------------------- Backend Logic & Image Upload Functions -------------------
-    // 1 - useState
-    const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
+    const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
-        Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
     // It Will Load Font
     useEffect(() => {
@@ -97,32 +79,15 @@ export default function D4_ID() {
             <StatusBar backgroundColor={"#EB2F06"} />
             {/* 1 */}
             <View style={styles.firstParent}>
-                <Text style={styles.fir}>ID Card Front</Text>
-                <Text style={styles.firPar}>Kindly Upload Your ID Card Front In JPG / PNG Format.</Text>
+                <Text style={styles.fir}>Any Gap Proof</Text>
+                <Text style={styles.firPar}>Kindly Upload Your Any Gap Proof Or Any Job Experienced Letter Or Any Short Course Certificate  In JPG / PNG Format.</Text>
                 {/* Image */}
                 <View style={styles.ParentImg}>
-                    <Image source={{ uri: image_Front }} style={styles.image} />
+                    <Image source={{ uri: image_Gap }} style={styles.image} />
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickFront}>
-                        <Text style={styles.btnTxt}>Upload</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            {/* 2 */}
-            <View style={styles.line}></View>
-            {/* 3 */}
-            <View style={styles.firstParent}>
-                <Text style={styles.fir}>ID Card Back</Text>
-                <Text style={styles.firPar}>Kindly Upload Your ID Card Back In JPG / PNG Format.</Text>
-                {/* Image */}
-                <View style={styles.ParentImg}>
-                    <Image source={{ uri: image_Back }} style={styles.image} />
-                </View>
-                {/* Upload Btn */}
-                <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickBack}>
+                    <TouchableOpacity style={styles.btn1} onPress={pick_Gap}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>

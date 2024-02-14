@@ -1,19 +1,47 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native'
-// useNavigate
-import { useNavigation } from '@react-navigation/native'
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput, Keyboard } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
+// Firebase
+import { firebase } from "../../firestore";
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function S_PersonalData_5() {
-    // 0 - useNavigate
+    // Navigation
     const navigation = useNavigation();
-    // Pre 0 - useState
+    // ----------- Backend Part Logic -----------
+    // Get the document ID passed from the previous page
+    const route = useRoute();
+    const { documentId } = route.params;
+    const additionalDetailRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
     const [info1, setInfo1] = useState("");
     const [info2, setInfo2] = useState("");
     const [info3, setInfo3] = useState("");
     const [info4, setInfo4] = useState("");
-    
+    // Add Function
+    const addData = () => {
+        const data = {
+            A1_FathersHighestQualification: info1,
+            A2_MothersHighestQualification: info2,
+            A3_GrantedScholarshipBefore: info3,
+            A4_ApplyingForScholarship: info4,
+        };
+        additionalDetailRef
+            .set(data, { merge: true }) // Use merge option to merge the new data with existing data
+            .then(() => {
+                setInfo1("");
+                setInfo2("");
+                setInfo3("");
+                setInfo4("");
+                Keyboard.dismiss();
+                // Navigate to the next page or perform any other action
+                navigation.navigate("S_PersonalData_6", { documentId: documentId });
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    };
+    // ----------- Backend Part Logic -----------
     // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -79,7 +107,7 @@ export default function S_PersonalData_5() {
                         keyboardType="default"
                     />
                     {/* Button */}
-                    <TouchableOpacity style={styles.BtnBox} >
+                    <TouchableOpacity style={styles.BtnBox} onPress={addData}>
                         <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
                     </TouchableOpacity>
                 </View>

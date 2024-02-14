@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView } from 'react-native';
 import { useFonts } from "expo-font";
-// Add Function
+// Firebase
 import { firebase } from "../firestore";
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -168,14 +168,6 @@ export default function Z_Test_Part_1() {
         {/* 1 Btn */}
         <TouchableOpacity style={styles.Btn_Parent} onPress={addData}>
           <Text style={styles.Btn_Txt}>Add Data</Text>
-        </TouchableOpacity>
-        {/* 2 Btn */}
-        <TouchableOpacity style={styles.Btn_Parent_1} onPress={() => navigation.navigate("Z_Test_Part_2")}>
-          <Text style={styles.Btn_Txt}>Move To Page 5</Text>
-        </TouchableOpacity>
-        {/* 3 Btn */}
-        <TouchableOpacity style={styles.Btn_Parent_1} onPress={() => navigation.navigate("Z_Test_1_A")}>
-          <Text style={styles.Btn_Txt}>Move Home</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

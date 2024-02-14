@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } from 'react-native'
 // Fonts
 import { useFonts } from "expo-font";
 // Image Header File
 import * as ImagePicker from 'expo-image-picker'
-// useNavigation
-import { useNavigation } from '@react-navigation/native'
+// Firebase
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { firebase } from "../../firestore";
 
 export default function D1_10Mark() {
-    // 0 - useNavigation
+    // Navigation
     const navigation = useNavigation();
-    // 1 - Image useState
+    // ------------------- Backend Logic & Image Upload Functions -------------------
+    const route = useRoute();
+    const { documentId } = route.params;
     const [image_10Mark, setImage_10Mark] = useState(null);
     const [image_10Cert, setImage_10Cert] = useState(null);
-    // 2 - Image Function
     const pickImage10Mark = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -36,6 +38,25 @@ export default function D1_10Mark() {
             setImage_10Cert(result.assets[0].uri);
         }
     }
+    const submitFiles = () => {
+        const data = {
+            D1_1_Image_10Mark: image_10Mark,
+            D1_2_Image_10Cert: image_10Cert,
+        };
+        const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
+        studentRecordsRef
+            .set(data, { merge: true })
+            .then(() => {
+                setImage_10Mark(null);
+                setImage_10Cert(null);
+                Keyboard.dismiss();
+                navigation.navigate("D2_11Mark", { documentId: documentId }); // Pass documentId here
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    };
+    // ------------------- Backend Logic & Image Upload Functions -------------------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -95,7 +116,7 @@ export default function D1_10Mark() {
                 </View>
             </View>
             {/* Submit Button */}
-            <TouchableOpacity style={styles.My_Submit_Btn}>
+            <TouchableOpacity style={styles.My_Submit_Btn} onPress={submitFiles}>
                 <Text style={styles.My_Submit_Btn_Txt}>Submit File</Text>
             </TouchableOpacity>
         </View>

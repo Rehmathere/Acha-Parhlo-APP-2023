@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native'
-// useNavigate
-import { useNavigation } from '@react-navigation/native'
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput, Keyboard } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
+// Firebase
+import { firebase } from "../../firestore";
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function S_PersonalData_3() {
-    // 0 - useNavigate
+    // Navigation
     const navigation = useNavigation();
-    // Pre 0 - useState
+    // ----------- Backend Part Logic -----------
+    // Get the document ID passed from the previous page
+    const route = useRoute();
+    const { documentId } = route.params;
+    const englishAbilityRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
     const [info1, setInfo1] = useState("");
-    // const [info2, setInfo2] = useState("");
     const [info3, setInfo3] = useState("");
     const [info4, setInfo4] = useState("");
     const [info5, setInfo5] = useState("");
@@ -18,7 +22,38 @@ export default function S_PersonalData_3() {
     const [info7, setInfo7] = useState("");
     const [info8, setInfo8] = useState("");
     const [info9, setInfo9] = useState("");
-    
+    // Add Function
+    const addData = () => {
+        const data = {
+            E1_EnglishTestName: info1,
+            E2_OverallScore: info3,
+            E3_ListeningScore: info4,
+            E4_ReadingScore: info5,
+            E5_WritingScore: info6,
+            E6_SpeakingScore: info7,
+            E7_TestReferenceNumber: info8,
+            E8_StudyInEnglish: info9,
+        };
+        englishAbilityRef
+            .set(data, { merge: true }) // Use merge option to merge the new data with existing data
+            .then(() => {
+                setInfo1("");
+                setInfo3("");
+                setInfo4("");
+                setInfo5("");
+                setInfo6("");
+                setInfo7("");
+                setInfo8("");
+                setInfo9("");
+                Keyboard.dismiss();
+                // Navigate to the next page or perform any other action
+                navigation.navigate("S_PersonalData_4", { documentId: documentId });
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    };
+    // ----------- Backend Part Logic -----------    
     // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -64,7 +99,7 @@ export default function S_PersonalData_3() {
                         onChangeText={(text) => setInfo3(text)}
                         style={styles.inputTitle}
                         keyboardType="number-pad"
-                        />
+                    />
                     {/* 4 */}
                     <Text style={styles.inputTitleTxt}>Listening Score</Text>
                     <TextInput
@@ -73,7 +108,7 @@ export default function S_PersonalData_3() {
                         onChangeText={(text) => setInfo4(text)}
                         style={styles.inputTitle}
                         keyboardType="number-pad"
-                        />
+                    />
                     {/* 5 */}
                     <Text style={styles.inputTitleTxt}>Reading Score</Text>
                     <TextInput
@@ -82,7 +117,7 @@ export default function S_PersonalData_3() {
                         onChangeText={(text) => setInfo5(text)}
                         style={styles.inputTitle}
                         keyboardType="number-pad"
-                        />
+                    />
                     {/* 6 */}
                     <Text style={styles.inputTitleTxt}>Writing Score</Text>
                     <TextInput
@@ -91,7 +126,7 @@ export default function S_PersonalData_3() {
                         onChangeText={(text) => setInfo6(text)}
                         style={styles.inputTitle}
                         keyboardType="number-pad"
-                        />
+                    />
                     {/* 7 */}
                     <Text style={styles.inputTitleTxt}>Speaking Score</Text>
                     <TextInput
@@ -118,7 +153,7 @@ export default function S_PersonalData_3() {
                         style={styles.inputTitle}
                     />
                     {/* Button */}
-                    <TouchableOpacity style={styles.BtnBox} >
+                    <TouchableOpacity style={styles.BtnBox} onPress={addData}>
                         <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
                     </TouchableOpacity>
                 </View>
@@ -156,35 +191,35 @@ const styles = StyleSheet.create({
         paddingLeft: 13,
         fontSize: 14,
         letterSpacing: 0.5,
-        fontFamily:"Kanit",
+        fontFamily: "Kanit",
         marginBottom: 15,
         textDecorationColor: "white",
     },
-    inputTitleTxt:{
+    inputTitleTxt: {
         marginHorizontal: 16,
         // borderWidth: 0.5,
         fontSize: 13,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
         paddingVertical: 6,
         letterSpacing: 0.5,
-        textTransform:"capitalize",
+        textTransform: "capitalize",
     },
-    BtnBox:{
+    BtnBox: {
         marginVertical: 15,
         marginHorizontal: 16,
         borderColor: "#EB2F06",
-        backgroundColor:"#EB2F06",
+        backgroundColor: "#EB2F06",
         borderWidth: 1,
         paddingVertical: 4.5,
         borderRadius: 20,
     },
-    BtnBoxTxt:{
+    BtnBoxTxt: {
         color: "white",
         borderRadius: 20,
         borderColor: "transparent",
         borderWidth: 1,
         paddingVertical: 1,
-        textAlign:"center",
+        textAlign: "center",
         fontFamily: "Heebo",
         letterSpacing: 2.5,
         fontSize: 20,

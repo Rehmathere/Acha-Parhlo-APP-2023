@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -31,9 +31,11 @@ export default function Overview1() {
     // Main Body
     return (
         <View style={styles.container}>
-            {/* Firbase Item Data */}
-            <Text style={styles.heading}><MaterialCommunityIcons name="information" size={15} color="#EB2F06" />  Basic Overview :</Text>
-            <Text style={styles.headingAns}>{route.params.noteText}</Text>
+            <ScrollView>
+                {/* Firbase Item Data */}
+                <Text style={styles.heading}><MaterialCommunityIcons name="information" size={15} color="#EB2F06" />  Basic Overview :</Text>
+                <Text style={styles.headingAns}>{route.params.noteText}</Text>
+            </ScrollView>
         </View>
     )
 }

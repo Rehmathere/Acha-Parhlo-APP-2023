@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } from 'react-native'
 // Fonts
 import { useFonts } from "expo-font";
 // Image Header File
 import * as ImagePicker from 'expo-image-picker'
-// useNavigation
-import { useNavigation } from '@react-navigation/native'
+// Firebase
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { firebase } from "../../firestore";
 
 export default function D2_11Mark() {
-    // 0 - useNavigation
+    // Navigation
     const navigation = useNavigation();
-    // 1 - Image useState
+    // ------------------- Backend Logic & Image Upload Functions -------------------
+    const route = useRoute();
+    const documentId = route?.params?.documentId || null;
     const [image_11Mark, setImage_11Mark] = useState(null);
     const [image_11Cert, setImage_11Cert] = useState(null);
-    // 2 - Image Function
     const pickImage11Mark = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -36,6 +38,29 @@ export default function D2_11Mark() {
             setImage_11Cert(result.assets[0].uri);
         }
     }
+    const submitFiles = () => {
+        console.log("Document ID from route params:", documentId);
+        const data = {
+            D2_1_Image_11Mark: image_11Mark,
+            D2_2_Image_11Cert: image_11Cert,
+        };
+        if (documentId) {
+            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
+            studentRecordsRef
+                .set(data, { merge: true })
+                .then(() => {
+                    setImage_11Mark(null);
+                    setImage_11Cert(null);
+                    navigation.navigate("D3_Bachelor", { documentId: documentId });
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        } else {
+            alert("Document ID is undefined. Check the navigation from Z_Test_Part_D1.");
+        }
+    };
+    // ------------------- Backend Logic & Image Upload Functions -------------------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -95,7 +120,7 @@ export default function D2_11Mark() {
                 </View>
             </View>
             {/* Submit Button */}
-            <TouchableOpacity style={styles.My_Submit_Btn}>
+            <TouchableOpacity style={styles.My_Submit_Btn} onPress={submitFiles}>
                 <Text style={styles.My_Submit_Btn_Txt}>Submit File</Text>
             </TouchableOpacity>
         </View>

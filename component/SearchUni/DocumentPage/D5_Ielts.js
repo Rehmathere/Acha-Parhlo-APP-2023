@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } from 'react-native'
 // Fonts
 import { useFonts } from "expo-font";
 // Image Header File
 import * as ImagePicker from 'expo-image-picker'
-// useNavigation
-import { useNavigation } from '@react-navigation/native'
+// Firebase
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { firebase } from "../../firestore";
 
 export default function D5_Ielts() {
-    // 0 - useNavigation
+    // Navigation
     const navigation = useNavigation();
-    // 1 - Image useState
+    // ------------------- Backend Logic & Image Upload Functions -------------------
+    const route = useRoute();
+    const documentId = route?.params?.documentId || null;
     const [image_IELTS, setImage_IELTS] = useState(null);
-    // 2 - Image Function
     const pick_IELTS = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -24,6 +26,35 @@ export default function D5_Ielts() {
             setImage_IELTS(result.assets[0].uri);
         }
     }
+    const submitFiles = async () => {
+        const data = {
+            D5_1_Image_IELTS: image_IELTS,
+        };
+        if (documentId) {
+            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
+            try {
+                await Promise.all([
+                    uploadImageToFirebase(documentId, 'D5_1_Image_IELTS', image_IELTS),
+                    studentRecordsRef.set(data, { merge: true })
+                ]);
+                setImage_IELTS(null);
+                // Navigate to the next screen if needed
+                navigation.navigate("D6_Gap", { documentId: documentId });
+
+            } catch (err) {
+                alert(err);
+            }
+        } else {
+            alert("Document ID is undefined.");
+        }
+    };
+    const uploadImageToFirebase = async (documentId, field, imageUri) => {
+        const storageRef = firebase.storage().ref(`images/${documentId}/${field}`);
+        const response = await fetch(imageUri);
+        const blob = await response.blob();
+        return storageRef.put(blob);
+    };
+    // ------------------- Backend Logic & Image Upload Functions -------------------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -66,7 +97,7 @@ export default function D5_Ielts() {
                 </View>
             </View>
             {/* Submit Button */}
-            <TouchableOpacity style={styles.My_Submit_Btn}>
+            <TouchableOpacity style={styles.My_Submit_Btn} onPress={submitFiles}>
                 <Text style={styles.My_Submit_Btn_Txt}>Submit File</Text>
             </TouchableOpacity>
         </View>

@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native'
-// useNavigate
-import { useNavigation } from '@react-navigation/native'
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, TextInput, Keyboard } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
+// Firebase
+import { firebase } from "../../firestore";
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function S_PersonalData_2() {
-    // 0 - useNavigate
+    // Navigation
     const navigation = useNavigation();
-    // Updated useState names
+    // ----------- Backend Part Logic -----------
+    // Get the document ID passed from the first page
+    const route = useRoute();
+    const { documentId } = route.params;
+    // Firebase
+    const personalDetailRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
     const [P1_title, setP1_title] = useState("");
     const [P2_familyName, setP2_familyName] = useState("");
     const [P3_givenName, setP3_givenName] = useState("");
@@ -26,7 +32,57 @@ export default function S_PersonalData_2() {
     const [P15_homeCountryPhoneNumber, setP15_homeCountryPhoneNumber] = useState("");
     const [P16_visaRefusal, setP16_visaRefusal] = useState("");
     const [P17_refusedEntry, setP17_refusedEntry] = useState("");
-
+    // Add Function
+    const addData = () => {
+        const data = {
+            P1_title,
+            P2_familyName,
+            P3_givenName,
+            P4_countryOfBirth,
+            P5_cityOfBirth,
+            P6_countryOfCitizenship,
+            P7_dualCitizen,
+            P8_email,
+            P9_firstLanguageSpoken,
+            P10_maritalStatus,
+            P11_medicalIssue,
+            P12_disability,
+            P13_crimeConviction,
+            P14_homeCountryAddress,
+            P15_homeCountryPhoneNumber,
+            P16_visaRefusal,
+            P17_refusedEntry,
+        };
+        personalDetailRef
+            .set(data, { merge: true }) // Use merge option to merge the new data with existing data
+            .then(() => {
+                // Reset state values after adding data
+                setP1_title("");
+                setP2_familyName("");
+                setP3_givenName("");
+                setP4_countryOfBirth("");
+                setP5_cityOfBirth("");
+                setP6_countryOfCitizenship("");
+                setP7_dualCitizen("");
+                setP8_email("");
+                setP9_firstLanguageSpoken("");
+                setP10_maritalStatus("");
+                setP11_medicalIssue("");
+                setP12_disability("");
+                setP13_crimeConviction("");
+                setP14_homeCountryAddress("");
+                setP15_homeCountryPhoneNumber("");
+                setP16_visaRefusal("");
+                setP17_refusedEntry("");
+                Keyboard.dismiss();
+                // Navigate to the next page or perform any other action
+                navigation.navigate("S_PersonalData_3", { documentId: documentId });
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    }
+    // ----------- Backend Part Logic -----------
     // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -211,7 +267,7 @@ export default function S_PersonalData_2() {
                         keyboardType="default"
                     />
                     {/* Button */}
-                    <TouchableOpacity style={styles.BtnBox} >
+                    <TouchableOpacity style={styles.BtnBox} onPress={addData}>
                         <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
                     </TouchableOpacity>
                 </View>
