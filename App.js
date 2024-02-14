@@ -13,6 +13,7 @@ import Parent_Chat from "./component/Parent_Chat";
 import Main from "./component/SearchUni/Main";
 import Z_Test_Parent_A from "./component/Z_Test_Demo/Z_Test_Parent_A";
 import Z_Test_Part_D1 from "./component/Z_Test_Demo/Z_Test_Part_D1";
+import Z_Test_Part_D2 from "./component/Z_Test_Demo/Z_Test_Part_D2";
 
 export default function App() {
   // Main Body
@@ -25,7 +26,7 @@ export default function App() {
     {/* 1 - Apointment --- ( Completed ) */}
     {/* <Parent_Appoint /> */}
     {/* 2 - Search Uni --- ( Completed ) */}
-    {/* <Parent_Search /> */}
+    <Parent_Search />
     {/* 3 - Parent_Drawer */}
     {/* <Parent_Drawer /> */}
     {/* 4 - Parent_Application */}
@@ -35,8 +36,8 @@ export default function App() {
     {/* -------- Extra -------- */}
     {/* <MySecond /> */}
     {/* - Demo Practice Backend - */}
-    <Z_Test_Parent_A />
-    {/* <Z_Test_Part_D1 /> */}
+    {/* <Z_Test_Parent_A /> */}
+    {/* <Z_Test_Part_D2 /> */}
     </View>
   );
 }
