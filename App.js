@@ -26,9 +26,9 @@ export default function App() {
     {/* 1 - Apointment --- ( Completed ) */}
     {/* <Parent_Appoint /> */}
     {/* 2 - Search Uni --- ( Completed ) */}
-    <Parent_Search />
+    {/* <Parent_Search /> */}
     {/* 3 - Parent_Drawer */}
-    {/* <Parent_Drawer /> */}
+    <Parent_Drawer />
     {/* 4 - Parent_Application */}
     {/* <Parent_Application /> */}
     {/* 5 - Parent_Chat */}
