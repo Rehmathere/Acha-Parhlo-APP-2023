@@ -65,7 +65,7 @@ export default function DocHome() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={24} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -78,7 +78,7 @@ export default function DocHome() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={24} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -91,7 +91,7 @@ export default function DocHome() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={24} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -104,7 +104,7 @@ export default function DocHome() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={24} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -117,7 +117,7 @@ export default function DocHome() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={24} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -130,7 +130,7 @@ export default function DocHome() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={24} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -143,7 +143,7 @@ export default function DocHome() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={24} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -156,7 +156,7 @@ export default function DocHome() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={24} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><Entypo name="upload" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -164,7 +164,7 @@ export default function DocHome() {
                 {/* Button */}
                 <View style={styles.DH_Last_Btn_Parent}>
                     <TouchableOpacity style={styles.DH_Last_Btn_Box} onPress={() => navigation.navigate('S_FinalSubmit')}>
-                        <Text style={styles.DH_Last_Btn}>Confirm Submit Application</Text>
+                        <Text style={styles.DH_Last_Btn}>Confirm Submit</Text>
                     </TouchableOpacity>
                 </View>
                 {/* --- Modal For Profile Updated Status --- */}
@@ -184,7 +184,7 @@ export default function DocHome() {
                                 <Image source={require('../../Pics/Lock_1.png')} style={styles.StatusImg} />
                             </View>
                             <Text style={styles.StatusTxt_E}>Restricted</Text>
-                            <Text style={styles.StatusTxt}>In Order To Access Documents, Then You Need To Follow A Complete Sequence Processs Starting With University Detail.</Text>
+                            <Text style={styles.StatusTxt}>In Order To Access Documents, Then You Need To Follow A Complete Sequence Processs Starting From University Detail.</Text>
                         </View>
                     </View>
                 </Modal>
@@ -232,19 +232,19 @@ const styles = StyleSheet.create({
     },
     ParentDoc: {
         // borderWidth: 0.5,
-        paddingVertical: 10,
-        paddingBottom: 25,
-        paddingHorizontal: 18,
+        paddingVertical: 2,
+        paddingBottom: 15,
+        paddingHorizontal: 30,
     },
     DocBox: {
         // borderWidth: 0.5,
         borderColor: "#FFDF77",
-        paddingVertical: 5,
+        paddingVertical: 4,
         paddingHorizontal: 5,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 10,
+        borderRadius: 15,
         backgroundColor: "#FFDF77",
         marginVertical: 5,
     },
@@ -258,9 +258,9 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         padding: 2,
         fontFamily: "Heebo",
-        fontSize: 14.5,
-        letterSpacing: 1.6,
-        paddingHorizontal: 18.5,
+        fontSize: 13,
+        letterSpacing: 1.55,
+        paddingHorizontal: 17,
         color: "#EB2F06"
     },
     DocBoxPart2: {
@@ -280,14 +280,14 @@ const styles = StyleSheet.create({
     },
     DH_Last_Btn_Parent: {
         // borderWidth: 0.5,
-        paddingTop: 15,
+        paddingTop: 13,
         paddingBottom: 25,
     },
     DH_Last_Btn_Box: {
         borderWidth: 1,
         borderColor: "#EB2F06",
-        marginHorizontal: 30,
-        paddingVertical: 6,
+        marginHorizontal: 25,
+        paddingVertical: 4,
         borderRadius: 50,
         backgroundColor: "#EB2F06",
     },
@@ -295,10 +295,10 @@ const styles = StyleSheet.create({
         // borderWidth: 1,
         paddingVertical: 5,
         textAlign: "center",
-        letterSpacing: 1.5,
+        letterSpacing: 2.5,
         fontFamily: "Heebo",
         color: "white",
-        fontSize: 15,
+        fontSize: 16.5,
     },
     ParentStatus: {
         backgroundColor: "rgba(0, 0, 0, 0.70)",

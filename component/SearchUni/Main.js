@@ -7,8 +7,7 @@ import { firebase } from "../firestore";
 import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function Main() {
-  // fetch API 
-  // 0 - useState
+  // ---------- Backend Part Logic ----------
   const [visible, setVisible] = useState(false);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
@@ -16,12 +15,8 @@ export default function Main() {
   const listRef = useRef();
   const [ind, setInd] = useState(0);
   const [oldData, setOldData] = useState([]);
-  // 1 - Function
-  // 0 - Navigation Constant
   const navigation = useNavigation();
-  // 1 - useState
   const [notes, setNotes] = useState([]);
-  // 2 - useEffect ( Fetch Data From Firestore Firebase )
   useEffect(() => {
     firebase
       .firestore()
@@ -33,13 +28,13 @@ export default function Main() {
           newNotes.push({ name1, name2, name3, name4, name5, MyImage });
         });
         setNotes(newNotes);
-        setOldData(newNotes); // Add this line to update oldData
-        setData(newNotes); // Initialize data with the fetched notes
+        setOldData(newNotes);
+        setData(newNotes);
       });
   }, []);
-  // 1 - useState
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // ---------- Backend Part Logic ----------
   // Expo Font Logic
+  const [fontsLoaded, setFontsLoaded] = useState(false);
   let [loaded] = useFonts({
     Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
     Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -58,79 +53,67 @@ export default function Main() {
   if (!fontsLoaded) {
     return null;
   }
-  // Main Body
+  // Main Body  
   return (
-    <View style={{ flex: 1, paddingBottom: 0, backgroundColor: "white", }}>
-      {/* StatusBar */}
+    <ScrollView style={{ flex: 1, paddingBottom: 0, backgroundColor: "white", }}>
       <StatusBar backgroundColor={"#EB2F06"} />
-      <Text style={styles.Ext_Fir_Txt}>Explore Courses  <MaterialCommunityIcons name="book-education" size={24} color="#EA2A00" /></Text>
-      {/* Flatlist Starts */}
-      <FlatList
-        data={notes}
-        numColumns={1}
-        estimatedItemSize={100}
-        renderItem={({ item }) => (
-          // Display Area
-          <TouchableOpacity style={styles.box} onPress={() =>
-            navigation.navigate("SubMainHome", {
-              item: {
-                MyImage: item.MyImage,
-                name1: item.name1,
-                name2: item.name2,
-                name3: item.name3,
-                name4: item.name4,
-                name5: item.name5,
-              },
-            })
-          }>
-            {/* Box Border */}
-            <View style={styles.box_2}>
-              {/* Row 1 */}
-              <View style={styles.in_box}>
-                {/* 1 - Image */}
-                <Image
-                  source={{ uri: item.MyImage }}
-                  style={styles.img_fir}
-                />
-                {/* 2 - Title */}
-                <Text
-                  style={styles.sec}>
-                  {item.name1.substring(0, 15)}
-                </Text>
+      {/* Heading */}
+      <View style={styles.Ext_AL_1}>
+        {/* Image */}
+        <View style={styles.Ext_AL_ParentImg}>
+          <Image source={require("../Pics/AL_Courses.png")} style={styles.Ext_AL_Img} />
+        </View>
+        {/* Heading */}
+        <Text style={styles.Ext_AL_Txt}>Explore Courses</Text>
+        <Text style={styles.Ext_AL_Txt_1}>Students can explore various academic courses and can apply to different universities.</Text>
+      </View>
+      {/* Data From Firebase */}
+      {data.map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          style={styles.box}
+          onPress={() => navigation.navigate("SubMainHome", {
+            item: {
+              MyImage: item.MyImage,
+              name1: item.name1,
+              name2: item.name2,
+              name3: item.name3,
+              name4: item.name4,
+              name5: item.name5,
+            },
+          })}
+        >
+          <View style={styles.box_2}>
+            <View style={styles.in_box}>
+              <Image source={{ uri: item.MyImage }} style={styles.img_fir} />
+              <Text style={styles.sec}>{item.name1.substring(0, 15)}</Text>
+            </View>
+            <View style={styles.third}>
+              <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Courses</Text>
+              <Text style={styles.third_2}>{item.name3.substring(0, 20)}</Text>
+            </View>
+            <View style={styles.forth}>
+              <View style={styles.forth_1}>
+                <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" />  Semester Fee</Text>
+                <Text style={styles.for_2}>{item.name4.substring(0, 15)}</Text>
               </View>
-              {/* Row 2 */}
-              <View style={styles.third}>
-                {/* 1 - Text */}
-                <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Courses</Text>
-                {/* 2 - Title */}
-                <Text style={styles.third_2}>{item.name3.substring(0, 20)}</Text>
-              </View>
-              {/* Row 3 */}
-              <View style={styles.forth}>
-                {/* 1 */}
-                <View style={styles.forth_1}>
-                  <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" />  Semester Fee</Text>
-                  <Text style={styles.for_2}>{item.name4.substring(0, 15)}</Text>
-                </View>
-                {/* 2 */}
-                <View style={styles.forth_1}>
-                  <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
-                  <Text style={styles.for_22}>{item.name5}</Text>
-                </View>
+              <View style={styles.forth_1}>
+                <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
+                <Text style={styles.for_22}>{item.name5}</Text>
               </View>
             </View>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+          </View>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 }
 
 // CSS
 const styles = StyleSheet.create({
   box: {
-    width: '88%',
-    borderRadius: 17,
+    width: '85%',
+    borderRadius: 15,
     // borderWidth: 1,
     borderColor: "black",
     alignSelf: 'center',
@@ -139,9 +122,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     elevation: 15,
-    // backgroundColor: "#FCDFD8",
+    // backgroundColor: "#EB2F06",
     backgroundColor: "#FCBBAC",
-    // backgroundColor: "#FED1C7",
     paddingHorizontal: 5,
     paddingVertical: 6,
   },
@@ -175,7 +157,7 @@ const styles = StyleSheet.create({
     marginTop: 11,
     // borderWidth: 1,
     //   height: 20,
-    fontSize: 16,
+    fontSize: 14,
     textTransform: "uppercase",
     paddingHorizontal: 2,
   },
@@ -197,7 +179,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 7.5,
     backgroundColor: "#dff9fb",
     borderRadius: 7,
-    width: "29%",
+    width: "29.5%",
     marginTop: 5,
   },
   third_2: {
@@ -208,7 +190,7 @@ const styles = StyleSheet.create({
     color: "black",
     marginTop: 2,
     // borderWidth: 1,
-    fontSize: 13,
+    fontSize: 12.5,
     paddingVertical: 4.5,
     paddingHorizontal: 2,
     marginBottom: 2,
@@ -238,7 +220,7 @@ const styles = StyleSheet.create({
   for_2: {
     // color: "#009432",
     letterSpacing: 1.5,
-    fontSize: 13,
+    fontSize: 12.5,
     fontFamily: "Heebo",
     marginTop: 6,
     paddingHorizontal: 4.5,
@@ -246,7 +228,7 @@ const styles = StyleSheet.create({
   for_22: {
     // color: "#e84118",
     letterSpacing: 1.5,
-    fontSize: 13,
+    fontSize: 12.5,
     fontFamily: "Heebo",
     marginTop: 6,
     paddingHorizontal: 4,
@@ -304,6 +286,47 @@ const styles = StyleSheet.create({
     color: "#EB2F06",
     letterSpacing: 1.3,
   },
+  E_Parent_Img: {
+    borderWidth: 0.5,
+    paddingVertical: 20,
+  },
+  Ext_AL_1: {
+    // borderWidth: 0.5,
+    paddingVertical: 15,
+  },
+  Ext_AL_ParentImg: {
+    // borderWidth: 0.5,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 6,
+  },
+  Ext_AL_Img: {
+    // borderWidth: 0.1,
+    // borderColor: "black",
+    width: 190,
+    height: 140,
+  },
+  Ext_AL_Txt: {
+    // borderWidth: 0.5,
+    textAlign: "center",
+    fontFamily: "HeeboExtra",
+    fontSize: 22,
+    letterSpacing: 1.3,
+  },
+  Ext_AL_Txt_1: {
+    // borderWidth: 0.5,
+    textAlign: "center",
+    fontFamily: "Kanit",
+    fontSize: 12,
+    letterSpacing: 1,
+    paddingHorizontal: 30,
+    color: "grey",
+    textTransform: "capitalize",
+    letterSpacing: 1,
+    paddingVertical: 6,
+  }
 })
 
 

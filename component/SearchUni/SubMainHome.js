@@ -168,9 +168,9 @@ const styles = StyleSheet.create({
     SMH_First_Its_Name: {
         // borderWidth: 0.5,
         fontFamily: "KanitBold",
-        fontSize: 20,
+        fontSize: 18,
         // color: "#EB2F06",
-        letterSpacing: 0.8,
+        letterSpacing: 0.9,
         paddingHorizontal: 10,
     },
     SMH_First_Course: {

@@ -61,7 +61,7 @@ export default function Parent_Search() {
                         fontSize: 15,
                         letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey"
+                    headerPressColor: "grey",
                 }} />
                 {/* 2 */}
                 <Stack.Screen name='SubMainHome' component={SubMainHome} options={{
@@ -92,7 +92,7 @@ export default function Parent_Search() {
                         fontSize: 15,
                         letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey"
+                    headerPressColor: "white"
                 }} />
                 {/* Doc 2 */}
                 <Stack.Screen name='D2_11Mark' component={D2_11Mark} options={{
@@ -102,7 +102,7 @@ export default function Parent_Search() {
                         fontSize: 15,
                         letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey"
+                    headerPressColor: "white"
                 }} />
                 {/* Doc 3 */}
                 <Stack.Screen name='D3_Bachelor' component={D3_Bachelor} options={{
@@ -112,7 +112,7 @@ export default function Parent_Search() {
                         fontSize: 15,
                         letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey"
+                    headerPressColor: "white"
                 }} />
                 {/* Doc 4 */}
                 <Stack.Screen name='D4_ID' component={D4_ID} options={{
@@ -122,7 +122,7 @@ export default function Parent_Search() {
                         fontSize: 15,
                         letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey"
+                    headerPressColor: "white"
                 }} />
                 {/* Doc 5 */}
                 <Stack.Screen name='D5_Ielts' component={D5_Ielts} options={{
@@ -132,7 +132,7 @@ export default function Parent_Search() {
                         fontSize: 15,
                         letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey"
+                    headerPressColor: "white"
                 }} />
                 {/* Doc 6 */}
                 <Stack.Screen name='D6_Gap' component={D6_Gap} options={{
@@ -142,7 +142,7 @@ export default function Parent_Search() {
                         fontSize: 15,
                         letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey"
+                    headerPressColor: "white"
                 }} />
                 {/* Doc 7 */}
                 <Stack.Screen name='D7_Resume' component={D7_Resume} options={{
@@ -152,7 +152,7 @@ export default function Parent_Search() {
                         fontSize: 15,
                         letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey"
+                    headerPressColor: "white"
                 }} />
                 {/* Doc 8 */}
                 <Stack.Screen name='D8_Passport' component={D8_Passport} options={{
@@ -162,7 +162,7 @@ export default function Parent_Search() {
                         fontSize: 15,
                         letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey"
+                    headerPressColor: "white"
                 }} />
                 {/* Doc 9 */}
                 <Stack.Screen name='Doc_HomeMain' component={Doc_HomeMain} options={{
@@ -176,7 +176,7 @@ export default function Parent_Search() {
                     headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
-                    headerPressColor: "grey",
+                    headerPressColor: "white",
                     headerTintColor: "white",
                 }} />
                 {/* Doc 10 */}
@@ -208,7 +208,7 @@ export default function Parent_Search() {
                     headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
-                    headerPressColor: "grey",
+                    headerPressColor: "white",
                     headerTintColor: "white",
                 }} />
                 {/* P D 2 */}
@@ -223,7 +223,7 @@ export default function Parent_Search() {
                     headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
-                    headerPressColor: "grey",
+                    headerPressColor: "white",
                     headerTintColor: "white",
                 }} />
                 {/* P D 3 */}
@@ -238,7 +238,7 @@ export default function Parent_Search() {
                     headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
-                    headerPressColor: "grey",
+                    headerPressColor: "white",
                     headerTintColor: "white",
                 }} />
                 {/* P D 4 */}
@@ -253,7 +253,7 @@ export default function Parent_Search() {
                     headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
-                    headerPressColor: "grey",
+                    headerPressColor: "white",
                     headerTintColor: "white",
                 }} />
                 {/* P D 5 */}
@@ -268,7 +268,7 @@ export default function Parent_Search() {
                     headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
-                    headerPressColor: "grey",
+                    headerPressColor: "white",
                     headerTintColor: "white",
                 }} />
                 {/* P D 6 */}
@@ -283,7 +283,7 @@ export default function Parent_Search() {
                     headerStyle: {
                         backgroundColor: "#EB2F06",
                     },
-                    headerPressColor: "grey",
+                    headerPressColor: "white",
                     headerTintColor: "white",
                 }} />
             </Stack.Navigator>

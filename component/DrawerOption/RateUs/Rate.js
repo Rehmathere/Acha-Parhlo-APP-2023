@@ -61,7 +61,7 @@ export default function Rate() {
                 <Image source={require('../../Pics/feedback.png')} style={styles.imgFeedback} />
             </View>
             <Text style={styles.fir}>Please Submit Feedback</Text>
-            <Text style={styles.fir2}>Your feedback matters! Help us enhance your experience. Share your thoughts about our app, and let's shape it together for better usability.</Text>
+            <Text style={styles.fir2}>Your feedback matters! Share your thoughts about our app, and let's shape it together for better usability.</Text>
             {/* Rate Us Function ( Defined Above ) */}
             <CustomRatingBar />
             {/* Rating Number */}
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         padding: 5,
         letterSpacing: 1,
         fontSize: 33,
-        fontWeight: "bold",
+        fontFamily: "HeeboExtra",
         textAlign: "center",
     },
     rateNum2: {
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
         // borderWidth: 1,
         fontSize: 22,
         letterSpacing: 1,
-        fontWeight: "bold",
+        fontFamily: "Kanit",
         textAlign: "center",
     },
     subBtn: {

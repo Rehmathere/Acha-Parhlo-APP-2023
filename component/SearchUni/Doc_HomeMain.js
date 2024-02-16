@@ -45,6 +45,8 @@ export default function Doc_HomeMain() {
             </View>
             {/* 2 Documents Button */}
             <View style={styles.DMH_Button_Parent}>
+                {/* Text */}
+                <Text style={styles.DHM_E_Text}>Follow a complete process for Information And Documents Filling.</Text>
                 {/* Button 1 */}
                 <TouchableOpacity style={styles.BTn_1_Parent} onPress={() => navigation.navigate('PersonalData_HomeMain')}>
                     <View style={styles.BTn_1_Parent_Box}>
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontFamily: "Heebo",
         fontSize: 18,
-        paddingVertical: 45,
+        paddingVertical: 44,
         backgroundColor: "#EB2F06",
     },
     DMH_Img_Parent: {
@@ -124,12 +126,11 @@ const styles = StyleSheet.create({
         paddingVertical: 23,
     },
     BTn_1_Parent: {
-        borderWidth: 1,
+        borderWidth: 0.7,
         borderColor: "red",
         paddingVertical: 1,
         marginHorizontal: 38,
-        borderRadius: 10,
-        borderRadius: 10,
+        borderRadius: 5,
         marginVertical: 15,
     },
     BTn_1_Parent_Box: {
@@ -157,5 +158,15 @@ const styles = StyleSheet.create({
         fontFamily: "Heebo",
         letterSpacing: 1.5,
         fontSize: 18,
+    },
+    DHM_E_Text:{
+        // borderWidth: 0.5,
+        fontFamily: "Kanit",
+        textAlign: "center",
+        fontSize: 14,
+        color: "grey",
+        paddingHorizontal: 35,
+        paddingVertical: 6,
+        textTransform: "capitalize",
     },
 });

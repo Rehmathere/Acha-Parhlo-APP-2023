@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, ScrollView, Modal } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
 import { FontAwesome } from '@expo/vector-icons';
@@ -9,6 +9,17 @@ import { useNavigation } from '@react-navigation/native'
 export default function PersonalData_HomeMain() {
     // 0 - useNavigate
     const navigation = useNavigation();
+    // Modal useState
+    const [showStatus, setShowStatus] = useState(false)
+    // Set TimeOut
+    const ShowModal = () => {
+        // Display
+        setShowStatus(true)
+        // Not Display
+        setTimeout(() => {
+            setShowStatus(false)
+        }, 2500);
+    }
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -54,12 +65,12 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
                     {/* 2 */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => ShowModal()}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
@@ -67,12 +78,12 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
                     {/* 3 */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => ShowModal()}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
@@ -80,12 +91,12 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
                     {/* 4 */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => ShowModal()}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
@@ -93,12 +104,12 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
                     {/* 5 */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => ShowModal()}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
@@ -106,12 +117,12 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
                     {/* 6 */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => ShowModal()}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>
@@ -119,7 +130,7 @@ export default function PersonalData_HomeMain() {
                             </View>
                             {/* Part 2 */}
                             <View style={styles.DocBoxPart2}>
-                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={23} color="#EB2F06" /></Text>
+                                <Text style={styles.DocBoxPart2Txt}><FontAwesome name="pencil" size={20} color="#EB2F06" /></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -127,9 +138,30 @@ export default function PersonalData_HomeMain() {
                 {/* Button */}
                 <View style={styles.DH_Last_Btn_Parent}>
                     <TouchableOpacity style={styles.DH_Last_Btn_Box} onPress={() => navigation.navigate('Doc_HomeMain')}>
-                        <Text style={styles.DH_Last_Btn}>Submit Details</Text>
+                        <Text style={styles.DH_Last_Btn}>Procceed Details</Text>
                     </TouchableOpacity>
                 </View>
+                {/* --- Modal For Profile Updated Status --- */}
+                <Modal
+                    transparent={true}
+                    animationType="fade"
+                    visible={showStatus}
+                >
+                    <View style={styles.ParentStatus}>
+                        <View style={styles.sub_ParentStatus}>
+                            <View style={styles.ParentStatusClose}>
+                                <TouchableOpacity style={styles.StatusClose} onPress={() => setShowStatus(!showStatus)}>
+                                    <Text style={styles.StatusCloseTxt}><FontAwesome name="close" size={16} color="white" /></Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.ParentStatusImg}>
+                                <Image source={require('../Pics/Lock_1.png')} style={styles.StatusImg} />
+                            </View>
+                            <Text style={styles.StatusTxt_E}>Restricted</Text>
+                            <Text style={styles.StatusTxt}>In Order To Access, Then You Need To Follow A Complete Sequence Processs Starting From University Detail.</Text>
+                        </View>
+                    </View>
+                </Modal>
             </ScrollView>
         </View>
     )
@@ -177,17 +209,17 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         paddingVertical: 2,
         paddingBottom: 15,
-        paddingHorizontal: 18,
+        paddingHorizontal: 30,
     },
     DocBox: {
         // borderWidth: 0.5,
         borderColor: "#FFDF77",
-        paddingVertical: 5,
+        paddingVertical: 4,
         paddingHorizontal: 5,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 10,
+        borderRadius: 15,
         backgroundColor: "#FFDF77",
         marginVertical: 5,
     },
@@ -201,9 +233,9 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         padding: 2,
         fontFamily: "Heebo",
-        fontSize: 14.5,
+        fontSize: 13,
         letterSpacing: 1.55,
-        paddingHorizontal: 18.5,
+        paddingHorizontal: 17,
         color: "#EB2F06"
     },
     DocBoxPart2: {
@@ -229,7 +261,7 @@ const styles = StyleSheet.create({
     DH_Last_Btn_Box: {
         borderWidth: 1,
         borderColor: "#EB2F06",
-        marginHorizontal: 20,
+        marginHorizontal: 25,
         paddingVertical: 4,
         borderRadius: 50,
         backgroundColor: "#EB2F06",
@@ -238,10 +270,73 @@ const styles = StyleSheet.create({
         // borderWidth: 1,
         paddingVertical: 5,
         textAlign: "center",
-        letterSpacing: 2,
+        letterSpacing: 2.5,
         fontFamily: "Heebo",
         color: "white",
-        fontSize: 18,
+        fontSize: 17,
+    },
+    ParentStatus: {
+        backgroundColor: "rgba(0, 0, 0, 0.70)",
+        flex: 1,
+        // borderWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    sub_ParentStatus: {
+        // borderWidth: 1,
+        width: "81%",
+        backgroundColor: "white",
+        paddingVertical: 15,
+        borderRadius: 25,
+    },
+    ParentStatusClose: {
+        // borderWidth: 1,
+        paddingVertical: 2,
+        paddingHorizontal: 16,
+        justifyContent: "center",
+        alignItems: "flex-end",
+    },
+    StatusClose: {
+        // borderWidth: 1,
+        // borderColor: "red",
+        paddingVertical: 6,
+        paddingHorizontal: 8,
+        borderRadius: 50,
+        backgroundColor: "red",
+    },
+    StatusCloseTxt: {
+        fontWeight: "bold",
+    },
+    ParentStatusImg: {
+        // borderWidth: 1,
+        paddingVertical: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    StatusImg: {
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        // borderColor: "black",
+        width: 110,
+        height: 110,
+    },
+    StatusTxt: {
+        // borderWidth: 1,
+        fontSize: 13,
+        paddingBottom: 10,
+        paddingHorizontal: 23,
+        textAlign: "center",
+        fontFamily: "Kanit",
+        letterSpacing: 1.2,
+    },
+    StatusTxt_E: {
+        // borderWidth: 1,
+        fontSize: 20,
+        paddingBottom: 10,
+        paddingHorizontal: 30,
+        textAlign: "center",
+        fontFamily: "HeeboExtra",
+        letterSpacing: 1.5,
     },
 })
 

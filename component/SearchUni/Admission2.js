@@ -46,7 +46,7 @@ export default function Admission2() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FBDFD9",
+        backgroundColor: "#FBFADE",
     },
     heading: {
         fontSize: 15,
