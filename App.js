@@ -14,6 +14,8 @@ import Main from "./component/SearchUni/Main";
 import Z_Test_Parent_A from "./component/Z_Test_Demo/Z_Test_Parent_A";
 import Z_Test_Part_D1 from "./component/Z_Test_Demo/Z_Test_Part_D1";
 import Z_Test_Part_D2 from "./component/Z_Test_Demo/Z_Test_Part_D2";
+import Z_Extra_A from "./component/Z_Test_Demo/Z_Extra_A";
+import Z_Test_Extra_Parent from "./component/Z_Test_Extra/Z_Test_Extra_Parent";
 
 export default function App() {
   // Main Body
@@ -28,7 +30,7 @@ export default function App() {
     {/* 2 - Search Uni --- ( Completed ) */}
     {/* <Parent_Search /> */}
     {/* 3 - Parent_Drawer */}
-    <Parent_Drawer />
+    {/* <Parent_Drawer /> */}
     {/* 4 - Parent_Application */}
     {/* <Parent_Application /> */}
     {/* 5 - Parent_Chat */}
@@ -37,7 +39,8 @@ export default function App() {
     {/* <MySecond /> */}
     {/* - Demo Practice Backend - */}
     {/* <Z_Test_Parent_A /> */}
-    {/* <Z_Test_Part_D2 /> */}
+    {/* - Demo Practice Backend - ( 2 ) */}
+    <Z_Test_Extra_Parent />
     </View>
   );
 }
