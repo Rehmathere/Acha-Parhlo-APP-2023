@@ -42,7 +42,7 @@ export default function Logout() {
             </View>
             {/* Image */}
             <View style={styles.FirImgParent}>
-                <Image source={require('../../Pics/signout.png')} style={styles.FirImg} />
+                <Image source={require('../../Pics/signout_1.png')} style={styles.FirImg} />
             </View>
             {/* Leaving Message */}
             <View style={styles.FirTxtParent2}>
@@ -52,7 +52,7 @@ export default function Logout() {
             <View style={styles.TwoBtnParent}>
                 {/* 1 */}
                 <TouchableOpacity style={styles.Fir_But}>
-                    <Text style={styles.Fir_But_Txt} onPress={() => setShowContent(true)}>Yup, Logout</Text>
+                    <Text style={styles.Fir_But_Txt} onPress={() => setShowContent(true)}>Yes, Logout</Text>
                 </TouchableOpacity>
                 {/* 1 */}
                 <TouchableOpacity style={styles.Fir_But2}>
@@ -72,7 +72,7 @@ export default function Logout() {
                             <Text style={styles.Modal_Txt_2}>Are You Sure Want To Logout ?</Text>
                             {/* Image Parent */}
                             <View style={styles.ParentImg}>
-                                <Image source={require('../../Pics/logout.png')} style={styles.Logout_Img} />
+                                <Image source={require('../../Pics/logout_1.png')} style={styles.Logout_Img} />
                             </View>
                             {/* Button Parent */}
                             <View style={styles.Butt_Parent}>
@@ -120,10 +120,10 @@ const styles = StyleSheet.create({
         borderColor: "white",
         backgroundColor: "white",
         marginHorizontal: 40,
-        borderRadius: 20,
-        paddingVertical: 11,
+        borderRadius: 30,
+        paddingVertical: 13,
         paddingHorizontal: 11,
-        width: "70%",
+        width: "75%",
     },
     sub_Modal_Child: {
         // borderWidth: 0.5,
@@ -131,9 +131,13 @@ const styles = StyleSheet.create({
     },
     Modal_Txt_1: {
         // borderWidth: 0.5,
-        fontSize: 28,
+        fontSize: 23,
         fontFamily: "HeeboExtra",
         textAlign: "center",
+        textTransform: "uppercase",
+        letterSpacing: 1.5,
+        paddingBottom: 1,
+        paddingTop: 1,
     },
     Modal_Txt_2: {
         // borderWidth: 0.5,
@@ -156,37 +160,37 @@ const styles = StyleSheet.create({
     Butt_Box_1: {
         // borderWidth: 1,
         borderRadius: 5,
-        paddingVertical: 5,
-        paddingHorizontal: 12,
+        paddingVertical: 6,
+        paddingHorizontal: 15,
         backgroundColor: "#EB2F06",
     },
     Butt_Text_1: {
         // borderWidth: 1,
         fontSize: 16,
-        fontFamily: "Heebo",
+        fontFamily: "Kanit",
         textAlign: "center",
         color: "white",
-        letterSpacing: 1,
+        letterSpacing: 1.5,
     },
     Butt_Text_2: {
         // borderWidth: 1,
         fontSize: 16,
-        fontFamily: "Heebo",
+        fontFamily: "Kanit",
         textAlign: "center",
         color: "black",
-        letterSpacing: 1,
+        letterSpacing: 1.5,
     },
     Butt_Box_2: {
         // borderWidth: 1,
         borderRadius: 5,
-        paddingVertical: 5,
-        paddingHorizontal: 12,
-        backgroundColor: "#bdc3c7",
+        paddingVertical: 6,
+        paddingHorizontal: 15,
+        backgroundColor: "#D1D6D9",
     },
     ParentImg: {
         // borderWidth: 0.5,
         marginBottom: 5,
-        paddingVertical: 6,
+        paddingVertical: 20,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
     },
     FirTxtParent: {
         // borderWidth: 0.5,
-        paddingTop: 50,
+        paddingTop: 65,
         paddingBottom: 20,
     },
     FirTxt: {
@@ -238,7 +242,7 @@ const styles = StyleSheet.create({
     },
     TwoBtnParent: {
         // borderWidth: 0.5,
-        paddingVertical: 5,
+        paddingVertical: 7,
     },
     Fir_But: {
         borderWidth: 1,

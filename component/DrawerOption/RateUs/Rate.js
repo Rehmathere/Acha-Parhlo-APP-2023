@@ -58,9 +58,9 @@ export default function Rate() {
             {/* Start */}
             {/* Feedback Image */}
             <View style={styles.FeedbackParent}>
-                <Image source={require('../../Pics/feedback.png')} style={styles.imgFeedback} />
+                <Image source={require('../../Pics/rate_3.png')} style={styles.imgFeedback} />
             </View>
-            <Text style={styles.fir}>Please Submit Feedback</Text>
+            <Text style={styles.fir}>Give Us Your Feedback</Text>
             <Text style={styles.fir2}>Your feedback matters! Share your thoughts about our app, and let's shape it together for better usability.</Text>
             {/* Rate Us Function ( Defined Above ) */}
             <CustomRatingBar />
@@ -72,15 +72,15 @@ export default function Rate() {
             </Text>
             {/* Rating Status */}
             <Text style={styles.rateNum2}>
-                {defaultRating == "1" ? <Text style={{ color: "#e84118", fontFamily:"Heebo" }}>Poor</Text> : null}
-                {defaultRating == "2" ? <Text style={{ color: "brown", fontFamily:"Heebo" }}>Fair</Text> : null}
-                {defaultRating == "3" ? <Text style={{ color: "#F79F1F", fontFamily:"Heebo" }}>Average </Text> : null}
-                {defaultRating == "4" ? <Text style={{ color: "blue", fontFamily:"Heebo" }}>Good</Text> : null}
-                {defaultRating == "5" ? <Text style={{ color: "green", fontFamily:"Heebo" }}>Excellent</Text> : null}
+                {defaultRating == "1" ? <Text style={{ color: "red", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Poor</Text> : null}
+                {defaultRating == "2" ? <Text style={{ color: "brown", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Fair</Text> : null}
+                {defaultRating == "3" ? <Text style={{ color: "#F69303", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Average </Text> : null}
+                {defaultRating == "4" ? <Text style={{ color: "blue", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Good</Text> : null}
+                {defaultRating == "5" ? <Text style={{ color: "green", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Excellent</Text> : null}
             </Text>
             {/* Button */}
             <TouchableOpacity style={styles.subBtn}>
-                <Text style={styles.subTxt} onPress={() => setShowContent(true)}>Submit</Text>
+                <Text style={styles.subTxt} onPress={() => setShowContent(true)}>Feedback</Text>
             </TouchableOpacity>
             {/* Modal */}
             <Modal
@@ -117,23 +117,23 @@ const styles = StyleSheet.create({
     },
     FeedbackParent: {
         // borderWidth: 1,
-        paddingVertical: 45,
+        paddingVertical: 40,
         justifyContent: "center",
         alignItems: "center",
     },
     imgFeedback: {
         // borderWidth: 1,
         borderColor: "black",
-        width: 200,
-        height: 130,
+        width: 150,
+        height: 150,
     },
     fir: {
         // borderWidth: 1,
         textAlign: "center",
-        paddingVertical: 5,
+        paddingVertical: 6,
         fontFamily:"HeeboExtra",
-        letterSpacing: 2,
-        fontSize: 22,
+        letterSpacing: 2.5,
+        fontSize: 20,
     },
     fir2: {
         // borderWidth: 1,
@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
         fontFamily:"Kanit",
     },
     starImgStyle: {
-        width: 43,
-        height: 45,
+        width: 40,
+        height: 40,
         resizeMode: "cover",
         marginLeft: 7,
     },
@@ -171,14 +171,14 @@ const styles = StyleSheet.create({
     subBtn: {
         borderWidth: 1,
         borderColor: "#EB2F06",
-        marginVertical: 20,
+        marginVertical: 25,
         marginHorizontal: 50,
         borderRadius: 50,
         backgroundColor: "#EB2F06",
     },
     subTxt: {
         color: "white",
-        fontSize: 25,
+        fontSize: 20,
         textAlign: "center",
         paddingVertical: 7,
         fontFamily:"Heebo",

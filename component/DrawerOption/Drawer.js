@@ -54,7 +54,7 @@ export default function Drawer() {
                         </View>
                         {/* Part 2 */}
                         <View style={styles.second2}>
-                            <Image source={require('../Pics/Online.png')} style={styles.sec2Img} />
+                            <Image source={require('../Pics/Online_2.png')} style={styles.sec2Img} />
                         </View>
                     </View>
                 </View>
@@ -161,22 +161,22 @@ const styles = StyleSheet.create({
     ParentSecond: {
         // borderWidth: 1,
         borderColor: "red",
-        paddingVertical: 10,
+        paddingVertical: 12,
     },
     secLinear: {
         // borderWidth: 1,
         paddingVertical: 0,
-        marginHorizontal: 23,
-        borderRadius: 25,
+        marginHorizontal: 20,
+        borderRadius: 20,
         backgroundColor:"#ced6e0",
-        elevation: 10,
-        shadowColor:"blue",
+        // elevation: 10,
+        // shadowColor:"blue",
     },
     SubParentSecond: {
         // borderWidth: 1,
         marginHorizontal: 5,
         paddingHorizontal: 1,
-        paddingVertical: 10,
+        paddingVertical: 5,
         flexDirection: "row",
         justifyContent: "center",
     },
@@ -188,14 +188,14 @@ const styles = StyleSheet.create({
     },
     second1Txt: {
         // borderWidth: 0.5,
-        textShadowRadius: 15,
-        textShadowColor: "black",
+        // textShadowRadius: 10,
+        // textShadowColor: "black",
         textAlign: "center",
-        fontFamily: "Heebo",
-        color: "white",
+        fontFamily: "Kanit",
+        color: "black",
         paddingHorizontal: 2,
-        letterSpacing: 1,
-        fontSize: 25,
+        letterSpacing: 1.3,
+        fontSize: 22,
     },
     second2: {
         width: "49%",
@@ -207,15 +207,15 @@ const styles = StyleSheet.create({
     sec2Img: {
         // borderColor: "black",
         // borderWidth: 0.5,
-        width: 70,
-        height: 70,
+        width: 120,
+        height: 90,
     },
     third: {
-        marginTop: 25,
+        marginTop: 22,
         marginHorizontal: 11,
         // borderWidth: 0.5,
         fontSize: 15,
-        paddingHorizontal: 15,
+        paddingHorizontal: 14,
         fontFamily: "HeeboExtra",
         letterSpacing: 1.2,
     },
@@ -228,7 +228,8 @@ const styles = StyleSheet.create({
     ThirdRow: {
         // borderWidth: 0.5,
         // borderColor: "red",
-        padding: 8,
+        paddingVertical: 8,
+        paddingHorizontal: 0,
         marginVertical: 1,
         flexDirection: "row",
         justifyContent: "space-around",
@@ -244,7 +245,7 @@ const styles = StyleSheet.create({
         // borderColor: "red",
         borderColor: "transparent",
         paddingVertical: 10,
-        paddingHorizontal: 36.4,
+        paddingHorizontal: 36,
         justifyContent: "center",
         alignItems: "center",
         marginVertical: 10,
@@ -252,17 +253,17 @@ const styles = StyleSheet.create({
     ThirdBoxOrignalImg: {
         // borderWidth: 1,
         // borderColor: "black",
-        width: 55,
-        height: 55,
+        width: 50,
+        height: 50,
     },
     ThirdBoxTxt: {
         // borderWidth: 0.5,
         marginBottom: 15,
-        fontSize: 15.5,
+        fontSize: 13,
         color: "white",
         textShadowRadius: 10,
         textShadowColor: "black",
-        letterSpacing: 2,
+        letterSpacing: 2.5,
         textAlign: "center",
         fontFamily: "KanitBold"
     }

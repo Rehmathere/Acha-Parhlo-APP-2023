@@ -18,10 +18,10 @@ export default function WishList() {
             <>
                 {/* // Empty Pic */}
                 <View style={styles.ParentEmpty}>
-                    <Image source={ require('../../Pics/empty.png') } style={styles.EmptyPic} />
+                    <Image source={ require('../../Pics/empty_2.png') } style={styles.EmptyPic} />
                 </View>
                 {/* // No Text */}
-                <Text style={styles.noText}>No Wish List Here</Text>
+                <Text style={styles.noText}>No Wish List</Text>
             </>
         );
     };
@@ -82,13 +82,12 @@ const styles = StyleSheet.create({
     },
     noText: {
         fontSize: 28,
-        color: 'red',
-        letterSpacing: 1,
+        color: '#CC0000',
+        letterSpacing: 2,
         // borderWidth: 1,
-        color: "#EB2F06",
         textAlign: "center",
         marginTop: 25,
-        fontFamily: "Kanit",
+        fontFamily: "Heebo",
     },
     ParentEmpty:{
         // borderWidth: 0.5,
@@ -100,6 +99,8 @@ const styles = StyleSheet.create({
     EmptyPic:{
         // borderColor:"black",
         // borderWidth: 0.5,
-        paddingVertical: 10,
+        // paddingVertical: 10,
+        width: 70,
+        height: 70,
     },
 });

@@ -35,7 +35,7 @@ export default function PChat() {
             {/* Main Body */}
             {/* Image Parent */}
             <View style={styles.ParentImg}>
-                <Image source={require('../Pics/chat_1.png')} style={styles.imgBox} />
+                <Image source={require('../Pics/chat_2.png')} style={styles.imgBox} />
             </View>
             <Text style={styles.fir2}>Get Connected With Our Experts</Text>
             <Text style={styles.fir3}>Engage in informative discussions and address your inquiries by conversing with our expert team through a dedicated chat platform.</Text>
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     imgBox: {
         borderWidth: 0.5,
         borderColor: "transparent",
-        width: 210,
-        height: 210,
+        width: 220,
+        height: 220,
     },
     fir2: {
         borderColor: "transparent",
@@ -95,9 +95,9 @@ const styles = StyleSheet.create({
         color: "#757473",
     },
     BtnParent: {
-        borderColor: "transparent",
-        borderWidth: 0.5,
-        paddingTop: 40,
+        // borderColor: "transparent",
+        // borderWidth: 0.5,
+        paddingTop: 25,
         paddingBottom: 10,
     },
     BtnPart1: {

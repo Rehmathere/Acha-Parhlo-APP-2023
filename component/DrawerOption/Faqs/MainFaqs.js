@@ -141,9 +141,9 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         marginTop: 0,
         textAlign: "center",
-        fontSize: 22,
-        letterSpacing: 1,
-        fontFamily:"Heebo"
+        fontSize: 21.5,
+        letterSpacing: 1.2,
+        fontFamily:"HeeboExtra"
     },
     fir_par: {
         borderWidth: 1,
@@ -165,12 +165,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "transparent",
         // backgroundColor: "#f6e58d",
-        backgroundColor: "#F8B5A5",
+        backgroundColor: "#FFC5B7",
         paddingVertical: 1,
         marginHorizontal: 20,
         marginTop: 20,
         paddingHorizontal: 7,
-        borderRadius: 5,
+        borderRadius: 10,
     },
     sec1_View: {
         borderWidth: 1,
@@ -181,13 +181,13 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     sec1_text: {
-        fontSize: 15,
+        fontSize: 14,
         paddingTop: 4,
         width: "85%",
         fontFamily:"Heebo",
         borderWidth: 1,
         borderColor: "transparent",
-        letterSpacing: 0.2,
+        letterSpacing: 0.8,
         textTransform: "capitalize",
     },
     icon: {
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
         // backgroundColor: "#F8EDC9",
         backgroundColor: "#FBDFD9",
         paddingHorizontal: 8,
-        borderRadius: 5,
+        borderRadius: 10,
     },
     ans: {
         borderWidth: 1,

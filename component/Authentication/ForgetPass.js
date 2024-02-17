@@ -96,12 +96,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     Box: {
-        borderWidth: 0.5,
+        borderWidth: 1,
         paddingVertical: 39,
         paddingHorizontal: 14,
         width: "87%",
         borderRadius: 10,
-        backgroundColor: "#E0DFDF",
+        // backgroundColor: "#E0DFDF",
+        backgroundColor: "#F9F9F9",
         borderColor: "grey",
     },
     fir_1: {
