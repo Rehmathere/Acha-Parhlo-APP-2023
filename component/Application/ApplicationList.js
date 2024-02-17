@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "white",
     },
+    // Box CSS
     box: {
         width: '88%',
         borderRadius: 17,

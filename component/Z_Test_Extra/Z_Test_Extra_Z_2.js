@@ -4,12 +4,16 @@ import { Button, Text, View, StyleSheet } from 'react-native'
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Z_Test_Extra_Z_2() {
-    // 0 - Navigation Variable
-    const navigation = useNavigation();
+export default function Z_Test_Extra_Z_2({ route }) {
+    // ---------- Backend Part Logic ----------
+    const { item, firestoreId } = route.params || {};
+    const [U1_universityName, setU1_universityName] = useState(item.U1_universityName || "");
+    const [U4_courseName, setU4_courseName] = useState(item.U4_courseName || "");
+    const [buttonValue, setbuttonValue] = useState(item.buttonValue || "");
+    // ---------- Backend Part Logic ----------
+    // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
-    // Expo Font Logic
     let [loaded] = useFonts({
         Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -32,8 +36,14 @@ export default function Z_Test_Extra_Z_2() {
     return (
         <View style={styles.container}>
             <Text style={styles.fir}> Application Tracking & Status </Text>
-            {/* Start */}
-        </View>
+            {/* Display Firestore ID */}
+            <Text style={styles.Txt}>Firestore ID: {firestoreId}</Text>
+            {/* Main */}
+            <Text style={styles.Txt}>{U1_universityName.substring(0, 18)}</Text>
+            <Text style={styles.Txt}>{U4_courseName}</Text>
+            {/* Status Value */}
+            <Text style={styles.Txt}>Status : {buttonValue}</Text>
+        </View >
     )
 }
 
@@ -50,5 +60,14 @@ const styles = StyleSheet.create({
         fontFamily: "Heebo",
         fontSize: 20,
         backgroundColor: "aqua",
+    },
+    Txt: {
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        textAlign: "center",
+        fontFamily: "Heebo",
+        paddingVertical: 10,
+        fontSize: 20,
+        letterSpacing: 1,
     },
 });
