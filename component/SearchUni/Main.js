@@ -61,7 +61,7 @@ export default function Main() {
       <View style={styles.Ext_AL_1}>
         {/* Image */}
         <View style={styles.Ext_AL_ParentImg}>
-          <Image source={require("../Pics/AL_Courses.png")} style={styles.Ext_AL_Img} />
+          <Image source={require("../Pics/AL_Courses_1.png")} style={styles.Ext_AL_Img} />
         </View>
         {/* Heading */}
         <Text style={styles.Ext_AL_Txt}>Explore Courses</Text>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#EB2F06",
     backgroundColor: "#FCBBAC",
     paddingHorizontal: 5,
-    paddingVertical: 6,
+    paddingVertical: 7,
   },
   box_2: {
     width: "100%",
@@ -300,13 +300,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 6,
+    paddingTop: 25,
+    paddingBottom: 25,
   },
   Ext_AL_Img: {
     // borderWidth: 0.1,
     // borderColor: "black",
     width: 190,
-    height: 140,
+    height: 160,
   },
   Ext_AL_Txt: {
     // borderWidth: 0.5,

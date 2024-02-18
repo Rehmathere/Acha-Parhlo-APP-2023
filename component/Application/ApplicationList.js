@@ -1,14 +1,40 @@
-import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, StatusBar, Image, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState, useRef } from "react";
+import { Text, View, StyleSheet, StatusBar, Image, TouchableOpacity, ScrollView } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
 // useNavigate
-import { useNavigation } from "@react-navigation/native";
 import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
+import { firebase } from "../firestore";
 
 export default function ApplicationList() {
     // 0 - useNavigation
     const navigation = useNavigation();
+    // ---------- Backend Part Logic ----------
+    const [visible, setVisible] = useState(false);
+    const [data, setData] = useState([]);
+    const [search, setSearch] = useState('');
+    const searchRef = useRef();
+    const listRef = useRef();
+    const [ind, setInd] = useState(0);
+    const [oldData, setOldData] = useState([]);
+    const [notes, setNotes] = useState([]);
+    useEffect(() => {
+        firebase
+            .firestore()
+            .collection("4 - Student Records")
+            .onSnapshot((querySnapshot) => {
+                const newNotes = [];
+                querySnapshot.forEach((doc) => {
+                    const { U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue } = doc.data();
+                    newNotes.push({ U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue, id: doc.id });
+                });
+                setNotes(newNotes);
+                setOldData(newNotes);
+                setData(newNotes);
+            });
+    }, []);
+    // ---------- Backend Part Logic ----------    
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -32,7 +58,7 @@ export default function ApplicationList() {
     }
     // Main Body    
     return (
-        <View style={styles.container}>
+        <ScrollView style={{ flex: 1, paddingBottom: 0, backgroundColor: "white", }}>
             {/* Status Bar */}
             <StatusBar backgroundColor={"#EB2F06"} />
             {/* Body */}
@@ -47,45 +73,60 @@ export default function ApplicationList() {
             </View>
             {/* Applied Application Universities  */}
             {/* Box 1 */}
-            <TouchableOpacity style={styles.box} onPress={() => navigation.navigate("ApplicationStatus")}>
-                {/* Box Body */}
-                <View style={styles.box_2}>
-                    {/* Row 1 */}
-                    <View style={styles.in_box}>
-                        {/* 1 - Image */}
-                        <Image
-                            source={require("../Pics/UniPics/Deakin.png")}
-                            style={styles.img_fir}
-                        />
-                        {/* 2 - Title */}
-                        <Text
-                            style={styles.sec}>
-                            Deakin University
-                        </Text>
-                    </View>
-                    {/* Row 2 */}
-                    <View style={styles.third}>
-                        {/* 1 - Text */}
-                        <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Courses</Text>
-                        {/* 2 - Title */}
-                        <Text style={styles.third_2}>Arts</Text>
-                    </View>
-                    {/* Row 3 */}
-                    <View style={styles.forth}>
-                        {/* 1 */}
-                        <View style={styles.forth_1}>
-                            <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" />  Semester Fee</Text>
-                            <Text style={styles.for_2}>1000 $</Text>
+            {/* -------- Fetch Application Tracking Data -------- */}
+            {data.map((item, index) => (
+                <TouchableOpacity
+                    key={index}
+                    style={styles.box}
+                    onPress={() => navigation.navigate("ApplicationStatus", {
+                        item: {
+                            U1_universityName: item.U1_universityName,
+                            U4_courseName: item.U4_courseName,
+                            buttonValue: item.buttonValue,
+                        },
+                        firestoreId: item.id,  // Pass the Firestore ID
+                    })}
+                >
+                    {/* Box Body */}
+                    <View style={styles.box_2}>
+                        {/* Row 1 */}
+                        <View style={styles.in_box}>
+                            {/* 1 - Image */}
+                            <Image
+                                source={require("../Pics/Track_2.png")}
+                                style={styles.img_fir}
+                            />
+                            {/* 2 - Title */}
+                            <Text
+                                style={styles.sec}>
+                                {item.U1_universityName.substring(0, 15)}
+                            </Text>
                         </View>
-                        {/* 2 */}
-                        <View style={styles.forth_1}>
-                            <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
-                            <Text style={styles.for_22}>2 Years</Text>
+                        {/* Row 2 */}
+                        <View style={styles.third}>
+                            {/* 1 - Text */}
+                            <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Course</Text>
+                            {/* 2 - Title */}
+                            <Text style={styles.third_2}>{item.U4_courseName.substring(0, 15)}</Text>
+                        </View>
+                        {/* Row 3 */}
+                        <View style={styles.forth}>
+                            {/* 1 */}
+                            <View style={styles.forth_1}>
+                                <Text style={styles.for_1}><FontAwesome5 name="university" size={12.5} color="#EB2F06" /> Campus</Text>
+                                <Text style={styles.for_2}>{item.U2_campus.substring(0, 15)}</Text>
+                            </View>
+                            {/* 2 */}
+                            <View style={styles.forth_1}>
+                                <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
+                                <Text style={styles.for_22}>{item.U3_intake.substring(0, 15)}</Text>
+                            </View>
                         </View>
                     </View>
-                </View>
-            </TouchableOpacity>
-        </View>
+                </TouchableOpacity>
+            ))}
+            {/* -------- Fetch Application Tracking Data -------- */}
+        </ScrollView>
     )
 }
 
@@ -97,12 +138,12 @@ const styles = StyleSheet.create({
     },
     // Box CSS
     box: {
-        width: '88%',
+        width: '85%',
         borderRadius: 17,
         // borderWidth: 1,
         borderColor: "black",
         alignSelf: 'center',
-        marginTop: 16,
+        marginTop: 20,
         // marginBottom: 4,
         alignItems: 'center',
         flexDirection: 'row',
@@ -110,8 +151,8 @@ const styles = StyleSheet.create({
         // backgroundColor: "#FCDFD8",
         backgroundColor: "#FCBBAC",
         // backgroundColor: "#FED1C7",
-        paddingHorizontal: 5,
-        paddingVertical: 6,
+        paddingHorizontal: 6,
+        paddingVertical: 7,
     },
     box_2: {
         width: "100%",
@@ -128,9 +169,9 @@ const styles = StyleSheet.create({
     img_fir: {
         // borderWidth: 1,
         // borderColor: "red",
-        width: "23%",
+        width: "22%",
         height: '100%',
-        marginLeft: 9,
+        marginLeft: 10,
         borderRadius: 7,
     },
     sec: {
@@ -176,7 +217,7 @@ const styles = StyleSheet.create({
         color: "black",
         marginTop: 2,
         // borderWidth: 1,
-        fontSize: 13,
+        fontSize: 12.5,
         paddingVertical: 4.5,
         paddingHorizontal: 2,
         marginBottom: 2,
@@ -206,7 +247,7 @@ const styles = StyleSheet.create({
     for_2: {
         // color: "#009432",
         letterSpacing: 1.5,
-        fontSize: 13,
+        fontSize: 12.5,
         fontFamily: "Heebo",
         marginTop: 6,
         paddingHorizontal: 4.5,
@@ -214,7 +255,7 @@ const styles = StyleSheet.create({
     for_22: {
         // color: "#e84118",
         letterSpacing: 1.5,
-        fontSize: 13,
+        fontSize: 12.5,
         fontFamily: "Heebo",
         marginTop: 6,
         paddingHorizontal: 4,
@@ -254,7 +295,8 @@ const styles = StyleSheet.create({
     },
     Ext_AL_ParentImg: {
         // borderWidth: 0.5,
-        paddingVertical: 0,
+        paddingTop: 10,
+        paddingBottom: 5,
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
@@ -263,8 +305,8 @@ const styles = StyleSheet.create({
     Ext_AL_Img: {
         // borderWidth: 0.1,
         // borderColor: "black",
-        width: 100,
-        height: 100,
+        width: 130,
+        height: 130,
     },
     Ext_AL_Txt: {
         // borderWidth: 0.5,

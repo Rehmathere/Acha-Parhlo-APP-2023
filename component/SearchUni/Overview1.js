@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#FBFADE",
+        paddingBottom: 5,
     },
     heading: {
         fontSize: 15,
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
         color: "#EB2F06"
     },
     headingAns: {
-        fontSize: 17,
+        fontSize: 15,
         // borderWidth: 0.5,
         fontFamily: "Kanit",
         paddingHorizontal: 38,

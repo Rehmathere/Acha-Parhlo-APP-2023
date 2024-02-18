@@ -43,7 +43,7 @@ export default function Parent_Application() {
                     headerTitleStyle:{
                         fontFamily: "Heebo",
                         letterSpacing: 1.5,
-                        fontSize: 16,
+                        fontSize: 15,
                     },
                     title: "Application List"
                 }} />
@@ -52,7 +52,7 @@ export default function Parent_Application() {
                     headerTitleStyle:{
                         fontFamily: "Heebo",
                         letterSpacing: 1.5,
-                        fontSize: 16,
+                        fontSize: 15,
                     },
                     title: "Application Tracking"
                 }} />

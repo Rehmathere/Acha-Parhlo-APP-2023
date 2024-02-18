@@ -7,21 +7,31 @@ import Admission2 from "./Admission2";
 import DocHome from './DocumentPage/DocHome'
 // Fonts Header File
 import { useFonts } from "expo-font";
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 const top = createMaterialTopTabNavigator();
 
 export default function SubMainHome({ route }) {
+    // ---------- Backend Logic Part ----------
     const item = route.params?.item || {};
-
     const [noteImage, setNoteImage] = useState(item.MyImage || "");
     const [noteTitle, setNoteTitle] = useState(item.name1 || "");
     const [noteText, setNoteText] = useState(item.name2 || "");
     const [noteRoom, setNoteRoom] = useState(item.name3 || "");
     const [noteAmount, setNoteAmount] = useState(item.name4 || "");
     const [noteDuration, setNoteDuration] = useState(item.name5 || "");
-    // Pre 0 - Modal useState
-    const [showModal, setShowModal] = useState(false)
-    // 0 - useNavigation
+    // ---------- Backend Logic Part ----------
+    // Modal useState
+    const [showStatus, setShowStatus] = useState(false)
+    // Set TimeOut
+    const ShowModal = () => {
+        // Display
+        setShowStatus(true)
+        // Not Display
+        setTimeout(() => {
+            setShowStatus(false)
+        }, 2500);
+    }
     const navigation = useNavigation();
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -65,6 +75,15 @@ export default function SubMainHome({ route }) {
                 {/* Subject Name */}
                 <Text style={styles.SMH_First_Course}>Course Title :</Text>
                 <Text style={styles.SMH_First_CourseName}>{noteRoom}</Text>
+                {/* Add To Wishlist */}
+                <View style={styles.Wishlist_Parent}>
+                    <TouchableOpacity style={styles.Wishlist_Btn} onPress={() => ShowModal()}>
+                        {/* 1 */}
+                        <View style={styles.Wishlist_Btn_1}><AntDesign name="heart" size={8} color="white" /></View>
+                        {/* 2 */}
+                        <Text style={styles.Wishlist_Btn_2}>WishList</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             {/* Navigation Process */}
             <top.Navigator>
@@ -117,6 +136,21 @@ export default function SubMainHome({ route }) {
                     <Text style={styles.ApplyButton}>Apply</Text>
                 </TouchableOpacity>
             </View>
+            {/* --- Modal For Profile Updated Status --- */}
+            <Modal
+                transparent={true}
+                animationType="fade"
+            visible={showStatus}
+            >
+                <View style={styles.ParentStatus}>
+                    <View style={styles.sub_ParentStatus}>
+                        <View style={styles.ParentStatusImg}>
+                            <Image source={require('../Pics/Heart.png')} style={styles.StatusImg} />
+                        </View>
+                        <Text style={styles.StatusTxt}>This Course Has Been Added To Your Wishlist</Text>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -254,5 +288,81 @@ const styles = StyleSheet.create({
         letterSpacing: 2,
         textTransform: "uppercase",
         fontFamily: "Heebo",
+    },
+    Wishlist_Parent: {
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        paddingVertical: 2,
+        paddingHorizontal: 20,
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+    },
+    Wishlist_Btn: {
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        paddingVertical: 0,
+        paddingHorizontal: 3,
+        width: "30%",
+        borderRadius: 50,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+    },
+    Wishlist_Btn_1: {
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        width: "22%",
+        paddingVertical: 3.5,
+        borderRadius: 50,
+        backgroundColor: "#EB2F06",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    Wishlist_Btn_2: {
+        width: "79%",
+        paddingVertical: 3.5,
+        borderRadius: 50,
+        fontFamily: "Kanit",
+        textAlign: "center",
+        letterSpacing: 1.5,
+        fontSize: 12.5,
+        color: "#EB2F06",
+    },
+    ParentStatus: {
+        backgroundColor: "rgba(0, 0, 0, 0.70)",
+        flex: 1,
+        // borderWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    sub_ParentStatus: {
+        // borderWidth: 1,
+        width: "75%",
+        backgroundColor: "white",
+        paddingVertical: 20,
+        borderRadius: 40,
+    },
+    ParentStatusImg: {
+        // borderWidth: 1,
+        paddingVertical: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    StatusImg: {
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        // borderColor: "black",
+        width: 110,
+        height: 100,
+    },
+    StatusTxt: {
+        // borderWidth: 1,
+        fontSize: 14,
+        paddingBottom: 15,
+        paddingHorizontal: 25,
+        textAlign: "center",
+        fontFamily: "Kanit",
+        letterSpacing: 1.5,
     },
 })

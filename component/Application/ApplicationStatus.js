@@ -5,7 +5,14 @@ import { useFonts } from "expo-font";
 import firestore from '../firestore';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
-export default function ApplicationStatus() {
+export default function ApplicationStatus({ route }) {
+    // ---------- Backend Part Logic ----------
+    const { item, firestoreId } = route.params || {};
+    const [U1_universityName, setU1_universityName] = useState(item.U1_universityName || "");
+    const [U4_courseName, setU4_courseName] = useState(item.U4_courseName || "");
+    const [buttonValue, setbuttonValue] = useState(item.buttonValue || " Processing ");
+    // ---------- Backend Part Logic ----------
+    // Lights
     const [button1Color, setButton1Color] = useState('#EEF0F2');
     const [button2Color, setButton2Color] = useState('#EEF0F2');
     const [button3Color, setButton3Color] = useState('#EEF0F2');
@@ -14,27 +21,9 @@ export default function ApplicationStatus() {
     const [button6Color, setButton6Color] = useState('#EEF0F2');
     const [button7Color, setButton7Color] = useState('#EEF0F2');
     const [button8Color, setButton8Color] = useState('#EEF0F2');
-    const [name1, setName1] = useState('');
+    // Matching buttonValue value to change Background Color (For Tracking)
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const db = getFirestore();
-                const value = collection(db, '2 - Application Tracking');
-                const querySnapshot = await getDocs(value);
-                const data = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-                // Assuming setVal is a state setter, you can use it if needed
-                // setVal(data);
-                // Setting name1
-                setName1(data.length > 0 ? data[data.length - 1].name1 : '');
-            } catch (error) {
-                console.error('Error fetching data: ', error);
-            }
-        };
-        fetchData();
-    }, []);
-    // Matching Name1 value to change Background Color (For Tracking)
-    useEffect(() => {
-        if (name1 === "Application Received") {
+        if (buttonValue === "Application Received") {
             // Button 1 
             setButton1Color('orange');
             // Rest Buttons Will White
@@ -46,7 +35,7 @@ export default function ApplicationStatus() {
             setButton7Color('transparent');
             setButton8Color('transparent');
         }
-        else if (name1 === "Document Verification") {
+        else if (buttonValue === "Document Verification") {
             // Button 2
             setButton2Color('orange');
             // Button 1 
@@ -59,7 +48,7 @@ export default function ApplicationStatus() {
             setButton7Color('transparent');
             setButton8Color('transparent');
         }
-        else if (name1 === "Conditional Offer") {
+        else if (buttonValue === "Conditional Offer") {
             // Button 3
             setButton3Color('orange');
             // Button 1 
@@ -73,7 +62,7 @@ export default function ApplicationStatus() {
             setButton7Color('transparent');
             setButton8Color('transparent');
         }
-        else if (name1 === "Document Request") {
+        else if (buttonValue === "Document Request") {
             // Button 4
             setButton4Color('orange');
             // Button 1 
@@ -88,7 +77,7 @@ export default function ApplicationStatus() {
             setButton7Color('transparent');
             setButton8Color('transparent');
         }
-        else if (name1 === "Unconditional Offer") {
+        else if (buttonValue === "Unconditional Offer") {
             // Button 5
             setButton5Color('orange');
             // Button 1 
@@ -104,7 +93,7 @@ export default function ApplicationStatus() {
             setButton7Color('transparent');
             setButton8Color('transparent');
         }
-        else if (name1 === "Confirmation Enrolment") {
+        else if (buttonValue === "Confirmation Enrolment") {
             // Button 6
             setButton6Color('orange');
             // Button 1 
@@ -121,7 +110,7 @@ export default function ApplicationStatus() {
             setButton7Color('transparent');
             setButton8Color('transparent');
         }
-        else if (name1 === "Visa App Submitted") {
+        else if (buttonValue === "Visa App Submitted") {
             // Button 7
             setButton7Color('orange');
             // Button 1 
@@ -138,7 +127,7 @@ export default function ApplicationStatus() {
             setButton6Color('lightyellow');
             // Rest Buttons Will White
             setButton8Color('transparent');
-        } else if (name1 === "Visa Granted") {
+        } else if (buttonValue === "Visa Granted") {
             // Button 8
             setButton8Color('orange');
             // Button 1 
@@ -166,7 +155,7 @@ export default function ApplicationStatus() {
             setButton7Color("transparent");
             setButton8Color("transparent");
         }
-    }, [name1]);
+    }, [buttonValue]);
     // ------------- Backend Logic -------------
     // -----------------------------------------------
     // 1 - useState
@@ -205,24 +194,24 @@ export default function ApplicationStatus() {
                         <View style={styles.MiniCourseDetail}>
                             {/* Item 1 */}
                             <Text style={styles.Item1}>Track Number</Text>
-                            <Text style={styles.Item1_2}>42501-3205936-9</Text>
+                            <Text style={styles.Item1_2}>{firestoreId}</Text>
                             {/* Item Image */}
                             <View style={styles.ParentCourseImg}>
                                 <View style={styles.subParentCourseImg}>
-                                    <Image source={require('../Pics/UniPics/Deakin.png')} style={styles.CourseImg} />
+                                    <Image source={require('../Pics/Track_4.png')} style={styles.CourseImg} />
                                 </View>
                             </View>
                             {/* Item 2 */}
                             <Text style={styles.Item2_1}>University :</Text>
-                            <Text style={styles.Item2}>Deakin University</Text>
+                            <Text style={styles.Item2}>{U1_universityName.substring(0, 18)}</Text>
                             <Text style={styles.Item2_1}>Course :</Text>
-                            <Text style={styles.Item2_2}>Arts</Text>
+                            <Text style={styles.Item2_2}>{U4_courseName}</Text>
                         </View>
                     </View>
                 </View>
                 {/* 2 - Application Status */}
                 <Text style={styles.AppStatus}>Status</Text>
-                <Text style={styles.AppStatus_Ans}>{name1}</Text>
+                <Text style={styles.AppStatus_Ans}>{buttonValue}</Text>
                 {/* 2 - Application Status */}
                 <Text style={styles.AppStatus}>Application Status</Text>
                 {/* 3 - 5 Processing Parts */}
@@ -407,29 +396,29 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "white",
         fontFamily: "HeeboExtra",
-        fontSize: 14,
+        fontSize: 12.5,
         marginVertical: 3,
         letterSpacing: 2,
         paddingVertical: 5,
     },
     ParentCourseImg: {
         // borderWidth: 0.5,
-        paddingVertical: 12,
+        paddingTop: 10,
+        paddingBottom: 25,
         justifyContent: "center",
         alignItems: "center",
     },
     subParentCourseImg: {
         // borderWidth: 0.5,
-        // borderColor: "red",
         padding: 1,
         width: 93,
         height: 56,
     },
     CourseImg: {
-        borderWidth: 0.5,
-        borderColor: "#B92604",
-        width: 100,
-        height: 55,
+        // borderWidth: 0.5,
+        // borderColor: "white",
+        width: "100%",
+        height: 70,
         borderRadius: 5,
     },
     Item2: {
@@ -475,12 +464,12 @@ const styles = StyleSheet.create({
         fontFamily: "Heebo",
         fontSize: 17,
         letterSpacing: 1,
-        marginTop: 0,
+        marginTop: 5,
         marginBottom: 5,
-        paddingBottom: 20,
         paddingHorizontal: 10,
         textAlign: "center",
         color: "darkred",
+        paddingVertical: 10,
     },
     Parent_Processing: {
         // borderWidth: 0.5,
