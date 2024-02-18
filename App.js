@@ -28,10 +28,10 @@ export default function App() {
     {/* 1 - Apointment --- ( Completed ) */}
     {/* <Parent_Appoint /> */}
     {/* 2 - Search Uni --- ( Completed ) */}
-    {/* <Parent_Search /> */}
+    <Parent_Search />
     {/* 3 - Parent_Drawer */}
     {/* <Parent_Drawer /> */}
-    {/* 4 - Parent_Application */}
+    {/* 4 - Parent_Application --- ( Completed ) */}
     {/* <Parent_Application /> */}
     {/* 5 - Parent_Chat */}
     {/* <Parent_Chat /> */}
@@ -40,7 +40,7 @@ export default function App() {
     {/* - Demo Practice Backend - */}
     {/* <Z_Test_Parent_A /> */}
     {/* - Demo Practice Backend - ( 2 ) */}
-    <Z_Test_Extra_Parent />
+    {/* <Z_Test_Extra_Parent /> */}
     </View>
   );
 }
