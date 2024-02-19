@@ -102,11 +102,11 @@ export default function Registration({ navigation }) {
       >
         <Text
           style={{
-            fontFamily:"Heebo",
-            fontSize: 17,
+            fontFamily: "Heebo",
+            fontSize: 16,
             textAlign: "center",
             color: "white",
-            letterSpacing: 1.5,
+            letterSpacing: 2,
           }}
         >
           REGISTER
@@ -119,11 +119,11 @@ export default function Registration({ navigation }) {
       >
         <Text
           style={{
-            fontFamily:"Heebo",
-            fontSize: 15,
+            fontFamily: "Heebo",
+            fontSize: 13.5,
             textAlign: "center",
             color: "white",
-            letterSpacing: 1.1,
+            letterSpacing: 1.5,
           }}
         >
           Already have Account ? LOGIN
@@ -137,7 +137,7 @@ export default function Registration({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 15,
+    paddingHorizontal: 25,
     backgroundColor: "white",
   },
   fir: {
@@ -145,30 +145,32 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     color: "#c23616",
     fontSize: 40,
-    marginTop: 15,
-    marginBottom: 10,
-    fontFamily:"HeeboExtra",
-    paddingHorizontal: 14.75,
+    marginTop: 30,
+    marginBottom: 15,
+    letterSpacing: 1.5,
+    fontFamily: "HeeboExtra",
+    paddingHorizontal: 3,
   },
   f_txt: {
     // borderWidth: 1,
-    paddingHorizontal: 14.8,
-    fontFamily:"Heebo",
-    fontSize: 18,
+    paddingHorizontal: 5,
+    fontFamily: "Heebo",
+    fontSize: 14,
+    letterSpacing: 1,
   },
   sec: {
-    borderColor: "black",
+    borderColor: "grey",
     backgroundColor: "white",
-    borderWidth: 1,
+    borderWidth: 0.5,
     color: "black",
-    fontSize: 16,
+    fontSize: 15,
     marginTop: 5,
-    borderRadius: 50,
-    marginBottom: 8,
-    paddingHorizontal: 15,
-    paddingVertical: 4,
-    fontFamily:"Kanit",
-    letterSpacing: 0.5,
+    borderRadius: 5,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    fontFamily: "Kanit",
+    letterSpacing: 1.5,
   },
   but: {
     color: "white",

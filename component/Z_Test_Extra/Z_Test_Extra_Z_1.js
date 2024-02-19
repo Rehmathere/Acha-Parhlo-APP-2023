@@ -70,6 +70,8 @@ export default function Z_Test_Extra_Z_1() {
                     onPress={() => navigation.navigate("Z_Test_Extra_Z_2", {
                         item: {
                             U1_universityName: item.U1_universityName,
+                            U2_campus: item.U2_campus,
+                            U3_intake: item.U3_intake,
                             U4_courseName: item.U4_courseName,
                             buttonValue: item.buttonValue,
                         },

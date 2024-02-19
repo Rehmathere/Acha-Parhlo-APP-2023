@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { Button, Text, View, StyleSheet } from 'react-native'
-// Fonts Header File
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { firebase } from "../firestore";
 
 export default function Z_Test_Extra_Z_2({ route }) {
-    // ---------- Backend Part Logic ----------
+    // 0 - Navigation Constant
+    const navigation = useNavigation();
+    // ----------- Backend Part Logic ----------- 
     const { item, firestoreId } = route.params || {};
     const [U1_universityName, setU1_universityName] = useState(item.U1_universityName || "");
+    const [U2_campus, setU2_campus] = useState(item.U2_campus || "");
+    const [U3_intake, setU3_intake] = useState(item.U3_intake || "");
     const [U4_courseName, setU4_courseName] = useState(item.U4_courseName || "");
     const [buttonValue, setbuttonValue] = useState(item.buttonValue || "");
-    // ---------- Backend Part Logic ----------
-    // Expo Font Logic
-    // 1 - useState
+    const handleButtonPress = () => {
+        // Pass data to Firebase and store in "5 - App Wishlist" collection
+        firebase.firestore().collection("5 - App Wishlist").add({
+            U1_universityName,
+            U2_campus,
+            U3_intake,
+            U4_courseName,
+            buttonValue,
+        })
+            .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+                // You can perform any additional actions after successfully storing data in Firestore
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+    };
+    // ----------- Backend Part Logic ----------- 
+    // Fonts 
     const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
         Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
@@ -22,13 +43,11 @@ export default function Z_Test_Extra_Z_2({ route }) {
         KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
         KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
-    // It Will Load Font
     useEffect(() => {
         if (loaded) {
             setFontsLoaded(true);
         }
     }, [loaded]);
-    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
     if (!fontsLoaded) {
         return null;
     }
@@ -36,18 +55,22 @@ export default function Z_Test_Extra_Z_2({ route }) {
     return (
         <View style={styles.container}>
             <Text style={styles.fir}> Application Tracking & Status </Text>
-            {/* Display Firestore ID */}
             <Text style={styles.Txt}>Firestore ID: {firestoreId}</Text>
-            {/* Main */}
             <Text style={styles.Txt}>{U1_universityName.substring(0, 18)}</Text>
+            <Text style={styles.Txt}>{U2_campus}</Text>
+            <Text style={styles.Txt}>{U3_intake}</Text>
             <Text style={styles.Txt}>{U4_courseName}</Text>
-            {/* Status Value */}
             <Text style={styles.Txt}>Status : {buttonValue}</Text>
-        </View >
-    )
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={handleButtonPress}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Pass Data To Firebase</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_3")}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move To Page 3</Text>
+            </TouchableOpacity>
+        </View>
+    );
 }
 
-// CSS
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -68,6 +91,22 @@ const styles = StyleSheet.create({
         fontFamily: "Heebo",
         paddingVertical: 10,
         fontSize: 20,
+        letterSpacing: 1,
+    },
+    Upload_Btn_Parent: {
+        backgroundColor: "black",
+        borderWidth: 0.5,
+        marginVertical: 20,
+        marginHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 50,
+    },
+    Upload_Btn_Parent_Txt: {
+        textAlign: "center",
+        borderWidth: 0.5,
+        fontSize: 18,
+        fontFamily: "Kanit",
+        color: "white",
         letterSpacing: 1,
     },
 });

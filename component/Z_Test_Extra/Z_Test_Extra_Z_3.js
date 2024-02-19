@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View, FlatList, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { useFonts } from "expo-font";
-import { firebase } from "../../firestore";
+import { firebase } from "../firestore";
 import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function WishList() {
+export default function Z_Test_Extra_Z_3() {
     // ----------- Backend Part Logic ----------- 
     const [wishList, setWishList] = useState([]);
     useEffect(() => {
@@ -21,12 +21,12 @@ export default function WishList() {
     // Fonts 
     const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
-        Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
     useEffect(() => {
         if (loaded) {
@@ -40,7 +40,7 @@ export default function WishList() {
         return (
             <>
                 <View style={styles.ParentEmpty}>
-                    <Image source={require('../../Pics/empty_2.png')} style={styles.EmptyPic} />
+                    <Image source={require('../Pics/empty_2.png')} style={styles.EmptyPic} />
                 </View>
                 <Text style={styles.noText}>No Wish List Here</Text>
             </>
@@ -50,7 +50,7 @@ export default function WishList() {
         <ScrollView style={styles.container}>
             {/* Image */}
             <View style={styles.My_Wishlit_Img_Parent}>
-                <Image source={ require('../../Pics/Heart.png') } style={styles.My_Wishlit_Img} />
+                <Image source={require('../Pics/Heart.png')} style={styles.My_Wishlit_Img} />
             </View>
             {/* Heading */}
             <Text style={styles.My_Wishlist_Txt_0}>Wishlist</Text>
@@ -64,25 +64,25 @@ export default function WishList() {
                         <View style={styles.box_2}>
                             <View style={styles.in_box}>
                                 <Image
-                                    source={{ uri: item.noteImage }}
+                                    source={require("../Pics/Heart.png")}
                                     style={styles.img_fir}
                                 />
                                 <Text style={styles.sec}>
-                                    {item.noteTitle.substring(0, 15)}
+                                    {item.U1_universityName.substring(0, 15)}
                                 </Text>
                             </View>
                             <View style={styles.third}>
                                 <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Course</Text>
-                                <Text style={styles.third_2}>{item.noteRoom.substring(0, 15)}</Text>
+                                <Text style={styles.third_2}>{item.U4_courseName.substring(0, 15)}</Text>
                             </View>
                             <View style={styles.forth}>
                                 <View style={styles.forth_1}>
-                                    <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" /> Fees</Text>
-                                    <Text style={styles.for_2}>{item.noteAmount.substring(0, 15)}</Text>
+                                    <Text style={styles.for_1}><FontAwesome5 name="university" size={12.5} color="#EB2F06" /> Campus</Text>
+                                    <Text style={styles.for_2}>{item.U2_campus.substring(0, 15)}</Text>
                                 </View>
                                 <View style={styles.forth_1}>
                                     <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
-                                    <Text style={styles.for_22}>{item.noteDuration.substring(0, 15)}</Text>
+                                    <Text style={styles.for_22}>{item.U3_intake.substring(0, 15)}</Text>
                                 </View>
                             </View>
                         </View>
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         // marginBottom: 4,
         alignItems: 'center',
         flexDirection: 'row',
-        elevation: 3,
+        elevation: 15,
         // backgroundColor: "#FCDFD8",
         backgroundColor: "#FCBBAC",
         // backgroundColor: "#FED1C7",
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     img_fir: {
         // borderWidth: 1,
         // borderColor: "red",
-        width: "20%",
+        width: "22%",
         height: '100%',
         marginLeft: 10,
         borderRadius: 7,
@@ -250,8 +250,8 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         // borderColor: 'red',
         alignSelf: "center",
-        width: 150,
-        height: 120,
+        width: 160,
+        height: 140,
     },
     My_Wishlist_Txt_0: {
         // borderWidth: 0.5,

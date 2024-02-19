@@ -4,9 +4,13 @@ import { Text, View, StyleSheet, StatusBar, TouchableOpacity, Image, Modal, Butt
 import { useFonts } from "expo-font";
 
 export default function Rate() {
+    // Some Modal JS
+    const [showContent, setShowContent] = useState(false)
+    const [defaultRating, setDefaultRating] = useState(0)
+    const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5])
+    // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
-    // Expo Font Logic
     let [loaded] = useFonts({
         Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -21,10 +25,6 @@ export default function Rate() {
             setFontsLoaded(true);
         }
     }, [loaded]);
-    // Some JS
-    const [showContent, setShowContent] = useState(false)
-    const [defaultRating, setDefaultRating] = useState(0)
-    const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5])
     // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
     if (!fontsLoaded) {
         return null;
@@ -72,11 +72,11 @@ export default function Rate() {
             </Text>
             {/* Rating Status */}
             <Text style={styles.rateNum2}>
-                {defaultRating == "1" ? <Text style={{ color: "red", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Poor</Text> : null}
-                {defaultRating == "2" ? <Text style={{ color: "brown", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Fair</Text> : null}
-                {defaultRating == "3" ? <Text style={{ color: "#F69303", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Average </Text> : null}
-                {defaultRating == "4" ? <Text style={{ color: "blue", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Good</Text> : null}
-                {defaultRating == "5" ? <Text style={{ color: "green", fontFamily:"KanitBold", fontSize: 18, letterSpacing: 1, }}>Excellent</Text> : null}
+                {defaultRating == "1" ? <Text style={{ color: "red", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Poor</Text> : null}
+                {defaultRating == "2" ? <Text style={{ color: "brown", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Fair</Text> : null}
+                {defaultRating == "3" ? <Text style={{ color: "#F69303", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Average </Text> : null}
+                {defaultRating == "4" ? <Text style={{ color: "blue", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Good</Text> : null}
+                {defaultRating == "5" ? <Text style={{ color: "green", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Excellent</Text> : null}
             </Text>
             {/* Button */}
             <TouchableOpacity style={styles.subBtn}>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         // borderWidth: 1,
         textAlign: "center",
         paddingVertical: 6,
-        fontFamily:"HeeboExtra",
+        fontFamily: "HeeboExtra",
         letterSpacing: 2.5,
         fontSize: 20,
     },
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         letterSpacing: 1,
         fontSize: 14,
-        fontFamily:"Kanit",
+        fontFamily: "Kanit",
     },
     starImgStyle: {
         width: 40,
@@ -152,12 +152,12 @@ const styles = StyleSheet.create({
         marginLeft: 7,
     },
     rateNum: {
-        marginVertical: 3,
+        marginTop: 14,
         // borderWidth: 1,
         padding: 5,
         letterSpacing: 1,
-        fontSize: 33,
-        fontFamily: "HeeboExtra",
+        fontSize: 20,
+        fontFamily: "Heebo",
         textAlign: "center",
     },
     rateNum2: {
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         paddingVertical: 7,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
         letterSpacing: 2.5,
     },
     modal_parent: {
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     },
     modalTxt: {
         fontSize: 23,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
         textAlign: "center",
         letterSpacing: 1,
     },

@@ -8,6 +8,7 @@ import DocHome from './DocumentPage/DocHome'
 // Fonts Header File
 import { useFonts } from "expo-font";
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { firebase } from "../firestore"
 
 const top = createMaterialTopTabNavigator();
 
@@ -32,6 +33,24 @@ export default function SubMainHome({ route }) {
             setShowStatus(false)
         }, 2500);
     }
+    const handleButtonPress = () => {
+        // Pass data to Firebase and store in "5 - App Wishlist" collection
+        firebase.firestore().collection("5 - App Wishlist").add({
+            noteImage,
+            noteTitle,
+            noteRoom,
+            noteAmount,
+            noteDuration,
+        })
+            .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+                // You can perform any additional actions after successfully storing data in Firestore
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+    };
+    // Naivgation
     const navigation = useNavigation();
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -77,7 +96,7 @@ export default function SubMainHome({ route }) {
                 <Text style={styles.SMH_First_CourseName}>{noteRoom}</Text>
                 {/* Add To Wishlist */}
                 <View style={styles.Wishlist_Parent}>
-                    <TouchableOpacity style={styles.Wishlist_Btn} onPress={() => ShowModal()}>
+                    <TouchableOpacity style={styles.Wishlist_Btn} onPress={() => { ShowModal(); handleButtonPress();  }}>
                         {/* 1 */}
                         <View style={styles.Wishlist_Btn_1}><AntDesign name="heart" size={8} color="white" /></View>
                         {/* 2 */}
