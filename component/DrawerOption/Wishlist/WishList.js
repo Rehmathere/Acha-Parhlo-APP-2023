@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { View, FlatList, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, FlatList, Text, StyleSheet, Image, ScrollView, Modal } from 'react-native';
 import { useFonts } from "expo-font";
 import { firebase } from "../../firestore";
 import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function WishList() {
+    // Modal useState
+    const [showStatus, setShowStatus] = useState(false)
+    // Set TimeOut
+    const ShowModal = () => {
+        // Display
+        setShowStatus(true)
+        // Not Display
+        setTimeout(() => {
+            setShowStatus(false)
+        }, 2500);
+    }
     // ----------- Backend Part Logic ----------- 
     const [wishList, setWishList] = useState([]);
     useEffect(() => {
@@ -17,6 +29,15 @@ export default function WishList() {
 
         fetchData();
     }, []);
+    const deleteItem = async (itemId) => {
+        try {
+            await firebase.firestore().collection("5 - App Wishlist").doc(itemId).delete();
+            const updatedWishList = wishList.filter(item => item.id !== itemId);
+            setWishList(updatedWishList);
+        } catch (error) {
+            console.error("Error deleting item:", error);
+        }
+    };
     // ----------- Backend Part Logic ----------- 
     // Fonts 
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -50,7 +71,7 @@ export default function WishList() {
         <ScrollView style={styles.container}>
             {/* Image */}
             <View style={styles.My_Wishlit_Img_Parent}>
-                <Image source={ require('../../Pics/Heart.png') } style={styles.My_Wishlit_Img} />
+                <Image source={require('../../Pics/Heart.png')} style={styles.My_Wishlit_Img} />
             </View>
             {/* Heading */}
             <Text style={styles.My_Wishlist_Txt_0}>Wishlist</Text>
@@ -62,6 +83,11 @@ export default function WishList() {
                 wishList.map((item) => (
                     <View key={item.id} style={styles.box}>
                         <View style={styles.box_2}>
+                            <View style={styles.Parent_Delete}>
+                                <TouchableOpacity style={styles.Sub_Parent_Delete} onPress={() => { ShowModal(); deleteItem(item.id)}}>
+                                    <AntDesign name="delete" size={15} color="white" />
+                                </TouchableOpacity>
+                            </View>
                             <View style={styles.in_box}>
                                 <Image
                                     source={{ uri: item.noteImage }}
@@ -89,6 +115,21 @@ export default function WishList() {
                     </View>
                 ))
             )}
+            {/* Modal */}
+            <Modal
+                transparent={true}
+                animationType="fade"
+            visible={showStatus}
+            >
+                <View style={styles.ParentStatus}>
+                    <View style={styles.sub_ParentStatus}>
+                        <View style={styles.ParentStatusImg}>
+                            <Image source={require('../../Pics/delete.png')} style={styles.StatusImg} />
+                        </View>
+                        <Text style={styles.StatusTxt}>Deleted From Wishlist</Text>
+                    </View>
+                </View>
+            </Modal>
         </ScrollView>
     );
 }
@@ -270,5 +311,57 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: "grey",
         paddingVertical: 5,
+    },
+    Parent_Delete: {
+        // borderWidth: 0.5,
+        paddingBottom: 2,
+        paddingHorizontal: 20,
+        flexDirection: "row",
+        justifyContent: "flex-end",
+    },
+    Sub_Parent_Delete: {
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        width: "180%",
+        borderRadius: 50,
+        paddingVertical: 5.5,
+        backgroundColor: "#EB2F06",
+        alignItems: "center",
+    },
+    ParentStatus: {
+        backgroundColor: "rgba(0, 0, 0, 0.70)",
+        flex: 1,
+        // borderWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    sub_ParentStatus: {
+        // borderWidth: 1,
+        width: "75%",
+        backgroundColor: "white",
+        paddingVertical: 20,
+        borderRadius: 40,
+    },
+    ParentStatusImg: {
+        // borderWidth: 1,
+        paddingVertical: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    StatusImg: {
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        // borderColor: "black",
+        width: 110,
+        height: 100,
+    },
+    StatusTxt: {
+        // borderWidth: 1,
+        fontSize: 14,
+        paddingBottom: 15,
+        paddingHorizontal: 25,
+        textAlign: "center",
+        fontFamily: "Kanit",
+        letterSpacing: 1.5,
     },
 });

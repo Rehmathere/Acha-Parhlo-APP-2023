@@ -5,8 +5,72 @@ import { Feather, FontAwesome } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 // Fonts Header File
 import { useFonts } from "expo-font";
+import { firebase } from '../../firestore';
 
 export default function Profile() {
+    // ------- Firebase Logic -------
+    // 3 - Firestore logic
+    const todoRef = firebase.firestore().collection("6 - Edit Prifle App");
+    // Function to add data to Firestore
+    const addField = () => {
+        if (name && name.length > 0 && address && phone) {
+            const data = {
+                name,
+                address,
+                phone,
+                image, // add image to Firestore
+                dateOfBirth: date, // add date of birth to Firestore
+                // Add other fields as needed
+            };
+            todoRef
+                .add(data)
+                .then(() => {
+                    setName("");
+                    setAddress("");
+                    setPhone("");
+                    setImage('https://icon2.cleanpng.com/20180402/oaq/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6760664.4895544815226654464834.jpg');
+                    setDate(new Date());
+                    setShowStatus(true);
+                    setTimeout(() => {
+                        setShowStatus(false);
+                    }, 2000);
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        }
+    };
+    // Function to update data in Firestore
+    const updateField = () => {
+        if (name && name.length > 0 && address && phone) {
+            const data = {
+                name,
+                address,
+                phone,
+                image,
+                dateOfBirth: date,
+            };
+
+            // Retrieve the document ID from Firestore based on a condition (e.g., email or any unique identifier)
+            const userRef = todoRef.where("email", "==", address); // Assuming email is a unique identifier
+            userRef.get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // Update the document with the new data
+                    todoRef.doc(doc.id).update(data)
+                        .then(() => {
+                            setShowStatus(true);
+                            setTimeout(() => {
+                                setShowStatus(false);
+                            }, 2000);
+                        })
+                        .catch((err) => {
+                            alert(err);
+                        });
+                });
+            });
+        }
+    };
+    // ------- Firebase Logic -------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -95,7 +159,7 @@ export default function Profile() {
                     </View>
                     <View style={styles.ParentImg_2}>
                         <View style={styles.cam1}>
-                            <Feather name="camera" size={23} color="white" />
+                            <Feather name="camera" size={17} color="white" />
                         </View>
                     </View>
                 </View>
@@ -134,7 +198,7 @@ export default function Profile() {
                     <View style={styles.ParentDate}>
                         {/* 1 - Logo */}
                         <View style={styles.Date1}>
-                            <FontAwesome name="calendar" size={21} color="black" />
+                            <FontAwesome name="calendar" size={18} color="black" />
                         </View>
                         {/* 2 - Date Place */}
                         <TouchableOpacity style={styles.Date2} onPress={() => showMode('date')}>
@@ -169,8 +233,13 @@ export default function Profile() {
                     </View>
                     {/* 5 - Save Button */}
                     <View style={styles.ParentBtn}>
-                        <TouchableOpacity style={styles.BtnHead} onPress={() => ShowModal()}>
-                            <Text style={styles.BtnTxt}>Update Profile</Text>
+                        {/* Button */}
+                        <TouchableOpacity style={styles.BtnHead_1} onPress={updateField}>
+                            <Text style={styles.BtnTxt_1}>Update Profile</Text>
+                        </TouchableOpacity>
+                        {/* Button */}
+                        <TouchableOpacity style={styles.BtnHead} onPress={addField}>
+                            <Text style={styles.BtnTxt}>Edit Profile</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -204,13 +273,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
+        paddingHorizontal: 10,
     },
     fir: {
         // borderWidth: 0.5,
         textAlign: "center",
         fontSize: 25,
         letterSpacing: 1,
-        fontFamily:"KanitBold",
+        fontFamily: "KanitBold",
         color: "#EB2F06",
         marginTop: 18,
         marginBottom: 10,
@@ -236,8 +306,8 @@ const styles = StyleSheet.create({
     image: {
         borderColor: "white",
         borderWidth: 5,
-        width: 125,
-        height: 125,
+        width: 110,
+        height: 110,
         borderRadius: 100,
         // marginVertical: 20,
     },
@@ -264,34 +334,39 @@ const styles = StyleSheet.create({
         // borderColor: "red",
         marginHorizontal: 14,
         letterSpacing: 0.1,
-        fontFamily:"Kanit",
+        fontFamily: "Kanit",
     },
     SubParentTxt2: {
         // borderWidth: 0.5,
         // borderColor: "black",
         paddingVertical: 1,
         alignItems: "center",
-        marginBottom: 10,
+        marginBottom: 7,
     },
     InpData: {
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderColor: "grey",
         width: "90%",
-        paddingVertical: 2.5,
+        paddingVertical: 1,
         paddingHorizontal: 13,
-        fontSize: 14,
-        letterSpacing: 1,
+        fontSize: 13,
+        letterSpacing: 1.5,
         borderRadius: 10,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
     },
     ParentBtn: {
-        paddingVertical: 5,
-        paddingHorizontal: 15,
+        paddingVertical: 20,
+        paddingHorizontal: 10,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
     },
     BtnHead: {
+        width: "45%",
         borderWidth: 1,
         borderColor: "#EB2F06",
-        padding: 4,
+        paddingVertical: 8,
         borderRadius: 50,
         backgroundColor: "#EB2F06",
     },
@@ -300,14 +375,33 @@ const styles = StyleSheet.create({
         // borderColor: "transparent",
         textAlign: "center",
         paddingVertical: 1,
-        fontSize: 19,
+        fontSize: 12,
         letterSpacing: 2,
         color: "white",
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
+        borderRadius: 50,
+    },
+    BtnHead_1: {
+        width: "45%",
+        borderWidth: 1,
+        borderColor: "#130f40",
+        paddingVertical: 8,
+        borderRadius: 50,
+        backgroundColor: "#130f40",
+    },
+    BtnTxt_1: {
+        // borderWidth: 1,
+        // borderColor: "transparent",
+        textAlign: "center",
+        paddingVertical: 1,
+        fontSize: 12,
+        letterSpacing: 2,
+        color: "white",
+        fontFamily: "Heebo",
         borderRadius: 50,
     },
     ParentDate: {
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderRadius: 10,
         borderColor: "grey",
         marginHorizontal: 17,
@@ -325,15 +419,16 @@ const styles = StyleSheet.create({
     },
     Date2: {
         width: "79%",
+        borderWidth: 0.5,
         borderColor: "transparent",
-        borderWidth: 1,
         padding: 6,
     },
     dateTxt: {
         textAlign: "left",
         paddingHorizontal: 10,
-        fontSize: 15,
-        fontFamily:"Heebo",
+        fontSize: 14,
+        fontFamily: "Heebo",
+        letterSpacing: 1,
     },
     ParentStatus: {
         backgroundColor: "rgba(0, 0, 0, 0.70)",
@@ -385,7 +480,7 @@ const styles = StyleSheet.create({
         fontSize: 16.5,
         paddingVertical: 5,
         textAlign: "center",
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
         letterSpacing: 0.5,
     },
 })
