@@ -10,8 +10,43 @@ import {
 // Fonts Header File
 import { useFonts } from "expo-font";
 import { LinearGradient } from 'expo-linear-gradient';
+import { firebase } from "../firestore";
+import { useNavigation } from '@react-navigation/native';
 
 export default function Drawer() {
+    const navigation = useNavigation();
+    // -------- Dashboard Logic ----------
+    // useState
+    const [email, setEmail] = useState("");
+    // Change Password
+    const changePassword = () => {
+        firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
+            .then(() => {
+                alert(" Password Reset Email Sent ")
+            }).catch((error) => {
+                alert(error)
+            })
+    }
+    // useEffect
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const user = firebase.auth().currentUser;
+                if (user) {
+                    // Get the user's email
+                    const userEmail = user.email;
+                    // Update the state with the user's email
+                    setEmail(userEmail);
+                } else {
+                    console.log("User not logged in");
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    // -------- Dashboard Logic ----------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -42,7 +77,7 @@ export default function Drawer() {
             {/* 1 - Name */}
             <View style={styles.ParentFirst}>
                 <Text style={styles.fir}>Hello,</Text>
-                <Text style={styles.fir_2}>Rehmat</Text>
+                <Text style={styles.fir_2}>{email.slice(0, 6)}</Text>
             </View>
             {/* 2 - Image Slider */}
             <View style={styles.ParentSecond}>
@@ -65,7 +100,7 @@ export default function Drawer() {
                 {/* Row 1 */}
                 <View style={styles.ThirdRow}>
                     {/* Box 1 */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Main")}>
                         <View style={styles.ThirdBox}>
                             <LinearGradient colors={["black", "#EB2F06"]} style={{ borderRadius: 20 }}>
                                 {/* Image */}
@@ -78,7 +113,7 @@ export default function Drawer() {
                         </View>
                     </TouchableOpacity>
                     {/* Box 2 */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                         <View style={styles.ThirdBox}>
                             <LinearGradient colors={["black", "#EB2F06"]} style={{ borderRadius: 20, }}>
                                 {/* Image */}
@@ -94,7 +129,7 @@ export default function Drawer() {
                 {/* Row 2 */}
                 <View style={styles.ThirdRow}>
                     {/* Box 1 */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("ApplicationList")}>
                         <View style={styles.ThirdBox}>
                             <LinearGradient colors={["black", "#EB2F06"]} style={{ borderRadius: 20, }}>
                                 {/* Image */}
@@ -107,7 +142,7 @@ export default function Drawer() {
                         </View>
                     </TouchableOpacity>
                     {/* Box 2 */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
                         <View style={styles.ThirdBox}>
                             <LinearGradient colors={["black", "#EB2F06"]} style={{ borderRadius: 20, }}>
                                 {/* Image */}
@@ -168,7 +203,7 @@ const styles = StyleSheet.create({
         paddingVertical: 0,
         marginHorizontal: 20,
         borderRadius: 20,
-        backgroundColor:"#ced6e0",
+        backgroundColor: "#ced6e0",
         // elevation: 10,
         // shadowColor:"blue",
     },

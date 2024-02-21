@@ -58,10 +58,9 @@ export default function Parent_Search() {
                     headerTitle: "Courses",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
+                        letterSpacing: 1.5,
                         fontSize: 15,
-                        letterSpacing: 1.6,
                     },
-                    headerPressColor: "grey",
                 }} />
                 {/* 2 */}
                 <Stack.Screen name='SubMainHome' component={SubMainHome} options={{
@@ -69,9 +68,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
-                    headerPressColor: "grey",
                 }} />
                 {/* 3 */}
                 <Stack.Screen name='DocHome' component={DocHome} options={{
@@ -79,9 +77,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
-                    headerPressColor: "grey"
                 }} />
                 {/* Now For Doc Upload Navigation */}
                 {/* Doc 1 */}
@@ -90,7 +87,7 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "white"
                 }} />
@@ -100,7 +97,7 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "white"
                 }} />
@@ -110,7 +107,7 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "white"
                 }} />
@@ -120,7 +117,7 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "white"
                 }} />
@@ -130,7 +127,7 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "white"
                 }} />
@@ -140,7 +137,7 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "white"
                 }} />
@@ -150,7 +147,7 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "white"
                 }} />
@@ -160,7 +157,7 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
                     headerPressColor: "white"
                 }} />
@@ -170,7 +167,7 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                         color: "white",
                     },
                     headerStyle: {
@@ -189,11 +186,9 @@ export default function Parent_Search() {
                     headerTitle: "Personal Data",
                     headerTitleStyle: {
                         fontFamily: "Heebo",
-                        color: "black",
                         fontSize: 15,
-                        letterSpacing: 1.6,
+                        letterSpacing: 1.5,
                     },
-                    headerPressColor: "grey",
                     headerTintColor: "black",
                 }} />
                 {/* P D 2 */}
@@ -202,14 +197,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
-                        color: "white",
+                        letterSpacing: 1.5,
                     },
-                    headerStyle: {
-                        backgroundColor: "#EB2F06",
-                    },
-                    headerPressColor: "white",
-                    headerTintColor: "white",
                 }} />
                 {/* P D 2 */}
                 <Stack.Screen name='S_PersonalData_2' component={S_PersonalData_2} options={{
@@ -217,14 +206,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
-                        color: "white",
+                        letterSpacing: 1.5,
                     },
-                    headerStyle: {
-                        backgroundColor: "#EB2F06",
-                    },
-                    headerPressColor: "white",
-                    headerTintColor: "white",
                 }} />
                 {/* P D 3 */}
                 <Stack.Screen name='S_PersonalData_3' component={S_PersonalData_3} options={{
@@ -232,14 +215,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
-                        color: "white",
+                        letterSpacing: 1.5,
                     },
-                    headerStyle: {
-                        backgroundColor: "#EB2F06",
-                    },
-                    headerPressColor: "white",
-                    headerTintColor: "white",
                 }} />
                 {/* P D 4 */}
                 <Stack.Screen name='S_PersonalData_4' component={S_PersonalData_4} options={{
@@ -247,14 +224,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
-                        color: "white",
+                        letterSpacing: 1.5,
                     },
-                    headerStyle: {
-                        backgroundColor: "#EB2F06",
-                    },
-                    headerPressColor: "white",
-                    headerTintColor: "white",
                 }} />
                 {/* P D 5 */}
                 <Stack.Screen name='S_PersonalData_5' component={S_PersonalData_5} options={{
@@ -262,14 +233,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
-                        color: "white",
+                        letterSpacing: 1.5,
                     },
-                    headerStyle: {
-                        backgroundColor: "#EB2F06",
-                    },
-                    headerPressColor: "white",
-                    headerTintColor: "white",
                 }} />
                 {/* P D 6 */}
                 <Stack.Screen name='S_PersonalData_6' component={S_PersonalData_6} options={{
@@ -277,14 +242,8 @@ export default function Parent_Search() {
                     headerTitleStyle: {
                         fontFamily: "Heebo",
                         fontSize: 15,
-                        letterSpacing: 1.6,
-                        color: "white",
+                        letterSpacing: 1.5,
                     },
-                    headerStyle: {
-                        backgroundColor: "#EB2F06",
-                    },
-                    headerPressColor: "white",
-                    headerTintColor: "white",
                 }} />
             </Stack.Navigator>
         </NavigationContainer>

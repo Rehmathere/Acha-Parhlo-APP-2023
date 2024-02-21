@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useFonts } from "expo-font";
 import { View, StyleSheet, Text, Image, StatusBar, TouchableOpacity } from "react-native";
 
-export default function PChat() {
+export default function Chat() {
     // ---------- Font Family ----------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);

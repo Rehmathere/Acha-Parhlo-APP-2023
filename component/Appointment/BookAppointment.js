@@ -125,7 +125,7 @@ export default function BookAppointment() {
                 if (item === 'header') {
                     return (
                         <Header
-                            Title="Book Appointment"
+                            Title="Appointment Details"
                             icon={require('../Pics/back.png')}
                             onClick={() => {
                                 navigation.navigate('Home');

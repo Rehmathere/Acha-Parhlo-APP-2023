@@ -121,6 +121,7 @@ export default function S_PersonalData_1() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        // backgroundColor: "white",
     },
     fir_1: {
         // borderWidth: 0.5,

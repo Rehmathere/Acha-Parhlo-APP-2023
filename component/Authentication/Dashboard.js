@@ -8,16 +8,17 @@ import {
 import { firebase } from "../firestore";
 
 export default function Dashboard() {
+  // -------- Dashboard Logic ----------
   // useState
   const [email, setEmail] = useState("");
   // Change Password
   const changePassword = () => {
     firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
-    .then(() => {
-      alert(" Password Reset Email Sent ")
-    }).catch((error) => {
-      alert(error)
-    })
+      .then(() => {
+        alert(" Password Reset Email Sent ")
+      }).catch((error) => {
+        alert(error)
+      })
   }
   // useEffect
   useEffect(() => {
@@ -38,6 +39,7 @@ export default function Dashboard() {
     };
     fetchUserData();
   }, []);
+  // -------- Dashboard Logic ----------
   // Main Body
   return (
     <SafeAreaView style={styles.container}>
@@ -45,7 +47,7 @@ export default function Dashboard() {
       <Text style={styles.fir}>Hello, {email.slice(0, 6)}</Text>
       {/* Button 1 */}
       <TouchableOpacity
-        onPress={() => {firebase.auth().signOut()}}
+        onPress={() => { firebase.auth().signOut() }}
         style={[styles.but, styles.but_1]}
       >
         <Text
@@ -61,7 +63,7 @@ export default function Dashboard() {
       </TouchableOpacity>
       {/* Button 2 */}
       <TouchableOpacity
-        onPress={() => {changePassword()}}
+        onPress={() => { changePassword() }}
         style={[styles.but, styles.but_1]}
       >
         <Text

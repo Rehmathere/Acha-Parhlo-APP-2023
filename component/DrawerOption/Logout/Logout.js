@@ -4,8 +4,41 @@ import { Text, View, StyleSheet, StatusBar, TouchableOpacity, Modal, Image } fro
 import { useFonts } from "expo-font";
 // useNavigate
 import { useNavigation } from '@react-navigation/native';
+import { firebase } from "../../firestore";
 
 export default function Logout() {
+    // -------- Dashboard Logic ----------
+    // useState
+    const [email, setEmail] = useState("");
+    // Change Password
+    const changePassword = () => {
+        firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
+            .then(() => {
+                alert(" Password Reset Email Sent ")
+            }).catch((error) => {
+                alert(error)
+            })
+    }
+    // useEffect
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const user = firebase.auth().currentUser;
+                if (user) {
+                    // Get the user's email
+                    const userEmail = user.email;
+                    // Update the state with the user's email
+                    setEmail(userEmail);
+                } else {
+                    console.log("User not logged in");
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    // -------- Dashboard Logic ----------
     //  useNavigate
     const navigation = useNavigation();
     // 0 - useState
@@ -78,7 +111,7 @@ export default function Logout() {
                             <View style={styles.Butt_Parent}>
                                 {/* Button 1 */}
                                 <View style={styles.sub_Butt_Parent}>
-                                    <TouchableOpacity style={styles.Butt_Box_1}>
+                                    <TouchableOpacity style={styles.Butt_Box_1} onPress={() => { firebase.auth().signOut() }}>
                                         <Text style={styles.Butt_Text_1}>Logout</Text>
                                     </TouchableOpacity>
                                 </View>

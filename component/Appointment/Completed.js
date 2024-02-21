@@ -85,11 +85,6 @@ export default function Completed({ navigation }) {
     <View style={styles.container}>
       <ScrollView>
         <View>
-          <Header
-            icon={require('../Pics/back.png')}
-            Title={'List'}
-            onClick={() => { navigation.navigate('Home') }}
-          />
           <View>
             <View style={styles.Head_Img_Parent}>
               <Image source={require("../Pics/completed_1.png")} style={styles.Head_Img} />

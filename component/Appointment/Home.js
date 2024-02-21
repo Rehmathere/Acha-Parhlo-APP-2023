@@ -64,13 +64,6 @@ export default function Home() {
       ListHeaderComponent={
         <>
           <StatusBar backgroundColor="red" />
-          <Header
-            Title="Appointment"
-            icon={require('../Pics/back.png')}
-            onClick={() => {
-              navigation.navigate('Home');
-            }}
-          />
           <View style={styles.MyParentImg}>
             <Image source={require('../Pics/Appointment.png')} style={styles.fir_img} />
           </View>
@@ -89,7 +82,7 @@ export default function Home() {
             <Image source={require('../Pics/completed_1.png')} style={styles.bottomIcon} />
           </TouchableOpacity>
           {/* 1 */}
-          <TouchableOpacity onPress={() => navigation.navigate('BookAppointment')}>
+          <TouchableOpacity onPress={() => navigation.navigate('MyDrawer')}>
             <Image source={require('../Pics/Home_1.png')} style={styles.bottomIcon} />
           </TouchableOpacity>
         </View>

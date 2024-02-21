@@ -61,13 +61,13 @@ const styles = StyleSheet.create({
     img: {
         // borderWidth: 1,
         // borderColor: "black",
-        width: 36,
-        height: 36,
+        width: 25,
+        height: 25,
     },
     title: {
-        fontSize: 18,
-        fontFamily:"Heebo",
         marginLeft: 10,
+        fontFamily: "Heebo",
         letterSpacing: 1.5,
+        fontSize: 15,
     },
 })

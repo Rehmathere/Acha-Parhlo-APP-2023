@@ -3,8 +3,11 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from "reac
 import { FontAwesome } from "@expo/vector-icons";
 // Fonts Header File
 import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Screen3() {
+    // 0 - Navigation Variable
+    const navigation = useNavigation();
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -45,7 +48,7 @@ export default function Screen3() {
                 </View>
                 {/* Touch Button */}
                 <View style={styles.btn_head}>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Login')}>
                         <Text style={styles.txt}>Let's Started</Text>
                     </TouchableOpacity>
                 </View>
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     txt: {
         letterSpacing: 1,
         fontSize: 25,
-        fontFamily:"Heebo",
+        fontFamily: "Heebo",
         textAlign: "center",
     },
     circle_head: {

@@ -8,8 +8,11 @@ import {
   StatusBar,
 } from "react-native";
 import { firebase } from "../firestore";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Registration({ navigation }) {
+export default function Registration() {
+  // 0 - Navigation Variable
+  const navigation = useNavigation();
   // useState
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
