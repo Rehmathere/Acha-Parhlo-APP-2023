@@ -2,10 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StyleSheet, StatusBar, TouchableOpacity, Image, Modal, Button } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function Rate() {
-    // Some Modal JS
-    const [showContent, setShowContent] = useState(false)
+    // Modal useState
+    const [showStatus, setShowStatus] = useState(false)
+    // Set TimeOut
+    const ShowModal = () => {
+        // Display
+        setShowStatus(true)
+        // Not Display
+        setTimeout(() => {
+            setShowStatus(false)
+        }, 2500);
+    }
     const [defaultRating, setDefaultRating] = useState(0)
     const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5])
     // Expo Font Logic
@@ -58,9 +68,9 @@ export default function Rate() {
             {/* Start */}
             {/* Feedback Image */}
             <View style={styles.FeedbackParent}>
-                <Image source={require('../../Pics/rate_3.png')} style={styles.imgFeedback} />
+                <Image source={require('../../Pics/rate_2.png')} style={styles.imgFeedback} />
             </View>
-            <Text style={styles.fir}>Give Us Your Feedback</Text>
+            <Text style={styles.fir}>Share Feedback</Text>
             <Text style={styles.fir2}>Your feedback matters! Share your thoughts about our app, and let's shape it together for better usability.</Text>
             {/* Rate Us Function ( Defined Above ) */}
             <CustomRatingBar />
@@ -79,24 +89,22 @@ export default function Rate() {
                 {defaultRating == "5" ? <Text style={{ color: "green", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Excellent</Text> : null}
             </Text>
             {/* Button */}
-            <TouchableOpacity style={styles.subBtn}>
-                <Text style={styles.subTxt} onPress={() => setShowContent(true)}>Feedback</Text>
+            <TouchableOpacity style={styles.subBtn} onPress={() => ShowModal()}>
+                <Text style={styles.subTxt}>Feedback</Text>
             </TouchableOpacity>
             {/* Modal */}
             <Modal
                 transparent={true}
-                visible={showContent}
                 animationType="fade"
+                visible={showStatus}
             >
-                <View style={styles.modal_parent}>
-                    <View style={styles.modal_child}>
-                        <Text style={styles.modalTxt}>Thankful For Your Feedback</Text>
-                        <View style={styles.imgParent}>
-                            <Image source={require('../../Pics/thumb.png')} style={styles.modalImg} />
+                <View style={styles.ParentStatus}>
+                    <View style={styles.sub_ParentStatus}>
+                        <View style={styles.ParentStatusImg}>
+                            <Image source={require('../../Pics/Verify_E.png')} style={styles.StatusImg} />
                         </View>
-                        <View style={styles.modalBtnParent}>
-                            <Button title='Close' color={"red"} onPress={() => setShowContent(!showContent)} />
-                        </View>
+                        <Text style={styles.StatusTxt_E}>Feedback Submitted</Text>
+                        <Text style={styles.StatusTxt}>Grateful For Your Response</Text>
                     </View>
                 </View>
             </Modal>
@@ -108,6 +116,7 @@ export default function Rate() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "white",
     },
     customeRatingBarStyle: {
         justifyContent: "center",
@@ -117,15 +126,16 @@ const styles = StyleSheet.create({
     },
     FeedbackParent: {
         // borderWidth: 1,
-        paddingVertical: 40,
+        paddingTop: 40,
+        paddingBottom: 0,
         justifyContent: "center",
         alignItems: "center",
     },
     imgFeedback: {
         // borderWidth: 1,
         borderColor: "black",
-        width: 150,
-        height: 150,
+        width: 215,
+        height: 215,
     },
     fir: {
         // borderWidth: 1,
@@ -171,9 +181,9 @@ const styles = StyleSheet.create({
     subBtn: {
         borderWidth: 1,
         borderColor: "#EB2F06",
-        marginVertical: 25,
-        marginHorizontal: 50,
-        borderRadius: 50,
+        marginVertical: 20,
+        marginHorizontal: 40,
+        borderRadius: 10,
         backgroundColor: "#EB2F06",
     },
     subTxt: {
@@ -181,7 +191,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         paddingVertical: 7,
-        fontFamily: "Heebo",
+        fontFamily: "Kanit",
         letterSpacing: 2.5,
     },
     modal_parent: {
@@ -222,6 +232,69 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderColor: "black",
+    },
+    ParentStatus: {
+        backgroundColor: "rgba(0, 0, 0, 0.70)",
+        flex: 1,
+        // borderWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    sub_ParentStatus: {
+        // borderWidth: 1,
+        width: "81%",
+        backgroundColor: "white",
+        paddingVertical: 15,
+        borderRadius: 25,
+    },
+    ParentStatusClose: {
+        // borderWidth: 1,
+        paddingVertical: 2,
+        paddingHorizontal: 16,
+        justifyContent: "center",
+        alignItems: "flex-end",
+    },
+    StatusClose: {
+        // borderWidth: 1,
+        // borderColor: "red",
+        paddingVertical: 6,
+        paddingHorizontal: 8,
+        borderRadius: 50,
+        backgroundColor: "red",
+    },
+    StatusCloseTxt: {
+        fontWeight: "bold",
+    },
+    ParentStatusImg: {
+        // borderWidth: 1,
+        paddingVertical: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    StatusImg: {
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        // borderColor: "black",
+        width: 130,
+        height: 130,
+    },
+    StatusTxt: {
+        // borderWidth: 1,
+        fontSize: 13,
+        paddingBottom: 10,
+        paddingHorizontal: 23,
+        textAlign: "center",
+        fontFamily: "Kanit",
+        letterSpacing: 1.2,
+    },
+    StatusTxt_E: {
+        // borderWidth: 1,
+        fontSize: 19,
+        paddingBottom: 10,
+        paddingHorizontal: 30,
+        textAlign: "center",
+        fontFamily: "HeeboExtra",
+        letterSpacing: 1.8,
     },
 })
 

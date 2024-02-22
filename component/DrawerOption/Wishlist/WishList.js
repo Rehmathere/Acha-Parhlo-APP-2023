@@ -74,7 +74,7 @@ export default function WishList() {
                 <Image source={require('../../Pics/Heart.png')} style={styles.My_Wishlit_Img} />
             </View>
             {/* Heading */}
-            <Text style={styles.My_Wishlist_Txt_0}>Wishlist</Text>
+            <Text style={styles.My_Wishlist_Txt_0}>My Wishlist</Text>
             <Text style={styles.My_Wishlist_Txt}>You Can View Your Saved Wishlist Courses From Here</Text>
             {/* Wislist .Map Function For Displaying All Wishlist */}
             {wishList.length === 0 ? (
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     },
     // Box CSS
     box: {
-        width: '85%',
+        width: '82%',
         borderRadius: 17,
         // borderWidth: 1,
         borderColor: "black",
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         // marginBottom: 4,
         alignItems: 'center',
         flexDirection: 'row',
-        elevation: 3,
+        elevation: 5,
         // backgroundColor: "#FCDFD8",
         backgroundColor: "#FCBBAC",
         // backgroundColor: "#FED1C7",
@@ -199,14 +199,14 @@ const styles = StyleSheet.create({
     sec: {
         letterSpacing: 2,
         textAlign: "center",
-        fontFamily: "KanitBold",
+        fontFamily: "HeeboExtra",
         width: "70%",
         marginLeft: 10,
         color: "black",
         marginTop: 11,
         // borderWidth: 1,
         //   height: 20,
-        fontSize: 16,
+        fontSize: 15,
         textTransform: "uppercase",
         paddingHorizontal: 2,
     },
@@ -223,9 +223,9 @@ const styles = StyleSheet.create({
         fontFamily: "Kanit",
         // color: "#636e72",
         marginHorizontal: 10,
-        fontSize: 13.5,
+        fontSize: 13,
         paddingVertical: 3.2,
-        paddingHorizontal: 7.5,
+        paddingHorizontal: 7,
         backgroundColor: "#dff9fb",
         borderRadius: 7,
         width: "29%",
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
         color: "black",
         marginTop: 2,
         // borderWidth: 1,
-        fontSize: 12.5,
+        fontSize: 12,
         paddingVertical: 4.5,
         paddingHorizontal: 2,
         marginBottom: 2,
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     },
     for_1: {
         // color: "#636e72",
-        fontSize: 13.5,
+        fontSize: 13,
         letterSpacing: 0.6,
         fontFamily: "Kanit",
         paddingVertical: 3.2,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     for_2: {
         // color: "#009432",
         letterSpacing: 1.5,
-        fontSize: 12.5,
+        fontSize: 12,
         fontFamily: "Heebo",
         marginTop: 6,
         paddingHorizontal: 4.5,
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     for_22: {
         // color: "#e84118",
         letterSpacing: 1.5,
-        fontSize: 12.5,
+        fontSize: 12,
         fontFamily: "Heebo",
         marginTop: 6,
         paddingHorizontal: 4,
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
         // borderColor: 'red',
         alignSelf: "center",
         width: 150,
-        height: 120,
+        height: 130,
     },
     My_Wishlist_Txt_0: {
         // borderWidth: 0.5,
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
     },
     Parent_Delete: {
         // borderWidth: 0.5,
-        paddingBottom: 2,
+        paddingBottom: 4,
         paddingHorizontal: 20,
         flexDirection: "row",
         justifyContent: "flex-end",

@@ -71,7 +71,7 @@ export default function Logout() {
             <StatusBar backgroundColor={"#EB2F06"} />
             {/* Body */}
             <View style={styles.FirTxtParent}>
-                <Text style={styles.FirTxt}>Are You Leaving ?</Text>
+                <Text style={styles.FirTxt}>Want To Sign Out ?</Text>
             </View>
             {/* Image */}
             <View style={styles.FirImgParent}>
@@ -101,7 +101,6 @@ export default function Logout() {
                 <View style={styles.Modal_Parent}>
                     <View style={styles.Modal_Child}>
                         <View style={styles.sub_Modal_Child}>
-                            <Text style={styles.Modal_Txt_1}>Logout</Text>
                             <Text style={styles.Modal_Txt_2}>Are You Sure Want To Logout ?</Text>
                             {/* Image Parent */}
                             <View style={styles.ParentImg}>
@@ -134,6 +133,7 @@ export default function Logout() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "white",
     },
     fir_1: {
         // borderWidth: 0.5,
@@ -242,9 +242,9 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         paddingVertical: 5,
         fontFamily: "HeeboExtra",
-        textAlign: "center",
         fontSize: 25,
-        letterSpacing: 1,
+        letterSpacing: 1.3,
+        textAlign: "center",
     },
     FirTxtParent2: {
         // borderWidth: 0.5,
@@ -282,34 +282,34 @@ const styles = StyleSheet.create({
         borderColor: "#EB2F06",
         paddingVertical: 8,
         backgroundColor: "#EB2F06",
-        marginHorizontal: 30,
+        marginHorizontal: 40,
         marginVertical: 10,
         borderRadius: 10,
     },
     Fir_But_Txt: {
         // borderWidth: 0.5,
-        fontFamily: "Heebo",
+        fontFamily: "Kanit",
         color: "white",
         textAlign: "center",
         fontSize: 18,
-        letterSpacing: 1.5,
+        letterSpacing: 2,
     },
     Fir_But2: {
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderColor: "#EB2F06",
         paddingVertical: 8,
-        marginHorizontal: 30,
+        marginHorizontal: 40,
         marginTop: 10,
         marginBottom: 10,
         borderRadius: 10,
     },
     Fir_But_Txt2: {
         // borderWidth: 0.5,
-        fontFamily: "Heebo",
+        fontFamily: "Kanit",
         color: "#EB2F06",
         textAlign: "center",
-        fontSize: 17,
-        letterSpacing: 1.5,
+        fontSize: 18,
+        letterSpacing: 2,
     },
 })
 

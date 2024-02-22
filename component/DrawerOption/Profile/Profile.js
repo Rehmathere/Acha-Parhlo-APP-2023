@@ -234,11 +234,11 @@ export default function Profile() {
                     {/* 5 - Save Button */}
                     <View style={styles.ParentBtn}>
                         {/* Button */}
-                        <TouchableOpacity style={styles.BtnHead_1} onPress={updateField}>
+                        <TouchableOpacity style={styles.BtnHead_1} onPress={ () => { updateField(); ShowModal(); }}>
                             <Text style={styles.BtnTxt_1}>Update Profile</Text>
                         </TouchableOpacity>
                         {/* Button */}
-                        <TouchableOpacity style={styles.BtnHead} onPress={addField}>
+                        <TouchableOpacity style={styles.BtnHead} onPress={ () => { addField(); ShowModal(); }}>
                             <Text style={styles.BtnTxt}>Edit Profile</Text>
                         </TouchableOpacity>
                     </View>
@@ -252,11 +252,6 @@ export default function Profile() {
             >
                 <View style={styles.ParentStatus}>
                     <View style={styles.sub_ParentStatus}>
-                        <View style={styles.ParentStatusClose}>
-                            <TouchableOpacity style={styles.StatusClose} onPress={() => setShowStatus(!showStatus)}>
-                                <Text style={styles.StatusCloseTxt}><FontAwesome name="close" size={16} color="white" /></Text>
-                            </TouchableOpacity>
-                        </View>
                         <View style={styles.ParentStatusImg}>
                             <Image source={require('../../Pics/update.png')} style={styles.StatusImg} />
                         </View>
@@ -282,7 +277,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         fontFamily: "KanitBold",
         color: "#EB2F06",
-        marginTop: 18,
+        marginTop: 30,
         marginBottom: 10,
     },
     ParentImg: {
@@ -355,7 +350,7 @@ const styles = StyleSheet.create({
         fontFamily: "Heebo",
     },
     ParentBtn: {
-        paddingVertical: 20,
+        paddingTop: 25,
         paddingHorizontal: 10,
         display: "flex",
         flexDirection: "row",
@@ -366,8 +361,8 @@ const styles = StyleSheet.create({
         width: "45%",
         borderWidth: 1,
         borderColor: "#EB2F06",
-        paddingVertical: 8,
-        borderRadius: 50,
+        paddingVertical: 7,
+        borderRadius: 10,
         backgroundColor: "#EB2F06",
     },
     BtnTxt: {
@@ -384,10 +379,10 @@ const styles = StyleSheet.create({
     BtnHead_1: {
         width: "45%",
         borderWidth: 1,
-        borderColor: "#130f40",
-        paddingVertical: 8,
-        borderRadius: 50,
-        backgroundColor: "#130f40",
+        borderColor: "orange",
+        paddingVertical: 7,
+        borderRadius: 10,
+        backgroundColor: "orange",
     },
     BtnTxt_1: {
         // borderWidth: 1,
@@ -396,7 +391,6 @@ const styles = StyleSheet.create({
         paddingVertical: 1,
         fontSize: 12,
         letterSpacing: 2,
-        color: "white",
         fontFamily: "Heebo",
         borderRadius: 50,
     },
@@ -441,30 +435,12 @@ const styles = StyleSheet.create({
         // borderWidth: 1,
         width: "77%",
         backgroundColor: "white",
-        paddingVertical: 15,
+        paddingVertical: 20,
         borderRadius: 15,
-    },
-    ParentStatusClose: {
-        // borderWidth: 1,
-        paddingVertical: 2,
-        paddingHorizontal: 13,
-        justifyContent: "center",
-        alignItems: "flex-end",
-    },
-    StatusClose: {
-        borderWidth: 1,
-        borderColor: "red",
-        paddingVertical: 5,
-        paddingHorizontal: 7,
-        borderRadius: 50,
-        backgroundColor: "red",
-    },
-    StatusCloseTxt: {
-        fontWeight: "bold",
     },
     ParentStatusImg: {
         // borderWidth: 1,
-        paddingVertical: 10,
+        paddingVertical: 0,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -472,15 +448,16 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: "transparent",
         // borderColor: "black",
-        width: 80,
-        height: 80,
+        width: 170,
+        height: 170,
     },
     StatusTxt: {
         // borderWidth: 1,
-        fontSize: 16.5,
+        fontSize: 16,
         paddingVertical: 5,
         textAlign: "center",
-        fontFamily: "Heebo",
-        letterSpacing: 0.5,
+        fontFamily: "Kanit",
+        letterSpacing: 1,
+        color: "grey",
     },
 })

@@ -52,18 +52,19 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     img: {
-        width: 200,
-        height: 200,
+        width: 180,
+        height: 180,
     },
     txt: {
-        fontSize: 17,
-        letterSpacing: 0.5,
-        paddingVertical: 25,
-        paddingHorizontal: 5,
+        fontSize: 18,
+        letterSpacing: 1,
+        paddingVertical: 30,
+        paddingHorizontal: 20,
         fontFamily:"Kanit",
+        textAlign: "center",
     },
     btn: {
-        paddingVertical: 10,
+        paddingVertical: 8,
         paddingHorizontal: 28,
         borderRadius: 20,
         marginTop: 5,
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     btnTxt: {
         color: "white",
         fontSize: 16,
-        fontFamily:"Heebo",
-        letterSpacing: 0.8,
+        fontFamily:"Kanit",
+        letterSpacing: 1.5,
     },
 })

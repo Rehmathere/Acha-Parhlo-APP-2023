@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     Ext_Img_Parent:{
         borderWidth: 0.5,
         borderColor:"transparent",
-        paddingTop: 35,
-        paddingBottom: 25,
+        paddingTop: 70,
+        paddingBottom: 45,
         display:"flex",
         flexDirection:"row",
         justifyContent:"center",
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
         // backgroundColor: "#f6e58d",
         backgroundColor: "#FFC5B7",
         paddingVertical: 1,
-        marginHorizontal: 20,
+        marginHorizontal: 30,
         marginTop: 20,
         paddingHorizontal: 7,
         borderRadius: 10,
@@ -181,10 +181,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     sec1_text: {
-        fontSize: 14,
+        fontSize: 15,
         paddingTop: 4,
         width: "85%",
-        fontFamily:"Heebo",
+        fontFamily:"Kanit",
         borderWidth: 1,
         borderColor: "transparent",
         letterSpacing: 0.8,
@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
     View_ans: {
         borderWidth: 1,
         borderColor: "transparent",
-        marginHorizontal: 20,
-        marginVertical: 2,
+        marginHorizontal: 30,
+        marginVertical: 1,
         paddingVertical: 9,
         // backgroundColor: "#F8EDC9",
         backgroundColor: "#FBDFD9",

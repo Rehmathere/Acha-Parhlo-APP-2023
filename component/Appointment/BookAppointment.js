@@ -157,14 +157,15 @@ export default function BookAppointment() {
                                         <TouchableOpacity
                                             key={item.day}
                                             style={{
-                                                width: 50,
-                                                height: 50,
+                                                width: 40,
+                                                height: 40,
                                                 borderRadius: 7,
                                                 justifyContent: 'center',
                                                 alignItems: 'center',
                                                 backgroundColor: selectedDay === index ? 'orangered' : 'white',
                                                 borderWidth: selectedDay === index ? 0 : 0.5,
                                                 marginLeft: 13,
+                                                borderColor: "grey",
                                             }}
                                             onPress={() => {
                                                 if (item.day < new Date().getDate()) {
@@ -184,7 +185,7 @@ export default function BookAppointment() {
                 } else if (item === 'timeSlots') {
                     return (
                         <>
-                            <Text style={styles.time}>Available Time Slots</Text>
+                            <Text style={styles.time_E}>Available Time Slots</Text>
                             <View>
                                 {/* Flatlist For Time Slots */}
                                 <FlatList
@@ -203,7 +204,7 @@ export default function BookAppointment() {
                                                     setSelectedSlot(index);
                                                 }}>
                                                 <Text
-                                                    style={{ fontFamily: "Heebo", fontSize: 13, color: index === selectedSlot ? 'white' : 'black' }}>
+                                                    style={{ fontFamily: "Heebo", fontSize: 12.5, letterSpacing: 1.5, color: index === selectedSlot ? 'white' : 'black' }}>
                                                     {item.sloT}
                                                 </Text>
                                             </TouchableOpacity>
@@ -263,6 +264,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
+        paddingHorizontal: 5,
     },
     docImg: {
         // borderWidth: 1,
@@ -273,43 +275,56 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     name: {
-        fontSize: 20,
+        fontSize: 16,
         // borderWidth: 1,
         color: "#4D0202",
         textAlign: "center",
-        paddingVertical: 10,
+        paddingTop: 15,
+        paddingBottom: 10,
         letterSpacing: 1,
         fontFamily: "HeeboExtra",
     },
     cate: {
-        fontSize: 14,
+        fontSize: 13,
         // borderWidth: 1,
         borderColor: "#DAF7D8",
         alignSelf: "center",
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         backgroundColor: "#F8E0E0",
         color: "#021601",
         borderRadius: 30,
-        paddingVertical: 5,
-        fontFamily: "Heebo",
+        paddingVertical: 3,
+        fontFamily: "Kanit",
         letterSpacing: 1.2,
+        marginBottom: 20,
     },
     time: {
-        // borderWidth: 1,
+        // borderWidth: 0.5,
         color: "black",
-        paddingTop: 25,
-        paddingBottom: 10,
-        fontSize: 18,
+        paddingTop: 30,
+        paddingBottom: 5,
+        fontSize: 15,
         fontFamily: "Heebo",
         textAlign: "left",
-        marginLeft: 20,
+        marginLeft: 15,
+    },
+    time_E: {
+        // borderWidth: 0.5,
+        color: "black",
+        paddingTop: 40,
+        paddingBottom: 15,
+        fontSize: 15,
+        fontFamily: "Heebo",
+        textAlign: "left",
+        marginLeft: 15,
     },
     timeSlot: {
         width: '40.2%',
         height: 40,
         borderRadius: 10,
+        borderColor: "grey",
         borderWidth: 0.5,
-        marginVertical: 10,
+        marginVertical: 6,
         marginHorizontal: 15,
         justifyContent: 'center',
         alignItems: 'center',
@@ -318,9 +333,10 @@ const styles = StyleSheet.create({
         fontSize: 26,
         color: "black",
         alignSelf: "center",
-        marginVertical: 15,
+        marginTop: 40,
+        marginBottom: 30,
         paddingHorizontal: 22,
-        paddingVertical: 10,
+        paddingVertical: 0,
         borderRadius: 30,
         letterSpacing: 1,
         fontFamily: "HeeboExtra"
@@ -337,7 +353,7 @@ const styles = StyleSheet.create({
     },
     inp: {
         borderWidth: 0.5,
-        borderColor: "red",
+        borderColor: "grey",
         marginHorizontal: 20,
         borderRadius: 10,
         fontSize: 14,
@@ -371,24 +387,24 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     date_fig: {
-        fontSize: 25,
+        fontSize: 20,
         fontFamily: "Heebo",
     },
     successView: {
         // borderWidth: 1,
-        paddingVertical: 10,
+        paddingVertical: 8,
         // paddingRight: 20,
         backgroundColor: "#EB2F06",
-        marginTop: 12,
+        marginTop: 20,
         marginBottom: 30,
-        marginHorizontal: 20,
+        marginHorizontal: 25,
         borderRadius: 50,
     },
     successView_Txt: {
         // borderWidth: 1,
         paddingVertical: 1,
-        fontSize: 15,
-        fontFamily: "Heebo",
+        fontSize: 17,
+        fontFamily: "Kanit",
         color: "white",
         textAlign: "center",
         letterSpacing: 2.5,

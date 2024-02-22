@@ -359,6 +359,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
+        paddingHorizontal: 1
     },
     ParentMiniCourseDetail: {
         // borderWidth: 0.5,

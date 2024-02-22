@@ -44,7 +44,7 @@ export default function Home() {
         </Text>
         <CommonBtn
           w="89%"
-          h={25}
+          h={26.5}
           txt="Book Appointment"
           status={isAvailable}
           onClick={() => {
@@ -151,18 +151,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   thirdItem: {
-    width: "42%",
-    height: 168,
+    width: "40%",
+    height: 172,
     borderWidth: 0.5,
     borderColor: "red",
     borderRadius: 15,
-    marginVertical: 6,
-    marginHorizontal: 13,
+    marginVertical: 7,
+    marginHorizontal: 15,
     elevation: 8,
     paddingVertical: 3,
     paddingHorizontal: 1.5,
     backgroundColor: "#FCF3F3",
     shadowColor: "black",
+    
   },
   third_img: {
     width: 55,
@@ -176,8 +177,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     textAlign: "center",
     paddingHorizontal: 5,
-    paddingVertical: 7,
-    fontFamily: "Heebo",
+    paddingVertical: 8,
+    fontFamily: "Kanit",
     fontSize: 13.5,
   },
   third_txt_1: {
@@ -186,13 +187,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     backgroundColor: "#EAE9E9",
     alignSelf: "center",
-    fontFamily: "Heebo",
+    fontFamily: "Kanit",
     borderRadius: 10,
     paddingHorizontal: 15,
     paddingTop: 2,
-    paddingBottom: 3,
+    paddingBottom: 2,
     letterSpacing: 1,
-    marginHorizontal: 0,
+    marginVertical: 1,
   },
   bottomViewContainer: {
     flex: 1,
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: "space-around",
     alignItems: 'center',
     backgroundColor: '#D3E0EF',
     paddingVertical: 15,
