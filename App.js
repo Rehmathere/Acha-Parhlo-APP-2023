@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator, DrawerItemList } from "@react-navigation/drawer";
-import { SafeAreaView, View, Image } from "react-native";
+import { SafeAreaView, View, Image, StyleSheet } from "react-native";
 import { FontAwesome, FontAwesome5, Ionicons, MaterialIcons, MaterialCommunityIcons, FontAwesome6 } from '@expo/vector-icons';
 import { useFonts } from "expo-font";
 import { firebase } from "./component/firestore";
@@ -43,11 +43,35 @@ import S_PersonalData_3 from "./component/SearchUni/PersonalData/S_PersonalData_
 import S_PersonalData_4 from "./component/SearchUni/PersonalData/S_PersonalData_4";
 import S_PersonalData_5 from "./component/SearchUni/PersonalData/S_PersonalData_5";
 import S_PersonalData_6 from "./component/SearchUni/PersonalData/S_PersonalData_6";
+import Screen0 from "./component/Splash1/Screen0";
+import Screen1 from "./component/Splash1/Screen1";
+import Screen2 from "./component/Splash1/Screen2";
+import Screen3 from "./component/Splash1/Screen3";
+import ChangePass from "./component/DrawerOption/ChangePass/ChangePass";
 
 const Stack = createStackNavigator();
 const AppDrawer = createDrawerNavigator();
 
 function App() {
+  // --------------------- Drawer Image Area Fetcing ---------------------
+  const [image, setImage] = useState(
+    'https://icon2.cleanpng.com/20180402/oaq/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6760664.4895544815226654464834.jpg'
+  );
+  const fetchImageFromFirestore = async () => {
+    try {
+      const userRef = firebase.firestore().collection('6 - Edit Profile App');
+      const snapshot = await userRef.get();
+      if (!snapshot.empty) {
+        const userData = snapshot.docs[0].data();
+        setImage(userData.image || 'https://icon2.cleanpng.com/20180402/oaq/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6760664.4895544815226654464834.jpg');
+      }
+    } catch (error) {
+      console.error('Error fetching image from Firestore:', error);
+    }
+  };
+  useEffect(() => {
+    fetchImageFromFirestore();
+  }, []);
   // 0 - Navigation Variable
   const navigation = useNavigation();
   // Expo Font Logic
@@ -95,18 +119,7 @@ function App() {
           name="Login"
           component={Login}
           options={{
-            headerTitle: () => <MyHeader />,
-            headerStyle: {
-              height: 155,
-              borderBottomLeftRadius: 1000,
-              borderBottomRightRadius: 1000,
-              backgroundColor: "#EB2F06",
-              shadowColor: "red",
-              elevation: 25,
-            },
-            headerBackgroundContainerStyle: {
-              backgroundColor: "white",
-            }
+            headerShown: false,
           }}
         />
         <Stack.Screen
@@ -165,10 +178,10 @@ function App() {
             marginBottom: 20,
           }}>
             <Image
-              source={require("./component/Pics/User.png")}
+              source={{ uri: image }}
               style={{
-                height: 130,
-                width: 130,
+                height: 100,
+                width: 100,
                 borderRadius: 65,
                 borderWidth: 5,
                 borderColor: "#E2DEDE",
@@ -181,7 +194,7 @@ function App() {
       screenOptions={{
         drawerStyle: {
           backgroundColor: "white",
-          width: 250,
+          width: 230,
         },
         headerTitle: "Home",
         headerStyle: {
@@ -228,8 +241,29 @@ function App() {
         options={{
           drawerLabel: "Edit Profile",
           headerTitle: "Edit Profile",
+          headerTitleStyle: {
+            fontFamily: "Kanit",
+            letterSpacing: 1.5,
+            fontSize: 15,
+          },
           drawerIcon: () => (
             <FontAwesome5 name="user-edit" size={18} color="#EA2027" style={{ marginLeft: 2 }} />
+          )
+        }}
+      />
+      <AppDrawer.Screen
+        name="Password"
+        component={ChangePass}
+        options={{
+          drawerLabel: "Password",
+          headerTitle: "Reset Password",
+          headerTitleStyle: {
+            fontFamily: "Kanit",
+            letterSpacing: 1.5,
+            fontSize: 15,
+          },
+          drawerIcon: () => (
+            <FontAwesome5 name="key" size={18} color="#EA2027" />
           )
         }}
       />
@@ -239,6 +273,11 @@ function App() {
         options={{
           drawerLabel: "Wishlist",
           headerTitle: "My Wishlist",
+          headerTitleStyle: {
+            fontFamily: "Kanit",
+            letterSpacing: 1.5,
+            fontSize: 15,
+          },
           drawerIcon: () => (
             <MaterialCommunityIcons name="heart-box" size={27} color="#EA2027" />
           )
@@ -250,6 +289,11 @@ function App() {
         options={{
           drawerLabel: "FAQ's",
           headerTitle: "FAQ's",
+          headerTitleStyle: {
+            fontFamily: "Kanit",
+            letterSpacing: 1.5,
+            fontSize: 15,
+          },
           drawerIcon: () => (
             <Ionicons name="ios-help-circle" size={27} color="#EA2027" />
           )
@@ -261,6 +305,11 @@ function App() {
         options={{
           drawerLabel: "Rate Us",
           headerTitle: "Rate Us",
+          headerTitleStyle: {
+            fontFamily: "Kanit",
+            letterSpacing: 1.5,
+            fontSize: 15,
+          },
           drawerIcon: () => (
             <MaterialIcons name="star-rate" size={28} color="#EA2027" />
           )
@@ -272,6 +321,11 @@ function App() {
         options={{
           drawerLabel: "Logout",
           headerTitle: "Logout",
+          headerTitleStyle: {
+            fontFamily: "Kanit",
+            letterSpacing: 1.5,
+            fontSize: 15,
+          },
           drawerIcon: () => (
             <MaterialCommunityIcons name="logout" size={29} color="#EA2027" style={{ marginLeft: 2 }} />
           )
@@ -286,6 +340,28 @@ export default () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        {/* -------- Per - Splash.js -------- */}
+        <Stack.Screen
+          name="Screen0"
+          component={Screen0}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Screen1"
+          component={Screen1}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Screen2"
+          component={Screen2}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Screen3"
+          component={Screen3}
+          options={{ headerShown: false }}
+        />
+        {/* -------- 0 - App.js -------- */}
         <Stack.Screen
           component={App}
           name="App"
@@ -586,9 +662,10 @@ export default () => {
 //   );
 // }
 
-// // CSS
+// CSS
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
-//   }
+//   },
+
 // })
