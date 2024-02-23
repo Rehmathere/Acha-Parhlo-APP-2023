@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, StatusBar, TouchableOpacity, Modal, Image } from 'react-native'
+import { Text, View, StyleSheet, StatusBar, TouchableOpacity, Modal, Image, TextInput } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
 // useNavigate
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from "../../firestore";
 
-export default function Logout() {
+export default function ChangePass() {
+    // Modal
+    // Modal useState
+    const [showStatus, setShowStatus] = useState(false)
     // -------- Dashboard Logic ----------
     // useState
     const [email, setEmail] = useState("");
@@ -14,7 +17,12 @@ export default function Logout() {
     const changePassword = () => {
         firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
             .then(() => {
-                alert(" Password Reset Email Sent ")
+                // Display
+                setShowStatus(true)
+                // Not Display
+                setTimeout(() => {
+                    setShowStatus(false)
+                }, 2500);
             }).catch((error) => {
                 alert(error)
             })
@@ -39,10 +47,6 @@ export default function Logout() {
         fetchUserData();
     }, []);
     // -------- Dashboard Logic ----------
-    //  useNavigate
-    const navigation = useNavigation();
-    // 0 - useState
-    const [showContent, setShowContent] = useState(false)
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -71,57 +75,37 @@ export default function Logout() {
             <StatusBar backgroundColor={"#EB2F06"} />
             {/* Body */}
             <View style={styles.FirTxtParent}>
-                <Text style={styles.FirTxt}>Want To Sign Out ?</Text>
+                <Text style={styles.FirTxt}>Reset Password</Text>
             </View>
             {/* Image */}
             <View style={styles.FirImgParent}>
-                <Image source={require('../../Pics/signout_1.png')} style={styles.FirImg} />
+                <Image source={require('../../Pics/Password_E.png')} style={styles.FirImg} />
             </View>
             {/* Leaving Message */}
             <View style={styles.FirTxtParent2}>
-                <Text style={styles.FirTxt2}>Thank you for using our app. We hope to see you again soon !</Text>
+                <Text style={styles.FirTxt2}>Please Enter Your Email Where We Send Link To Reset Your Password</Text>
             </View>
+            {/* Input */}
+            <TextInput placeholder=' Enter Your Email ' onChangeText={(email) => setEmail(email)} value={email} style={styles.inp} keyboardType="email-address" />
             {/* Button */}
             <View style={styles.TwoBtnParent}>
-                {/* 1 */}
-                <TouchableOpacity style={styles.Fir_But}>
-                    <Text style={styles.Fir_But_Txt} onPress={() => setShowContent(true)}>Yes, Logout</Text>
-                </TouchableOpacity>
-                {/* 1 */}
-                <TouchableOpacity style={styles.Fir_But2}>
-                    <Text style={styles.Fir_But_Txt2} onPress={() => navigation.navigate("MyDrawer")}>No, Kept Logged In</Text>
+                {/* 2 */}
+                <TouchableOpacity style={styles.Fir_But} onPress={() => { changePassword(); }}>
+                    <Text style={styles.Fir_But_Txt} >Send Link</Text>
                 </TouchableOpacity>
             </View>
             {/* Logout Modal */}
             <Modal
-                animationType="fade"
                 transparent={true}
-                visible={showContent}
+                animationType="fade"
+                visible={showStatus}
             >
-                <View style={styles.Modal_Parent}>
-                    <View style={styles.Modal_Child}>
-                        <View style={styles.sub_Modal_Child}>
-                            <Text style={styles.Modal_Txt_2}>Are You Sure Want To Logout ?</Text>
-                            {/* Image Parent */}
-                            <View style={styles.ParentImg}>
-                                <Image source={require('../../Pics/logout_1.png')} style={styles.Logout_Img} />
-                            </View>
-                            {/* Button Parent */}
-                            <View style={styles.Butt_Parent}>
-                                {/* Button 1 */}
-                                <View style={styles.sub_Butt_Parent}>
-                                    <TouchableOpacity style={styles.Butt_Box_1} onPress={() => { firebase.auth().signOut() }}>
-                                        <Text style={styles.Butt_Text_1}>Logout</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                {/* Button 2 */}
-                                <View style={styles.sub_Butt_Parent}>
-                                    <TouchableOpacity style={styles.Butt_Box_2} onPress={() => setShowContent(!showContent)}>
-                                        <Text style={styles.Butt_Text_2}>Cancel</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
+                <View style={styles.ParentStatus}>
+                    <View style={styles.sub_ParentStatus}>
+                        <View style={styles.ParentStatusImg}>
+                            <Image source={require('../../Pics/send.png')} style={styles.StatusImg} />
                         </View>
+                        <Text style={styles.StatusTxt}>Reset Password Link Has Send {'\n'} Please Check</Text>
                     </View>
                 </View>
             </Modal>
@@ -134,6 +118,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
+    },
+    inp: {
+        borderWidth: 0.5,
+        borderColor: "grey",
+        marginHorizontal: 40,
+        marginVertical: 15,
+        borderRadius: 10,
+        fontSize: 13,
+        paddingHorizontal: 15,
+        paddingVertical: 3,
+        fontFamily: "Kanit",
+        letterSpacing: 2.5,
     },
     fir_1: {
         // borderWidth: 0.5,
@@ -255,7 +251,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         fontFamily: "Kanit",
         textAlign: "center",
-        fontSize: 14,
+        fontSize: 13,
         color: "grey",
         paddingHorizontal: 35,
         letterSpacing: 0.5,
@@ -310,6 +306,43 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 18,
         letterSpacing: 2,
+    },
+    ParentStatus: {
+        backgroundColor: "rgba(0, 0, 0, 0.70)",
+        flex: 1,
+        // borderWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    sub_ParentStatus: {
+        // borderWidth: 1,
+        width: "77%",
+        backgroundColor: "white",
+        paddingVertical: 20,
+        borderRadius: 15,
+    },
+    ParentStatusImg: {
+        // borderWidth: 1,
+        paddingVertical: 0,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    StatusImg: {
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        // borderColor: "black",
+        width: 150,
+        height: 150,
+    },
+    StatusTxt: {
+        // borderWidth: 1,
+        fontSize: 14,
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        textAlign: "center",
+        fontFamily: "Kanit",
+        letterSpacing: 1,
+        color: "grey",
     },
 })
 

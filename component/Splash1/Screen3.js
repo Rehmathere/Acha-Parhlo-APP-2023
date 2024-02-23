@@ -37,18 +37,18 @@ export default function Screen3() {
             <View style={styles.sub_container}>
                 {/* img */}
                 <View style={styles.img_head}>
-                    <Image source={require("../Pics/3a.png")} style={styles.img} />
+                    <Image source={require("../Pics/Z_S_3_1.png")} style={styles.img} />
                 </View>
                 {/* Text */}
                 <View style={styles.fir}>
                     {/* 1 */}
-                    <Text style={{ fontFamily: 'Archivo', fontSize: 45, color: "white", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, }}>Counselling</Text>
+                    <Text style={{ fontFamily: 'Archivo', fontSize: 38.5, color: "white", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, letterSpacing: 1, }}>Counselling</Text>
                     {/* 2 */}
-                    <Text style={{ fontFamily: 'Kanit', fontSize: 15, color: "white", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, paddingHorizontal: 15, }}>Your academic success, our dedicated mission.</Text>
+                    <Text style={{ fontFamily: 'Kanit', fontSize: 14, color: "white", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 6, paddingHorizontal: 15, letterSpacing: 1, }}>Your academic success, our dedicated mission.</Text>
                 </View>
                 {/* Touch Button */}
                 <View style={styles.btn_head}>
-                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Login')}>
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('App')}>
                         <Text style={styles.txt}>Let's Started</Text>
                     </TouchableOpacity>
                 </View>
@@ -56,15 +56,15 @@ export default function Screen3() {
                 <View style={styles.circle_head}>
                     {/* 1 */}
                     <View style={styles.circle}>
-                        <FontAwesome name="circle-o" size={24} color="white" />
+                        <FontAwesome name="circle-o" size={20} color="white" />
                     </View>
                     {/* 2 */}
                     <View style={styles.circle}>
-                        <FontAwesome name="circle-o" size={24} color="white" />
+                        <FontAwesome name="circle-o" size={20} color="white" />
                     </View>
                     {/* 3 */}
                     <View style={styles.circle}>
-                        <FontAwesome name="circle" size={24} color="white" />
+                        <FontAwesome name="circle" size={20} color="white" />
                     </View>
                 </View>
             </View>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     img_head: {
         borderColor: "transparent",
         borderWidth: 1,
-        paddingTop: 70,
+        paddingTop: 80,
         padding: 10,
         width: "100%",
         margin: "auto",
@@ -138,9 +138,9 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
     },
     txt: {
-        letterSpacing: 1,
+        fontFamily: "Kanit",
         fontSize: 25,
-        fontFamily: "Heebo",
+        letterSpacing: 1.5,
         textAlign: "center",
     },
     circle_head: {
@@ -161,4 +161,5 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         borderColor: "transparent",
     },
+
 });

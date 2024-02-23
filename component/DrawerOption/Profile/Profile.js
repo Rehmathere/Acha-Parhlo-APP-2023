@@ -8,92 +8,7 @@ import { useFonts } from "expo-font";
 import { firebase } from '../../firestore';
 
 export default function Profile() {
-    // ------- Firebase Logic -------
-    // 3 - Firestore logic
-    const todoRef = firebase.firestore().collection("6 - Edit Prifle App");
-    // Function to add data to Firestore
-    const addField = () => {
-        if (name && name.length > 0 && address && phone) {
-            const data = {
-                name,
-                address,
-                phone,
-                image, // add image to Firestore
-                dateOfBirth: date, // add date of birth to Firestore
-                // Add other fields as needed
-            };
-            todoRef
-                .add(data)
-                .then(() => {
-                    setName("");
-                    setAddress("");
-                    setPhone("");
-                    setImage('https://icon2.cleanpng.com/20180402/oaq/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6760664.4895544815226654464834.jpg');
-                    setDate(new Date());
-                    setShowStatus(true);
-                    setTimeout(() => {
-                        setShowStatus(false);
-                    }, 2000);
-                })
-                .catch((err) => {
-                    alert(err);
-                });
-        }
-    };
-    // Function to update data in Firestore
-    const updateField = () => {
-        if (name && name.length > 0 && address && phone) {
-            const data = {
-                name,
-                address,
-                phone,
-                image,
-                dateOfBirth: date,
-            };
-
-            // Retrieve the document ID from Firestore based on a condition (e.g., email or any unique identifier)
-            const userRef = todoRef.where("email", "==", address); // Assuming email is a unique identifier
-            userRef.get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    // Update the document with the new data
-                    todoRef.doc(doc.id).update(data)
-                        .then(() => {
-                            setShowStatus(true);
-                            setTimeout(() => {
-                                setShowStatus(false);
-                            }, 2000);
-                        })
-                        .catch((err) => {
-                            alert(err);
-                        });
-                });
-            });
-        }
-    };
-    // ------- Firebase Logic -------
-    // 1 - useState
-    const [fontsLoaded, setFontsLoaded] = useState(false);
-    // Expo Font Logic
-    let [loaded] = useFonts({
-        Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../../assets/fonts/My_Soul/Kanit-Black.ttf"),
-    });
-    // It Will Load Font
-    useEffect(() => {
-        if (loaded) {
-            setFontsLoaded(true);
-        }
-    }, [loaded]);
-    // --------------------------------------------------
-    // 1 - useState
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
-    const [phone, setPhone] = useState("");
-    const [image, setImage] = useState('https://icon2.cleanpng.com/20180402/oaq/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6760664.4895544815226654464834.jpg');
+    // Modal
     // Modal useState
     const [showStatus, setShowStatus] = useState(false)
     // Set TimeOut
@@ -105,26 +20,36 @@ export default function Profile() {
             setShowStatus(false)
         }, 2000);
     }
-    // Date UseState
-    const [date, setDate] = useState(new Date())
-    const [mode, setMode] = useState('date')
-    const [show, setShow] = useState(false)
-    const [text, setText] = useState('')
-    // Date Function OnChange 
+    // --------------- Backend Part Logic ---------------
+    const todoRef = firebase.firestore().collection('6 - Edit Profile App');
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+    const [image, setImage] = useState(
+        'https://icon2.cleanpng.com/20180402/oaq/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6760664.4895544815226654464834.jpg'
+    );
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    const [text, setText] = useState('');
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
-        // Let Variable
         let tempDate = new Date(currentDate);
-        let fDate = tempDate.getDate() + '  /  ' + (tempDate.getMonth() + 1) + '  /  ' + tempDate.getFullYear();
+        let fDate =
+            tempDate.getDate() +
+            '  /  ' +
+            (tempDate.getMonth() + 1) +
+            '  /  ' +
+            tempDate.getFullYear();
         setText(fDate);
-    }
+    };
+
     const showMode = (currentMode) => {
         setShow(true);
         setMode(currentMode);
-    }
-    // 2 - Image Function
+    };
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -135,22 +60,95 @@ export default function Profile() {
         if (!result.canceled && result.assets && result.assets.length > 0) {
             setImage(result.assets[0].uri);
         }
-    }
-    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+    };
+    const addField = async () => {
+        try {
+            if (name && name.length > 0 && address && phone) {
+                const data = {
+                    name,
+                    address,
+                    phone,
+                    image,
+                    dateOfBirth: date,
+                };
+                const docRef = await todoRef.add(data);
+                setShowStatus(true);
+                setTimeout(() => {
+                    setShowStatus(false);
+                }, 2000);
+                // Fetch the data from Firestore using the document ID
+                const doc = await docRef.get();
+                const fetchedData = doc.data();
+                // Update the state with the fetched data
+                setName(fetchedData.name);
+                setAddress(fetchedData.address);
+                setPhone(fetchedData.phone);
+                setImage(fetchedData.image);
+                setDate(fetchedData.dateOfBirth.toDate());
+                let tempDate = fetchedData.dateOfBirth.toDate();
+                let fDate =
+                    tempDate.getDate() +
+                    '  /  ' +
+                    (tempDate.getMonth() + 1) +
+                    '  /  ' +
+                    tempDate.getFullYear();
+                setText(fDate);
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+    const updateField = async () => {
+        try {
+            if (name && name.length > 0 && address && phone) {
+                const data = {
+                    name,
+                    address,
+                    phone,
+                    image,
+                    dateOfBirth: date,
+                };
+
+                const userRef = todoRef.where('address', '==', address);
+                const querySnapshot = await userRef.get();
+                querySnapshot.forEach(async (doc) => {
+                    await todoRef.doc(doc.id).update(data);
+                });
+
+                setShowStatus(true);
+                setTimeout(() => {
+                    setShowStatus(false);
+                }, 2000);
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+    // --------------- Backend Part Logic ---------------
+    // Fonts
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require('../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf'),
+        Kanit: require('../../../assets/fonts/My_Soul/Kanit-Light.ttf'),
+        Heebo: require('../../../assets/fonts/My_Soul/Heebo-Medium.ttf'),
+        HeeboExtra: require('../../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf'),
+        KanitBold: require('../../../assets/fonts/My_Soul/Kanit-Bold.ttf'),
+        KanitBlack: require('../../../assets/fonts/My_Soul/Kanit-Black.ttf'),
+    });
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
     if (!fontsLoaded) {
         return null;
     }
     // Main Body
     return (
         <View style={styles.container}>
-            {/* StatusBar */}
-            <StatusBar backgroundColor={"#EB2F06"} />
-            {/* Kept In Scroll View Whole Code */}
+            <StatusBar backgroundColor={'#EB2F06'} />
             <ScrollView>
-
-                {/* Profile */}
                 <Text style={styles.fir}>General Information</Text>
-                {/* Image */}
                 <View style={styles.ParentImg}>
                     <View style={styles.ParentImg_1}>
                         <TouchableOpacity onPress={pickImage}>
@@ -163,9 +161,7 @@ export default function Profile() {
                         </View>
                     </View>
                 </View>
-                {/* Inputs */}
                 <View style={styles.ParentInp}>
-                    {/* 1 - Name */}
                     <View style={styles.SubParentTxt1}>
                         <Text style={styles.InpTxt}>Your Full Name</Text>
                     </View>
@@ -174,11 +170,10 @@ export default function Profile() {
                             value={name}
                             onChangeText={(user) => setName(user)}
                             keyboardType="default"
-                            placeholder=' Enter Your Full Name '
+                            placeholder=" Enter Your Full Name "
                             style={styles.InpData}
                         />
                     </View>
-                    {/* 2 - Email Address */}
                     <View style={styles.SubParentTxt1}>
                         <Text style={styles.InpTxt}>Your Email Address</Text>
                     </View>
@@ -187,38 +182,31 @@ export default function Profile() {
                             value={address}
                             onChangeText={(user) => setAddress(user)}
                             keyboardType="email-address"
-                            placeholder=' Enter Your Email Address '
+                            placeholder=" Enter Your Email Address "
                             style={styles.InpData}
                         />
                     </View>
-                    {/* 3 - Date */}
                     <View style={styles.SubParentTxt1}>
                         <Text style={styles.InpTxt}>Your Date of Birth</Text>
                     </View>
                     <View style={styles.ParentDate}>
-                        {/* 1 - Logo */}
                         <View style={styles.Date1}>
                             <FontAwesome name="calendar" size={18} color="black" />
                         </View>
-                        {/* 2 - Date Place */}
                         <TouchableOpacity style={styles.Date2} onPress={() => showMode('date')}>
                             <Text style={styles.dateTxt}>{text}</Text>
                         </TouchableOpacity>
                     </View>
-                    {/* Date Condition */}
-                    {
-                        show && (
-                            <DateTimePicker
-                                testID="dateTimePicker"
-                                value={date}
-                                mode={mode}
-                                is24Hour={true}
-                                display="calendar"
-                                onChange={onChange}
-                            />
-                        )
-                    }
-                    {/* 4 - Country Code With Number */}
+                    {show && (
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            value={date}
+                            mode={mode}
+                            is24Hour={true}
+                            display="calendar"
+                            onChange={onChange}
+                        />
+                    )}
                     <View style={styles.SubParentTxt1}>
                         <Text style={styles.InpTxt}>Your Mobile Number</Text>
                     </View>
@@ -227,18 +215,15 @@ export default function Profile() {
                             value={phone}
                             onChangeText={(user) => setPhone(user)}
                             keyboardType="number-pad"
-                            placeholder=' Enter Your Mobile Number '
+                            placeholder=" Enter Your Mobile Number "
                             style={styles.InpData}
                         />
                     </View>
-                    {/* 5 - Save Button */}
                     <View style={styles.ParentBtn}>
-                        {/* Button */}
-                        <TouchableOpacity style={styles.BtnHead_1} onPress={ () => { updateField(); ShowModal(); }}>
+                        <TouchableOpacity style={styles.BtnHead_1} onPress={() => { updateField(); ShowModal(); }}>
                             <Text style={styles.BtnTxt_1}>Update Profile</Text>
                         </TouchableOpacity>
-                        {/* Button */}
-                        <TouchableOpacity style={styles.BtnHead} onPress={ () => { addField(); ShowModal(); }}>
+                        <TouchableOpacity style={styles.BtnHead} onPress={() => { addField(); ShowModal(); }}>
                             <Text style={styles.BtnTxt}>Edit Profile</Text>
                         </TouchableOpacity>
                     </View>

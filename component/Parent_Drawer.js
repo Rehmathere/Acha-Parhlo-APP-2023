@@ -61,8 +61,8 @@ export default function Parent_Drawer() {
                 <Image
                   source={require("./Pics/User.png")}
                   style={{
-                    height: 130,
-                    width: 130,
+                    height: 100,
+                    width: 100,
                     borderRadius: 65,
                     borderWidth: 5,
                     borderColor: "#E2DEDE",
@@ -76,7 +76,7 @@ export default function Parent_Drawer() {
         screenOptions={{
           drawerStyle: {
             backgroundColor: "white",
-            width: 250,
+            width: 230,            
           },
           headerTitle: "Home",
           headerStyle: {
@@ -125,10 +125,27 @@ export default function Parent_Drawer() {
             title: "Edit Profile",
             headerTitleStyle: {
               fontFamily: "Kanit",
-              letterSpacing: 1.4,
+              letterSpacing: 1.5,
+              fontSize: 15,
             },
             drawerIcon: () => (
               <FontAwesome5 name="user-edit" size={18} color="#EA2027" style={{ marginLeft: 2 }} />
+            )
+          }}
+          component={Profile} />
+        {/* Option ---- New ----- */}
+        <Drawer.Screen name="Change"
+          options={{
+            drawerLabel: "Password",
+            headerTitle: "Change Password",
+            title: "Change Password",
+            headerTitleStyle: {
+              fontFamily: "Kanit",
+              letterSpacing: 1.5,
+              fontSize: 15,
+            },
+            drawerIcon: () => (
+              <FontAwesome5 name="key" size={18} color="#EA2027" style={{ marginLeft: 2 }} />
             )
           }}
           component={Profile} />

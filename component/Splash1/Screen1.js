@@ -42,9 +42,10 @@ export default function Screen1() {
         {/* Text */}
         <View style={styles.fir}>
           {/* 1 */}
-          <Text style={{ fontFamily: 'Archivo', fontSize: 45, color: "white", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, }}>Scholarship</Text>
+          <Text style={{ fontFamily: 'Archivo', fontSize: 38, color: "white", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, letterSpacing: 1, }}>Scholarship</Text>
           {/* 2 */}
-          <Text style={{ fontFamily: 'Kanit', fontSize: 15, color: "white", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, paddingHorizontal: 15, }}>Rewarding excellence with life-changing opportunities</Text>
+          <Text style={{ fontFamily: 'Kanit', fontSize: 14, color: "white", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, paddingHorizontal: 20,
+        letterSpacing: 0.5, }}>Rewarding excellence with life-changing opportunities</Text>
         </View>
         {/* Touch Button */}
         <View style={styles.btn_head}>
@@ -56,15 +57,15 @@ export default function Screen1() {
         <View style={styles.circle_head}>
           {/* 1 */}
           <View style={styles.circle}>
-            <FontAwesome name="circle" size={24} color="white" />
+            <FontAwesome name="circle" size={20} color="white" />
           </View>
           {/* 2 */}
           <View style={styles.circle}>
-            <FontAwesome name="circle-o" size={24} color="white" />
+            <FontAwesome name="circle-o" size={20} color="white" />
           </View>
           {/* 3 */}
           <View style={styles.circle}>
-            <FontAwesome name="circle-o" size={24} color="white" />
+            <FontAwesome name="circle-o" size={20} color="white" />
           </View>
         </View>
       </View>
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
   img_head: {
     borderColor: "transparent",
     borderWidth: 1,
-    paddingTop: 70,
+    paddingTop: 80,
     padding: 10,
     width: "100%",
     margin: "auto",
@@ -134,14 +135,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 230,
     marginVertical: 20,
-    padding: 5,
+    padding: 4,
     borderRadius: 50,
     backgroundColor: "white",
   },
   txt: {
-    fontFamily:"Heebo",
+    fontFamily:"Kanit",
     fontSize: 25,
-    letterSpacing: 1,
+    letterSpacing: 1.5,
     textAlign: "center",
   },
   circle_head: {

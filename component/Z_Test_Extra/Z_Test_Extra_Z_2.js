@@ -1,47 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { Button, Text, View, StyleSheet } from 'react-native'
-import { useFonts } from "expo-font";
-import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { firebase } from "../firestore";
+import React, { useState, useEffect } from 'react';
+import { Button, Text, View, StyleSheet, Image } from 'react-native';
+import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { firebase } from '../firestore';
 
-export default function Z_Test_Extra_Z_2({ route }) {
-    // 0 - Navigation Constant
+export default function Z_Test_Extra_Z_2() {
     const navigation = useNavigation();
-    // ----------- Backend Part Logic ----------- 
-    const { item, firestoreId } = route.params || {};
-    const [U1_universityName, setU1_universityName] = useState(item.U1_universityName || "");
-    const [U2_campus, setU2_campus] = useState(item.U2_campus || "");
-    const [U3_intake, setU3_intake] = useState(item.U3_intake || "");
-    const [U4_courseName, setU4_courseName] = useState(item.U4_courseName || "");
-    const [buttonValue, setbuttonValue] = useState(item.buttonValue || "");
-    const handleButtonPress = () => {
-        // Pass data to Firebase and store in "5 - App Wishlist" collection
-        firebase.firestore().collection("5 - App Wishlist").add({
-            U1_universityName,
-            U2_campus,
-            U3_intake,
-            U4_courseName,
-            buttonValue,
-        })
-            .then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
-                // You can perform any additional actions after successfully storing data in Firestore
-            })
-            .catch((error) => {
-                console.error("Error adding document: ", error);
-            });
+    // --------------------- Drawer Image Area Fetcing ---------------------
+    const [image, setImage] = useState(
+        'https://icon2.cleanpng.com/20180402/oaq/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6760664.4895544815226654464834.jpg'
+    );
+    const fetchImageFromFirestore = async () => {
+        try {
+            const userRef = firebase.firestore().collection('6 - Edit Profile App');
+
+            const snapshot = await userRef.get();
+
+            if (!snapshot.empty) {
+                const userData = snapshot.docs[0].data();
+                setImage(userData.image || 'https://icon2.cleanpng.com/20180402/oaq/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6760664.4895544815226654464834.jpg');
+            }
+        } catch (error) {
+            console.error('Error fetching image from Firestore:', error);
+        }
     };
-    // ----------- Backend Part Logic ----------- 
-    // Fonts 
+    useEffect(() => {
+        fetchImageFromFirestore();
+    }, []); // Run once when the component mounts
+    // Fonts
     const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
-        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+        Archivo: require('../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf'),
+        Kanit: require('../../assets/fonts/My_Soul/Kanit-Light.ttf'),
+        Heebo: require('../../assets/fonts/My_Soul/Heebo-Medium.ttf'),
+        HeeboExtra: require('../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf'),
+        KanitBold: require('../../assets/fonts/My_Soul/Kanit-Bold.ttf'),
+        KanitBlack: require('../../assets/fonts/My_Soul/Kanit-Black.ttf'),
     });
     useEffect(() => {
         if (loaded) {
@@ -54,18 +49,10 @@ export default function Z_Test_Extra_Z_2({ route }) {
     // Main Body
     return (
         <View style={styles.container}>
-            <Text style={styles.fir}> Application Tracking & Status </Text>
-            <Text style={styles.Txt}>Firestore ID: {firestoreId}</Text>
-            <Text style={styles.Txt}>{U1_universityName.substring(0, 18)}</Text>
-            <Text style={styles.Txt}>{U2_campus}</Text>
-            <Text style={styles.Txt}>{U3_intake}</Text>
-            <Text style={styles.Txt}>{U4_courseName}</Text>
-            <Text style={styles.Txt}>Status : {buttonValue}</Text>
-            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={handleButtonPress}>
-                <Text style={styles.Upload_Btn_Parent_Txt}>Pass Data To Firebase</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_3")}>
-                <Text style={styles.Upload_Btn_Parent_Txt}>Move To Page 3</Text>
+            <Text style={styles.fir}> Image Fetch Area </Text>
+            <Image source={{ uri: image }} style={styles.image} />
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Back To Home</Text>
             </TouchableOpacity>
         </View>
     );
@@ -108,5 +95,13 @@ const styles = StyleSheet.create({
         fontFamily: "Kanit",
         color: "white",
         letterSpacing: 1,
+    },
+    image: {
+        borderColor: "white",
+        borderWidth: 5,
+        width: 110,
+        height: 110,
+        borderRadius: 100,
+        // marginVertical: 20,
     },
 });

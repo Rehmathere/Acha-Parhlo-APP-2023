@@ -37,14 +37,14 @@ export default function Screen2() {
             <View style={styles.sub_container}>
                 {/* img */}
                 <View style={styles.img_head}>
-                    <Image source={require("../Pics/2.png")} style={styles.img} />
+                    <Image source={require("../Pics/flag_E.png")} style={styles.img} />
                 </View>
                 {/* Text */}
                 <View style={styles.fir}>
                     {/* 1 */}
-                    <Text style={{ fontFamily: 'Archivo', fontSize: 45, color: "black", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, }}>Study Visa</Text>
+                    <Text style={{ fontFamily: 'Archivo', fontSize: 39, color: "black", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, letterSpacing: 1, }}>Study Visa</Text>
                     {/* 2 */}
-                    <Text style={{ fontFamily: 'Kanit', fontSize: 15, color: "black", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 5, paddingHorizontal: 15, }}>Visa success stories begin with our guidance</Text>
+                    <Text style={{ fontFamily: 'Kanit', fontSize: 14, color: "black", textAlign: "center", borderColor: "transparent", borderWidth: 1, marginVertical: 0, marginHorizontal: 10, paddingVertical: 6, paddingHorizontal: 15, letterSpacing: 1, }}>Visa success stories begin with our guidance</Text>
                 </View>
                 {/* Touch Button */}
                 <View style={styles.btn_head}>
@@ -56,15 +56,15 @@ export default function Screen2() {
                 <View style={styles.circle_head}>
                     {/* 1 */}
                     <View style={styles.circle}>
-                        <FontAwesome name="circle-o" size={24} color="black" />
+                        <FontAwesome name="circle-o" size={20} color="black" />
                     </View>
                     {/* 2 */}
                     <View style={styles.circle}>
-                        <FontAwesome name="circle" size={24} color="black" />
+                        <FontAwesome name="circle" size={20} color="black" />
                     </View>
                     {/* 3 */}
                     <View style={styles.circle}>
-                        <FontAwesome name="circle-o" size={24} color="black" />
+                        <FontAwesome name="circle-o" size={20} color="black" />
                     </View>
                 </View>
             </View>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     img_head: {
         borderColor: "transparent",
         borderWidth: 1,
-        paddingTop: 70,
+        paddingTop: 80,
         padding: 10,
         width: "100%",
         margin: "auto",
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     },
     img: {
         borderColor: "transparent",
-        borderWidth: 1,
+        borderWidth: 0.5,
         width: 200,
         height: 150,
     },
@@ -136,9 +136,9 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
     },
     txt: {
-        fontFamily:"Heebo",
+        fontFamily:"Kanit",
         fontSize: 25,
-        letterSpacing: 1,
+        letterSpacing: 1.5,
         color: "white",
         textAlign: "center",
     },
