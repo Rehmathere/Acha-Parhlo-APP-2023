@@ -48,6 +48,7 @@ import Screen1 from "./component/Splash1/Screen1";
 import Screen2 from "./component/Splash1/Screen2";
 import Screen3 from "./component/Splash1/Screen3";
 import ChangePass from "./component/DrawerOption/ChangePass/ChangePass";
+import FinalChat from "./component/Chat/FinalChat";
 
 const Stack = createStackNavigator();
 const AppDrawer = createDrawerNavigator();
@@ -603,6 +604,17 @@ export default () => {
               fontSize: 15,
             },
           }} />
+        <Stack.Screen
+          name='FinalChat'
+          component={FinalChat}
+          options={{
+            headerTitle: "Start Chat",
+            headerTitleStyle: {
+              fontFamily: "Heebo",
+              letterSpacing: 1.5,
+              fontSize: 15,
+            },
+          }} />
         {/* ------------------------------------------------------ */}
       </Stack.Navigator>
     </NavigationContainer>
@@ -626,10 +638,6 @@ export default () => {
 // // ------ Navigation ------
 // import { NavigationContainer } from "@react-navigation/native";
 // import { createStackNavigator } from "@react-navigation/stack";
-// // -------------- Screen --------------
-
-// // Constant Variable
-// const Stack = createStackNavigator();
 
 // export default function App() {
 //   // Main Body
@@ -645,7 +653,7 @@ export default () => {
 //       {/* 2 - Search Uni --- ( Completed ) */}
 //       {/* <Parent_Search /> */}
 //       {/* 3 - Parent_Drawer --- ( Completed ) */}
-//       <Parent_Drawer />
+//       {/* <Parent_Drawer /> */}
 //       {/* 4 - Parent_Application --- ( Completed ) */}
 //       {/* <Parent_Application /> */}
 //       {/* 5 - Parent_Chat */}
@@ -655,17 +663,19 @@ export default () => {
 //       {/* - Demo Practice Backend - */}
 //       {/* <Z_Test_Parent_A /> */}
 //       {/* - Demo Practice Backend - ( 2 ) */}
-//       {/* <Z_Test_Extra_Parent /> */}
+//       <Z_Test_Extra_Parent />
 //       {/* ------------------------------------------------ */}
 
 //     </View>
 //   );
 // }
 
-// CSS
+// // CSS
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
 //   },
 
 // })
+
+// // ------------------------------------------------------------------------------------------------------------------
