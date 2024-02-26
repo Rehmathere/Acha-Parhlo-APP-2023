@@ -1,0 +1,528 @@
+---------------------------------------------------------------------------------------------
+
+import React, { useState, createContext, useContext, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { View, ActivityIndicator } from 'react-native';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './component/Chat/firebase';
+import Login from './component/Z_Test_Extra/Login';
+import Signup from './component/Z_Test_Extra/Signup';
+import Chat from './component/Z_Test_Extra/Chat';
+import Home from './component/Z_Test_Extra/Home';
+
+const Stack = createStackNavigator();
+const AuthenticatedUserContext = createContext({});
+
+const AuthenticatedUserProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+return (
+    <AuthenticatedUserContext.Provider value={{ user, setUser }}>
+      {children}
+    </AuthenticatedUserContext.Provider>
+  );
+};
+
+function ChatStack() {
+  return (
+    <Stack.Navigator defaultScreenOptions={Home}>
+      <Stack.Screen name='Home' component={Home} />
+      <Stack.Screen name='Chat' component={Chat} />
+    </Stack.Navigator>
+  );
+}
+
+function AuthStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen name='Signup' component={Signup} />
+    </Stack.Navigator>
+  );
+}
+
+function RootNavigator() {
+  const { user, setUser } = useContext(AuthenticatedUserContext);
+  const [isLoading, setIsLoading] = useState(true);
+useEffect(() => {
+    // onAuthStateChanged returns an unsubscriber
+    const unsubscribeAuth = onAuthStateChanged(
+      auth,
+      async authenticatedUser => {
+        authenticatedUser ? setUser(authenticatedUser) : setUser(null);
+        setIsLoading(false);
+      }
+    );
+// unsubscribe auth listener on unmount
+    return unsubscribeAuth;
+  }, [user]);
+if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size='large' />
+      </View>
+    );
+  }
+
+return (
+    <NavigationContainer>
+      {user ? <ChatStack /> : <AuthStack />}
+    </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthenticatedUserProvider>
+      <RootNavigator />
+    </AuthenticatedUserProvider>
+  );
+}
+
+---------------------------------------------------------------------------------------------
+
+import React, { useEffect } from "react";
+import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from '@expo/vector-icons';
+import colors from './colors';
+import { Entypo } from '@expo/vector-icons';
+const catImageUrl = "https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d";
+
+const Home = () => {
+
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => (
+                <FontAwesome name="search" size={24} color={colors.gray} style={{marginLeft: 15}}/>
+            ),
+            headerRight: () => (
+                <Image
+                    source={{ uri: catImageUrl }}
+                    style={{
+                        width: 40,
+                        height: 40,
+                        marginRight: 15,
+                    }}
+                />
+            ),
+        });
+    }, [navigation]);
+
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Chat")}
+                style={styles.chatButton}
+            >
+                <Entypo name="chat" size={24} color={colors.lightGray} />
+            </TouchableOpacity>
+        </View>
+    );
+    };
+
+    export default Home;
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+            backgroundColor: "#fff",
+        },
+        chatButton: {
+            backgroundColor: colors.primary,
+            height: 50,
+            width: 50,
+            borderRadius: 25,
+            alignItems: 'center',
+            justifyContent: 'center',
+            shadowColor: colors.primary,
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: .9,
+            shadowRadius: 8,
+            marginRight: 20,
+            marginBottom: 50,
+        }
+    });
+
+---------------------------------------------------------------------------------------------
+
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert } from "react-native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../Chat/firebase";
+const backImage = require("../Pics/back.png");
+import { useNavigation } from '@react-navigation/native';
+
+export default function Login() {
+    // Navigation
+    const navigation = useNavigation();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const onHandleLogin = () => {
+        if (email !== "" && password !== "") {
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => console.log("Login success"))
+                .catch((err) => Alert.alert("Login error", err.message));
+        }
+    };
+
+    return (
+        <View style={styles.container}>
+            <Image source={backImage} style={styles.backImage} />
+            <View style={styles.whiteSheet} />
+            <SafeAreaView style={styles.form}>
+                <Text style={styles.title}>Log In</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter email"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    textContentType="emailAddress"
+                    autoFocus={true}
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Enter password"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    secureTextEntry={true}
+                    textContentType="password"
+                    value={password}
+                    onChangeText={(text) => setPassword(text)}
+                />
+                <TouchableOpacity style={styles.button} onPress={onHandleLogin}>
+                    <Text style={{ fontWeight: 'bold', color: '#fff', fontSize: 18 }}> Log In</Text>
+                </TouchableOpacity>
+                <View style={{ marginTop: 20, flexDirection: 'row', alignItems: 'center', alignSelf: 'center' }}>
+                    <Text style={{ color: 'gray', fontWeight: '600', fontSize: 14 }}>Don't have an account? </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+                        <Text style={{ color: '#f57c00', fontWeight: '600', fontSize: 14 }}> Sign Up</Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
+            <StatusBar barStyle="light-content" />
+        </View>
+    );
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+    },
+    title: {
+        fontSize: 36,
+        fontWeight: 'bold',
+        color: "orange",
+        alignSelf: "center",
+        paddingBottom: 24,
+    },
+    input: {
+        backgroundColor: "#F6F7FB",
+        height: 58,
+        marginBottom: 20,
+        fontSize: 16,
+        borderRadius: 10,
+        padding: 12,
+    },
+    backImage: {
+        width: "100%",
+        height: 340,
+        position: "absolute",
+        top: 0,
+        resizeMode: 'cover',
+    },
+    whiteSheet: {
+        width: '100%',
+        height: '75%',
+        position: "absolute",
+        bottom: 0,
+        backgroundColor: '#fff',
+        borderTopLeftRadius: 60,
+    },
+    form: {
+        flex: 1,
+        justifyContent: 'center',
+        marginHorizontal: 30,
+    },
+    button: {
+        backgroundColor: '#f57c00',
+        height: 58,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 40,
+    },
+});
+
+---------------------------------------------------------------------------------------------
+
+import React, {
+    useState,
+    useLayoutEffect,
+    useCallback,
+  } from 'react';
+  import { TouchableOpacity } from 'react-native';
+  import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+  import {
+    collection,
+    addDoc,
+    orderBy,
+    query,
+    onSnapshot,
+  } from 'firebase/firestore';
+  import { signOut } from 'firebase/auth';
+  import { auth, database } from '../Chat/firebase';
+  import { useNavigation } from '@react-navigation/native';
+  import { AntDesign } from '@expo/vector-icons';
+  import colors from './colors';
+  
+  export default function Chat() {
+    const [messages, setMessages] = useState([]);
+    const navigation = useNavigation();
+  
+    const onSignOut = () => {
+      signOut(auth).catch(error => console.log('Error logging out: ', error));
+    };
+  
+    useLayoutEffect(() => {
+      navigation.setOptions({
+        headerRight: () => (
+          <TouchableOpacity
+            style={{ marginRight: 10 }}
+            onPress={onSignOut}
+          >
+            <AntDesign
+              name="logout"
+              size={24}
+              color={colors.gray}
+              style={{ marginRight: 10 }}
+            />
+          </TouchableOpacity>
+        ),
+      });
+    }, [navigation]);
+  
+    useLayoutEffect(() => {
+      const collectionRef = collection(database, 'chats');
+      const q = query(collectionRef, orderBy('createdAt', 'desc'));
+  
+      const unsubscribe = onSnapshot(q, querySnapshot => {
+        console.log('querySnapshot unsusbscribe');
+        setMessages(
+          querySnapshot.docs.map(doc => ({
+            _id: doc.data()._id,
+            createdAt: doc.data().createdAt.toDate(),
+            text: doc.data().text,
+            user: doc.data().user,
+          }))
+        );
+      });
+  
+      return unsubscribe;
+    }, []);
+  
+    const onSend = useCallback(messages => {
+      setMessages(previousMessages =>
+        GiftedChat.append(previousMessages, messages)
+      );
+  
+      const { _id, createdAt, text, user } = messages[0];
+      addDoc(collection(database, 'chats'), {
+        _id,
+        createdAt,
+        text,
+        user,
+      });
+    }, []);
+  
+    return (
+      <GiftedChat
+        messages={messages}
+        showAvatarForEveryMessage={false}
+        showUserAvatar={false}
+        onSend={messages => onSend(messages)}
+        messagesContainerStyle={{
+          backgroundColor: '#FFEDE8',
+        }}
+        textInputStyle={{
+          backgroundColor: '#fff',
+        }}
+        user={{
+          _id: auth?.currentUser?.email,
+          avatar: 'https://i.pravatar.cc/300',
+        }}
+        renderBubble={props => (
+          <Bubble
+            {...props}
+            wrapperStyle={{
+              left: {
+                backgroundColor: 'blue', // Set the background color to red for incoming messages
+              },
+              right: {
+                backgroundColor: '#EB2F06', // Set the background color to red for outgoing messages
+              },
+            }}
+            textStyle={{
+              left: {
+                letterSpacing: 1, // Apply letterSpacing for incoming messages
+              },
+              right: {
+                letterSpacing: 1, // Apply letterSpacing for outgoing messages
+                paddingHorizontal: 5,
+                paddingVertical: 3,
+              },
+            }}
+          />
+        )}
+      />
+    );
+  }
+  
+---------------------------------------------------------------------------------------------
+
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert } from "react-native";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../Chat/firebase';
+const backImage = require("../Pics/back.png");
+import { useNavigation } from '@react-navigation/native';
+
+export default function Signup() {
+    // Navigation
+    const navigation = useNavigation();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+const onHandleSignup = () => {
+    if (email !== '' && password !== '') {
+  createUserWithEmailAndPassword(auth, email, password)
+        .then(() => console.log('Signup success'))
+        .catch((err) => Alert.alert("Login error", err.message));
+    }
+  };
+  
+  return (
+    <View style={styles.container}>
+      <Image source={backImage} style={styles.backImage} />
+      <View style={styles.whiteSheet} />
+      <SafeAreaView style={styles.form}>
+        <Text style={styles.title}>Sign Up</Text>
+         <TextInput
+        style={styles.input}
+        placeholder="Enter email"
+        autoCapitalize="none"
+        keyboardType="email-address"
+        textContentType="emailAddress"
+        autoFocus={true}
+        value={email}
+        onChangeText={(text) => setEmail(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Enter password"
+        autoCapitalize="none"
+        autoCorrect={false}
+        secureTextEntry={true}
+        textContentType="password"
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+      />
+      <TouchableOpacity style={styles.button} onPress={onHandleSignup}>
+        <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 18}}> Sign Up</Text>
+      </TouchableOpacity>
+      <View style={{marginTop: 20, flexDirection: 'row', alignItems: 'center', alignSelf: 'center'}}>
+        <Text style={{color: 'gray', fontWeight: '600', fontSize: 14}}>Don't have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text style={{color: '#f57c00', fontWeight: '600', fontSize: 14}}> Log In</Text>
+        </TouchableOpacity>
+      </View>
+      </SafeAreaView>
+      <StatusBar barStyle="light-content" />
+    </View>
+  );
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: "orange",
+    alignSelf: "center",
+    paddingBottom: 24,
+  },
+  input: {
+    backgroundColor: "#F6F7FB",
+    height: 58,
+    marginBottom: 20,
+    fontSize: 16,
+    borderRadius: 10,
+    padding: 12,
+  },
+  backImage: {
+    width: "100%",
+    height: 340,
+    position: "absolute",
+    top: 0,
+    resizeMode: 'cover',
+  },
+  whiteSheet: {
+    width: '100%',
+    height: '75%',
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 60,
+  },
+  form: {
+    flex: 1,
+    justifyContent: 'center',
+    marginHorizontal: 30,
+  },
+  button: {
+    backgroundColor: '#f57c00',
+    height: 58,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+  },
+});
+
+---------------------------------------------------------------------------------------------
+
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import Constants from "expo-constants";
+// Firebase config
+const firebaseConfig = {
+    apiKey: "AIzaSyCpCthp0DyhjLpm5zbI5G1C_bCkY6Hqde8",
+    authDomain: "awpro-f81b1.firebaseapp.com",
+    databaseURL: "https://awpro-f81b1-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "awpro-f81b1",
+    storageBucket: "awpro-f81b1.appspot.com",
+    messagingSenderId: "313818198041",
+    appId: "1:313818198041:web:b9e32aa1fc2bcc2c193a88"
+    //   @deprecated is deprecated Constants.manifest
+};
+// initialize firebase
+initializeApp(firebaseConfig);
+export const auth = getAuth();
+export const database = getFirestore();
+
+---------------------------------------------------------------------------------------------
