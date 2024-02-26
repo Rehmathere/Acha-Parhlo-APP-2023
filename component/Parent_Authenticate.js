@@ -63,18 +63,7 @@ function Parent_Authenticate() {
                     name="Login"
                     component={Login}
                     options={{
-                        headerTitle: () => <MyHeader />,
-                        headerStyle: {
-                            height: 155,
-                            borderBottomLeftRadius: 1000,
-                            borderBottomRightRadius: 1000,
-                            backgroundColor: "#EB2F06",
-                            shadowColor: "red",
-                            elevation: 25,
-                        },
-                        headerBackgroundContainerStyle: {
-                            backgroundColor: "white",
-                        }
+                        headerShown: false,
                     }}
                 />
                 {/* 2 */}

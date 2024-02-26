@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react'
 // Fonts Header File
 import { useFonts } from "expo-font";
 import { View, StyleSheet, Text, Image, StatusBar, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Chat() {
+    // Navigation
+    const navigation = useNavigation();
     // ---------- Font Family ----------
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -41,7 +44,7 @@ export default function Chat() {
             <Text style={styles.fir3}>Engage in informative discussions and address your inquiries by conversing with our expert team through a dedicated chat platform.</Text>
             {/* Button Parent */}
             <View style={styles.BtnParent}>
-                <TouchableOpacity style={styles.BtnPart1}>
+                <TouchableOpacity style={styles.BtnPart1} onPress={() => navigation.navigate("FinalChat")}>
                     <Text style={styles.BtnPart2}>Chat Us</Text>
                 </TouchableOpacity>
             </View>

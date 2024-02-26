@@ -1,0 +1,136 @@
+import React, {
+    useState,
+    useEffect,
+    useLayoutEffect,
+    useCallback
+} from 'react';
+import { TouchableOpacity, Text, View } from 'react-native';
+import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
+import {
+    collection,
+    addDoc,
+    orderBy,
+    query,
+    onSnapshot
+} from 'firebase/firestore';
+import { auth, database } from './firebase';
+import { useNavigation } from '@react-navigation/native';
+// Fonts Header File
+import { useFonts } from "expo-font";
+
+export default function FinalChat() {
+    // --------------- Backend Part Logic ---------------
+    const [messages, setMessages] = useState([]);
+    useLayoutEffect(() => {
+        const collectionRef = collection(database, '2 - Chat');
+        const q = query(collectionRef, orderBy('createdAt', 'desc'));
+        const unsubscribe = onSnapshot(q, querySnapshot => {
+            setMessages(
+                querySnapshot.docs.map(doc => ({
+                    _id: doc.data()._id,
+                    createdAt: doc.data().createdAt.toDate(),
+                    text: doc.data().text,
+                    user: doc.data().user
+                }))
+            );
+        });
+        return unsubscribe;
+    }, []);
+    const onSend = useCallback((messages = []) => {
+        setMessages(previousMessages =>
+            GiftedChat.append(previousMessages, messages)
+        );
+        const { _id, createdAt, text, user } = messages[0];
+        addDoc(collection(database, '2 - Chat'), {
+            _id,
+            createdAt,
+            text,
+            user
+        });
+    }, []);
+    // --------------- Backend Part Logic ---------------
+    // - Font Family -
+    // 1 - useState
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    // Expo Font Logic
+    let [loaded] = useFonts({
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    // It Will Load Font
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+    if (!fontsLoaded) {
+        return null;
+    }
+    // ---------- Font Family ----------
+    // Main Body
+    return (
+        <GiftedChat
+            messages={messages}
+            showAvatarForEveryMessage={false}
+            showUserAvatar={false}
+            onSend={messages => onSend(messages)}
+            messagesContainerStyle={{
+                backgroundColor: '#FFE4DE',
+                fontFamily: "Kanit",
+            }}
+            textInputStyle={{
+                backgroundColor: '#fff',
+                borderRadius: 20,
+                fontFamily: "Kanit",
+                letterSpacing: 1.5,
+                paddingHorizontal: 5,
+                color: "#EB2F06"
+            }}
+            user={{
+                _id: auth?.currentUser?.email,
+                avatar: 'https://i.pravatar.cc/300'
+            }}
+            renderBubble={(props) => (
+                <Bubble
+                    {...props}
+                    wrapperStyle={{
+                        left: {
+                            backgroundColor: '#015E01', // Set the background color for receiver's messages
+                        },
+                        right: {
+                            backgroundColor: '#EB2F06', // Set the background color for sender's messages
+                        },
+                    }}
+                    textStyle={{
+                        left: {
+                            letterSpacing: 1, // Apply letterSpacing for receiver's messages
+                            paddingHorizontal: 2,
+                            paddingVertical: 2,
+                            color: 'white',
+                            fontFamily: "Kanit",
+                        },
+                        right: {
+                            letterSpacing: 1, // Apply letterSpacing for sender's messages
+                            paddingHorizontal: 2,
+                            paddingVertical: 2,
+                            color: 'white',
+                            fontFamily: "Kanit",
+                        },
+                    }}
+                />
+            )}
+            renderSend={(props) => (
+                <Send {...props} containerStyle={{ justifyContent: 'center', alignItems: 'center', marginRight: 10, fontFamily: "Kanit", }}>
+                    <View style={{ backgroundColor: '#f39c12', paddingHorizontal: 10, paddingVertical: 10, borderRadius: 10, fontFamily: "Kanit", }}>
+                        <Text style={{ color: 'black', letterSpacing: 2, fontFamily: "Heebo", }}>Send</Text>
+                    </View>
+                </Send>
+            )}
+        />
+    );
+}
