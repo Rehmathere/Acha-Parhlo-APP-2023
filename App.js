@@ -150,7 +150,8 @@ function App() {
             headerTitleStyle: {
               fontFamily: "Heebo",
               color: "white",
-              letterSpacing: 0.7,
+              letterSpacing: 1.5,
+              fontSize: 15,
             },
             headerPressColor: "white",
             headerStyle: {
