@@ -27,7 +27,7 @@ export default function FinalChat() {
         const unsubscribe = onSnapshot(q, querySnapshot => {
             setMessages(
                 querySnapshot.docs.map(doc => ({
-                    _id: doc.data()._id,
+                    _id: doc.id, // Use doc.id as a unique key
                     createdAt: doc.data().createdAt.toDate(),
                     text: doc.data().text,
                     user: doc.data().user
@@ -36,11 +36,11 @@ export default function FinalChat() {
         });
         return unsubscribe;
     }, []);
-    const onSend = useCallback((messages = []) => {
+    const onSend = useCallback((newMessages = []) => {
         setMessages(previousMessages =>
-            GiftedChat.append(previousMessages, messages)
+            GiftedChat.append(previousMessages, newMessages)
         );
-        const { _id, createdAt, text, user } = messages[0];
+        const { _id, createdAt, text, user } = newMessages[0];
         addDoc(collection(database, '2 - Chat'), {
             _id,
             createdAt,
@@ -54,12 +54,7 @@ export default function FinalChat() {
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
     let [loaded] = useFonts({
-        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+        // ... (rest of the font loading logic)
     });
     // It Will Load Font
     useEffect(() => {
@@ -78,7 +73,7 @@ export default function FinalChat() {
             messages={messages}
             showAvatarForEveryMessage={false}
             showUserAvatar={false}
-            onSend={messages => onSend(messages)}
+            onSend={newMessages => onSend(newMessages)}
             messagesContainerStyle={{
                 backgroundColor: '#FFE4DE',
                 fontFamily: "Kanit",
@@ -93,14 +88,15 @@ export default function FinalChat() {
             }}
             user={{
                 _id: auth?.currentUser?.email,
-                avatar: 'https://i.pravatar.cc/300'
+                // avatar: 'https://i.pravatar.cc/300'
+                avatar: 'https://cdn.pixabay.com/photo/2016/11/08/15/21/user-1808597_640.png'
             }}
             renderBubble={(props) => (
                 <Bubble
                     {...props}
                     wrapperStyle={{
                         left: {
-                            backgroundColor: '#015E01', // Set the background color for receiver's messages
+                            backgroundColor: '#006700', // Set the background color for receiver's messages
                         },
                         right: {
                             backgroundColor: '#EB2F06', // Set the background color for sender's messages
@@ -126,8 +122,8 @@ export default function FinalChat() {
             )}
             renderSend={(props) => (
                 <Send {...props} containerStyle={{ justifyContent: 'center', alignItems: 'center', marginRight: 10, fontFamily: "Kanit", }}>
-                    <View style={{ backgroundColor: '#f39c12', paddingHorizontal: 10, paddingVertical: 10, borderRadius: 10, fontFamily: "Kanit", }}>
-                        <Text style={{ color: 'black', letterSpacing: 2, fontFamily: "Heebo", }}>Send</Text>
+                    <View style={{ backgroundColor: '#f39c12', paddingHorizontal: 10, paddingVertical: 7, borderRadius: 8, fontFamily: "Kanit", }}>
+                        <Text style={{ color: 'black', letterSpacing: 2, fontFamily: "Heebo", fontSize: 13.5, }}>Send</Text>
                     </View>
                 </Send>
             )}

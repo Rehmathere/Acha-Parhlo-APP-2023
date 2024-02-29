@@ -73,7 +73,7 @@ export default function ForgetPass() {
                     <TouchableOpacity style={styles.BtnBox} onPress={() => forgetPassword()}>
                         <Text style={styles.BtnText}>Reset Password</Text>
                     </TouchableOpacity>
-                    <Text style={styles.third} onPress={() => navigation.navigate("Login")}><Ionicons name="caret-back-outline" size={13} color="#EB2F06" /> Back To Log In</Text>
+                    <Text style={styles.third} onPress={() => navigation.navigate("Login")}><Ionicons name="caret-back-outline" size={13} color="#EB2F06" /> Back To Sign In</Text>
                 </View>
             </View>
             {/* Start */}
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     },
     BoxParent: {
         borderWidth: 0.5,
+        borderColor: "transparent",
         flex: 1,
         display: "flex",
         flexDirection: "row",
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     Box: {
-        borderWidth: 1,
+        borderWidth: 0.5,
         paddingVertical: 39,
         paddingHorizontal: 14,
         width: "87%",
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     },
     sec: {
         borderColor: "grey",
-        backgroundColor: "#FFEDE8",
+        // backgroundColor: "#FFEDE8",
         borderWidth: 0.5,
         color: "black",
         fontSize: 13.9,
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
     },
     third: {
         // borderWidth: 0.5,
-        marginTop: 11,
+        marginTop: 15,
         textAlign: "center",
         fontFamily: "Heebo",
         letterSpacing: 1,
