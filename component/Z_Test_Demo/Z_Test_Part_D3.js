@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } from 'react-native';
 import { useFonts } from "expo-font";
 import * as ImagePicker from 'expo-image-picker';
-// Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../firestore";
+// Firebase
+import { firebase, storage } from "./Z_firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function Z_Test_Part_D3() {
     // Navigation
@@ -14,7 +15,7 @@ export default function Z_Test_Part_D3() {
     const documentId = route?.params?.documentId || null;
     const [image_Transcript, setImage_Transcript] = useState(null);
     const [image_Degree, setImage_Degree] = useState(null);
-    const pickTranscript = async () => {
+    const pickImage = async (setImageFunction) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -22,53 +23,36 @@ export default function Z_Test_Part_D3() {
             quality: 1,
         });
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_Transcript(result.assets[0].uri);
-        }
-    }
-    const pickDegree = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_Degree(result.assets[0].uri);
-        }
-    }
-    const submitFiles = async () => {
-        const data = {
-            D3_1_Image_Transcript: image_Transcript,
-            D3_2_Image_Degree: image_Degree,
-        };
-        if (documentId) {
-            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-            try {
-                await Promise.all([
-                    uploadImageToFirebase(documentId, 'D3_1_Image_Transcript', image_Transcript),
-                    uploadImageToFirebase(documentId, 'D3_2_Image_Degree', image_Degree),
-                    studentRecordsRef.set(data, { merge: true })
-                ]);
-                setImage_Transcript(null);
-                setImage_Degree(null);
-                // Navigate to the next screen if needed
-                navigation.navigate("Z_Test_Part_D4", { documentId: documentId });
-            } catch (err) {
-                alert(err);
-            }
-        } else {
-            alert("Document ID is undefined.");
+            setImageFunction(result.assets[0].uri);
         }
     };
-    const uploadImageToFirebase = async (documentId, field, imageUri) => {
-        const storageRef = firebase.storage().ref(`images/${documentId}/${field}`);
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-        return storageRef.put(blob);
+    const submitFiles = async () => {
+        try {
+            const image_TranscriptRef = ref(storage, `listings/Transcript_${documentId}`);
+            const image_DegreeRef = ref(storage, `listings/Degree_${documentId}`);
+            const uploadTask1 = uploadBytesResumable(image_TranscriptRef, await fetch(image_Transcript).then((res) => res.blob()));
+            const uploadTask2 = uploadBytesResumable(image_DegreeRef, await fetch(image_Degree).then((res) => res.blob()));
+            await Promise.all([uploadTask1, uploadTask2]);
+            const downloadURL1 = await getDownloadURL(image_TranscriptRef);
+            const downloadURL2 = await getDownloadURL(image_DegreeRef);
+            const data = {
+                D3_1_Image_Transcript: downloadURL1,
+                D3_2_Image_Degree: downloadURL2,
+            };
+            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
+            await studentRecordsRef.set(data, { merge: true });
+            setImage_Transcript(null);
+            setImage_Degree(null);
+            Keyboard.dismiss();
+            navigation.navigate("Z_Test_Part_D4", { documentId: documentId });
+        } catch (error) {
+            alert(error);
+        }
     };
     // ------------------- Backend Logic & Image Upload Functions -------------------
     // Expo Font Logic
     const [fontsLoaded, setFontsLoaded] = useState(false);
+
     let [loaded] = useFonts({
         Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -77,17 +61,17 @@ export default function Z_Test_Part_D3() {
         KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
         KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
-    // It Will Load Font
+
     useEffect(() => {
         if (loaded) {
             setFontsLoaded(true);
         }
     }, [loaded]);
-    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+
     if (!fontsLoaded) {
         return null;
     }
-    // Main Body
+
     return (
         <View style={styles.container}>
             {/* StatusBar */}
@@ -102,7 +86,7 @@ export default function Z_Test_Part_D3() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickTranscript}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_Transcript)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>
@@ -119,7 +103,7 @@ export default function Z_Test_Part_D3() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickDegree}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_Degree)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>
@@ -216,4 +200,4 @@ const styles = StyleSheet.create({
         color: "white",
         textTransform: "uppercase",
     },
-})
+});

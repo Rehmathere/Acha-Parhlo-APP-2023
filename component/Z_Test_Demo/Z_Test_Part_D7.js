@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { useFonts } from "expo-font";
 import * as ImagePicker from 'expo-image-picker';
-// Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../firestore";
+// Firebase
+import { firebase, storage } from "./Z_firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function Z_Test_Part_D7() {
     // Navigation
@@ -25,34 +26,25 @@ export default function Z_Test_Part_D7() {
         }
     }
     const submitFiles = async () => {
-        const data = {
-            D7_1_Image_Resume: image_Resume,
-        };
-        if (documentId) {
+        try {
+            const image_Resume_Ref = ref(storage, `listings/${documentId}/D7_1_Image_Resume`);
+            const uploadTask = uploadBytesResumable(image_Resume_Ref, await fetch(image_Resume).then((res) => res.blob()));
+            await uploadTask;
+            const downloadURL = await getDownloadURL(image_Resume_Ref);
+            const data = {
+                D7_1_Image_Resume: downloadURL,
+            };
             const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-            try {
-                await Promise.all([
-                    uploadImageToFirebase(documentId, 'D7_1_Image_Resume', image_Resume),
-                    studentRecordsRef.set(data, { merge: true })
-                ]);
-                setImage_Resume(null);
-                // Navigate to the next screen if needed
-                navigation.navigate("Z_Test_Part_D8", { documentId: documentId });
-
-            } catch (err) {
-                alert(err);
-            }
-        } else {
-            alert("Document ID is undefined.");
+            await studentRecordsRef.set(data, { merge: true });
+            setImage_Resume(null);
+            // Navigate to the next screen if needed
+            navigation.navigate("Z_Test_Part_D8", { documentId: documentId });
+        } catch (error) {
+            alert(error);
         }
     };
-    const uploadImageToFirebase = async (documentId, field, imageUri) => {
-        const storageRef = firebase.storage().ref(`images/${documentId}/${field}`);
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-        return storageRef.put(blob);
-    };
     // ------------------- Backend Logic & Image Upload Functions -------------------
+
     // Expo Font Logic
     const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
@@ -63,16 +55,19 @@ export default function Z_Test_Part_D7() {
         KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
         KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
+
     // It Will Load Font
     useEffect(() => {
         if (loaded) {
             setFontsLoaded(true);
         }
     }, [loaded]);
+
     // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
     if (!fontsLoaded) {
         return null;
     }
+
     // Main Body
     return (
         <View style={styles.container}>
@@ -185,4 +180,4 @@ const styles = StyleSheet.create({
         color: "white",
         textTransform: "uppercase",
     },
-})
+});

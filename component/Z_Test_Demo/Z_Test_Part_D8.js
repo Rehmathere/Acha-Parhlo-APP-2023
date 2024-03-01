@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
-import { useFonts } from "expo-font";
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } from 'react-native';
+import { useFonts } from 'expo-font';
 import * as ImagePicker from 'expo-image-picker';
-// Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../firestore";
+// Firebase
+import { firebase, storage } from "./Z_firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function Z_Test_Part_D8() {
     // Navigation
@@ -14,7 +15,7 @@ export default function Z_Test_Part_D8() {
     const documentId = route?.params?.documentId || null;
     const [image_PassFirst, setImage_PassFirst] = useState(null);
     const [image_PassSign, setImage_PassSign] = useState(null);
-    const pick_PassFirst = async () => {
+    const pickImage = async (setImageFunction) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -22,51 +23,31 @@ export default function Z_Test_Part_D8() {
             quality: 1,
         });
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_PassFirst(result.assets[0].uri);
-        }
-    }
-    const pick_PassSign = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_PassSign(result.assets[0].uri);
-        }
-    }
-    const submitFiles = async () => {
-        const data = {
-            D8_1_Image_PassFirst: image_PassFirst,
-            D8_2_Image_PassSign: image_PassSign,
-        };
-        if (documentId) {
-            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-            try {
-                await Promise.all([
-                    uploadImageToFirebase(documentId, 'D8_1_Image_PassFirst', image_PassFirst),
-                    uploadImageToFirebase(documentId, 'D8_2_Image_PassSign', image_PassSign),
-                    studentRecordsRef.set(data, { merge: true })
-                ]);
-                setImage_PassFirst(null);
-                setImage_PassSign(null);
-                // Navigate to the next screen if needed
-                navigation.navigate("Z_Test_1_A", { documentId: documentId });
-                // --- Make Changes To Confirmation Page ( Rememeber ) ---
-            } catch (err) {
-                alert(err);
-            }
-        } else {
-            alert("Document ID is undefined.");
+            setImageFunction(result.assets[0].uri);
         }
     };
-    const uploadImageToFirebase = async (documentId, field, imageUri) => {
-        const storageRef = firebase.storage().ref(`images/${documentId}/${field}`);
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-
-        return storageRef.put(blob);
+    const submitFiles = async () => {
+        try {
+            const image_PassFirstRef = ref(storage, `listings/${documentId}/D8_1_Image_PassFirst`);
+            const image_PassSignRef = ref(storage, `listings/${documentId}/D8_2_Image_PassSign`);
+            const uploadTask1 = uploadBytesResumable(image_PassFirstRef, await fetch(image_PassFirst).then((res) => res.blob()));
+            const uploadTask2 = uploadBytesResumable(image_PassSignRef, await fetch(image_PassSign).then((res) => res.blob()));
+            await Promise.all([uploadTask1, uploadTask2]);
+            const downloadURL1 = await getDownloadURL(image_PassFirstRef);
+            const downloadURL2 = await getDownloadURL(image_PassSignRef);
+            const data = {
+                D8_1_Image_PassFirst: downloadURL1,
+                D8_2_Image_PassSign: downloadURL2,
+            };
+            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
+            await studentRecordsRef.set(data, { merge: true });
+            setImage_PassFirst(null);
+            setImage_PassSign(null);
+            Keyboard.dismiss();
+            navigation.navigate("Z_Test_1_A", { documentId: documentId });
+        } catch (error) {
+            alert(error);
+        }
     };
     // ------------------- Backend Logic & Image Upload Functions -------------------
     // Expo Font Logic
@@ -79,16 +60,17 @@ export default function Z_Test_Part_D8() {
         KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
         KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
-    // It Will Load Font
+
     useEffect(() => {
         if (loaded) {
             setFontsLoaded(true);
         }
     }, [loaded]);
-    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+
     if (!fontsLoaded) {
         return null;
-    }    // Main Body
+    }
+
     return (
         <View style={styles.container}>
             {/* StatusBar */}
@@ -103,7 +85,7 @@ export default function Z_Test_Part_D8() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pick_PassFirst}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_PassFirst)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>
@@ -120,7 +102,7 @@ export default function Z_Test_Part_D8() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pick_PassSign}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_PassSign)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>
@@ -217,4 +199,4 @@ const styles = StyleSheet.create({
         color: "white",
         textTransform: "uppercase",
     },
-})
+});

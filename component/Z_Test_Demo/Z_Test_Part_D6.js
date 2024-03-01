@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { useFonts } from "expo-font";
 import * as ImagePicker from 'expo-image-picker';
-// Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../firestore";
+// Firebase
+import { firebase, storage } from "./Z_firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function D_Test_Part_D6() {
     // Navigation
@@ -23,37 +24,28 @@ export default function D_Test_Part_D6() {
         if (!result.canceled && result.assets && result.assets.length > 0) {
             setImage_Gap(result.assets[0].uri);
         }
-    }
-    const submitFiles = async () => {
-        const data = {
-            D6_1_Image_Gap: image_Gap,
-        };
-        if (documentId) {
-            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-            try {
-                await Promise.all([
-                    uploadImageToFirebase(documentId, 'D6_1_Image_Gap', image_Gap),
-                    studentRecordsRef.set(data, { merge: true })
-                ]);
-                setImage_Gap(null);
-                // Navigate to the next screen if needed
-                navigation.navigate("Z_Test_Part_D7", { documentId: documentId });
-            } catch (err) {
-                alert(err);
-            }
-        } else {
-            alert("Document ID is undefined.");
-        }
     };
-    const uploadImageToFirebase = async (documentId, field, imageUri) => {
-        const storageRef = firebase.storage().ref(`images/${documentId}/${field}`);
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-        return storageRef.put(blob);
+    const submitFiles = async () => {
+        try {
+            const image_Gap_Ref = ref(storage, `listings/${documentId}/D6_1_Image_Gap`);
+            const uploadTask = uploadBytesResumable(image_Gap_Ref, await fetch(image_Gap).then((res) => res.blob()));
+            await uploadTask;
+            const downloadURL = await getDownloadURL(image_Gap_Ref);
+            const data = {
+                D6_1_Image_Gap: downloadURL,
+            };
+            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
+            await studentRecordsRef.set(data, { merge: true });
+            setImage_Gap(null);
+            navigation.navigate("Z_Test_Part_D7", { documentId: documentId });
+        } catch (error) {
+            alert(error);
+        }
     };
     // ------------------- Backend Logic & Image Upload Functions -------------------
     // Expo Font Logic
     const [fontsLoaded, setFontsLoaded] = useState(false);
+
     let [loaded] = useFonts({
         Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -62,17 +54,17 @@ export default function D_Test_Part_D6() {
         KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
         KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
-    // It Will Load Font
+
     useEffect(() => {
         if (loaded) {
             setFontsLoaded(true);
         }
     }, [loaded]);
-    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+
     if (!fontsLoaded) {
         return null;
     }
-    // Main Body
+
     return (
         <View style={styles.container}>
             {/* StatusBar */}
@@ -184,4 +176,4 @@ const styles = StyleSheet.create({
         color: "white",
         textTransform: "uppercase",
     },
-})
+});

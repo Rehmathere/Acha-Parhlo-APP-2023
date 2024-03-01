@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } from 'react-native';
 import { useFonts } from "expo-font";
 import * as ImagePicker from 'expo-image-picker';
-// Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../firestore";
+// Firebase
+import { firebase, storage } from "./Z_firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function Z_Test_Part_D4() {
     // Navigation
@@ -14,7 +15,7 @@ export default function Z_Test_Part_D4() {
     const documentId = route?.params?.documentId || null;
     const [image_Front, setImage_Front] = useState(null);
     const [image_Back, setImage_Back] = useState(null);
-    const pickFront = async () => {
+    const pickImage = async (setImageFunction) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -22,53 +23,36 @@ export default function Z_Test_Part_D4() {
             quality: 1,
         });
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_Front(result.assets[0].uri);
-        }
-    }
-    const pickBack = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_Back(result.assets[0].uri);
-        }
-    }
-    const submitFiles = async () => {
-        const data = {
-            D4_1_Image_Front: image_Front,
-            D4_2_Image_Back: image_Back,
-        };
-        if (documentId) {
-            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-            try {
-                await Promise.all([
-                    uploadImageToFirebase(documentId, 'D4_1_Image_Front', image_Front),
-                    uploadImageToFirebase(documentId, 'D4_2_Image_Back', image_Back),
-                    studentRecordsRef.set(data, { merge: true })
-                ]);
-                setImage_Front(null);
-                setImage_Back(null);
-                // Navigate to the next screen if needed
-                navigation.navigate("Z_Test_Part_D5", { documentId: documentId });
-            } catch (err) {
-                alert(err);
-            }
-        } else {
-            alert("Document ID is undefined.");
+            setImageFunction(result.assets[0].uri);
         }
     };
-    const uploadImageToFirebase = async (documentId, field, imageUri) => {
-        const storageRef = firebase.storage().ref(`images/${documentId}/${field}`);
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-        return storageRef.put(blob);
+    const submitFiles = async () => {
+        try {
+            const image_FrontRef = ref(storage, `listings/${documentId}/D4_1_Image_Front`);
+            const image_BackRef = ref(storage, `listings/${documentId}/D4_2_Image_Back`);
+            const uploadTask1 = uploadBytesResumable(image_FrontRef, await fetch(image_Front).then((res) => res.blob()));
+            const uploadTask2 = uploadBytesResumable(image_BackRef, await fetch(image_Back).then((res) => res.blob()));
+            await Promise.all([uploadTask1, uploadTask2]);
+            const downloadURL1 = await getDownloadURL(image_FrontRef);
+            const downloadURL2 = await getDownloadURL(image_BackRef);
+            const data = {
+                D4_1_Image_Front: downloadURL1,
+                D4_2_Image_Back: downloadURL2,
+            };
+            const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
+            await studentRecordsRef.set(data, { merge: true });
+            setImage_Front(null);
+            setImage_Back(null);
+            Keyboard.dismiss();
+            navigation.navigate("Z_Test_Part_D5", { documentId: documentId });
+        } catch (error) {
+            alert(error);
+        }
     };
     // ------------------- Backend Logic & Image Upload Functions -------------------
     // Expo Font Logic
     const [fontsLoaded, setFontsLoaded] = useState(false);
+
     let [loaded] = useFonts({
         Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
         Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
@@ -77,17 +61,17 @@ export default function Z_Test_Part_D4() {
         KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
         KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
-    // It Will Load Font
+
     useEffect(() => {
         if (loaded) {
             setFontsLoaded(true);
         }
     }, [loaded]);
-    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+
     if (!fontsLoaded) {
         return null;
     }
-    // Main Body
+
     return (
         <View style={styles.container}>
             {/* StatusBar */}
@@ -102,7 +86,7 @@ export default function Z_Test_Part_D4() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickFront}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_Front)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>
@@ -119,7 +103,7 @@ export default function Z_Test_Part_D4() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickBack}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_Back)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>
@@ -216,4 +200,4 @@ const styles = StyleSheet.create({
         color: "white",
         textTransform: "uppercase",
     },
-})
+});
