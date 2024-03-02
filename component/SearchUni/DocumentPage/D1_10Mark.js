@@ -4,9 +4,10 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar, Keyboard } 
 import { useFonts } from "expo-font";
 // Image Header File
 import * as ImagePicker from 'expo-image-picker'
-// Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../../firestore";
+// Firebase
+import { firebase, storage } from "../Z_firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function D1_10Mark() {
     // Navigation
@@ -15,46 +16,43 @@ export default function D1_10Mark() {
     const route = useRoute();
     const { documentId } = route.params;
     const [image_10Mark, setImage_10Mark] = useState(null);
-    const [image_10Cert, setImage_10Cert] = useState(null);
-    const pickImage10Mark = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_10Mark(result.assets[0].uri);
-        }
-    }
-    const pickImage10Cert = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_10Cert(result.assets[0].uri);
-        }
-    }
-    const submitFiles = () => {
+    const [image_10Cert, setImage_10Cert] = useState(null);  
+    const pickImage = async (setImageFunction) => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        setImageFunction(result.assets[0].uri);
+      }
+    };
+    const submitFiles = async () => {
+      try {
+        const image_10MarkRef = ref(storage, `listings/10Mark_${documentId}`);
+        const image_10CertRef = ref(storage, `listings/10Cert_${documentId}`);
+        const uploadTask1 = uploadBytesResumable(image_10MarkRef, await fetch(image_10Mark).then((res) => res.blob()));
+        const uploadTask2 = uploadBytesResumable(image_10CertRef, await fetch(image_10Cert).then((res) => res.blob()));
+        await Promise.all([uploadTask1, uploadTask2]);
+        const downloadURL1 = await getDownloadURL(image_10MarkRef);
+        const downloadURL2 = await getDownloadURL(image_10CertRef);
         const data = {
-            D1_1_Image_10Mark: image_10Mark,
-            D1_2_Image_10Cert: image_10Cert,
+          D1_1_Image_10Mark: downloadURL1,
+          D1_1_Image_10Cert: downloadURL2,
         };
-        const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-        studentRecordsRef
-            .set(data, { merge: true })
-            .then(() => {
-                setImage_10Mark(null);
-                setImage_10Cert(null);
-                Keyboard.dismiss();
-                navigation.navigate("D2_11Mark", { documentId: documentId }); // Pass documentId here
-            })
-            .catch((err) => {
-                alert(err);
-            });
+        const studentRecordsRef = firebase
+          .firestore()
+          .collection("4 - Student Records")
+          .doc(documentId);
+        await studentRecordsRef.set(data, { merge: true });
+        setImage_10Mark(null);
+        setImage_10Cert(null);
+        Keyboard.dismiss();
+        navigation.navigate("D2_11Mark", { documentId: documentId });
+      } catch (error) {
+        alert(error);
+      }
     };
     // ------------------- Backend Logic & Image Upload Functions -------------------
     // 1 - useState
@@ -93,7 +91,7 @@ export default function D1_10Mark() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickImage10Mark}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_10Mark)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>
@@ -110,7 +108,7 @@ export default function D1_10Mark() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickImage10Cert}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_10Cert)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>

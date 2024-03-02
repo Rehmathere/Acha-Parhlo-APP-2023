@@ -6,7 +6,8 @@ import { useFonts } from "expo-font";
 import * as ImagePicker from 'expo-image-picker'
 // Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../../firestore";
+import { firebase, storage } from "../Z_firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function D5_Ielts() {
     // Navigation
@@ -15,7 +16,7 @@ export default function D5_Ielts() {
     const route = useRoute();
     const documentId = route?.params?.documentId || null;
     const [image_IELTS, setImage_IELTS] = useState(null);
-    const pick_IELTS = async () => {
+    const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -25,36 +26,26 @@ export default function D5_Ielts() {
         if (!result.canceled && result.assets && result.assets.length > 0) {
             setImage_IELTS(result.assets[0].uri);
         }
-    }
+    };
     const submitFiles = async () => {
-        const data = {
-            D5_1_Image_IELTS: image_IELTS,
-        };
-        if (documentId) {
+        try {
+            const image_IELTS_Ref = ref(storage, `listings/${documentId}/D5_1_Image_IELTS`);
+            const uploadTask = uploadBytesResumable(image_IELTS_Ref, await fetch(image_IELTS).then((res) => res.blob()));
+            await uploadTask;
+            const downloadURL = await getDownloadURL(image_IELTS_Ref);
+            const data = {
+                D5_1_Image_IELTS: downloadURL,
+            };
             const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-            try {
-                await Promise.all([
-                    uploadImageToFirebase(documentId, 'D5_1_Image_IELTS', image_IELTS),
-                    studentRecordsRef.set(data, { merge: true })
-                ]);
-                setImage_IELTS(null);
-                // Navigate to the next screen if needed
-                navigation.navigate("D6_Gap", { documentId: documentId });
-
-            } catch (err) {
-                alert(err);
-            }
-        } else {
-            alert("Document ID is undefined.");
+            await studentRecordsRef.set(data, { merge: true });
+            setImage_IELTS(null);
+            Keyboard.dismiss();
+            navigation.navigate("D6_Gap", { documentId: documentId });
+        } catch (error) {
+            alert(error);
         }
     };
-    const uploadImageToFirebase = async (documentId, field, imageUri) => {
-        const storageRef = firebase.storage().ref(`images/${documentId}/${field}`);
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-        return storageRef.put(blob);
-    };
-    // ------------------- Backend Logic & Image Upload Functions -------------------
+    // ------------------- Backend Logic & Image Upload Functions -------------------    
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -91,7 +82,7 @@ export default function D5_Ielts() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pick_IELTS}>
+                    <TouchableOpacity style={styles.btn1} onPress={pickImage}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>

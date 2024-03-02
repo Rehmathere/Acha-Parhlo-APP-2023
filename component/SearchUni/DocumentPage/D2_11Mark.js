@@ -6,7 +6,8 @@ import { useFonts } from "expo-font";
 import * as ImagePicker from 'expo-image-picker'
 // Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../../firestore";
+import { firebase, storage } from "../Z_firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function D2_11Mark() {
     // Navigation
@@ -16,7 +17,7 @@ export default function D2_11Mark() {
     const documentId = route?.params?.documentId || null;
     const [image_11Mark, setImage_11Mark] = useState(null);
     const [image_11Cert, setImage_11Cert] = useState(null);
-    const pickImage11Mark = async () => {
+    const pickImage = async (setImageFunction) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
@@ -24,40 +25,30 @@ export default function D2_11Mark() {
             quality: 1,
         });
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_11Mark(result.assets[0].uri);
+            setImageFunction(result.assets[0].uri);
         }
-    }
-    const pickImage11Cert = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.canceled && result.assets && result.assets.length > 0) {
-            setImage_11Cert(result.assets[0].uri);
-        }
-    }
-    const submitFiles = () => {
-        console.log("Document ID from route params:", documentId);
-        const data = {
-            D2_1_Image_11Mark: image_11Mark,
-            D2_2_Image_11Cert: image_11Cert,
-        };
-        if (documentId) {
+    };
+    const submitFiles = async () => {
+        try {
+            const image_11MarkRef = ref(storage, `listings/11Mark_${documentId}`);
+            const image_11CertRef = ref(storage, `listings/11Cert_${documentId}`);
+            const uploadTask1 = uploadBytesResumable(image_11MarkRef, await fetch(image_11Mark).then((res) => res.blob()));
+            const uploadTask2 = uploadBytesResumable(image_11CertRef, await fetch(image_11Cert).then((res) => res.blob()));
+            await Promise.all([uploadTask1, uploadTask2]);
+            const downloadURL1 = await getDownloadURL(image_11MarkRef);
+            const downloadURL2 = await getDownloadURL(image_11CertRef);
+            const data = {
+                D2_1_Image_11Mark: downloadURL1,
+                D2_2_Image_11Cert: downloadURL2,
+            };
             const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-            studentRecordsRef
-                .set(data, { merge: true })
-                .then(() => {
-                    setImage_11Mark(null);
-                    setImage_11Cert(null);
-                    navigation.navigate("D3_Bachelor", { documentId: documentId });
-                })
-                .catch((err) => {
-                    alert(err);
-                });
-        } else {
-            alert("Document ID is undefined. Check the navigation from Z_Test_Part_D1.");
+            await studentRecordsRef.set(data, { merge: true });
+            setImage_11Mark(null);
+            setImage_11Cert(null);
+            Keyboard.dismiss();
+            navigation.navigate("D3_Bachelor", { documentId: documentId });
+        } catch (error) {
+            alert(error);
         }
     };
     // ------------------- Backend Logic & Image Upload Functions -------------------
@@ -97,7 +88,7 @@ export default function D2_11Mark() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickImage11Mark}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_11Mark)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>
@@ -114,7 +105,7 @@ export default function D2_11Mark() {
                 </View>
                 {/* Upload Btn */}
                 <View style={styles.ParentBtn}>
-                    <TouchableOpacity style={styles.btn1} onPress={pickImage11Cert}>
+                    <TouchableOpacity style={styles.btn1} onPress={() => pickImage(setImage_11Cert)}>
                         <Text style={styles.btnTxt}>Upload</Text>
                     </TouchableOpacity>
                 </View>

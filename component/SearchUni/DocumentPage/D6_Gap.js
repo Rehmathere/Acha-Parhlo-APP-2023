@@ -6,7 +6,8 @@ import { useFonts } from "expo-font";
 import * as ImagePicker from 'expo-image-picker'
 // Firebase
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { firebase } from "../../firestore";
+import { firebase, storage } from "../Z_firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function D6_Gap() {
     // Navigation
@@ -25,35 +26,25 @@ export default function D6_Gap() {
         if (!result.canceled && result.assets && result.assets.length > 0) {
             setImage_Gap(result.assets[0].uri);
         }
-    }
+    };
     const submitFiles = async () => {
-        const data = {
-            D6_1_Image_Gap: image_Gap,
-        };
-        if (documentId) {
+        try {
+            const image_Gap_Ref = ref(storage, `listings/${documentId}/D6_1_Image_Gap`);
+            const uploadTask = uploadBytesResumable(image_Gap_Ref, await fetch(image_Gap).then((res) => res.blob()));
+            await uploadTask;
+            const downloadURL = await getDownloadURL(image_Gap_Ref);
+            const data = {
+                D6_1_Image_Gap: downloadURL,
+            };
             const studentRecordsRef = firebase.firestore().collection("4 - Student Records").doc(documentId);
-            try {
-                await Promise.all([
-                    uploadImageToFirebase(documentId, 'D6_1_Image_Gap', image_Gap),
-                    studentRecordsRef.set(data, { merge: true })
-                ]);
-                setImage_Gap(null);
-                // Navigate to the next screen if needed
-                navigation.navigate("D7_Resume", { documentId: documentId });
-            } catch (err) {
-                alert(err);
-            }
-        } else {
-            alert("Document ID is undefined.");
+            await studentRecordsRef.set(data, { merge: true });
+            setImage_Gap(null);
+            navigation.navigate("D7_Resume", { documentId: documentId });
+        } catch (error) {
+            alert(error);
         }
     };
-    const uploadImageToFirebase = async (documentId, field, imageUri) => {
-        const storageRef = firebase.storage().ref(`images/${documentId}/${field}`);
-        const response = await fetch(imageUri);
-        const blob = await response.blob();
-        return storageRef.put(blob);
-    };
-    // ------------------- Backend Logic & Image Upload Functions -------------------
+    // ------------------- Backend Logic & Image Upload Functions -------------------    
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic

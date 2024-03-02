@@ -76,10 +76,11 @@ export default function FinalChat() {
             onSend={newMessages => onSend(newMessages)}
             messagesContainerStyle={{
                 backgroundColor: '#FFE4DE',
+                // backgroundColor: 'white',
                 fontFamily: "Kanit",
             }}
             textInputStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: 'white',
                 borderRadius: 20,
                 fontFamily: "Kanit",
                 letterSpacing: 1.5,
