@@ -49,6 +49,7 @@ import Screen2 from "./component/Splash1/Screen2";
 import Screen3 from "./component/Splash1/Screen3";
 import ChangePass from "./component/DrawerOption/ChangePass/ChangePass";
 import FinalChat from "./component/Chat/FinalChat";
+import Virtual_Counselling from "./component/_Counselling_/Virtual_Counselling";
 
 const Stack = createStackNavigator();
 const AppDrawer = createDrawerNavigator();
@@ -616,6 +617,18 @@ export default () => {
               fontSize: 15,
             },
           }} />
+      {/* -------- 5 - Parent_Counselling.js -------- */}
+      <Stack.Screen
+        name='Virtual_Counselling'
+        component={Virtual_Counselling}
+        options={{
+          headerTitle: "Ask Anything",
+          headerTitleStyle: {
+            fontFamily: "Heebo",
+            letterSpacing: 1.5,
+            fontSize: 15,
+          },
+        }} />
         {/* ------------------------------------------------------ */}
       </Stack.Navigator>
     </NavigationContainer>
@@ -660,7 +673,7 @@ export default () => {
 //       {/* 5 - Parent_Chat */}
 //       {/* <Parent_Chat /> */}
 //       {/* -------- Extra -------- */}
-//       {/* <MySecond /> */}
+//       {/* <Parent_Counselling /> */}
 //       {/* - Demo Practice Backend - */}
 //       {/* <Z_Test_Parent_A /> */}
 //       {/* - Demo Practice Backend - ( 2 ) */}
@@ -680,3 +693,31 @@ export default () => {
 // })
 
 // // ------------------------------------------------------------------------------------------------------------------
+// import React from "react";
+// import Virtual_Counselling from "./component/_Counselling_/Virtual_Counselling";
+// import Parent_Counselling from './component/Parent_Counselling'
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack'
+
+// const Stack = createStackNavigator();
+
+// export default function App() {
+//   // Main Body
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator>
+//         {/* Component 1 */}
+//         <Stack.Screen name="Parent_Counselling" component={Parent_Counselling} options={{ headerShown: false }} />
+//         {/* Component 2 */}
+//         <Stack.Screen name="Virtual_Counselling" component={Virtual_Counselling} options={{
+//           headerTitle: "Chat",
+//           headerTitleStyle: {
+//             fontFamily: "Heebo",
+//             letterSpacing: 1.5,
+//             fontSize: 15,
+//           },
+//         }} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   );
+// }
