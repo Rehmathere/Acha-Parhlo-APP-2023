@@ -113,12 +113,12 @@ export default function ApplicationList() {
                         <View style={styles.forth}>
                             {/* 1 */}
                             <View style={styles.forth_1}>
-                                <Text style={styles.for_1}><FontAwesome5 name="university" size={12.5} color="#EB2F06" /> Campus</Text>
+                                <Text style={styles.for_1}><FontAwesome5 name="university" size={12.5} color="#EB2F06" />  Campus</Text>
                                 <Text style={styles.for_2}>{item.U2_campus.substring(0, 15)}</Text>
                             </View>
                             {/* 2 */}
                             <View style={styles.forth_1}>
-                                <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
+                                <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Intake</Text>
                                 <Text style={styles.for_22}>{item.U3_intake.substring(0, 15)}</Text>
                             </View>
                         </View>
