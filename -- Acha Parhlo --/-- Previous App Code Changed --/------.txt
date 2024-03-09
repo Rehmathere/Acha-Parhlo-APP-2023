@@ -1,0 +1,13 @@
+Questions 3
+
+Now Also Make Same Logic Changes In This Code Share Below ,
+
+Code :
+
+
+
+
+
+Update code accordingly , 
+
+update code and return full code , don't skip any line
