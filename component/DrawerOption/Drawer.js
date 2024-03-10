@@ -155,6 +155,8 @@ export default function Drawer() {
                         </View>
                     </TouchableOpacity>
                 </View>
+                {/* Row 3 */}
+                <Text onPress={() => navigation.navigate("Page_Vir_Consult")}>Dashbaord</Text>
             </View>
             {/* Start */}
         </View >

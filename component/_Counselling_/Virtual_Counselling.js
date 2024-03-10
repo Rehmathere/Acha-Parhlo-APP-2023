@@ -113,7 +113,7 @@ export default function Virtual_Counselling() {
     return (
         <SafeAreaView style={styles.container}>
             {/* Start */}
-            <Text style={styles.fir}>Rehmat AI GPT</Text>
+            {/* <Text style={styles.fir}>Rehmat AI GPT</Text> */}
             <FlatList
                 data={messages}
                 keyExtractor={(item) => item.id.toString()}
@@ -139,7 +139,7 @@ export default function Virtual_Counselling() {
                                     color: item.sender === "user" ? "white" : "black",
                                     fontFamily: "Kanit",
                                     letterSpacing: 1,
-                                    fontSize: 13,
+                                    fontSize: 12,
                                 }}
                                 >
                                 {item.sender === "user" ? item.text : item.text}
@@ -152,7 +152,7 @@ export default function Virtual_Counselling() {
                                     marginTop: 5,
                                     fontFamily: "Kanit",
                                     letterSpacing: 1,
-                                    fontSize: 13,
+                                    fontSize: 12,
                                 }}
                             >
                                 {new Date(item.timestamp).toLocaleTimeString()}
@@ -169,7 +169,7 @@ export default function Virtual_Counselling() {
                     style={styles.input}
                 />
                 <TouchableOpacity onPress={generateText} style={styles.sendButton}>
-                    <Text style={styles.sendButtonTxt}>Ask Anything</Text>
+                    <Text style={styles.sendButtonTxt}>Ask Anything ...</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -196,7 +196,8 @@ const styles = StyleSheet.create({
     inputContainer: {
         backgroundColor: 'white',
         // backgroundColor: '#EB2F06',
-        padding: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
         borderRadius: 10,
         marginTop: 0,
         width: '100%',
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 15,
         color: "black",
-        paddingVertical: 5,
+        paddingVertical: 2,
         paddingHorizontal: 12,
         borderRadius: 10,
         fontFamily: "Kanit",
@@ -216,7 +217,8 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     sendButton: {
-        padding: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 7,
         borderRadius: 10,
         // backgroundColor: '#007AFF',
         backgroundColor: '#001400',
