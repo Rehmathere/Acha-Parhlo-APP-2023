@@ -50,6 +50,7 @@ import Screen3 from "./component/Splash1/Screen3";
 import ChangePass from "./component/DrawerOption/ChangePass/ChangePass";
 import FinalChat from "./component/Chat/FinalChat";
 import Virtual_Counselling from "./component/_Counselling_/Virtual_Counselling";
+import Page_Vir_Consult from "./component/_Counselling_/Page_Vir_Consult";
 
 const Stack = createStackNavigator();
 const AppDrawer = createDrawerNavigator();
@@ -617,18 +618,29 @@ export default () => {
               fontSize: 15,
             },
           }} />
-      {/* -------- 5 - Parent_Counselling.js -------- */}
-      <Stack.Screen
-        name='Virtual_Counselling'
-        component={Virtual_Counselling}
-        options={{
-          headerTitle: "Ask Anything",
-          headerTitleStyle: {
-            fontFamily: "Heebo",
-            letterSpacing: 1.5,
-            fontSize: 15,
-          },
-        }} />
+        {/* -------- 5 - Parent_Counselling.js -------- */}
+        <Stack.Screen
+          name='Page_Vir_Consult'
+          component={Page_Vir_Consult}
+          options={{
+            headerTitle: "Virtual Consultancy",
+            headerTitleStyle: {
+              fontFamily: "Heebo",
+              letterSpacing: 1.5,
+              fontSize: 15,
+            },
+          }} />
+        <Stack.Screen
+          name='Virtual_Counselling'
+          component={Virtual_Counselling}
+          options={{
+            headerTitle: "Ask Anything",
+            headerTitleStyle: {
+              fontFamily: "Heebo",
+              letterSpacing: 1.5,
+              fontSize: 15,
+            },
+          }} />
         {/* ------------------------------------------------------ */}
       </Stack.Navigator>
     </NavigationContainer>
