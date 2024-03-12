@@ -76,22 +76,24 @@ export default function Drawer() {
             {/* Dashboard */}
             {/* 1 - Name */}
             <View style={styles.ParentFirst}>
-                <Text style={styles.fir}>Hello,</Text>
-                <Text style={styles.fir_2}>{email.slice(0, 6)}</Text>
+                <Text style={styles.fir}>Hey,</Text>
+                <Text style={styles.fir_2}>{email.slice(0, 10)}</Text>
             </View>
             {/* 2 - Image Slider */}
             <View style={styles.ParentSecond}>
                 <View style={styles.secLinear}>
-                    <View style={styles.SubParentSecond}>
-                        {/* Part 1 */}
-                        <View style={styles.second1}>
-                            <Text style={styles.second1Txt}>Let's Start{'\n'}Exploring</Text>
+                    <LinearGradient colors={["#DAE1EB", "#989898"]} style={{ borderRadius: 15, flexDirection: "row", justifyContent: "center", alignItems: "center", }}>
+                        <View style={styles.SubParentSecond}>
+                            {/* Part 1 */}
+                            <View style={styles.second1}>
+                                <Text style={styles.second1Txt}>Let's Start{'\n'}Exploring</Text>
+                            </View>
+                            {/* Part 2 */}
+                            <View style={styles.second2}>
+                                <Image source={require('../Pics/Online_2.png')} style={styles.sec2Img} />
+                            </View>
                         </View>
-                        {/* Part 2 */}
-                        <View style={styles.second2}>
-                            <Image source={require('../Pics/Online_2.png')} style={styles.sec2Img} />
-                        </View>
-                    </View>
+                    </LinearGradient>
                 </View>
             </View>
             {/* 3 - Categories */}
@@ -102,7 +104,7 @@ export default function Drawer() {
                     {/* Box 1 */}
                     <TouchableOpacity onPress={() => navigation.navigate("Main")}>
                         <View style={styles.ThirdBox}>
-                            <LinearGradient colors={["black", "#EB2F06"]} style={{ borderRadius: 20 }}>
+                            <LinearGradient colors={["#FF8970", "#EB2F06"]} style={{ borderRadius: 15, }}>
                                 {/* Image */}
                                 <View style={styles.ThirdBoxImg}>
                                     <Image source={require('../Pics/SearchUni.png')} style={styles.ThirdBoxOrignalImg} />
@@ -115,7 +117,7 @@ export default function Drawer() {
                     {/* Box 2 */}
                     <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                         <View style={styles.ThirdBox}>
-                            <LinearGradient colors={["black", "#EB2F06"]} style={{ borderRadius: 20, }}>
+                            <LinearGradient colors={["#FF8970", "#EB2F06"]} style={{ borderRadius: 15, }}>
                                 {/* Image */}
                                 <View style={styles.ThirdBoxImg}>
                                     <Image source={require('../Pics/Appoint.png')} style={styles.ThirdBoxOrignalImg} />
@@ -126,15 +128,30 @@ export default function Drawer() {
                         </View>
                     </TouchableOpacity>
                 </View>
+                {/* Row 3 ( Center Row ) */}
+                <View style={styles.ThirdRow_E}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Page_Vir_Consult")}>
+                        <View style={styles.ThirdBox_E}>
+                            <LinearGradient colors={["#FF8970", "#EB2F06"]} style={{ borderRadius: 15, flexDirection: "row", justifyContent: "center", alignItems: "center", }}>
+                                {/* Image */}
+                                <View style={styles.ThirdBoxImg_E}>
+                                    <Image source={require('../Pics/AI.png')} style={styles.ThirdBoxOrignalImg_E} />
+                                </View>
+                                {/* Title */}
+                                <Text style={styles.ThirdBoxTxt_E}>Virtual Consultancy</Text>
+                            </LinearGradient>
+                        </View>
+                    </TouchableOpacity>
+                </View>
                 {/* Row 2 */}
                 <View style={styles.ThirdRow}>
                     {/* Box 1 */}
                     <TouchableOpacity onPress={() => navigation.navigate("ApplicationList")}>
                         <View style={styles.ThirdBox}>
-                            <LinearGradient colors={["black", "#EB2F06"]} style={{ borderRadius: 20, }}>
+                            <LinearGradient colors={["#FF8970", "#EB2F06"]} style={{ borderRadius: 15, }}>
                                 {/* Image */}
                                 <View style={styles.ThirdBoxImg}>
-                                    <Image source={require('../Pics/Tracking.png')} style={styles.ThirdBoxOrignalImg} />
+                                    <Image source={require('../Pics/Tracking_1.png')} style={styles.ThirdBoxOrignalImg} />
                                 </View>
                                 {/* Title */}
                                 <Text style={styles.ThirdBoxTxt}>Application{'\n'}Tracking</Text>
@@ -144,7 +161,7 @@ export default function Drawer() {
                     {/* Box 2 */}
                     <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
                         <View style={styles.ThirdBox}>
-                            <LinearGradient colors={["black", "#EB2F06"]} style={{ borderRadius: 20, }}>
+                            <LinearGradient colors={["#FF8970", "#EB2F06"]} style={{ borderRadius: 15, }}>
                                 {/* Image */}
                                 <View style={styles.ThirdBoxImg}>
                                     <Image source={require('../Pics/Chat.png')} style={styles.ThirdBoxOrignalImg} />
@@ -155,8 +172,6 @@ export default function Drawer() {
                         </View>
                     </TouchableOpacity>
                 </View>
-                {/* Row 3 */}
-                <Text onPress={() => navigation.navigate("Page_Vir_Consult")}>Dashbaord</Text>
             </View>
             {/* Start */}
         </View >
@@ -178,7 +193,7 @@ const styles = StyleSheet.create({
     fir: {
         fontFamily: "Heebo",
         // borderWidth: 1,
-        fontSize: 17,
+        fontSize: 16,
         marginTop: 20,
         marginLeft: 16,
         paddingHorizontal: 5,
@@ -188,24 +203,24 @@ const styles = StyleSheet.create({
         fontFamily: "KanitBold",
         // borderWidth: 1,
         color: "red",
-        fontSize: 35,
-        marginTop: 1,
+        fontSize: 30,
+        marginTop: 5,
         // marginHorizontal: 10,
         paddingHorizontal: 3,
         letterSpacing: 1.5,
         textTransform: "uppercase",
     },
     ParentSecond: {
-        // borderWidth: 1,
+        // borderWidth: 0.5,
         borderColor: "red",
-        paddingVertical: 12,
+        paddingVertical: 5,
     },
     secLinear: {
         // borderWidth: 1,
         paddingVertical: 0,
         marginHorizontal: 20,
-        borderRadius: 20,
-        backgroundColor: "#ced6e0",
+        borderRadius: 15,
+        // backgroundColor: "#ced6e0",
         // elevation: 10,
         // shadowColor:"blue",
     },
@@ -213,14 +228,14 @@ const styles = StyleSheet.create({
         // borderWidth: 1,
         marginHorizontal: 5,
         paddingHorizontal: 1,
-        paddingVertical: 5,
+        paddingVertical: 4,
         flexDirection: "row",
         justifyContent: "center",
     },
     second1: {
         // borderWidth: 0.5,
         width: "51%",
-        paddingVertical: 1,
+        paddingVertical: 0,
         justifyContent: "center",
     },
     second1Txt: {
@@ -244,11 +259,11 @@ const styles = StyleSheet.create({
     sec2Img: {
         // borderColor: "black",
         // borderWidth: 0.5,
-        width: 120,
+        width: 115,
         height: 90,
     },
     third: {
-        marginTop: 22,
+        marginTop: 20,
         marginHorizontal: 11,
         // borderWidth: 0.5,
         fontSize: 15,
@@ -260,22 +275,35 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         marginTop: 0,
         paddingHorizontal: 5,
-        paddingVertical: 8,
+        paddingVertical: 10,
     },
     ThirdRow: {
         // borderWidth: 0.5,
         // borderColor: "red",
-        paddingVertical: 8,
+        paddingVertical: 6,
         paddingHorizontal: 0,
-        marginVertical: 1,
+        marginVertical: 0.5,
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
+    },
+    ThirdRow_E: {
+        // borderWidth: 0.5,
+        // borderColor: "red",
+        paddingVertical: 5,
+        paddingHorizontal: 0,
+        marginVertical: 0,
+        marginHorizontal: 15,
     },
     ThirdBox: {
         // borderWidth: 1,
         width: "100%",
         borderRadius: 20,
+    },
+    ThirdBox_E: {
+        // borderWidth: 1,
+        width: "100%",
+        borderRadius: 10,
     },
     ThirdBoxImg: {
         borderWidth: 0.5,
@@ -285,7 +313,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 36,
         justifyContent: "center",
         alignItems: "center",
-        marginVertical: 10,
+        marginVertical: 6,
+    },
+    ThirdBoxImg_E: {
+        borderWidth: 0.5,
+        // borderColor: "red",
+        borderColor: "transparent",
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        justifyContent: "center",
+        alignItems: "center",
+        marginVertical: 0,
     },
     ThirdBoxOrignalImg: {
         // borderWidth: 1,
@@ -293,15 +331,32 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
     },
+    ThirdBoxOrignalImg_E: {
+        // borderWidth: 1,
+        // borderColor: "black",
+        width: 30,
+        height: 30,
+    },
     ThirdBoxTxt: {
         // borderWidth: 0.5,
-        marginBottom: 15,
+        marginBottom: 12,
         fontSize: 13,
         color: "white",
         textShadowRadius: 10,
-        textShadowColor: "black",
-        letterSpacing: 2.5,
+        textShadowColor: "green",
+        letterSpacing: 3,
+        textAlign: "center",
+        fontFamily: "HeeboExtra"
+    },
+    ThirdBoxTxt_E: {
+        // borderWidth: 0.5,
+        marginBottom: 0,
+        fontSize: 13,
+        color: "white",
+        textShadowRadius: 10,
+        textShadowColor: "green",
+        letterSpacing: 3,
         textAlign: "center",
         fontFamily: "KanitBold"
-    }
+    },
 });

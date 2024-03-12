@@ -128,7 +128,7 @@ export default function Virtual_Counselling() {
                         {/* Sub 1 */}
                         <View
                             style={{
-                                backgroundColor: item.sender === "user" ? "#001400" : "#D9D9D9",
+                                backgroundColor: item.sender === "user" ? "orange" : "#D9D9D9",
                                 padding: 10,
                                 borderRadius: 10,
                             }}
@@ -136,7 +136,7 @@ export default function Virtual_Counselling() {
                             {/* 1 */}
                             <Text
                                 style={{
-                                    color: item.sender === "user" ? "white" : "black",
+                                    color: item.sender === "user" ? "black" : "black",
                                     fontFamily: "Kanit",
                                     letterSpacing: 1,
                                     fontSize: 12,
@@ -147,7 +147,7 @@ export default function Virtual_Counselling() {
                             {/* 2 */}
                             <Text
                                 style={{
-                                    color: item.sender === "user" ? "white" : "black",
+                                    color: item.sender === "user" ? "black" : "black",
                                     fontSize: 12,
                                     marginTop: 5,
                                     fontFamily: "Kanit",
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         fontFamily: "Kanit",
         letterSpacing: 2,
-        borderColor: "#001400",
+        borderColor: "grey",
         borderWidth: 0.5,
         marginTop: 2,
         marginBottom: 10,
@@ -221,14 +221,14 @@ const styles = StyleSheet.create({
         paddingVertical: 7,
         borderRadius: 10,
         // backgroundColor: '#007AFF',
-        backgroundColor: '#001400',
+        backgroundColor: 'orange',
     },
     sendButtonTxt: {
        textAlign: "center",
        fontFamily: "Heebo",
        letterSpacing: 2.5,
        fontSize: 15, 
-       color: "white",
+    //    color: "white",
        textTransform: "capitalize",
     },
 });

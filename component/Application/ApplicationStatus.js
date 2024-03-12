@@ -464,7 +464,7 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         fontFamily: "Heebo",
         fontSize: 17,
-        letterSpacing: 1,
+        letterSpacing: 1.2,
         marginTop: 5,
         marginBottom: 5,
         paddingHorizontal: 10,

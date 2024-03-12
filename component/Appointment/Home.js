@@ -31,7 +31,7 @@ export default function Home() {
     return null;
   }
   // Create data for FlatList rendering
-  const data = Array.from({ length: 6 }, (_, index) => index + 1);
+  const data = Array.from({ length: 4 }, (_, index) => index + 1);
   const renderItem = ({ item, index }) => {
     const isAvailable = index / 2 === 1;
     // Function 
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 1.5,
     backgroundColor: "#FCF3F3",
     shadowColor: "black",
-    
+
   },
   third_img: {
     width: 55,

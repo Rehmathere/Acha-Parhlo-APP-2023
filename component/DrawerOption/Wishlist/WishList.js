@@ -4,6 +4,8 @@ import { useFonts } from "expo-font";
 import { firebase } from "../../firestore";
 import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native-gesture-handler";
+// Linear Gradient
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function WishList() {
     // Modal useState
@@ -82,36 +84,40 @@ export default function WishList() {
             ) : (
                 wishList.map((item) => (
                     <View key={item.id} style={styles.box}>
-                        <View style={styles.box_2}>
-                            <View style={styles.Parent_Delete}>
-                                <TouchableOpacity style={styles.Sub_Parent_Delete} onPress={() => { ShowModal(); deleteItem(item.id)}}>
-                                    <AntDesign name="delete" size={15} color="white" />
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.in_box}>
-                                <Image
-                                    source={{ uri: item.noteImage }}
-                                    style={styles.img_fir}
-                                />
-                                <Text style={styles.sec}>
-                                    {item.noteTitle.substring(0, 15)}
-                                </Text>
-                            </View>
-                            <View style={styles.third}>
-                                <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Course</Text>
-                                <Text style={styles.third_2}>{item.noteRoom.substring(0, 15)}</Text>
-                            </View>
-                            <View style={styles.forth}>
-                                <View style={styles.forth_1}>
-                                    <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" /> Fees</Text>
-                                    <Text style={styles.for_2}>{item.noteAmount.substring(0, 15)}</Text>
+                        <LinearGradient colors={["#FF522B", "#FF8970", "#FF522B"]} style={{ borderRadius: 15, }}>
+                            <View style={styles.box_2}>
+                                <View style={styles.Parent_Delete}>
+                                    <TouchableOpacity style={styles.Sub_Parent_Delete} onPress={() => { ShowModal(); deleteItem(item.id) }}>
+                                        <AntDesign name="delete" size={15} color="red" />
+                                    </TouchableOpacity>
                                 </View>
-                                <View style={styles.forth_1}>
-                                    <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
-                                    <Text style={styles.for_22}>{item.noteDuration.substring(0, 15)}</Text>
+                                <View style={styles.in_box}>
+                                    <View style={styles.img_fir_Parent}>
+                                        <Image
+                                            source={{ uri: item.noteImage }}
+                                            style={styles.img_fir}
+                                        />
+                                    </View>
+                                    <Text style={styles.sec}>
+                                        {item.noteTitle.substring(0, 15)}
+                                    </Text>
+                                </View>
+                                <View style={styles.third}>
+                                    <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Course</Text>
+                                    <Text style={styles.third_2}>{item.noteRoom.substring(0, 15)}</Text>
+                                </View>
+                                <View style={styles.forth}>
+                                    <View style={styles.forth_1}>
+                                        <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" /> Fees</Text>
+                                        <Text style={styles.for_2}>{item.noteAmount.substring(0, 15)}</Text>
+                                    </View>
+                                    <View style={styles.forth_1}>
+                                        <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
+                                        <Text style={styles.for_22}>{item.noteDuration.substring(0, 15)}</Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
+                        </LinearGradient>
                     </View>
                 ))
             )}
@@ -119,7 +125,7 @@ export default function WishList() {
             <Modal
                 transparent={true}
                 animationType="fade"
-            visible={showStatus}
+                visible={showStatus}
             >
                 <View style={styles.ParentStatus}>
                     <View style={styles.sub_ParentStatus}>
@@ -160,26 +166,25 @@ const styles = StyleSheet.create({
     },
     // Box CSS
     box: {
-        width: '82%',
-        borderRadius: 17,
-        // borderWidth: 1,
-        borderColor: "black",
+        width: '87%',
+        borderRadius: 15,
+        // borderWidth: 0.5,
+        // borderColor: "black",
         alignSelf: 'center',
         marginTop: 20,
         // marginBottom: 4,
-        alignItems: 'center',
         flexDirection: 'row',
-        elevation: 5,
-        // backgroundColor: "#FCDFD8",
-        backgroundColor: "#FCBBAC",
-        // backgroundColor: "#FED1C7",
-        paddingHorizontal: 6,
-        paddingVertical: 7,
+        justifyContent: "center",
+        alignItems: 'center',
+        elevation: 0,
+        // backgroundColor: "#EB2F06",
+        // backgroundColor: "#FCBBAC",    
     },
     box_2: {
         width: "100%",
         flexDirection: "column",
         paddingVertical: 7,
+        paddingHorizontal: 4,
     },
     in_box: {
         // borderWidth: 0.1,
@@ -188,25 +193,31 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         paddingVertical: 2,
     },
-    img_fir: {
-        // borderWidth: 1,
-        // borderColor: "red",
+    img_fir_Parent: {
+        borderWidth: 0.5,
+        borderColor: "lightgrey",
         width: "20%",
         height: '100%',
-        marginLeft: 10,
-        borderRadius: 7,
+        marginLeft: 9,
+        borderRadius: 5,
+        padding: 1,
+    },
+    img_fir: {
+        borderRadius: 3,
+        width: "100%",
+        height: '100%',
     },
     sec: {
-        letterSpacing: 2,
+        letterSpacing: 3,
         textAlign: "center",
-        fontFamily: "HeeboExtra",
+        fontFamily: "KanitBold",
         width: "70%",
         marginLeft: 10,
-        color: "black",
+        color: "white",
         marginTop: 11,
-        // borderWidth: 1,
-        //   height: 20,
-        fontSize: 15,
+        // borderWidth: 0.5,
+        // height: 20,
+        fontSize: 14.5,
         textTransform: "uppercase",
         paddingHorizontal: 2,
     },
@@ -223,12 +234,12 @@ const styles = StyleSheet.create({
         fontFamily: "Kanit",
         // color: "#636e72",
         marginHorizontal: 10,
-        fontSize: 13,
+        fontSize: 13.5,
         paddingVertical: 3.2,
-        paddingHorizontal: 7,
+        paddingHorizontal: 7.5,
         backgroundColor: "#dff9fb",
         borderRadius: 7,
-        width: "29%",
+        width: "30%",
         marginTop: 5,
     },
     third_2: {
@@ -236,10 +247,10 @@ const styles = StyleSheet.create({
         textAlign: "left",
         fontFamily: "Heebo",
         marginHorizontal: 12,
-        color: "black",
+        color: "white",
         marginTop: 2,
         // borderWidth: 1,
-        fontSize: 12,
+        fontSize: 12.5,
         paddingVertical: 4.5,
         paddingHorizontal: 2,
         marginBottom: 2,
@@ -258,7 +269,7 @@ const styles = StyleSheet.create({
     },
     for_1: {
         // color: "#636e72",
-        fontSize: 13,
+        fontSize: 13.5,
         letterSpacing: 0.6,
         fontFamily: "Kanit",
         paddingVertical: 3.2,
@@ -267,17 +278,17 @@ const styles = StyleSheet.create({
         borderRadius: 7,
     },
     for_2: {
-        // color: "#009432",
+        color: "white",
         letterSpacing: 1.5,
-        fontSize: 12,
+        fontSize: 12.5,
         fontFamily: "Heebo",
         marginTop: 6,
         paddingHorizontal: 4.5,
     },
     for_22: {
-        // color: "#e84118",
+        color: "white",
         letterSpacing: 1.5,
-        fontSize: 12,
+        fontSize: 12.5,
         fontFamily: "Heebo",
         marginTop: 6,
         paddingHorizontal: 4,
@@ -314,18 +325,19 @@ const styles = StyleSheet.create({
     },
     Parent_Delete: {
         // borderWidth: 0.5,
-        paddingBottom: 4,
-        paddingHorizontal: 20,
+        paddingBottom: 5,
+        paddingHorizontal: 22,
+        paddingVertical: 4,
         flexDirection: "row",
         justifyContent: "flex-end",
     },
     Sub_Parent_Delete: {
         borderWidth: 0.5,
-        borderColor: "#EB2F06",
-        width: "180%",
+        borderColor: "white",
+        width: "190%",
         borderRadius: 50,
-        paddingVertical: 5.5,
-        backgroundColor: "#EB2F06",
+        paddingVertical: 7,
+        backgroundColor: "white",
         alignItems: "center",
     },
     ParentStatus: {

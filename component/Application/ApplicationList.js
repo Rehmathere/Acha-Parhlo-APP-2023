@@ -6,6 +6,8 @@ import { useFonts } from "expo-font";
 import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../firestore";
+// Linear Gradient
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function ApplicationList() {
     // 0 - useNavigation
@@ -88,41 +90,45 @@ export default function ApplicationList() {
                     })}
                 >
                     {/* Box Body */}
-                    <View style={styles.box_2}>
-                        {/* Row 1 */}
-                        <View style={styles.in_box}>
-                            {/* 1 - Image */}
-                            <Image
-                                source={require("../Pics/Track_2.png")}
-                                style={styles.img_fir}
-                            />
-                            {/* 2 - Title */}
-                            <Text
-                                style={styles.sec}>
-                                {item.U1_universityName.substring(0, 15)}
-                            </Text>
-                        </View>
-                        {/* Row 2 */}
-                        <View style={styles.third}>
-                            {/* 1 - Text */}
-                            <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Course</Text>
-                            {/* 2 - Title */}
-                            <Text style={styles.third_2}>{item.U4_courseName.substring(0, 15)}</Text>
-                        </View>
-                        {/* Row 3 */}
-                        <View style={styles.forth}>
-                            {/* 1 */}
-                            <View style={styles.forth_1}>
-                                <Text style={styles.for_1}><FontAwesome5 name="university" size={12.5} color="#EB2F06" />  Campus</Text>
-                                <Text style={styles.for_2}>{item.U2_campus.substring(0, 15)}</Text>
+                    <LinearGradient colors={["#FF522B", "#FF8970", "#FF522B"]} style={{ borderRadius: 15, paddingHorizontal: 5, paddingVertical: 7, }}>
+                        <View style={styles.box_2}>
+                            {/* Row 1 */}
+                            <View style={styles.in_box}>
+                                {/* 1 - Image */}
+                                <View style={styles.img_fir_Parent}>
+                                    <Image
+                                        source={require("../Pics/Track_2.png")}
+                                        style={styles.img_fir}
+                                    />
+                                </View>
+                                {/* 2 - Title */}
+                                <Text
+                                    style={styles.sec}>
+                                    {item.U1_universityName.substring(0, 15)}
+                                </Text>
                             </View>
-                            {/* 2 */}
-                            <View style={styles.forth_1}>
-                                <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Intake</Text>
-                                <Text style={styles.for_22}>{item.U3_intake.substring(0, 15)}</Text>
+                            {/* Row 2 */}
+                            <View style={styles.third}>
+                                {/* 1 - Text */}
+                                <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Course</Text>
+                                {/* 2 - Title */}
+                                <Text style={styles.third_2}>{item.U4_courseName.substring(0, 15)}</Text>
+                            </View>
+                            {/* Row 3 */}
+                            <View style={styles.forth}>
+                                {/* 1 */}
+                                <View style={styles.forth_1}>
+                                    <Text style={styles.for_1}><FontAwesome5 name="university" size={12.5} color="#EB2F06" />  Campus</Text>
+                                    <Text style={styles.for_2}>{item.U2_campus.substring(0, 15)}</Text>
+                                </View>
+                                {/* 2 */}
+                                <View style={styles.forth_1}>
+                                    <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Intake</Text>
+                                    <Text style={styles.for_22}>{item.U3_intake.substring(0, 15)}</Text>
+                                </View>
                             </View>
                         </View>
-                    </View>
+                    </LinearGradient>
                 </TouchableOpacity>
             ))}
             {/* -------- Fetch Application Tracking Data -------- */}
@@ -138,21 +144,19 @@ const styles = StyleSheet.create({
     },
     // Box CSS
     box: {
-        width: '85%',
-        borderRadius: 17,
-        // borderWidth: 1,
+        width: '86%',
+        borderRadius: 15,
+        // borderWidth: 0.5,
         borderColor: "black",
         alignSelf: 'center',
-        marginTop: 20,
+        marginTop: 18,
         // marginBottom: 4,
-        alignItems: 'center',
         flexDirection: 'row',
-        elevation: 15,
-        // backgroundColor: "#FCDFD8",
-        backgroundColor: "#FCBBAC",
-        // backgroundColor: "#FED1C7",
-        paddingHorizontal: 6,
-        paddingVertical: 7,
+        justifyContent: "center",
+        alignItems: 'center',
+        elevation: 0,
+        // backgroundColor: "#EB2F06",
+        // backgroundColor: "#FCBBAC",
     },
     box_2: {
         width: "100%",
@@ -166,25 +170,31 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         paddingVertical: 2,
     },
-    img_fir: {
-        // borderWidth: 1,
-        // borderColor: "red",
-        width: "22%",
+    img_fir_Parent: {
+        borderWidth: 0.5,
+        borderColor: "lightgrey",
+        width: "20%",
         height: '100%',
-        marginLeft: 10,
-        borderRadius: 7,
+        marginLeft: 9,
+        borderRadius: 5,
+        padding: 1,
+    },
+    img_fir: {
+        borderRadius: 3,
+        width: "100%",
+        height: '100%',
     },
     sec: {
-        letterSpacing: 2,
+        letterSpacing: 3,
         textAlign: "center",
         fontFamily: "KanitBold",
         width: "70%",
         marginLeft: 10,
-        color: "black",
+        color: "white",
         marginTop: 11,
-        // borderWidth: 1,
-        //   height: 20,
-        fontSize: 16,
+        // borderWidth: 0.5,
+        // height: 20,
+        fontSize: 14.5,
         textTransform: "uppercase",
         paddingHorizontal: 2,
     },
@@ -210,11 +220,11 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     third_2: {
-        letterSpacing: 1.6,
+        letterSpacing: 2,
         textAlign: "left",
         fontFamily: "Heebo",
         marginHorizontal: 12,
-        color: "black",
+        color: "white",
         marginTop: 2,
         // borderWidth: 1,
         fontSize: 12.5,
@@ -245,7 +255,7 @@ const styles = StyleSheet.create({
         borderRadius: 7,
     },
     for_2: {
-        // color: "#009432",
+        color: "white",
         letterSpacing: 1.5,
         fontSize: 12.5,
         fontFamily: "Heebo",
@@ -253,7 +263,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4.5,
     },
     for_22: {
-        // color: "#e84118",
+        color: "white",
         letterSpacing: 1.5,
         fontSize: 12.5,
         fontFamily: "Heebo",
