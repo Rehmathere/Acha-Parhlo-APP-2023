@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, StatusBar, TouchableOpacity, Image, Modal, Button } from 'react-native'
+import { Text, View, StyleSheet, StatusBar, TouchableOpacity, Image, Modal } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
-import { FontAwesome } from '@expo/vector-icons';
+import { firebase } from '../../firestore';
 
 export default function Rate() {
     // Modal useState
@@ -18,6 +18,19 @@ export default function Rate() {
     }
     const [defaultRating, setDefaultRating] = useState(0)
     const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5])
+    // Store Feedback
+    const storeFeedback = (rating) => {
+        firebase.firestore().collection('7 - App Rate Us').add({
+            rating: `${rating} Star`
+        })
+            .then(() => {
+                // Updated code without console log
+                // You can add any additional logic here if needed
+            })
+            .catch((error) => {
+                console.error("Error storing feedback: ", error);
+            });
+    }
     // Expo Font Logic
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -39,7 +52,7 @@ export default function Rate() {
     if (!fontsLoaded) {
         return null;
     }
-    // Custom Rating Fuction
+    // Custom Rating Function
     const CustomRatingBar = () => {
         return (
             <View style={styles.customeRatingBarStyle}>
@@ -89,7 +102,7 @@ export default function Rate() {
                 {defaultRating == "5" ? <Text style={{ color: "green", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Excellent</Text> : null}
             </Text>
             {/* Button */}
-            <TouchableOpacity style={styles.subBtn} onPress={() => ShowModal()}>
+            <TouchableOpacity style={styles.subBtn} onPress={() => { ShowModal(); storeFeedback(defaultRating); }}>
                 <Text style={styles.subTxt}>Feedback</Text>
             </TouchableOpacity>
             {/* Modal */}

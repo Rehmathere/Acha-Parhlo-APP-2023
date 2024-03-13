@@ -4,6 +4,8 @@ import { useFonts } from "expo-font";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { firebase } from "../firestore";
+// Linear Gradient
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Completed({ navigation }) {
   // Modal useState
@@ -61,8 +63,8 @@ export default function Completed({ navigation }) {
         statusColor = "black";
     }
     return (
-      <Text style={[styles.itemStatus, { color: statusColor }]}>
-        Status: <Text style={styles.itemStatus_Span}>{status || "Processing"}</Text>
+      <Text style={[styles.itemStatus, { backgroundColor: statusColor }]}>
+        Status : <Text style={styles.itemStatus_Span}>{status || "Processing"}</Text>
       </Text>
     );
   };
@@ -100,27 +102,29 @@ export default function Completed({ navigation }) {
           <View style={styles.itemView_Parent}>
             {appointments.map((appointment) => (
               <View style={styles.itemView} key={appointment.id}>
-                {getStatusText(appointment.status)}
-                <View style={styles.Sub_itemView}>
-                  <View style={styles.itemImg_Parent}>
-                    <Image source={require("../Pics/man_2.png")} style={styles.itemImg} />
+                <LinearGradient colors={["#FDAA97", "#FEE6E2", "#FDAA97"]} style={{ borderRadius: 20, paddingHorizontal: 8, paddingVertical: 20, }}>
+                  {getStatusText(appointment.status)}
+                  <View style={styles.Sub_itemView}>
+                    <View style={styles.itemImg_Parent}>
+                      <Image source={require("../Pics/man_2.png")} style={styles.itemImg} />
+                    </View>
+                    <View style={styles.itemDetail_Parent}>
+                      <Text style={styles.itemDetail_Txt_1}>{appointment.value_1}</Text>
+                      <Text style={styles.itemDetail_Txt_1}>Day: {appointment.Date}</Text>
+                      <Text style={styles.itemDetail_Txt_1}>{appointment.TimeSlot}</Text>
+                    </View>
                   </View>
-                  <View style={styles.itemDetail_Parent}>
-                    <Text style={styles.itemDetail_Txt_1}>{appointment.value_1}</Text>
-                    <Text style={styles.itemDetail_Txt_1}>Day: {appointment.Date}</Text>
-                    <Text style={styles.itemDetail_Txt_1}>{appointment.TimeSlot}</Text>
-                  </View>
-                </View>
-                {/* ----- New Time Slot ----- */}
-                {appointment.status === "Delayed" && (
-                  <View style={styles.itemNewTime}>
-                    <Text style={styles.itemNewTime_Txt}>New Time : {appointment.showExtraTimeText}</Text>
-                  </View>
-                )}
-                {/* ------------------------- */}
-                <TouchableOpacity style={styles.Del_Btn} onPress={() => { handleDelete(appointment.id); ShowModal(); }}>
-                  <Text style={styles.Del_Btn_Txt}>Delete <MaterialCommunityIcons name="delete" size={15} color="white" /></Text>
-                </TouchableOpacity>
+                  {/* ----- New Time Slot ----- */}
+                  {appointment.status === "Delayed" && (
+                    <View style={styles.itemNewTime}>
+                      <Text style={styles.itemNewTime_Txt}>New Time : {appointment.showExtraTimeText}</Text>
+                    </View>
+                  )}
+                  {/* ------------------------- */}
+                  <TouchableOpacity style={styles.Del_Btn} onPress={() => { handleDelete(appointment.id); ShowModal(); }}>
+                    <Text style={styles.Del_Btn_Txt}>Delete <MaterialCommunityIcons name="delete" size={15} color="white" /></Text>
+                  </TouchableOpacity>
+                </LinearGradient>
               </View>
             ))}
           </View>
@@ -142,8 +146,8 @@ export default function Completed({ navigation }) {
           </Modal>
           {/* --------------------------- */}
         </View>
-      </ScrollView>
-    </View>
+      </ScrollView >
+    </View >
   );
 };
 
@@ -162,13 +166,13 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
   },
   itemView: {
-    width: '82%',
-    backgroundColor: "#FCDFD8",
-    borderWidth: 0.5,
-    borderColor: "#FF977F",
+    width: '83%',
+    // backgroundColor: "#FCDFD8",
+    // borderWidth: 0.5,
+    // borderColor: "#FF977F",
     marginTop: 12,
-    paddingVertical: 20,
-    paddingHorizontal: 8,
+    // paddingVertical: 20,
+    // paddingHorizontal: 8,
     borderRadius: 20,
     alignSelf: "center",
   },
@@ -211,16 +215,20 @@ const styles = StyleSheet.create({
   itemStatus: {
     // borderWidth: 0.5,
     fontFamily: "Kanit",
-    fontSize: 12,
+    fontSize: 11.5,
     letterSpacing: 1,
     textAlign: "right",
     paddingHorizontal: 11,
-    paddingVertical: 2,
-    borderRadius: 5,
+    paddingVertical: 2.3,
+    borderRadius: 10,
+    width: "51.5%",
+    alignSelf: "flex-end",
+    color: "white",
+    marginHorizontal: 5,
   },
   itemStatus_Span: {
-    fontFamily: "KanitBold",
-    fontSize: 12.3,
+    fontFamily: "Kanit",
+    fontSize: 12.5,
     letterSpacing: 1.5,
   },
   Head_Img_Parent: {
@@ -254,10 +262,10 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   Del_Btn: {
-    backgroundColor: "red",
-    paddingVertical: 4,
+    backgroundColor: "#C40000",
+    paddingVertical: 3.5,
     marginHorizontal: 20,
-    marginTop: 10,
+    marginTop: 12,
     borderRadius: 10,
   },
   Del_Btn_Txt: {
@@ -279,11 +287,11 @@ const styles = StyleSheet.create({
   itemNewTime_Txt: {
     borderWidth: 0.3,
     borderColor: "blue",
-    paddingVertical: 3,
-    paddingHorizontal: 10,
+    paddingVertical: 2.5,
+    paddingHorizontal: 7.5,
     textAlign: "right",
     fontFamily: "Heebo",
-    fontSize: 12,
+    fontSize: 10.2,
     letterSpacing: 1.5,
     color: "blue",
     backgroundColor: "#E3EEFC",

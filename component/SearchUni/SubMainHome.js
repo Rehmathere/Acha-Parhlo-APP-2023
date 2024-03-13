@@ -84,7 +84,9 @@ export default function SubMainHome({ route }) {
                 <View style={styles.sub_SMH_First}>
                     {/* 1 */}
                     <View style={styles.SMH_First_Logo}>
-                        <Image source={{ uri: noteImage }} style={styles.SMH_FirstImg} />
+                        <View style={styles.SMH_FirstImg_Parent}>
+                            <Image source={{ uri: noteImage }} style={styles.SMH_FirstImg} />
+                        </View>
                     </View>
                     {/* 2 */}
                     <View style={styles.SMH_First_Name}>
@@ -96,7 +98,7 @@ export default function SubMainHome({ route }) {
                 <Text style={styles.SMH_First_CourseName}>{noteRoom}</Text>
                 {/* Add To Wishlist */}
                 <View style={styles.Wishlist_Parent}>
-                    <TouchableOpacity style={styles.Wishlist_Btn} onPress={() => { ShowModal(); handleButtonPress();  }}>
+                    <TouchableOpacity style={styles.Wishlist_Btn} onPress={() => { ShowModal(); handleButtonPress(); }}>
                         {/* 1 */}
                         <View style={styles.Wishlist_Btn_1}><AntDesign name="heart" size={8} color="white" /></View>
                         {/* 2 */}
@@ -159,7 +161,7 @@ export default function SubMainHome({ route }) {
             <Modal
                 transparent={true}
                 animationType="fade"
-            visible={showStatus}
+                visible={showStatus}
             >
                 <View style={styles.ParentStatus}>
                     <View style={styles.sub_ParentStatus}>
@@ -200,17 +202,22 @@ const styles = StyleSheet.create({
     },
     SMH_First_Logo: {
         // borderWidth: 0.5,
-        paddingVertical: 3,
+        paddingVertical: 1,
         width: "30%",
         justifyContent: "center",
         alignItems: "center",
     },
-    SMH_FirstImg: {
-        width: 75,
-        height: 55,
+    SMH_FirstImg_Parent: {
+        width: 65,
+        height: 60,
         borderWidth: 0.5,
         borderColor: "#EB2F06",
         borderRadius: 5,
+        padding: 2,
+    },
+    SMH_FirstImg: {
+        width: "100%",
+        height: "100%",
     },
     SMH_First_Name: {
         width: "70%",
