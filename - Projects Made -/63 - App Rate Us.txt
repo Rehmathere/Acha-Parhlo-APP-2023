@@ -1,0 +1,325 @@
+import React, { useState, useEffect } from 'react'
+import { Text, View, StyleSheet, StatusBar, TouchableOpacity, Image, Modal } from 'react-native'
+// Fonts Header File
+import { useFonts } from "expo-font";
+import { firebase } from '../../firestore';
+
+export default function Rate() {
+    // Modal useState
+    const [showStatus, setShowStatus] = useState(false)
+    // Set TimeOut
+    const ShowModal = () => {
+        // Display
+        setShowStatus(true)
+        // Not Display
+        setTimeout(() => {
+            setShowStatus(false)
+        }, 2500);
+    }
+    const [defaultRating, setDefaultRating] = useState(0)
+    const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5])
+    // Expo Font Logic
+    // 1 - useState
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require("../../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    // It Will Load Font
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+    if (!fontsLoaded) {
+        return null;
+    }
+
+    const storeFeedback = (rating) => {
+        firebase.firestore().collection('7 - App Rate Us').add({
+            rating: `${rating} Star`
+        })
+            .then(() => {
+                // Updated code without console log
+                // You can add any additional logic here if needed
+            })
+            .catch((error) => {
+                console.error("Error storing feedback: ", error);
+            });
+    }
+
+    // Custom Rating Function
+    const CustomRatingBar = () => {
+        return (
+            <View style={styles.customeRatingBarStyle}>
+                {
+                    maxRating.map((item, key) => {
+                        return (
+                            <TouchableOpacity key={item} activeOpacity={0.7} onPress={() => setDefaultRating(item)}>
+                                <Image
+                                    style={styles.starImgStyle}
+                                    source={
+                                        item <= defaultRating ? require('../../Pics/starfill.png') : require('../../Pics/starcorner.png')
+                                    }
+                                />
+                            </TouchableOpacity>
+                        )
+                    })
+                }
+            </View>
+        )
+    }
+    // Main Body
+    return (
+        <View style={styles.container}>
+            {/* Status Bar */}
+            <StatusBar backgroundColor={"#EB2F06"} />
+            {/* Start */}
+            {/* Feedback Image */}
+            <View style={styles.FeedbackParent}>
+                <Image source={require('../../Pics/rate_2.png')} style={styles.imgFeedback} />
+            </View>
+            <Text style={styles.fir}>Share Feedback</Text>
+            <Text style={styles.fir2}>Your feedback matters! Share your thoughts about our app, and let's shape it together for better usability.</Text>
+            {/* Rate Us Function ( Defined Above ) */}
+            <CustomRatingBar />
+            {/* Rating Number */}
+            <Text style={styles.rateNum}>
+                {
+                    defaultRating + " / " + maxRating.length
+                }
+            </Text>
+            {/* Rating Status */}
+            <Text style={styles.rateNum2}>
+                {defaultRating == "1" ? <Text style={{ color: "red", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Poor</Text> : null}
+                {defaultRating == "2" ? <Text style={{ color: "brown", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Fair</Text> : null}
+                {defaultRating == "3" ? <Text style={{ color: "#F69303", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Average </Text> : null}
+                {defaultRating == "4" ? <Text style={{ color: "blue", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Good</Text> : null}
+                {defaultRating == "5" ? <Text style={{ color: "green", fontFamily: "KanitBold", fontSize: 17, letterSpacing: 1.5, }}>Excellent</Text> : null}
+            </Text>
+            {/* Button */}
+            <TouchableOpacity style={styles.subBtn} onPress={() => { ShowModal(); storeFeedback(defaultRating); }}>
+                <Text style={styles.subTxt}>Feedback</Text>
+            </TouchableOpacity>
+            {/* Modal */}
+            <Modal
+                transparent={true}
+                animationType="fade"
+                visible={showStatus}
+            >
+                <View style={styles.ParentStatus}>
+                    <View style={styles.sub_ParentStatus}>
+                        <View style={styles.ParentStatusImg}>
+                            <Image source={require('../../Pics/Verify_E.png')} style={styles.StatusImg} />
+                        </View>
+                        <Text style={styles.StatusTxt_E}>Feedback Submitted</Text>
+                        <Text style={styles.StatusTxt}>Grateful For Your Response</Text>
+                    </View>
+                </View>
+            </Modal>
+        </View>
+    )
+}
+
+// CSS
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "white",
+    },
+    customeRatingBarStyle: {
+        justifyContent: "center",
+        flexDirection: "row",
+        // borderWidth: 1,
+        paddingVertical: 5,
+    },
+    FeedbackParent: {
+        // borderWidth: 1,
+        paddingTop: 40,
+        paddingBottom: 0,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    imgFeedback: {
+        // borderWidth: 1,
+        borderColor: "black",
+        width: 215,
+        height: 215,
+    },
+    fir: {
+        // borderWidth: 1,
+        textAlign: "center",
+        paddingVertical: 6,
+        fontFamily: "HeeboExtra",
+        letterSpacing: 2.5,
+        fontSize: 20,
+    },
+    fir2: {
+        // borderWidth: 1,
+        textAlign: "center",
+        paddingTop: 5,
+        paddingBottom: 15,
+        paddingHorizontal: 30,
+        letterSpacing: 1,
+        fontSize: 14,
+        fontFamily: "Kanit",
+    },
+    starImgStyle: {
+        width: 40,
+        height: 40,
+        resizeMode: "cover",
+        marginLeft: 7,
+    },
+    rateNum: {
+        marginTop: 14,
+        // borderWidth: 1,
+        padding: 5,
+        letterSpacing: 1,
+        fontSize: 20,
+        fontFamily: "Heebo",
+        textAlign: "center",
+    },
+    rateNum2: {
+        marginVertical: 0,
+        // borderWidth: 1,
+        fontSize: 22,
+        letterSpacing: 1,
+        fontFamily: "Kanit",
+        textAlign: "center",
+    },
+    subBtn: {
+        borderWidth: 1,
+        borderColor: "#EB2F06",
+        marginVertical: 20,
+        marginHorizontal: 40,
+        borderRadius: 10,
+        backgroundColor: "#EB2F06",
+    },
+    subTxt: {
+        color: "white",
+        fontSize: 20,
+        textAlign: "center",
+        paddingVertical: 7,
+        fontFamily: "Kanit",
+        letterSpacing: 2.5,
+    },
+    modal_parent: {
+        // borderWidth: 1,
+        backgroundColor: "rgba(0, 0, 0, 0.70)",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    modal_child: {
+        // borderWidth: 1,
+        // borderColor: "white",
+        width: "80%",
+        borderRadius: 10,
+        paddingVertical: 29,
+        paddingHorizontal: 20,
+        backgroundColor: "white",
+    },
+    modalTxt: {
+        fontSize: 23,
+        fontFamily: "Heebo",
+        textAlign: "center",
+        letterSpacing: 1,
+    },
+    modalBtnParent: {
+        // borderWidth: 1,
+        paddingVertical: 3,
+        paddingHorizontal: 30,
+    },
+    imgParent: {
+        // borderWidth: 1,
+        paddingVertical: 12,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalImg: {
+        // borderWidth: 1,
+        width: 100,
+        height: 100,
+        borderColor: "black",
+    },
+    ParentStatus: {
+        backgroundColor: "rgba(0, 0, 0, 0.70)",
+        flex: 1,
+        // borderWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    sub_ParentStatus: {
+        // borderWidth: 1,
+        width: "81%",
+        backgroundColor: "white",
+        paddingVertical: 15,
+        borderRadius: 25,
+    },
+    ParentStatusClose: {
+        // borderWidth: 1,
+        paddingVertical: 2,
+        paddingHorizontal: 16,
+        justifyContent: "center",
+        alignItems: "flex-end",
+    },
+    StatusClose: {
+        // borderWidth: 1,
+        // borderColor: "red",
+        paddingVertical: 6,
+        paddingHorizontal: 8,
+        borderRadius: 50,
+        backgroundColor: "red",
+    },
+    StatusCloseTxt: {
+        fontWeight: "bold",
+    },
+    ParentStatusImg: {
+        // borderWidth: 1,
+        paddingVertical: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    StatusImg: {
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        // borderColor: "black",
+        width: 130,
+        height: 130,
+    },
+    StatusTxt: {
+        // borderWidth: 1,
+        fontSize: 13,
+        paddingBottom: 10,
+        paddingHorizontal: 23,
+        textAlign: "center",
+        fontFamily: "Kanit",
+        letterSpacing: 1.2,
+    },
+    StatusTxt_E: {
+        // borderWidth: 1,
+        fontSize: 19,
+        paddingBottom: 10,
+        paddingHorizontal: 30,
+        textAlign: "center",
+        fontFamily: "HeeboExtra",
+        letterSpacing: 1.8,
+    },
+})
+
+
+
+
+
+
+
+
+
+
+
+
