@@ -8,6 +8,6 @@ Code :
 
 
 
-Update code accordingly , 
+Update my code according to my condition only , 
 
 update code and return full code , don't skip any line
