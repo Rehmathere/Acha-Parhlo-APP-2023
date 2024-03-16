@@ -1,0 +1,1167 @@
+-----------------------------------------------------------------------------------
+
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView, StatusBar, Image } from 'react-native';
+// Fonts Header File
+import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
+import { firebase } from "../firestore";
+import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+// Linear Gradient
+import { LinearGradient } from 'expo-linear-gradient';
+
+
+export default function Z_Test_Extra_Z_1() {
+    // Navigation
+    const navigation = useNavigation();
+    // ---------- Backend Part Logic ----------
+    const [visible, setVisible] = useState(false);
+    const [data, setData] = useState([]);
+    const [search, setSearch] = useState('');
+    const searchRef = useRef();
+    const listRef = useRef();
+    const [ind, setInd] = useState(0);
+    const [oldData, setOldData] = useState([]);
+    const [notes, setNotes] = useState([]);
+    useEffect(() => {
+        firebase
+            .firestore()
+            .collection("1 - Add University")
+            .onSnapshot((querySnapshot) => {
+                const newNotes = [];
+                querySnapshot.forEach((doc) => {
+                    const { name1, name2, name3, name4, name5, MyImage } = doc.data();
+                    newNotes.push({ name1, name2, name3, name4, name5, MyImage });
+                });
+                setNotes(newNotes);
+                setOldData(newNotes);
+                setData(newNotes);
+            });
+    }, []);
+    // ---------- Backend Part Logic ----------
+    // Fonts
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+    if (!fontsLoaded) {
+        return null;
+    }
+    // Main Body
+    return (
+        <ScrollView style={{ flex: 1, paddingBottom: 0, backgroundColor: "lightyellow", }}>
+            <StatusBar backgroundColor={"#EB2F06"} />
+            {/* Heading */}
+            <Text style={styles.Txt1}>Explore Courses</Text>
+            {/* ----- Show Data Button ----- */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_6')}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Page 6 ( Show Data )</Text>
+            </TouchableOpacity>
+            {/* ----- Show Data Button ----- */}
+            {/* Data From Firebase */}
+            {data.map((item, index) => (
+                <TouchableOpacity
+                    key={index}
+                    style={styles.box}
+                    onPress={() => navigation.navigate("Z_Test_Extra_Z_2", {
+                        item: {
+                            MyImage: item.MyImage,
+                        },
+                    })}
+                >
+                    <LinearGradient colors={["#FF522B", "#FF8970", "#FF522B"]} style={{ borderRadius: 15, paddingHorizontal: 5, paddingVertical: 7, }}>
+                        <View style={styles.box_2}>
+                            <View style={styles.in_box}>
+                                <View style={styles.img_fir_Parent}>
+                                    <Image source={{ uri: item.MyImage }} style={styles.img_fir} />
+                                </View>
+                                <Text style={styles.sec}>{item.name1.substring(0, 15)}</Text>
+                            </View>
+                            <View style={styles.third}>
+                                <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Courses</Text>
+                                <Text style={styles.third_2}>{item.name3.substring(0, 20)}</Text>
+                            </View>
+                            <View style={styles.forth}>
+                                <View style={styles.forth_1}>
+                                    <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" />  Semester Fee</Text>
+                                    <Text style={styles.for_2}>{item.name4.substring(0, 15)}</Text>
+                                </View>
+                                <View style={styles.forth_1}>
+                                    <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Duration</Text>
+                                    <Text style={styles.for_22}>{item.name5.substring(0, 10)}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </LinearGradient>
+                </TouchableOpacity>
+            ))
+            }
+        </ScrollView >
+    );
+}
+
+// CSS
+const styles = StyleSheet.create({
+    Upload_Btn_Parent: {
+        backgroundColor: "black",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 50,
+    },
+    Upload_Btn_Parent_Txt: {
+        textAlign: "center",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        fontSize: 18,
+        fontFamily: "Kanit",
+        color: "white",
+        letterSpacing: 1,
+    },
+    Txt1: {
+        borderWidth: 0.5,
+        borderColor: "yellow",
+        backgroundColor: "yellow",
+        fontFamily: "HeeboExtra",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        textAlign: "center",
+        letterSpacing: 1.5,
+        fontSize: 20,
+        marginVertical: 10,
+    },
+    box: {
+        width: '86%',
+        borderRadius: 15,
+        // borderWidth: 0.5,
+        borderColor: "black",
+        alignSelf: 'center',
+        marginTop: 15,
+        // marginBottom: 4,
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: 'center',
+        elevation: 0,
+        // backgroundColor: "#EB2F06",
+        // backgroundColor: "#FCBBAC",
+    },
+    box_2: {
+        width: "100%",
+        flexDirection: "column",
+        paddingVertical: 7,
+    },
+    in_box: {
+        // borderWidth: 0.1,
+        width: "100%",
+        height: 52,
+        flexDirection: "row",
+        paddingVertical: 2,
+    },
+    img_fir_Parent: {
+        borderWidth: 0.5,
+        borderColor: "lightgrey",
+        width: "20%",
+        height: '100%',
+        marginLeft: 9,
+        borderRadius: 5,
+        padding: 1,
+    },
+    img_fir: {
+        borderRadius: 3,
+        width: "100%",
+        height: '100%',
+    },
+    sec: {
+        letterSpacing: 3,
+        textAlign: "center",
+        fontFamily: "KanitBold",
+        width: "70%",
+        marginLeft: 10,
+        color: "white",
+        marginTop: 11,
+        // borderWidth: 0.5,
+        // height: 20,
+        fontSize: 14.5,
+        textTransform: "uppercase",
+        paddingHorizontal: 2,
+    },
+    third: {
+        marginTop: 10.5,
+        // borderWidth: 1,
+        width: "100%",
+        // height: 48,
+        flexDirection: "column",
+    },
+    third_1: {
+        letterSpacing: 0.6,
+        textAlign: "left",
+        fontFamily: "Kanit",
+        // color: "#636e72",
+        marginHorizontal: 10,
+        fontSize: 13.5,
+        paddingVertical: 3.2,
+        paddingHorizontal: 7.5,
+        backgroundColor: "#dff9fb",
+        borderRadius: 7,
+        width: "30%",
+        marginTop: 5,
+    },
+    third_2: {
+        letterSpacing: 1.6,
+        textAlign: "left",
+        fontFamily: "Heebo",
+        marginHorizontal: 12,
+        color: "white",
+        marginTop: 2,
+        // borderWidth: 1,
+        fontSize: 12.5,
+        paddingVertical: 4.5,
+        paddingHorizontal: 2,
+        marginBottom: 2,
+    },
+    forth: {
+        // borderWidth: 1,
+        marginTop: 5,
+        paddingVertical: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingHorizontal: 10,
+    },
+    forth_1: {
+        // borderWidth: 0.5,
+        paddingVertical: 1,
+    },
+    for_1: {
+        // color: "#636e72",
+        fontSize: 13.5,
+        letterSpacing: 0.6,
+        fontFamily: "Kanit",
+        paddingVertical: 3.2,
+        paddingHorizontal: 7.5,
+        backgroundColor: "#dff9fb",
+        borderRadius: 7,
+    },
+    for_2: {
+        color: "white",
+        letterSpacing: 1.5,
+        fontSize: 12.5,
+        fontFamily: "Heebo",
+        marginTop: 6,
+        paddingHorizontal: 4.5,
+    },
+    for_22: {
+        color: "white",
+        letterSpacing: 1.5,
+        fontSize: 12.5,
+        fontFamily: "Heebo",
+        marginTop: 6,
+        paddingHorizontal: 4,
+    },
+});
+
+-----------------------------------------------------------------------------------
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView, StatusBar, Image } from 'react-native';
+import { firebase } from "../firestore";
+import { useNavigation } from '@react-navigation/native';
+import { useFonts } from "expo-font";
+
+export default function Z_Test_Extra_Z_2({ route }) {
+    // Navigation
+    const navigation = useNavigation();
+    // ----- Image Route Logic -----
+    const item = route.params?.item || {};
+    const [noteImage, setNoteImage] = useState(item.MyImage || "");
+    // ----- Image Route Logic -----
+    // Fonts
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+    if (!fontsLoaded) {
+        return null;
+    }
+    // Main Body
+    return (
+        <View style={styles.container}>
+            {/* Status Bar */}
+            <StatusBar backgroundColor={"red"} />
+            {/* Heading */}
+            <Text style={styles.Txt1}>Page 2 - ( 2 )</Text>
+            {/* Image Area */}
+            <View style={styles.SMH_First_Logo}>
+                <View style={styles.SMH_FirstImg_Parent}>
+                    <Image source={{ uri: noteImage }} style={styles.SMH_FirstImg} />
+                </View>
+            </View>
+            {/* Image Area */}
+            {/* ------ Move Button ------ */}
+            {/* 1 */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_3", {
+                item: {
+                    MyImage: item.MyImage,
+                },
+            })}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Page 3</Text>
+            </TouchableOpacity>
+            {/* 2 */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Back To Page 1</Text>
+            </TouchableOpacity>
+        </View >
+    );
+}
+
+// CSS
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "lightgreen",
+    },
+    SMH_First_Logo: {
+        borderWidth: 0.5,
+        paddingVertical: 10,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "yellow"
+    },
+    SMH_FirstImg_Parent: {
+        width: 150,
+        height: 150,
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        borderRadius: 5,
+        padding: 2,
+    },
+    SMH_FirstImg: {
+        width: "100%",
+        height: "100%",
+    },
+    Txt1: {
+        borderWidth: 0.5,
+        borderColor: "green",
+        backgroundColor: "green",
+        fontFamily: "HeeboExtra",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        textAlign: "center",
+        letterSpacing: 1.5,
+        fontSize: 20,
+        marginVertical: 10,
+        color: "white",
+    },
+    Upload_Btn_Parent: {
+        backgroundColor: "black",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 50,
+    },
+    Upload_Btn_Parent_Txt: {
+        textAlign: "center",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        fontSize: 18,
+        fontFamily: "Kanit",
+        color: "white",
+        letterSpacing: 1,
+    },
+});
+
+-----------------------------------------------------------------------------------
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView, StatusBar, Image } from 'react-native';
+import { firebase } from "../firestore";
+import { useNavigation } from '@react-navigation/native';
+import { useFonts } from "expo-font";
+
+export default function Z_Test_Extra_Z_3({ route }) {
+    // Navigation
+    const navigation = useNavigation();
+    // ----- Image Route Logic -----
+    const item = route.params?.item || {};
+    const [noteImage, setNoteImage] = useState(item.MyImage || "");
+    // ----- Image Route Logic -----
+    // Fonts
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+    if (!fontsLoaded) {
+        return null;
+    }
+    // Main Body
+    return (
+        <View style={styles.container}>
+            {/* Status Bar */}
+            <StatusBar backgroundColor={"red"} />
+            {/* Heading */}
+            <Text style={styles.Txt1}>Page 3 - ( 3 )</Text>
+            {/* Image Area */}
+            <View style={styles.SMH_First_Logo}>
+                <View style={styles.SMH_FirstImg_Parent}>
+                    <Image source={{ uri: noteImage }} style={styles.SMH_FirstImg} />
+                </View>
+            </View>
+            {/* Image Area */}
+            {/* ------ Move Button ------ */}
+            {/* 1 */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_4", {
+                item: {
+                    MyImage: item.MyImage,
+                },
+            })}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Page 4</Text>
+            </TouchableOpacity>
+            {/* 2 */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Back To Page 1</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+// CSS
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "pink",
+    },
+    SMH_First_Logo: {
+        borderWidth: 0.5,
+        paddingVertical: 10,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "green"
+    },
+    SMH_FirstImg_Parent: {
+        width: 150,
+        height: 150,
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        borderRadius: 5,
+        padding: 2,
+    },
+    SMH_FirstImg: {
+        width: "100%",
+        height: "100%",
+    },
+    Txt1: {
+        borderWidth: 0.5,
+        borderColor: "red",
+        backgroundColor: "red",
+        fontFamily: "HeeboExtra",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        textAlign: "center",
+        letterSpacing: 1.5,
+        fontSize: 20,
+        marginVertical: 10,
+        color: "white",
+    },
+    Upload_Btn_Parent: {
+        backgroundColor: "black",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 50,
+    },
+    Upload_Btn_Parent_Txt: {
+        textAlign: "center",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        fontSize: 18,
+        fontFamily: "Kanit",
+        color: "white",
+        letterSpacing: 1,
+    },
+});
+
+-----------------------------------------------------------------------------------
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView, StatusBar, Image } from 'react-native';
+import { firebase } from "../firestore";
+import { useNavigation } from '@react-navigation/native';
+import { useFonts } from "expo-font";
+
+export default function Z_Test_Extra_Z_4({ route }) {
+    // Navigation
+    const navigation = useNavigation();
+    // ----- Image Route Logic -----
+    const item = route.params?.item || {};
+    const [noteImage, setNoteImage] = useState(item.MyImage || "");
+    // ----- Image Route Logic -----
+    // Fonts
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+    if (!fontsLoaded) {
+        return null;
+    }
+    // Main Body
+    return (
+        <View style={styles.container}>
+            {/* Status Bar */}
+            <StatusBar backgroundColor={"red"} />
+            {/* Heading */}
+            <Text style={styles.Txt1}>Page 4 - ( 4 )</Text>
+            {/* Image Area */}
+            <View style={styles.SMH_First_Logo}>
+                <View style={styles.SMH_FirstImg_Parent}>
+                    <Image source={{ uri: noteImage }} style={styles.SMH_FirstImg} />
+                </View>
+            </View>
+            {/* Image Area */}
+            {/* ------ Move Button ------ */}
+            {/* 1 */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_5", {
+                item: {
+                    MyImage: item.MyImage,
+                },
+            })}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Page 5</Text>
+            </TouchableOpacity>
+            {/* 2 */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Back To Page 1</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+// CSS
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "lightblue",
+    },
+    SMH_First_Logo: {
+        borderWidth: 0.5,
+        paddingVertical: 10,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "pink"
+    },
+    SMH_FirstImg_Parent: {
+        width: 150,
+        height: 150,
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        borderRadius: 5,
+        padding: 2,
+    },
+    SMH_FirstImg: {
+        width: "100%",
+        height: "100%",
+    },
+    Txt1: {
+        borderWidth: 0.5,
+        borderColor: "blue",
+        backgroundColor: "blue",
+        fontFamily: "HeeboExtra",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        textAlign: "center",
+        letterSpacing: 1.5,
+        fontSize: 20,
+        marginVertical: 10,
+        color: "white",
+    },
+    Upload_Btn_Parent: {
+        backgroundColor: "black",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 50,
+    },
+    Upload_Btn_Parent_Txt: {
+        textAlign: "center",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        fontSize: 18,
+        fontFamily: "Kanit",
+        color: "white",
+        letterSpacing: 1,
+    },
+});
+
+-----------------------------------------------------------------------------------
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView, StatusBar, Image } from 'react-native';
+import { firebase } from "../firestore";
+import { useNavigation } from '@react-navigation/native';
+import { useFonts } from "expo-font";
+import * as ImageManipulator from 'expo-image-manipulator';
+
+export default function Z_Test_Extra_Z_5({ route }) {
+    // Navigation
+    const navigation = useNavigation();
+    // ----- Image Route Logic -----
+    const item = route.params?.item || {};
+    const [U_Extra_Uni_Image, setU_Extra_Uni_Image] = useState(item.MyImage || "");
+    // ----- Image Route Logic -----
+    // ----------- Backend Part Logic -----------
+    const universityRef = firebase.firestore().collection("New Practice App");
+    const [U1_universityName, setU1_universityName] = useState("");
+    const [U2_campus, setU2_campus] = useState("");
+    const [U3_intake, setU3_intake] = useState("");
+    const [U4_courseName, setU4_courseName] = useState("");
+    // Add Function
+    const addData = async () => {
+        if (U1_universityName && U1_universityName.length > 0 && U2_campus && U3_intake && U4_courseName) {
+            let base64Image = '';
+            if (U_Extra_Uni_Image) {
+                const manipResult = await ImageManipulator.manipulateAsync(
+                    U_Extra_Uni_Image,
+                    [{ resize: { width: 300 } }],
+                    { compress: 0.5, format: ImageManipulator.SaveFormat.PNG, base64: true } // Ensure the format is PNG
+                );
+                base64Image = `data:image/png;base64,${manipResult.base64}`; // Ensure the base64 path is correct
+            }
+            const data = {
+                U1_universityName,
+                U2_campus,
+                U3_intake,
+                U4_courseName,
+                U_Extra_Uni_Image: base64Image // Add base64Image to the data
+            };
+            const docRef = universityRef.doc(); // Create a new document with a random ID
+            docRef
+                .set(data)
+                .then(() => {
+                    // Pass the document ID to the next page
+                    navigation.navigate("Z_Test_Extra_Z_1", { documentId: docRef.id });
+                    setU1_universityName("");
+                    setU2_campus("");
+                    setU3_intake("");
+                    setU4_courseName("");
+                    setU_Extra_Uni_Image("");
+                    Keyboard.dismiss();
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        }
+    };
+    // ----------- Backend Part Logic -----------
+    // Fonts
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+    if (!fontsLoaded) {
+        return null;
+    }
+    // Main Body
+    return (
+        <View style={styles.container}>
+            <ScrollView>
+                {/* Status Bar */}
+                <StatusBar backgroundColor={"red"} />
+                {/* Heading */}
+                <Text style={styles.Txt1}>Page 5 - ( 5 )</Text>
+                {/* Image Area */}
+                <View style={styles.SMH_First_Logo}>
+                    <View style={styles.SMH_FirstImg_Parent}>
+                        {U_Extra_Uni_Image ? (
+                            <Image source={{ uri: U_Extra_Uni_Image }} style={styles.SMH_FirstImg} />
+                        ) : null}
+                    </View>
+                </View>
+                {/* Image Area */}
+                {/* Information Area */}
+                <View style={styles.Sec_Parent}>
+                    {/* 1 */}
+                    <Text style={styles.inputTitleTxt}>University Name</Text>
+                    <TextInput
+                        placeholder=" Enter University Name "
+                        value={U1_universityName}
+                        onChangeText={(text) => setU1_universityName(text)}
+                        style={styles.inputTitle}
+                        keyboardType="default"
+                    />
+                    {/* 2 */}
+                    <Text style={styles.inputTitleTxt}>Campus Name</Text>
+                    <TextInput
+                        placeholder=" Enter Campus Name "
+                        value={U2_campus}
+                        onChangeText={(text) => setU2_campus(text)}
+                        style={styles.inputTitle}
+                        keyboardType="default"
+                    />
+                    {/* 3 */}
+                    <Text style={styles.inputTitleTxt}>Intake</Text>
+                    <TextInput
+                        placeholder=" Enter Intake "
+                        value={U3_intake}
+                        onChangeText={(text) => setU3_intake(text)}
+                        style={styles.inputTitle}
+                        keyboardType="default"
+                    />
+                    {/* 4 */}
+                    <Text style={styles.inputTitleTxt}>Course Name as per University Website</Text>
+                    <TextInput
+                        placeholder=" Enter Course Name "
+                        value={U4_courseName}
+                        onChangeText={(text) => setU4_courseName(text)}
+                        style={styles.inputTitle}
+                        keyboardType="default"
+                    />
+                    {/* Button */}
+                    {/* 1 */}
+                    <TouchableOpacity style={styles.BtnBox} onPress={addData}>
+                        <Text style={styles.BtnBoxTxt}>Confirm Proceed</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        </View>
+    );
+}
+
+// CSS
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#BFF8E4",
+    },
+    SMH_First_Logo: {
+        borderWidth: 0.5,
+        paddingVertical: 5,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "orange"
+    },
+    SMH_FirstImg_Parent: {
+        width: 80,
+        height: 80,
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        borderRadius: 5,
+        padding: 2,
+    },
+    SMH_FirstImg: {
+        width: "100%",
+        height: "100%",
+    },
+    Txt1: {
+        borderWidth: 0.5,
+        borderColor: "blue",
+        backgroundColor: "blue",
+        fontFamily: "HeeboExtra",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        textAlign: "center",
+        letterSpacing: 1.5,
+        fontSize: 20,
+        marginVertical: 10,
+        color: "white",
+    },
+    Upload_Btn_Parent: {
+        backgroundColor: "black",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 50,
+    },
+    Upload_Btn_Parent_Txt: {
+        textAlign: "center",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        fontSize: 18,
+        fontFamily: "Kanit",
+        color: "white",
+        letterSpacing: 1,
+    },
+    Sec_Parent: {
+        // borderWidth: 0.5,
+        marginVertical: 10,
+        paddingVertical: 10,
+    },
+    inputTitle: {
+        marginHorizontal: 16,
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        borderRadius: 20,
+        paddingVertical: 1,
+        paddingLeft: 20,
+        fontSize: 14,
+        letterSpacing: 2,
+        fontFamily: "Kanit",
+        marginBottom: 17,
+        textDecorationColor: "white",
+        backgroundColor: "white",
+    },
+    inputTitleTxt: {
+        marginHorizontal: 16,
+        // borderWidth: 0.5,
+        fontSize: 12,
+        fontFamily: "Heebo",
+        paddingVertical: 6,
+        letterSpacing: 0.7,
+        textTransform: "capitalize",
+    },
+    BtnBox: {
+        marginVertical: 15,
+        marginHorizontal: 16,
+        borderColor: "#EB2F06",
+        backgroundColor: "#EB2F06",
+        borderWidth: 1,
+        paddingVertical: 4.5,
+        borderRadius: 20,
+    },
+    BtnBoxTxt: {
+        color: "white",
+        borderRadius: 20,
+        borderColor: "transparent",
+        borderWidth: 1,
+        paddingVertical: 1,
+        textAlign: "center",
+        fontFamily: "Heebo",
+        letterSpacing: 2.5,
+        fontSize: 20,
+    },
+});
+
+-----------------------------------------------------------------------------------
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView, StatusBar, Image, FlatList } from 'react-native';
+import { firebase } from "../firestore";
+import { useNavigation } from '@react-navigation/native';
+import { useFonts } from "expo-font";
+import { FontAwesome5, AntDesign, FontAwesome } from '@expo/vector-icons';
+
+export default function Z_Test_Extra_Z_6() {
+    // Navigation
+    const navigation = useNavigation();
+    // ----- Backend ( Show Data From Firestore , Firesbase ) -----
+    // 1 - useState
+    const [notes, setNotes] = useState([]);
+    // 2 - useEffect ( Fetch Data From Firestore Firebase )
+    useEffect(() => {
+        firebase
+            .firestore()
+            .collection("New Practice App")
+            .onSnapshot((querySnapshot) => {
+                const newNotes = [];
+                querySnapshot.forEach((doc) => {
+                    const { U1_universityName, U2_campus, U3_intake, U4_courseName, U_Extra_Uni_Image } = doc.data();
+                    newNotes.push({ U1_universityName, U2_campus, U3_intake, U4_courseName, U_Extra_Uni_Image });
+                });
+                setNotes(newNotes);
+            });
+    }, []);
+    // ----- Backend ( Show Data From Firestore , Firesbase ) -----
+    // Fonts
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    let [loaded] = useFonts({
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+    });
+    useEffect(() => {
+        if (loaded) {
+            setFontsLoaded(true);
+        }
+    }, [loaded]);
+    if (!fontsLoaded) {
+        return null;
+    }
+    // Main Body
+    return (
+        <View style={styles.container}>
+            {/* Status Bar */}
+            <StatusBar backgroundColor={"red"} />
+            {/* Heading */}
+            <Text style={styles.Txt1}>Last Page - ( Show Data )</Text>
+            {/* Show Data */}
+            <FlatList
+                data={notes}
+                numColumns={1}
+                estimatedItemSize={100}
+                renderItem={({ item }) => (
+                    // Display Area
+                    <TouchableOpacity style={styles.box}>
+                        {/* Box Border */}
+                        <View style={styles.box_2}>
+                            {/* Row 1 */}
+                            <View style={styles.in_box}>
+                                {/* 1 - Image */}
+                                <Image
+                                    source={{ uri: item.U_Extra_Uni_Image }}
+                                    style={styles.img_fir}
+                                />
+                                {/* 2 - Title */}
+                                <Text
+                                    style={styles.sec}>
+                                    {item.U1_universityName.substring(0, 15)}
+                                </Text>
+                            </View>
+                            {/* Row 2 */}
+                            <View style={styles.third}>
+                                {/* 1 - Text */}
+                                <Text style={styles.third_1}><FontAwesome5 name="book" size={12.5} color="#EB2F06" />  Intake</Text>
+                                {/* 2 - Title */}
+                                <Text style={styles.third_2}>{item.U3_intake.substring(0, 20)}</Text>
+                            </View>
+                            {/* Row 3 */}
+                            <View style={styles.forth}>
+                                {/* 1 */}
+                                <View style={styles.forth_1}>
+                                    <Text style={styles.for_1}><FontAwesome5 name="money-bill" size={12.5} color="#EB2F06" />  Course</Text>
+                                    <Text style={styles.for_2}>{item.U4_courseName.substring(0, 15)}</Text>
+                                </View>
+                                {/* 2 */}
+                                <View style={styles.forth_1}>
+                                    <Text style={styles.for_1}><AntDesign name="clockcircle" size={12.5} color="#EB2F06" />  Campus</Text>
+                                    <Text style={styles.for_22}>{item.U2_campus}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                )}
+            />
+            {/* Show Data */}
+            {/* ------ Move Button ------ */}
+            {/* 1 */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Back To Page 1</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+// CSS
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "lightblue",
+    },
+    Txt1: {
+        borderWidth: 0.5,
+        borderColor: "blue",
+        backgroundColor: "blue",
+        fontFamily: "HeeboExtra",
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        textAlign: "center",
+        letterSpacing: 1.5,
+        fontSize: 20,
+        marginVertical: 10,
+        color: "white",
+    },
+    Upload_Btn_Parent: {
+        backgroundColor: "black",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        marginVertical: 10,
+        marginHorizontal: 20,
+        paddingVertical: 5,
+        borderRadius: 50,
+    },
+    Upload_Btn_Parent_Txt: {
+        textAlign: "center",
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        fontSize: 18,
+        fontFamily: "Kanit",
+        color: "white",
+        letterSpacing: 1,
+    },
+    box: {
+        width: '75%',
+        borderRadius: 17,
+        // borderWidth: 1,
+        borderColor: "black",
+        alignSelf: 'center',
+        marginTop: 16,
+        // marginBottom: 4,
+        alignItems: 'center',
+        flexDirection: 'row',
+        elevation: 15,
+        backgroundColor: "lightyellow",
+        paddingHorizontal: 5,
+        paddingVertical: 5,
+    },
+    box_2: {
+        width: "100%",
+        flexDirection: "column",
+        paddingVertical: 7,
+    },
+    in_box: {
+        // borderWidth: 0.1,
+        width: "100%",
+        height: 52,
+        flexDirection: "row",
+        paddingVertical: 2,
+    },
+    img_fir: {
+        // borderWidth: 1,
+        // borderColor: "black",
+        width: "23%",
+        height: '100%',
+        marginLeft: 9,
+        borderRadius: 7,
+    },
+    sec: {
+        letterSpacing: 2,
+        textAlign: "center",
+        fontFamily: "KanitBold",
+        width: "70%",
+        marginLeft: 10,
+        color: "black",
+        marginTop: 11,
+        // borderWidth: 1,
+        //   height: 20,
+        fontSize: 16,
+        textTransform: "uppercase",
+        paddingHorizontal: 2,
+    },
+    third: {
+        marginTop: 10.5,
+        // borderWidth: 1,
+        width: "100%",
+        // height: 48,
+        flexDirection: "column",
+    },
+    third_1: {
+        letterSpacing: 0.6,
+        textAlign: "left",
+        fontFamily: "Kanit",
+        // color: "#636e72",
+        marginHorizontal: 10,
+        fontSize: 13.5,
+        paddingVertical: 3.2,
+        paddingHorizontal: 7.5,
+        backgroundColor: "#dff9fb",
+        borderRadius: 7,
+        width: "29%",
+        marginTop: 5,
+    },
+    third_2: {
+        letterSpacing: 1.6,
+        textAlign: "left",
+        fontFamily: "Heebo",
+        marginHorizontal: 12,
+        color: "black",
+        marginTop: 2,
+        // borderWidth: 1,
+        fontSize: 14,
+        paddingVertical: 4.5,
+        paddingHorizontal: 2,
+        marginBottom: 2,
+    },
+    forth: {
+        // borderWidth: 1,
+        marginTop: 5,
+        paddingVertical: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingHorizontal: 10,
+    },
+    forth_1: {
+        // borderWidth: 0.5,
+        paddingVertical: 1,
+    },
+    for_1: {
+        // color: "#636e72",
+        fontSize: 13.5,
+        letterSpacing: 0.6,
+        fontFamily: "Kanit",
+        paddingVertical: 3.2,
+        paddingHorizontal: 7.5,
+        backgroundColor: "#dff9fb",
+        borderRadius: 7,
+    },
+    for_2: {
+        // color: "#009432",
+        letterSpacing: 1.5,
+        fontSize: 14,
+        fontFamily: "Heebo",
+        marginTop: 6,
+        paddingHorizontal: 4.5,
+    },
+    for_22: {
+        // color: "#e84118",
+        letterSpacing: 1.5,
+        fontSize: 14,
+        fontFamily: "Heebo",
+        marginTop: 6,
+        paddingHorizontal: 4,
+    },
+});
+
+-----------------------------------------------------------------------------------
+
