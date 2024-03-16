@@ -6,9 +6,13 @@ import { FontAwesome } from '@expo/vector-icons';
 // useNavigate
 import { useNavigation } from '@react-navigation/native'
 
-export default function PersonalData_HomeMain() {
+export default function PersonalData_HomeMain({ route }) {
     // 0 - useNavigate
     const navigation = useNavigation();
+    // ----- Image Route Logic -----
+    const item = route.params?.item || {};
+    const [noteImage, setNoteImage] = useState(item.MyImage || "");
+    // ----- Image Route Logic -----
     // Modal useState
     const [showStatus, setShowStatus] = useState(false)
     // Set TimeOut
@@ -57,7 +61,11 @@ export default function PersonalData_HomeMain() {
                 {/* Documents */}
                 <View style={styles.ParentDoc}>
                     {/* 1 */}
-                    <TouchableOpacity onPress={() => navigation.navigate('S_PersonalData_1')}>
+                    <TouchableOpacity onPress={() => navigation.navigate("S_PersonalData_1", {
+                        item: {
+                            MyImage: item.MyImage,
+                        },
+                    })}>
                         <View style={styles.DocBox}>
                             {/* Part 1 */}
                             <View style={styles.DocBoxPart1}>

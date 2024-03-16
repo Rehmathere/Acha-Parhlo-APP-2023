@@ -7,9 +7,13 @@ import { useFonts } from "expo-font";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 
-export default function Doc_HomeMain() {
+export default function Doc_HomeMain({ route }) {
     // 0 - useNavigation
     const navigation = useNavigation();
+    // ----- Image Route Logic -----
+    const item = route.params?.item || {};
+    const [noteImage, setNoteImage] = useState(item.MyImage || "");
+    // ----- Image Route Logic -----
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
@@ -48,7 +52,11 @@ export default function Doc_HomeMain() {
                 {/* Text */}
                 <Text style={styles.DHM_E_Text}>Follow a complete process for Information And Documents Filling.</Text>
                 {/* Button 1 */}
-                <TouchableOpacity style={styles.BTn_1_Parent} onPress={() => navigation.navigate('PersonalData_HomeMain')}>
+                <TouchableOpacity style={styles.BTn_1_Parent} onPress={() => navigation.navigate("PersonalData_HomeMain", {
+                item: {
+                    MyImage: item.MyImage,
+                },
+            })}>
                     <View style={styles.BTn_1_Parent_Box}>
                         {/* Part 1 */}
                         <View style={styles.BTn_1_Parent_Box_P1}>
@@ -159,7 +167,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1.5,
         fontSize: 18,
     },
-    DHM_E_Text:{
+    DHM_E_Text: {
         // borderWidth: 0.5,
         fontFamily: "Kanit",
         textAlign: "center",

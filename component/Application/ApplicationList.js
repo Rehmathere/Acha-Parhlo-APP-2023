@@ -28,8 +28,8 @@ export default function ApplicationList() {
             .onSnapshot((querySnapshot) => {
                 const newNotes = [];
                 querySnapshot.forEach((doc) => {
-                    const { U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue } = doc.data();
-                    newNotes.push({ U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue, id: doc.id });
+                    const { U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue, U_Extra_Uni_Image } = doc.data();
+                    newNotes.push({ U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue, U_Extra_Uni_Image, id: doc.id });
                 });
                 setNotes(newNotes);
                 setOldData(newNotes);
@@ -85,6 +85,7 @@ export default function ApplicationList() {
                             U1_universityName: item.U1_universityName,
                             U4_courseName: item.U4_courseName,
                             buttonValue: item.buttonValue,
+                            U_Extra_Uni_Image: item.U_Extra_Uni_Image,
                         },
                         firestoreId: item.id,  // Pass the Firestore ID
                     })}
@@ -97,7 +98,7 @@ export default function ApplicationList() {
                                 {/* 1 - Image */}
                                 <View style={styles.img_fir_Parent}>
                                     <Image
-                                        source={require("../Pics/Track_2.png")}
+                                        source={{ uri: item.U_Extra_Uni_Image }}
                                         style={styles.img_fir}
                                     />
                                 </View>
@@ -173,22 +174,22 @@ const styles = StyleSheet.create({
     img_fir_Parent: {
         borderWidth: 0.5,
         borderColor: "lightgrey",
-        width: "20.5%",
-        height: 55,
+        width: "27%",
+        height: 52,
         marginLeft: 9,
         borderRadius: 5,
-        padding: 1,
+        padding: 1.5,
     },
     img_fir: {
         borderRadius: 3,
         width: "100%",
-        height: '100%',
+        height: 48,
     },
     sec: {
         letterSpacing: 3,
         textAlign: "center",
         fontFamily: "KanitBold",
-        width: "70%",
+        width: "63%",
         marginLeft: 10,
         color: "white",
         marginTop: 11,

@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import Overview1 from "./Overview1";
 import Admission2 from "./Admission2";
-import DocHome from './DocumentPage/DocHome'
 // Fonts Header File
 import { useFonts } from "expo-font";
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
@@ -153,7 +152,11 @@ export default function SubMainHome({ route }) {
             {/* Apply Button */}
             <View style={styles.ParentApplyButton}>
                 {/* Button */}
-                <TouchableOpacity style={styles.SubParentApplyButton} onPress={() => navigation.navigate('Doc_HomeMain')}>
+                <TouchableOpacity style={styles.SubParentApplyButton} onPress={() => navigation.navigate("Doc_HomeMain", {
+                    item: {
+                        MyImage: item.MyImage,
+                    },
+                })}>
                     <Text style={styles.ApplyButton}>Apply</Text>
                 </TouchableOpacity>
             </View>

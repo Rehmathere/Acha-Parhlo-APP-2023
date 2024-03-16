@@ -11,6 +11,8 @@ export default function ApplicationStatus({ route }) {
     const [U1_universityName, setU1_universityName] = useState(item.U1_universityName || "");
     const [U4_courseName, setU4_courseName] = useState(item.U4_courseName || "");
     const [buttonValue, setbuttonValue] = useState(item.buttonValue || " Processing ");
+    const [U_Extra_Uni_Image, setU_Extra_Uni_Image] = useState(item.U_Extra_Uni_Image || "");
+
     // ---------- Backend Part Logic ----------
     // Lights
     const [button1Color, setButton1Color] = useState('#EEF0F2');
@@ -198,7 +200,7 @@ export default function ApplicationStatus({ route }) {
                             {/* Item Image */}
                             <View style={styles.ParentCourseImg}>
                                 <View style={styles.subParentCourseImg}>
-                                    <Image source={require('../Pics/Track_4.png')} style={styles.CourseImg} />
+                                    <Image source={{ uri: U_Extra_Uni_Image }} style={styles.CourseImg} />
                                 </View>
                             </View>
                             {/* Item 2 */}
@@ -410,14 +412,16 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     subParentCourseImg: {
-        // borderWidth: 0.5,
+        borderColor: "white",
+        borderWidth: 0.5,
         padding: 1,
-        width: 93,
-        height: 56,
+        width: 100,
+        height: 74.5,
+        padding: 2,
+        borderRadius: 6,
     },
     CourseImg: {
         // borderWidth: 0.5,
-        // borderColor: "white",
         width: "100%",
         height: 70,
         borderRadius: 5,
