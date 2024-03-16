@@ -4,7 +4,7 @@ import { firebase } from "../firestore";
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from "expo-font";
 
-export default function Z_Test_Extra_Z_3({ route }) {
+export default function Z_Test_Extra_Z_4({ route }) {
     // Navigation
     const navigation = useNavigation();
     // ----- Image Route Logic -----
@@ -35,7 +35,7 @@ export default function Z_Test_Extra_Z_3({ route }) {
             {/* Status Bar */}
             <StatusBar backgroundColor={"red"} />
             {/* Heading */}
-            <Text style={styles.Txt1}>Page 3 - ( 3 )</Text>
+            <Text style={styles.Txt1}>Page 4 - ( 4 )</Text>
             {/* Image Area */}
             <View style={styles.SMH_First_Logo}>
                 <View style={styles.SMH_FirstImg_Parent}>
@@ -45,12 +45,12 @@ export default function Z_Test_Extra_Z_3({ route }) {
             {/* Image Area */}
             {/* ------ Move Button ------ */}
             {/* 1 */}
-            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_4", {
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_5", {
                 item: {
                     MyImage: item.MyImage,
                 },
             })}>
-                <Text style={styles.Upload_Btn_Parent_Txt}>Move Page 4</Text>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Page 5</Text>
             </TouchableOpacity>
             {/* 2 */}
             <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
@@ -64,7 +64,7 @@ export default function Z_Test_Extra_Z_3({ route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "pink",
+        backgroundColor: "lightblue",
     },
     SMH_First_Logo: {
         borderWidth: 0.5,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         width: "100%",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "green"
+        backgroundColor: "pink"
     },
     SMH_FirstImg_Parent: {
         width: 150,
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     },
     Txt1: {
         borderWidth: 0.5,
-        borderColor: "red",
-        backgroundColor: "red",
+        borderColor: "blue",
+        backgroundColor: "blue",
         fontFamily: "HeeboExtra",
         paddingHorizontal: 10,
         paddingVertical: 10,

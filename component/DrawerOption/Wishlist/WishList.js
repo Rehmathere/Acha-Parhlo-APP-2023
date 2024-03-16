@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: "lightgrey",
         width: "20%",
-        height: '100%',
+        height: 58,
         marginLeft: 9,
         borderRadius: 5,
         padding: 1,
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 2,
     },
     third: {
-        marginTop: 10.5,
+        marginTop: 17.5,
         // borderWidth: 1,
         width: "100%",
         // height: 48,

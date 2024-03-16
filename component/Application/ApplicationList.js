@@ -173,8 +173,8 @@ const styles = StyleSheet.create({
     img_fir_Parent: {
         borderWidth: 0.5,
         borderColor: "lightgrey",
-        width: "20%",
-        height: '100%',
+        width: "20.5%",
+        height: 55,
         marginLeft: 9,
         borderRadius: 5,
         padding: 1,

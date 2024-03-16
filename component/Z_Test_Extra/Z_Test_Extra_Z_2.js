@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Text, View, StyleSheet, Image } from 'react-native';
-import { useFonts } from 'expo-font';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView, StatusBar, Image } from 'react-native';
+import { firebase } from "../firestore";
 import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useFonts } from "expo-font";
 
-export default function Z_Test_Extra_Z_2() {
+export default function Z_Test_Extra_Z_2({ route }) {
+    // Navigation
     const navigation = useNavigation();
+    // ----- Image Route Logic -----
+    const item = route.params?.item || {};
+    const [noteImage, setNoteImage] = useState(item.MyImage || "");
+    // ----- Image Route Logic -----
     // Fonts
     const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
-        Archivo: require('../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf'),
-        Kanit: require('../../assets/fonts/My_Soul/Kanit-Light.ttf'),
-        Heebo: require('../../assets/fonts/My_Soul/Heebo-Medium.ttf'),
-        HeeboExtra: require('../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf'),
-        KanitBold: require('../../assets/fonts/My_Soul/Kanit-Bold.ttf'),
-        KanitBlack: require('../../assets/fonts/My_Soul/Kanit-Black.ttf'),
+        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
     useEffect(() => {
         if (loaded) {
@@ -27,31 +32,78 @@ export default function Z_Test_Extra_Z_2() {
     // Main Body
     return (
         <View style={styles.container}>
-            <Text style={styles.fir}> Image Fetch Area </Text>
-            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
-                <Text style={styles.Upload_Btn_Parent_Txt}>Move Back To Home</Text>
+            {/* Status Bar */}
+            <StatusBar backgroundColor={"red"} />
+            {/* Heading */}
+            <Text style={styles.Txt1}>Page 2 - ( 2 )</Text>
+            {/* Image Area */}
+            <View style={styles.SMH_First_Logo}>
+                <View style={styles.SMH_FirstImg_Parent}>
+                    <Image source={{ uri: noteImage }} style={styles.SMH_FirstImg} />
+                </View>
+            </View>
+            {/* Image Area */}
+            {/* ------ Move Button ------ */}
+            {/* 1 */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_3", {
+                item: {
+                    MyImage: item.MyImage,
+                },
+            })}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Page 3</Text>
             </TouchableOpacity>
-        </View>
+            {/* 2 */}
+            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
+                <Text style={styles.Upload_Btn_Parent_Txt}>Move Back To Page 1</Text>
+            </TouchableOpacity>
+        </View >
     );
 }
 
+// CSS
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "lightgreen",
     },
-    fir: {
+    SMH_First_Logo: {
         borderWidth: 0.5,
-        marginVertical: 30,
+        paddingVertical: 10,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "yellow"
+    },
+    SMH_FirstImg_Parent: {
+        width: 150,
+        height: 150,
+        borderWidth: 0.5,
+        borderColor: "#EB2F06",
+        borderRadius: 5,
+        padding: 2,
+    },
+    SMH_FirstImg: {
+        width: "100%",
+        height: "100%",
+    },
+    Txt1: {
+        borderWidth: 0.5,
+        borderColor: "green",
+        backgroundColor: "green",
+        fontFamily: "HeeboExtra",
+        paddingHorizontal: 10,
         paddingVertical: 10,
         textAlign: "center",
-        fontFamily: "Heebo",
+        letterSpacing: 1.5,
         fontSize: 20,
-        backgroundColor: "aqua",
+        marginVertical: 10,
+        color: "white",
     },
     Upload_Btn_Parent: {
         backgroundColor: "black",
         borderWidth: 0.5,
-        marginVertical: 20,
+        borderColor: "transparent",
+        marginVertical: 10,
         marginHorizontal: 20,
         paddingVertical: 5,
         borderRadius: 50,
@@ -59,6 +111,7 @@ const styles = StyleSheet.create({
     Upload_Btn_Parent_Txt: {
         textAlign: "center",
         borderWidth: 0.5,
+        borderColor: "transparent",
         fontSize: 18,
         fontFamily: "Kanit",
         color: "white",
