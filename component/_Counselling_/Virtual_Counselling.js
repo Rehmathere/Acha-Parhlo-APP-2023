@@ -7,6 +7,7 @@ import {
     FlatList,
     TouchableOpacity,
     SafeAreaView,
+    Keyboard
 } from "react-native";
 import axios from "axios";
 import { Ionicons } from "@expo/vector-icons";
@@ -72,6 +73,7 @@ export default function Virtual_Counselling() {
                     };
                     setMessages([...messages, newUserMessage, newBotMessage]);
                     setInputText('');
+                    Keyboard.dismiss(); // Dismiss the keyboard after sending message
                 } else {
                     console.error(' Response Structure is not as Expected ');
                 }
@@ -141,7 +143,7 @@ export default function Virtual_Counselling() {
                                     letterSpacing: 1,
                                     fontSize: 12,
                                 }}
-                                >
+                            >
                                 {item.sender === "user" ? item.text : item.text}
                             </Text>
                             {/* 2 */}
@@ -224,11 +226,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
     },
     sendButtonTxt: {
-       textAlign: "center",
-       fontFamily: "Heebo",
-       letterSpacing: 2.5,
-       fontSize: 15, 
-    //    color: "white",
-       textTransform: "capitalize",
+        textAlign: "center",
+        fontFamily: "Heebo",
+        letterSpacing: 2.5,
+        fontSize: 15,
+        //    color: "white",
+        textTransform: "capitalize",
     },
 });

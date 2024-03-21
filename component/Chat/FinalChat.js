@@ -76,7 +76,7 @@ export default function FinalChat() {
             onSend={newMessages => onSend(newMessages)}
             messagesContainerStyle={{
                 // backgroundColor: '#FFE4DE',
-                backgroundColor: 'white',
+                // backgroundColor: 'white',
                 fontFamily: "Kanit",
             }}
             textInputStyle={{
@@ -100,9 +100,11 @@ export default function FinalChat() {
                             // backgroundColor: '#006700', // Set the background color for receiver's messages
                             backgroundColor: '#D9D9D9', // Set the background color for receiver's messages
                             color: "black",
+                            fontFamily: "Kanit",
                         },
                         right: {
                             backgroundColor: '#EB2F06', // Set the background color for sender's messages
+                            fontFamily: "Kanit",
                         },
                     }}
                     textStyle={{
@@ -112,6 +114,7 @@ export default function FinalChat() {
                             paddingVertical: 2,
                             color: 'black',
                             fontFamily: "Kanit",
+                            fontSize: 13,
                         },
                         right: {
                             letterSpacing: 1, // Apply letterSpacing for sender's messages
@@ -119,6 +122,7 @@ export default function FinalChat() {
                             paddingVertical: 2,
                             color: 'white',
                             fontFamily: "Kanit",
+                            fontSize: 13,
                         },
                     }}
                 />

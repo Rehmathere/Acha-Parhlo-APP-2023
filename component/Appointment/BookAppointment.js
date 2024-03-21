@@ -50,12 +50,12 @@ export default function BookAppointment() {
     // 1 - useState
     // --------------------------------------------------
     const [slots, setSlots] = useState([
-        { sloT: '2:00 - 4:00 PM', selected: false },
-        { sloT: '4:00 - 6:00 PM', selected: false },
-        { sloT: '6:00 - 8:00 PM', selected: false },
-        { sloT: '8:00 - 10:00 PM', selected: false },
-        { sloT: '10:00 - 12:00 PM', selected: false },
-        { sloT: '12:00 - 02:00 PM', selected: false },
+        { sloT: '8:00 - 9:00 AM', selected: false },
+        { sloT: '9:00 - 10:00 AM', selected: false },
+        { sloT: '10:00 - 11:00 AM', selected: false },
+        { sloT: '11:00 - 12:00 PM', selected: false },
+        { sloT: '12:00 - 01:00 PM', selected: false },
+        { sloT: '01:00 - 02:00 PM', selected: false },
     ]);
     // useState For Date
     const [days, setDays] = useState([]);
