@@ -129,19 +129,7 @@ function App() {
           name="Registration"
           component={Registration}
           options={{
-            headerTitle: () => <MyHeader />,
-            headerStyle: {
-              height: 150,
-              borderBottomLeftRadius: 1000,
-              borderBottomRightRadius: 1000,
-              backgroundColor: "#EB2F06",
-              shadowColor: "red",
-              elevation: 25,
-            },
-            headerLeft: null,
-            headerBackgroundContainerStyle: {
-              backgroundColor: "white",
-            }
+            headerShown: false,
           }}
         />
         <Stack.Screen
@@ -150,10 +138,10 @@ function App() {
           options={{
             headerTitle: "Forget Password",
             headerTitleStyle: {
-              fontFamily: "Heebo",
+              fontFamily: "Kanit",
               color: "white",
               letterSpacing: 1.5,
-              fontSize: 15,
+              fontSize: 14,
             },
             headerPressColor: "white",
             headerStyle: {
