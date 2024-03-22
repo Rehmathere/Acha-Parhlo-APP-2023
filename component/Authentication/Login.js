@@ -13,6 +13,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../firestore";
 import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
+// Linear Gradient
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Login() {
   // Navigation Variable
@@ -47,96 +49,15 @@ export default function Login() {
     <View style={styles.container}>
       <ScrollView>
         <StatusBar backgroundColor={"#EB2F06"} />
-        {/* -------------------------------  Old Logic Code  ------------------------------------ */}
-        {/* Main Body
-      <View style={styles.Sub_Sec_Parent}>
-        <Text style={styles.fir}>Login</Text>
-        Text 1
-        <Text style={styles.f_txt}>Email</Text>
-        TextInput 1
-        <TextInput
-          style={[styles.sec, { marginBottom: 17 }]}
-          placeholder=" Enter Your Email "
-          onChangeText={(email) => setEmail(email)}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        Text 2
-        <Text style={styles.f_txt}>Password</Text>
-        TextInput 1
-        <TextInput
-          style={styles.sec}
-          placeholder=" Enter Your Password "
-          onChangeText={(password) => setPassword(password)}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={!showPassword} // Toggle password visibility
-        />
-        -------------------------------------------
-        Hide Or Show Password
-        <TouchableOpacity onPress={togglePasswordVisibility}>
-          <Text style={styles.Hide_See_Pass}>
-            {passwordButtonText}{" "}
-            {showPassword ? (
-              <Ionicons name="eye-off-sharp" size={19} color="black" />
-            ) : (
-              <Ionicons name="eye" size={19} color="black" />
-            )}
-          </Text>
-        </TouchableOpacity>
-        -------------------------------------------
-        Change Password
-        <View style={styles.passView}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ForgetPass")}
-            style={styles.pass}
-          >
-            <Text style={styles.passTxt}>Forget Password</Text>
-          </TouchableOpacity>
-        </View>
-        Button 1
-        <TouchableOpacity
-          onPress={() => loginUser(email, password)}
-          style={[styles.but, styles.but_1]}
-        >
-          <Text
-            style={{
-              fontFamily: "Heebo",
-              fontSize: 16,
-              textAlign: "center",
-              color: "white",
-              letterSpacing: 3,
-            }}
-          >
-            LOGIN
-          </Text>
-        </TouchableOpacity>
-        Button 2
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Registration")}
-          style={[styles.but, styles.but_2]}
-        >
-          <Text
-            style={{
-              fontFamily: "Heebo",
-              fontSize: 13,
-              letterSpacing: 0.7,
-              textAlign: "center",
-              color: "white",
-            }}
-            >
-            Don't Have An Account ? Register Now
-          </Text>
-        </TouchableOpacity>
-      </View> */}
-        {/* -------------------------------  Old Logic Code  ------------------------------------ */}
         {/* --  New Logic Code  -- */}
         {/* New Main Code */}
         <View style={styles.E_New_Parent_Extra}>
           {/* Part 1 */}
-          <View style={styles.E_New_Parent_Extra_Part_1}>
-            {/* Box Color Area */}
-          </View>
+          {/* <LinearGradient colors={["#FF522B", "#FF8970"]} style={{ paddingVertical: 7, }}> */}
+            <View style={styles.E_New_Parent_Extra_Part_1}>
+              {/* Box Color Area */}
+            </View>
+          {/* </LinearGradient> */}
           {/* Part 2 */}
           <View style={styles.E_New_Parent_Extra_Part_2}>
             {/* Box Color Area */}
@@ -147,7 +68,7 @@ export default function Login() {
         <View style={styles.Fir_Grand_Parent}>
           <View style={styles.New_fir_Parent}>
             <View style={styles.Sub_New_fir_Parent}>
-              <Image source={require("../Pics/logo2.png")} style={styles.New_fir_Img} />
+              <Image source={require("../Pics/logo2.png")} style={[ styles.New_fir_Img , { tintColor: 'white' } ]} />
             </View>
           </View>
           {/* 2 - Email Part */}

@@ -36,123 +36,30 @@ export default function Registration() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   // Function
-  registerUser = async (email, password, firstName, lastName) => {
-    await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        firebase
-          .auth()
-          .currentUser.sendEmailVerification({
-            handleCodeInApp: true,
-            url: "awpro-f81b1.firebaseapp.com",
-          })
-          .then(() => {
-            alert(" Verification Email Has Been Sent ");
-          })
-          .catch((error) => {
-            alert(error.message);
-          })
-          .then(() => {
-            firebase
-              .firestore()
-              .collection("users")
-              .doc(firebase.auth().currentUser.uid)
-              .set({
-                firstName,
-                lastName,
-                email,
-              });
-          })
-          .catch((error) => {
-            alert(error.message);
-          });
-      });
+  const registerUser = async () => {
+    try {
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid)
+        .set({
+          firstName,
+          lastName,
+          email,
+        });
+      alert("User Registered Successfully !");
+    } catch (error) {
+      alert(error.message);
+    }
   };
   // Main Body
   return (
     <View style={styles.container}>
       <ScrollView>
         <StatusBar backgroundColor={"#EB2F06"} />
-        {/* -------------------------------  Old Logic Code  ------------------------------------ */}
-        {/* Main Body
-        <Text style={styles.fir}>Register</Text>
-        Text 1
-        <Text style={styles.f_txt}>First Name</Text>
-        TextInput 1
-        <TextInput
-          style={styles.sec}
-          placeholder=" Enter First Name "
-          onChangeText={(firstName) => setFirstName(firstName)}
-          autoCorrect={false}
-        />
-        Text 2
-        <Text style={styles.f_txt}>Last Name</Text>
-        TextInput 2
-        <TextInput
-          style={styles.sec}
-          placeholder=" Enter Last Name "
-          onChangeText={(lastName) => setLastName(lastName)}
-          autoCorrect={false}
-        />
-        Text 3
-        <Text style={styles.f_txt}>Email</Text>
-        TextInput 3
-        <TextInput
-          style={styles.sec}
-          placeholder=" Enter Email "
-          onChangeText={(email) => setEmail(email)}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="email-address"
-        />
-        Text 4
-        <Text style={styles.f_txt}>Password</Text>
-        TextInput 4
-        <TextInput
-          style={styles.sec}
-          placeholder=" Enter Password "
-          onChangeText={(password) => setPassword(password)}
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-        />
-        Button 1
-        <TouchableOpacity
-          onPress={() => registerUser(email, password, firstName, lastName)}
-          style={[styles.but, styles.but_1]}
-        >
-          <Text
-            style={{
-              fontFamily: "Heebo",
-              fontSize: 16,
-              textAlign: "center",
-              color: "white",
-              letterSpacing: 2,
-            }}
-          >
-            REGISTER
-          </Text>
-        </TouchableOpacity>
-        Button 2
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Login")}
-          style={[styles.Ebut, styles.but_2]}
-        >
-          <Text
-            style={{
-              fontFamily: "Heebo",
-              fontSize: 13.5,
-              textAlign: "center",
-              color: "white",
-              letterSpacing: 1.5,
-            }}
-          >
-            Already have Account ? LOGIN
-          </Text>
-        </TouchableOpacity> */}
-        {/* -------------------------------  Old Logic Code  ------------------------------------ */}
-        {/* -------------------------------  Old Logic Code  ------------------------------------ */}
         {/* --  New Logic Code  -- */}
         {/* New Main Code */}
         <View style={styles.E_New_Parent_Extra}>
@@ -170,7 +77,7 @@ export default function Registration() {
         <View style={styles.Fir_Grand_Parent}>
           <View style={styles.New_fir_Parent}>
             <View style={styles.Sub_New_fir_Parent}>
-              <Image source={require("../Pics/logo2.png")} style={styles.New_fir_Img} />
+              <Image source={require("../Pics/logo2.png")} style={[styles.New_fir_Img, { tintColor: 'white' }]} />
             </View>
           </View>
           {/* 2 - Email Part */}
@@ -216,6 +123,7 @@ export default function Registration() {
                       onChangeText={(email) => setEmail(email)}
                       autoCapitalize="none"
                       autoCorrect={false}
+                      keyboardType="email-address"
                     />
                   </View>
                   {/* Input 2 */}

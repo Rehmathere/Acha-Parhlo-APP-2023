@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, StatusBar, Image, FlatList, TouchableOpacity } from 'react-native';
-import Header from './Header';
-import CommonBtn from './CommonBtn';
 import { useNavigation } from '@react-navigation/native';
 // Fonts Header File
 import { useFonts } from "expo-font";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+// Linear Gradient
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Home() {
   // 1 - useState
@@ -30,64 +31,45 @@ export default function Home() {
   if (!fontsLoaded) {
     return null;
   }
-  // Create data for FlatList rendering
-  const data = Array.from({ length: 4 }, (_, index) => index + 1);
-  const renderItem = ({ item, index }) => {
-    const isAvailable = index / 2 === 1;
-    // Function 
-    return (
-      <View style={styles.thirdItem}>
-        <Image source={require('../Pics/man_2.png')} style={styles.third_img} />
-        <Text style={styles.third_txt}>{`Consultant ${index + 1}`}</Text>
-        <Text style={[styles.third_txt_1, { color: isAvailable ? 'green' : 'red', fontSize: 12.5, letterSpacing: 1.5, }]}>
-          {isAvailable ? 'Available' : 'Busy'}
-        </Text>
-        <CommonBtn
-          w="89%"
-          h={26.5}
-          txt="Book Appointment"
-          status={isAvailable}
-          onClick={() => {
-            if (isAvailable) {
-              navigation.navigate('BookAppointment');
-            }
-          }}
-        />
-      </View>
-    );
-  };
   // Main Body
   return (
-    <FlatList
-      style={styles.container}
-      data={data}
-      ListHeaderComponent={
-        <>
-          <StatusBar backgroundColor="red" />
-          <View style={styles.MyParentImg}>
-            <Image source={require('../Pics/Appointment.png')} style={styles.fir_img} />
-          </View>
-          <Text style={styles.third}>Book Appointment</Text>
-          <Text style={styles.third_Txt_1_E}>Please feel free to schedule appointments with our team of expert consultants.</Text>
-        </>
-      }
-      numColumns={2}
-      renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
-      ListFooterComponentStyle={styles.bottomViewContainer}
-      ListFooterComponent={
+    <View style={styles.container}>
+      <StatusBar backgroundColor="#EB2F06" />
+      <View style={styles.MyParentImg}>
+        <Image source={require('../Pics/Appointment.png')} style={styles.fir_img} />
+      </View>
+      <Text style={styles.third}>Book Appointment</Text>
+      <Text style={styles.third_Txt_1_E}>Please feel free to schedule appointments with our expert consultant.</Text>
+      {/* Button Parent */}
+      <View style={styles.BtnParent}>
+        <TouchableOpacity style={styles.BtnPart1} onPress={() => navigation.navigate("BookAppointment")}>
+          <Text style={styles.BtnPart2}>Book Appointment Now</Text>
+        </TouchableOpacity>
+      </View>
+      {/* // Bottom View Part */}
+      <View style={styles.bottomViewContainer}>
         <View style={styles.bottomView}>
           {/* 1 */}
           <TouchableOpacity onPress={() => navigation.navigate('Completed')}>
-            <Image source={require('../Pics/completed_1.png')} style={styles.bottomIcon} />
+            <LinearGradient colors={["#FF7356", "#FFA08C", "#FF7356"]} style={{ borderRadius: 10, }}>
+              <View style={styles.E_Bottom_Box}>
+                <Text style={styles.E_Bottom_Box_Text}><MaterialCommunityIcons name="clipboard-list-outline" size={23} color="black" /></Text>
+                <Text style={styles.E_Bottom_Box_Text_1}>List</Text>
+              </View>
+            </LinearGradient>
           </TouchableOpacity>
-          {/* 1 */}
+          {/* 2 */}
           <TouchableOpacity onPress={() => navigation.navigate('MyDrawer')}>
-            <Image source={require('../Pics/Home_1.png')} style={styles.bottomIcon} />
+            <LinearGradient colors={["#FF7356", "#FFA08C", "#FF7356"]} style={{ borderRadius: 10, }}>
+              <View style={styles.E_Bottom_Box}>
+                <Text style={styles.E_Bottom_Box_Text}><MaterialCommunityIcons name="home" size={23} color="black" /></Text>
+                <Text style={styles.E_Bottom_Box_Text_1}>Home</Text>
+              </View>
+            </LinearGradient>
           </TouchableOpacity>
         </View>
-      }
-    />
+      </View>
+    </View>
   );
 }
 
@@ -110,21 +92,23 @@ const styles = StyleSheet.create({
   MyParentImg: {
     // borderWidth: 0.5,
     // borderColor:"red",
-    paddingVertical: 30,
+    paddingTop: 50,
+    paddingBottom: 30,
     justifyContent: "center",
     alignItems: "center",
+    // backgroundColor: "yellow",
   },
   fir_img: {
     // borderWidth: 0.5,
     // borderColor: "black",
-    width: 170,
-    height: 170,
+    width: 190,
+    height: 190,
   },
   third: {
-    // borderWidth: 1,
+    // borderWidth: 0.5,
     // color: "black",
-    paddingTop: 0,
-    paddingBottom: 7,
+    paddingTop: 8,
+    paddingBottom: 9,
     fontSize: 25,
     letterSpacing: 1,
     textAlign: "center",
@@ -132,8 +116,8 @@ const styles = StyleSheet.create({
   },
   third_Txt_1_E: {
     // borderWidth: 0.5,
-    paddingTop: 1,
-    paddingBottom: 30,
+    paddingTop: 5,
+    paddingBottom: 40,
     paddingHorizontal: 30,
     fontSize: 13,
     letterSpacing: 1,
@@ -141,45 +125,6 @@ const styles = StyleSheet.create({
     fontFamily: "Kanit",
     color: "grey",
     textTransform: "capitalize",
-  },
-  third_view: {
-    paddingHorizontal: 5,
-    paddingVertical: 12,
-    // marginHorizontal: 20, 
-    // borderWidth: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  thirdItem: {
-    width: "40%",
-    height: 172,
-    borderWidth: 0.5,
-    borderColor: "red",
-    borderRadius: 15,
-    marginVertical: 7,
-    marginHorizontal: 15,
-    elevation: 8,
-    paddingVertical: 3,
-    paddingHorizontal: 1.5,
-    backgroundColor: "#FCF3F3",
-    shadowColor: "black",
-
-  },
-  third_img: {
-    width: 55,
-    height: 55,
-    // borderWidth: 1,
-    // borderColor:"black",
-    alignSelf: "center",
-    marginTop: 13,
-  },
-  third_txt: {
-    // borderWidth: 1,
-    textAlign: "center",
-    paddingHorizontal: 5,
-    paddingVertical: 8,
-    fontFamily: "Kanit",
-    fontSize: 13.5,
   },
   third_txt_1: {
     // borderWidth: 1,
@@ -197,22 +142,68 @@ const styles = StyleSheet.create({
   },
   bottomViewContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    paddingTop: 20,
+    position: "absolute",
+    bottom: 0,
+    width: "97%",
+    alignSelf: "center",
   },
   bottomView: {
     flexDirection: 'row',
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: 'center',
-    backgroundColor: '#D3E0EF',
-    paddingVertical: 15,
-    borderRadius: 10,
-    marginHorizontal: 10,
-    elevation: 5,
+    backgroundColor: '#FFDDD5',
+    paddingVertical: 9,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    elevation: 15,
     shadowColor: "black",
+    marginHorizontal: 10,
   },
-  bottomIcon: {
-    width: 25,
-    height: 25,
+  E_Bottom_Box: {
+    borderWidth: 0,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    borderRadius: 10,
+  },
+  E_Bottom_Box_Text: {
+    borderWidth: 0,
+    paddingHorizontal: 5,
+    paddingVertical: 0,
+    borderRadius: 2,
+    textAlign: "center",
+  },
+  E_Bottom_Box_Text_1: {
+    borderWidth: 0,
+    paddingHorizontal: 5,
+    paddingVertical: 0,
+    borderRadius: 2,
+    fontSize: 10,
+    letterSpacing: 1.5,
+    textAlign: "center",
+    fontFamily: "Kanit",
+  },
+  BtnParent: {
+    // borderColor: "transparent",
+    // borderWidth: 0.5,
+    paddingTop: 1,
+    paddingBottom: 1,
+  },
+  BtnPart1: {
+    paddingVertical: 9,
+    marginHorizontal: 37,
+    textAlign: "center",
+    backgroundColor: "#EB2F06",
+    borderRadius: 20,
+  },
+  BtnPart2: {
+    paddingVertical: 1,
+    textAlign: "center",
+    fontSize: 12,
+    color: "white",
+    fontFamily: "Heebo",
+    letterSpacing: 3.5,
+    borderRadius: 20,
+    marginHorizontal: 10,
+    textTransform: "uppercase"
   },
 })
