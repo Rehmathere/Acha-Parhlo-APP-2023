@@ -11,3 +11,30 @@ Code :
 Update my code according to my condition only , 
 
 update code and return full code , don't skip any line
+
+
+----------------------------------------------------------------------------------
+
+
+
+I want little update in my code that , 
+
+
+Update My Code According to my Condition Only Mentioned Below , 
+
+
+Condition's : 
+
+
+1 - Whenever A Specific Time Slot Of A That Date Is Choose , Then Make That Specific Time Slot Background Color To Red Of to That Specific Date Only , 
+
+2 - You Can Do This Like , Whenever A Specific Time Slot Of A that Date is Chosed  then You Make Function Like Which Check In A Firestore Firebase Where Data Is Storing that If A That Date and its Specific Time Slot is there in firestore firebase then just make that Time Slot Background Color to Red Only of to only that Date just, 
+
+3 - Remember Only That Date Of Time Slot which are there in Firestore Firebase that should be in Red Color to only and Rest Of Time Slot Remains Same , 
+
+
+
+
+Update my code according to my condition only , 
+
+update code and return full code , don't skip any line ,
