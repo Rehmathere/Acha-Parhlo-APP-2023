@@ -95,6 +95,18 @@ export default function BookAppointment() {
         }
         return days;
     };
+    // ----------- Date And Time Slot Checked ------------
+    const [existingAppointments, setExistingAppointments] = useState([]);
+    useEffect(() => {
+        todoRef.get().then((querySnapshot) => {
+            const appointments = [];
+            querySnapshot.forEach((doc) => {
+                appointments.push(doc.data());
+            });
+            setExistingAppointments(appointments);
+        });
+    }, []);
+    // ----------- Date And Time Slot Checked ------------
     // Expo Font Logic
     const [fontsLoaded, setFontsLoaded] = useState(false);
     let [loaded] = useFonts({
@@ -153,6 +165,7 @@ export default function BookAppointment() {
                                 data={days}
                                 keyExtractor={(item) => item.day.toString()}
                                 renderItem={({ item, index }) => {
+                                    const isDateBooked = existingAppointments.find(appointment => appointment.Date === index + 1);
                                     return (
                                         <TouchableOpacity
                                             key={item.day}
@@ -162,10 +175,10 @@ export default function BookAppointment() {
                                                 borderRadius: 7,
                                                 justifyContent: 'center',
                                                 alignItems: 'center',
-                                                backgroundColor: selectedDay === index ? 'orangered' : 'white',
+                                                backgroundColor: selectedDay === index ? 'orangered' : isDateBooked ? '#FFB8A8' : 'white',
                                                 borderWidth: selectedDay === index ? 0 : 0.5,
                                                 marginLeft: 13,
-                                                borderColor: "grey",
+                                                borderColor: "#A5A5A5",
                                             }}
                                             onPress={() => {
                                                 if (item.day < new Date().getDate()) {
@@ -193,13 +206,16 @@ export default function BookAppointment() {
                                     data={slots}
                                     keyExtractor={(item) => item.sloT}
                                     renderItem={({ item, index }) => {
+                                        const isTimeSlotBooked = existingAppointments.find(appointment => appointment.Date === selectedDay + 1 && appointment.TimeSlot === item.sloT);
+                                        const isTimeSlotAvailable = !isTimeSlotBooked;
                                         return (
                                             <TouchableOpacity
                                                 key={item.sloT}
                                                 style={[
                                                     styles.timeSlot,
-                                                    { backgroundColor: index === selectedSlot ? 'blue' : 'white' },
+                                                    { backgroundColor: index === selectedSlot ? 'orangered' : isTimeSlotAvailable ? 'white' : '#FFBFB1' },
                                                 ]}
+                                                disabled={!isTimeSlotAvailable}
                                                 onPress={() => {
                                                     setSelectedSlot(index);
                                                 }}>
@@ -322,7 +338,7 @@ const styles = StyleSheet.create({
         width: '40.2%',
         height: 40,
         borderRadius: 10,
-        borderColor: "grey",
+        borderColor: "#A5A5A5",
         borderWidth: 0.5,
         marginVertical: 6,
         marginHorizontal: 15,
