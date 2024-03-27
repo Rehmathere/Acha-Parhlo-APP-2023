@@ -51,18 +51,18 @@ export default function Home() {
         <View style={styles.bottomView}>
           {/* 1 */}
           <TouchableOpacity onPress={() => navigation.navigate('Completed')}>
-            <LinearGradient colors={["#FF7356", "#FFA08C", "#FF7356"]} style={{ borderRadius: 10, }}>
+            <LinearGradient colors={["#EB2F06", "#FE7153", "#EB2F06"]} style={{ borderRadius: 10, }}>
               <View style={styles.E_Bottom_Box}>
-                <Text style={styles.E_Bottom_Box_Text}><MaterialCommunityIcons name="clipboard-list-outline" size={23} color="black" /></Text>
+                <Text style={styles.E_Bottom_Box_Text}><MaterialCommunityIcons name="clipboard-list" size={20} color="white" /></Text>
                 <Text style={styles.E_Bottom_Box_Text_1}>List</Text>
               </View>
             </LinearGradient>
           </TouchableOpacity>
           {/* 2 */}
           <TouchableOpacity onPress={() => navigation.navigate('MyDrawer')}>
-            <LinearGradient colors={["#FF7356", "#FFA08C", "#FF7356"]} style={{ borderRadius: 10, }}>
+            <LinearGradient colors={["#EB2F06", "#FE7153", "#EB2F06"]} style={{ borderRadius: 10, }}>
               <View style={styles.E_Bottom_Box}>
-                <Text style={styles.E_Bottom_Box_Text}><MaterialCommunityIcons name="home" size={23} color="black" /></Text>
+                <Text style={styles.E_Bottom_Box_Text}><MaterialCommunityIcons name="home" size={20} color="white" /></Text>
                 <Text style={styles.E_Bottom_Box_Text_1}>Home</Text>
               </View>
             </LinearGradient>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   bottomViewContainer: {
     flex: 1,
     position: "absolute",
-    bottom: 0,
+    bottom: 6,
     width: "97%",
     alignSelf: "center",
   },
@@ -152,10 +152,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: 'center',
     backgroundColor: '#FFDDD5',
-    paddingVertical: 9,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    elevation: 15,
+    paddingVertical: 8,
+    // borderTopLeftRadius: 15,
+    // borderTopRightRadius: 15,
+    borderRadius: 15,
+    elevation: 5,
     shadowColor: "black",
     marginHorizontal: 10,
   },
@@ -174,13 +175,14 @@ const styles = StyleSheet.create({
   },
   E_Bottom_Box_Text_1: {
     borderWidth: 0,
-    paddingHorizontal: 5,
+    paddingHorizontal: 2,
     paddingVertical: 0,
     borderRadius: 2,
-    fontSize: 10,
+    fontSize: 9,
     letterSpacing: 1.5,
     textAlign: "center",
     fontFamily: "Kanit",
+    color: "white",
   },
   BtnParent: {
     // borderColor: "transparent",

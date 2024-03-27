@@ -12,7 +12,7 @@ let DaysList = [];
 export default function BookAppointment() {
     const navigation = useNavigation();
     // ----------- Backend Part Logic -----------
-    const todoRef = firebase.firestore().collection("New Practice App");
+    const todoRef = firebase.firestore().collection("3 - Appointment");
     const [selectedDay, setSelectedDay] = useState(-1);
     const [selectedSlot, setSelectedSlot] = useState(-1);
     const [existingAppointments, setExistingAppointments] = useState([]);
@@ -38,7 +38,14 @@ export default function BookAppointment() {
         todoRef.get().then((querySnapshot) => {
             const appointments = [];
             querySnapshot.forEach((doc) => {
-                appointments.push(doc.data());
+                const appointmentData = doc.data();
+                // Check if appointment date is less than current date
+                if (appointmentData.Date >= new Date().getDate()) {
+                    appointments.push(appointmentData);
+                } else {
+                    // Delete outdated appointment record
+                    doc.ref.delete().catch(error => console.error("Error removing document: ", error));
+                }
             });
             setExistingAppointments(appointments);
         });
@@ -166,6 +173,7 @@ export default function BookAppointment() {
                                             }}
                                             onPress={() => {
                                                 if (item.day < new Date().getDate()) {
+                                                    // Do nothing for past dates
                                                 } else {
                                                     setSelectedDay(index);
                                                 }

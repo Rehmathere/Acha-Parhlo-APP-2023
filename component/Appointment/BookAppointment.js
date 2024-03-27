@@ -101,7 +101,14 @@ export default function BookAppointment() {
         todoRef.get().then((querySnapshot) => {
             const appointments = [];
             querySnapshot.forEach((doc) => {
-                appointments.push(doc.data());
+                const appointmentData = doc.data();
+                // Check if appointment date is less than current date
+                if (appointmentData.Date >= new Date().getDate()) {
+                    appointments.push(appointmentData);
+                } else {
+                    // Delete outdated appointment record
+                    doc.ref.delete().catch(error => console.error("Error removing document: ", error));
+                }
             });
             setExistingAppointments(appointments);
         });
@@ -245,13 +252,13 @@ export default function BookAppointment() {
                             <Text style={styles.StudName}>Select Gender</Text>
                             <View style={styles.gender}>
                                 {/* 1 - Male */}
-                                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 0 ? 'lightblue' : 'white' }]} onPress={() => { setSelectedGender(0) }}>
+                                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 0 ? '#D2D9FF' : 'white' }]} onPress={() => { setSelectedGender(0) }}>
                                     <View style={styles.subGenderBox}>
                                         <FontAwesome5 name="male" size={20} color="blue" />
                                     </View>
                                 </TouchableOpacity>
                                 {/* 2 - Female */}
-                                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 1 ? 'pink' : 'white' }]} onPress={() => { setSelectedGender(1) }}>
+                                <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 1 ? '#FFD2D2' : 'white' }]} onPress={() => { setSelectedGender(1) }}>
                                     <View style={styles.subGenderBox}>
                                         <FontAwesome5 name="female" size={20} color="#FF033A" />
                                     </View>
@@ -349,13 +356,14 @@ const styles = StyleSheet.create({
         fontSize: 26,
         color: "black",
         alignSelf: "center",
-        marginTop: 40,
-        marginBottom: 30,
+        marginTop: 50,
+        marginBottom: 45,
         paddingHorizontal: 22,
         paddingVertical: 0,
         borderRadius: 30,
-        letterSpacing: 1,
-        fontFamily: "HeeboExtra"
+        letterSpacing: 1.5,
+        fontFamily: "HeeboExtra",
+        // borderWidth: 0.5,
     },
     StudName: {
         color: "black",
@@ -369,7 +377,7 @@ const styles = StyleSheet.create({
     },
     inp: {
         borderWidth: 0.5,
-        borderColor: "grey",
+        borderColor: "#A5A5A5",
         marginHorizontal: 20,
         borderRadius: 10,
         fontSize: 14,
@@ -387,7 +395,7 @@ const styles = StyleSheet.create({
     },
     genderBox: {
         borderWidth: 0.5,
-        borderColor: "grey",
+        borderColor: "#A5A5A5",
         width: "18%",
         height: 50,
         borderRadius: 10,

@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         paddingVertical: 23,
     },
     BTn_1_Parent: {
-        borderWidth: 0.7,
+        borderWidth: 0.6,
         borderColor: "red",
         paddingVertical: 1,
         marginHorizontal: 38,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         width: "73%",
         color: "#EB2F06",
         textAlign: "center",
-        fontFamily: "Heebo",
+        fontFamily: "Kanit",
         letterSpacing: 1.5,
         fontSize: 18,
     },
