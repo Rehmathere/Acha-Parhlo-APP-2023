@@ -639,19 +639,7 @@ export default () => {
 // ----------------------------------------------------------------------------------------------------------------------------------
 // import React from "react";
 // import { View, StyleSheet } from 'react-native'
-// import Parent_Appoint from "./component/Parent_Appoint";
-// import Parent_Splash from "./component/Parent_Splash";
-// import Parent_Authenticate from "./component/Parent_Authenticate";
-// import Parent_Search from "./component/Parent_Search";
-// import Parent_Drawer from "./component/Parent_Drawer";
-// import ApplicationStatus from "./component/Application/ApplicationStatus";
-// import Parent_Application from "./component/Parent_Application";
-// import Parent_Chat from "./component/Parent_Chat";
-// import Z_Test_Parent_A from "./component/Z_Test_Demo/Z_Test_Parent_A";
 // import Z_Test_Extra_Parent from "./component/Z_Test_Extra/Z_Test_Extra_Parent";
-// // ------ Navigation ------
-// import { NavigationContainer } from "@react-navigation/native";
-// import { createStackNavigator } from "@react-navigation/stack";
 
 // export default function App() {
 //   // Main Body
@@ -684,7 +672,7 @@ export default () => {
 //   );
 // }
 
-// // CSS
+// CSS
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
