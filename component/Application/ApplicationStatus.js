@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StyleSheet, StatusBar, Image, ScrollView } from 'react-native'
 // Fonts Header File
 import { useFonts } from "expo-font";
-import firestore from '../firestore';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { firebase } from "../firestore";
+import { getFirestore, collection, doc, onSnapshot } from 'firebase/firestore';
 
 export default function ApplicationStatus({ route }) {
     // ---------- Backend Part Logic ----------
@@ -12,7 +12,17 @@ export default function ApplicationStatus({ route }) {
     const [U4_courseName, setU4_courseName] = useState(item.U4_courseName || "");
     const [buttonValue, setbuttonValue] = useState(item.buttonValue || " Processing ");
     const [U_Extra_Uni_Image, setU_Extra_Uni_Image] = useState(item.U_Extra_Uni_Image || "");
-
+    // Real-time listener for changes in Firestore data
+    useEffect(() => {
+        const unsubscribe = onSnapshot(doc(firebase.firestore(), "4 - Student Records", firestoreId), (snapshot) => {
+            const newData = snapshot.data();
+            setU1_universityName(newData.U1_universityName);
+            setU4_courseName(newData.U4_courseName);
+            setbuttonValue(newData.buttonValue);
+            setU_Extra_Uni_Image(newData.U_Extra_Uni_Image);
+        });
+        return () => unsubscribe();
+    }, [firestoreId]);
     // ---------- Backend Part Logic ----------
     // Lights
     const [button1Color, setButton1Color] = useState('#EEF0F2');

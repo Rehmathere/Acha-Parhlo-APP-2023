@@ -22,20 +22,18 @@ export default function WishList() {
     // ----------- Backend Part Logic ----------- 
     const [wishList, setWishList] = useState([]);
     useEffect(() => {
-        // Fetch data from Firestore
-        const fetchData = async () => {
-            const snapshot = await firebase.firestore().collection("5 - App Wishlist").get();
+        // Real-time listener for changes in Firestore data
+        const unsubscribe = firebase.firestore().collection("5 - App Wishlist").onSnapshot(snapshot => {
             const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setWishList(data);
-        };
+        });
 
-        fetchData();
+        // Cleanup function to unsubscribe when component unmounts
+        return () => unsubscribe();
     }, []);
     const deleteItem = async (itemId) => {
         try {
             await firebase.firestore().collection("5 - App Wishlist").doc(itemId).delete();
-            const updatedWishList = wishList.filter(item => item.id !== itemId);
-            setWishList(updatedWishList);
         } catch (error) {
             console.error("Error deleting item:", error);
         }

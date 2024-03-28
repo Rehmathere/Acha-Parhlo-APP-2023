@@ -22,27 +22,18 @@ export default function Completed({ navigation }) {
   // --------- Backend Part Logic --------- 
   const [appointments, setAppointments] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const todoRef = firebase.firestore().collection("3 - Appointment");
-        const snapshot = await todoRef.get();
-        const appointmentsData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setAppointments(appointmentsData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
+    // Real-time listener for changes in Firestore data
+    const unsubscribe = firebase.firestore().collection("3 - Appointment").onSnapshot(snapshot => {
+      const appointmentsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setAppointments(appointmentsData);
+    });
+
+    // Cleanup function to unsubscribe when component unmounts
+    return () => unsubscribe();
   }, []);
   const handleDelete = async (id) => {
     try {
-      const todoRef = firebase.firestore().collection("3 - Appointment").doc(id);
-      await todoRef.delete();
-      const updatedAppointments = appointments.filter(appointment => appointment.id !== id);
-      setAppointments(updatedAppointments);
+      await firebase.firestore().collection("3 - Appointment").doc(id).delete();
     } catch (error) {
       console.error("Error deleting data:", error);
     }
