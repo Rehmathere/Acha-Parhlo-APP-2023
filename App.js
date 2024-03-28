@@ -60,6 +60,7 @@ function App() {
   const [image, setImage] = useState(
     'https://icon2.cleanpng.com/20180402/oaq/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6760664.4895544815226654464834.jpg'
   );
+  // Fetching user image from Firestore
   const fetchImageFromFirestore = async () => {
     try {
       const userRef = firebase.firestore().collection('6 - Edit Profile App');
@@ -169,6 +170,7 @@ function App() {
             backgroundColor: "#EB2F06",
             marginBottom: 20,
           }}>
+            {/* Displaying user image */}
             <Image
               source={{ uri: image }}
               style={{
@@ -427,6 +429,13 @@ export default () => {
             letterSpacing: 1.5,
             fontSize: 15,
           },
+          // headerStyle: {
+          //   elevation: 5,
+          //   shadowColor: '#000',
+          //   shadowOffset: { width: 0, height: 2 },
+          //   shadowOpacity: 0.25,
+          //   shadowRadius: 3.84,
+          // },
         }} />
         <Stack.Screen name='SubMainHome' component={SubMainHome} options={{
           headerTitle: "Course Details",
