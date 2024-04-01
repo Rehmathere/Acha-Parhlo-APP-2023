@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Image, FlatList, TouchableOpacity, ScrollView, TextInput, Keyboard } from 'react-native'
+import { Text, View, StyleSheet, Image, FlatList, TouchableOpacity, ScrollView, TextInput, Keyboard, Modal } from 'react-native'
 import Header from './Header';
-import CommonBtn from './CommonBtn';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native'
 // Firebase
@@ -21,6 +20,7 @@ export default function BookAppointment() {
     const [selectedGender, setSelectedGender] = useState(null);
     const [selectedDay, setSelectedDay] = useState(-1);
     const [selectedSlot, setSelectedSlot] = useState(-1);
+    const [showStatus, setShowStatus] = useState(false); // Modal useState
     const addField = () => {
         if (name && name.length > 0 && email && contactNo && selectedGender !== null && selectedDay !== -1 && selectedSlot !== -1) {
             const data = {
@@ -41,10 +41,16 @@ export default function BookAppointment() {
                     setSelectedDay(-1);
                     setSelectedSlot(-1); // Reset selectedSlot state
                     Keyboard.dismiss();
+                    navigation.navigate('Success'); // Navigate to success screen after booking
                 })
                 .catch((err) => {
                     alert(err);
                 });
+        } else {
+            setShowStatus(true); // Show Modal
+            setTimeout(() => {
+                setShowStatus(false); // Hide Modal after 2.5 seconds
+            }, 2500);
         }
     };
     // 1 - useState
@@ -102,11 +108,9 @@ export default function BookAppointment() {
             const appointments = [];
             querySnapshot.forEach((doc) => {
                 const appointmentData = doc.data();
-                // Check if appointment date is less than current date
                 if (appointmentData.Date >= new Date().getDate()) {
                     appointments.push(appointmentData);
                 } else {
-                    // Delete outdated appointment record
                     doc.ref.delete().catch(error => console.error("Error removing document: ", error));
                 }
             });
@@ -124,13 +128,11 @@ export default function BookAppointment() {
         KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
         KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
     });
-    // It Will Load Font
     useEffect(() => {
         if (loaded) {
             setFontsLoaded(true);
         }
     }, [loaded]);
-    // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
     if (!fontsLoaded) {
         return null;
     }
@@ -165,7 +167,6 @@ export default function BookAppointment() {
                 } else if (item === 'dateList') {
                     return (
                         <View style={{ marginTop: 20 }}>
-                            {/* Flatlist For Day */}
                             <FlatList
                                 horizontal
                                 showsHorizontalScrollIndicator={false}
@@ -207,7 +208,6 @@ export default function BookAppointment() {
                         <>
                             <Text style={styles.time_E}>Available Time Slots</Text>
                             <View>
-                                {/* Flatlist For Time Slots */}
                                 <FlatList
                                     numColumns={2}
                                     data={slots}
@@ -251,13 +251,11 @@ export default function BookAppointment() {
                                 value={contactNo} style={styles.inp} keyboardType="phone-pad" />
                             <Text style={styles.StudName}>Select Gender</Text>
                             <View style={styles.gender}>
-                                {/* 1 - Male */}
                                 <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 0 ? '#D2D9FF' : 'white' }]} onPress={() => { setSelectedGender(0) }}>
                                     <View style={styles.subGenderBox}>
                                         <FontAwesome5 name="male" size={20} color="blue" />
                                     </View>
                                 </TouchableOpacity>
-                                {/* 2 - Female */}
                                 <TouchableOpacity style={[styles.genderBox, { backgroundColor: selectedGender === 1 ? '#FFD2D2' : 'white' }]} onPress={() => { setSelectedGender(1) }}>
                                     <View style={styles.subGenderBox}>
                                         <FontAwesome5 name="female" size={20} color="#FF033A" />
@@ -268,13 +266,26 @@ export default function BookAppointment() {
                     );
                 } else if (item === 'confirmButton') {
                     return (
-                        <TouchableOpacity style={styles.successView} onPress={() => {
-                            addField();
-                            navigation.navigate('Success');
-                        }}
-                        >
-                            <Text style={styles.successView_Txt}>Book Appointment</Text>
-                        </TouchableOpacity>
+                        <>
+                            <TouchableOpacity style={styles.successView} onPress={addField}>
+                                <Text style={styles.successView_Txt}>Book Appointment</Text>
+                            </TouchableOpacity>
+                            <Modal
+                                transparent={true}
+                                animationType="fade"
+                                visible={showStatus}
+                            >
+                                <View style={styles.ParentStatus}>
+                                    <View style={styles.sub_ParentStatus}>
+                                        <View style={styles.ParentStatusImg}>
+                                            <Image source={require('../Pics/Errorr.png')} style={styles.StatusImg} />
+                                        </View>
+                                        <Text style={styles.StatusTxt_E}>Booking Failed</Text>
+                                        <Text style={styles.StatusTxt}>Kindly Complete all required fields for successfull appointment submission</Text>
+                                    </View>
+                                </View>
+                            </Modal>
+                        </>
                     );
                 }
             }}
@@ -432,5 +443,52 @@ const styles = StyleSheet.create({
         color: "white",
         textAlign: "center",
         letterSpacing: 2.5,
+    },
+    ParentStatus: {
+        backgroundColor: "rgba(0, 0, 0, 0.70)",
+        flex: 1,
+        // borderWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    sub_ParentStatus: {
+        // borderWidth: 1,
+        width: "81%",
+        backgroundColor: "white",
+        paddingVertical: 15,
+        borderRadius: 25,
+    },
+    ParentStatusImg: {
+        // borderWidth: 1,
+        paddingVertical: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    StatusImg: {
+        borderWidth: 0.5,
+        borderColor: "transparent",
+        // borderColor: "black",
+        width: 110,
+        height: 110,
+    },
+    StatusTxt: {
+        // borderWidth: 1,
+        fontSize: 13,
+        paddingBottom: 10,
+        paddingHorizontal: 23,
+        textAlign: "center",
+        fontFamily: "Kanit",
+        letterSpacing: 1.2,
+        textTransform: "capitalize",
+    },
+    StatusTxt_E: {
+        // borderWidth: 1,
+        fontSize: 20,
+        paddingBottom: 10,
+        paddingHorizontal: 30,
+        textAlign: "center",
+        fontFamily: "HeeboExtra",
+        letterSpacing: 1.5,
+        textTransform: "capitalize",
     },
 })  

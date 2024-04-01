@@ -18,15 +18,6 @@ export default function Drawer() {
     // -------- Dashboard Logic ----------
     // useState
     const [email, setEmail] = useState("");
-    // Change Password
-    const changePassword = () => {
-        firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
-            .then(() => {
-                alert(" Password Reset Email Sent ")
-            }).catch((error) => {
-                alert(error)
-            })
-    }
     // useEffect
     useEffect(() => {
         const fetchUserData = async () => {

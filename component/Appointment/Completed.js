@@ -224,15 +224,16 @@ const styles = StyleSheet.create({
   },
   Head_Img_Parent: {
     // borderWidth: 0.5,
-    paddingVertical: 30,
+    paddingTop: 60,
+    paddingBottom: 35,
     justifyContent: "center",
     alignItems: "center",
   },
   Head_Img: {
     // borderWidth: 0.5,
-    borderColor: "black",
-    width: 80,
-    height: 80,
+    // borderColor: "black",
+    width: 86,
+    height: 125,
   },
   Head_Txt_1: {
     // borderWidth: 0.5,
