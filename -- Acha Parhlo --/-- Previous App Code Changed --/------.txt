@@ -1,8 +1,6 @@
-Questions 3
 
-Now Also Make Same Logic Changes In This Code Share Below ,
 
-Code :
+I want Little Update in My Code That , 
 
 
 
@@ -10,10 +8,6 @@ Code :
 
 Update my code according to my condition only , 
 
-update code and return full code , don't skip any line
-
-
-----------------------------------------------------------------------------------
-
+update code and return full code , don't skip any line , 
 
 
