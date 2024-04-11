@@ -24,6 +24,14 @@ export default function ApplicationStatus({ route }) {
         return () => unsubscribe();
     }, [firestoreId]);
     // ---------- Backend Part Logic ----------
+    // Straight Line Color
+    const [Line1Color, setLine1Color] = useState('#D8D8D8');
+    const [Line2Color, setLine2Color] = useState('#D8D8D8');
+    const [Line3Color, setLine3Color] = useState('#D8D8D8');
+    const [Line4Color, setLine4Color] = useState('#D8D8D8');
+    const [Line5Color, setLine5Color] = useState('#D8D8D8');
+    const [Line6Color, setLine6Color] = useState('#D8D8D8');
+    const [Line7Color, setLine7Color] = useState('#D8D8D8');
     // Lights
     const [button1Color, setButton1Color] = useState('#EEF0F2');
     const [button2Color, setButton2Color] = useState('#EEF0F2');
@@ -46,6 +54,14 @@ export default function ApplicationStatus({ route }) {
             setButton6Color('transparent');
             setButton7Color('transparent');
             setButton8Color('transparent');
+            // Reset Line Color
+            setLine1Color("#D8D8D8")
+            setLine2Color("#D8D8D8")
+            setLine3Color("#D8D8D8")
+            setLine4Color("#D8D8D8")
+            setLine5Color("#D8D8D8")
+            setLine6Color("#D8D8D8")
+            setLine7Color("#D8D8D8")
         }
         else if (buttonValue === "Document Verification") {
             // Button 2
@@ -59,6 +75,15 @@ export default function ApplicationStatus({ route }) {
             setButton6Color('transparent');
             setButton7Color('transparent');
             setButton8Color('transparent');
+            // Line Color
+            setLine1Color("black")
+            // Reset Line Color
+            setLine2Color("#D8D8D8")
+            setLine3Color("#D8D8D8")
+            setLine4Color("#D8D8D8")
+            setLine5Color("#D8D8D8")
+            setLine6Color("#D8D8D8")
+            setLine7Color("#D8D8D8")
         }
         else if (buttonValue === "Conditional Offer") {
             // Button 3
@@ -73,6 +98,15 @@ export default function ApplicationStatus({ route }) {
             setButton6Color('transparent');
             setButton7Color('transparent');
             setButton8Color('transparent');
+            // Line Color
+            setLine1Color("black")
+            setLine2Color("black")
+            // Reset Line Color
+            setLine3Color("#D8D8D8")
+            setLine4Color("#D8D8D8")
+            setLine5Color("#D8D8D8")
+            setLine6Color("#D8D8D8")
+            setLine7Color("#D8D8D8")
         }
         else if (buttonValue === "Document Request") {
             // Button 4
@@ -88,6 +122,15 @@ export default function ApplicationStatus({ route }) {
             setButton6Color('transparent');
             setButton7Color('transparent');
             setButton8Color('transparent');
+            // Line Color
+            setLine1Color("black")
+            setLine2Color("black")
+            setLine3Color("black")
+            // Reset Line Color
+            setLine4Color("#D8D8D8")
+            setLine5Color("#D8D8D8")
+            setLine6Color("#D8D8D8")
+            setLine7Color("#D8D8D8")
         }
         else if (buttonValue === "Unconditional Offer") {
             // Button 5
@@ -104,6 +147,15 @@ export default function ApplicationStatus({ route }) {
             setButton6Color('transparent');
             setButton7Color('transparent');
             setButton8Color('transparent');
+            // Line Color
+            setLine1Color("black")
+            setLine2Color("black")
+            setLine3Color("black")
+            setLine4Color("black")
+            // Reset Line Color
+            setLine5Color("#D8D8D8")
+            setLine6Color("#D8D8D8")
+            setLine7Color("#D8D8D8")
         }
         else if (buttonValue === "Confirmation Enrolment") {
             // Button 6
@@ -121,6 +173,15 @@ export default function ApplicationStatus({ route }) {
             // Rest Buttons Will White
             setButton7Color('transparent');
             setButton8Color('transparent');
+            // Line Color
+            setLine1Color("black")
+            setLine2Color("black")
+            setLine3Color("black")
+            setLine4Color("black")
+            setLine5Color("black")
+            // Reset Line Color
+            setLine6Color("#D8D8D8")
+            setLine7Color("#D8D8D8")
         }
         else if (buttonValue === "Visa App Submitted") {
             // Button 7
@@ -139,7 +200,17 @@ export default function ApplicationStatus({ route }) {
             setButton6Color('lightyellow');
             // Rest Buttons Will White
             setButton8Color('transparent');
-        } else if (buttonValue === "Visa Granted") {
+            // Line Color
+            setLine1Color("black")
+            setLine2Color("black")
+            setLine3Color("black")
+            setLine4Color("black")
+            setLine5Color("black")
+            setLine6Color("black")
+            // Reset Line Color
+            setLine7Color("#D8D8D8")
+        } 
+        else if (buttonValue === "Visa Granted") {
             // Button 8
             setButton8Color('orange');
             // Button 1 
@@ -156,8 +227,17 @@ export default function ApplicationStatus({ route }) {
             setButton6Color('lightyellow');
             // Button 7
             setButton7Color('lightyellow');
-
-        } else {
+            // Line Color
+            setLine1Color("black")
+            setLine2Color("black")
+            setLine3Color("black")
+            setLine4Color("black")
+            setLine5Color("black")
+            setLine6Color("black")
+            setLine7Color("black")
+        } 
+        else {
+            // Button Color
             setButton1Color("transparent");
             setButton2Color("transparent");
             setButton3Color("transparent");
@@ -166,6 +246,14 @@ export default function ApplicationStatus({ route }) {
             setButton6Color("transparent");
             setButton7Color("transparent");
             setButton8Color("transparent");
+            // Line Color
+            setLine1Color("#D8D8D8")
+            setLine2Color("#D8D8D8")
+            setLine3Color("#D8D8D8")
+            setLine4Color("#D8D8D8")
+            setLine5Color("#D8D8D8")
+            setLine6Color("#D8D8D8")
+            setLine7Color("#D8D8D8")
         }
     }, [buttonValue]);
     // ------------- Backend Logic -------------
@@ -237,7 +325,7 @@ export default function ApplicationStatus({ route }) {
                             </View>
                             {/* Line Part */}
                             <View style={styles.Parent_Processing_Box1_Part1_ParentLine}>
-                                <Text style={styles.Parent_Processing_Box1_Part1_Line}></Text>
+                                <Text style={[styles.Parent_Processing_Box1_Part1_Line, { backgroundColor: Line1Color }]}></Text>
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
@@ -254,7 +342,7 @@ export default function ApplicationStatus({ route }) {
                             </View>
                             {/* Line Part */}
                             <View style={styles.Parent_Processing_Box1_Part1_ParentLine}>
-                                <Text style={styles.Parent_Processing_Box1_Part1_Line}></Text>
+                                <Text style={[styles.Parent_Processing_Box1_Part1_Line, { backgroundColor: Line2Color }]}></Text>
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
@@ -271,7 +359,7 @@ export default function ApplicationStatus({ route }) {
                             </View>
                             {/* Line Part */}
                             <View style={styles.Parent_Processing_Box1_Part1_ParentLine}>
-                                <Text style={styles.Parent_Processing_Box1_Part1_Line}></Text>
+                                <Text style={[styles.Parent_Processing_Box1_Part1_Line, { backgroundColor: Line3Color }]}></Text>
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
@@ -288,7 +376,7 @@ export default function ApplicationStatus({ route }) {
                             </View>
                             {/* Line Part */}
                             <View style={styles.Parent_Processing_Box1_Part1_ParentLine}>
-                                <Text style={styles.Parent_Processing_Box1_Part1_Line}></Text>
+                                <Text style={[styles.Parent_Processing_Box1_Part1_Line, { backgroundColor: Line4Color }]}></Text>
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
@@ -305,7 +393,7 @@ export default function ApplicationStatus({ route }) {
                             </View>
                             {/* Line Part */}
                             <View style={styles.Parent_Processing_Box1_Part1_ParentLine}>
-                                <Text style={styles.Parent_Processing_Box1_Part1_Line}></Text>
+                                <Text style={[styles.Parent_Processing_Box1_Part1_Line, { backgroundColor: Line5Color }]}></Text>
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
@@ -322,7 +410,7 @@ export default function ApplicationStatus({ route }) {
                             </View>
                             {/* Line Part */}
                             <View style={styles.Parent_Processing_Box1_Part1_ParentLine}>
-                                <Text style={styles.Parent_Processing_Box1_Part1_Line}></Text>
+                                <Text style={[styles.Parent_Processing_Box1_Part1_Line, { backgroundColor: Line6Color }]}></Text>
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
@@ -339,7 +427,7 @@ export default function ApplicationStatus({ route }) {
                             </View>
                             {/* Line Part */}
                             <View style={styles.Parent_Processing_Box1_Part1_ParentLine}>
-                                <Text style={styles.Parent_Processing_Box1_Part1_Line}></Text>
+                                <Text style={[styles.Parent_Processing_Box1_Part1_Line, { backgroundColor: Line7Color }]}></Text>
                             </View>
                         </View>
                         <View style={styles.Parent_Processing_Box1_Part2}>
@@ -541,7 +629,7 @@ const styles = StyleSheet.create({
         // borderWidth: 0.5,
         width: "3%",
         height: 32,
-        backgroundColor: "#535c68",
+        // backgroundColor: "red",
     },
     Parent_Processing_Box1_Part2_Text1: {
         // borderWidth: 0.5,
