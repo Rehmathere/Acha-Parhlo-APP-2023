@@ -8,7 +8,6 @@ import { firebase } from "./component/firestore";
 import { NavigationContainer, useNavigation, CommonActions } from "@react-navigation/native"; // Moved from DrawerNavigation
 import Login from "./component/Authentication/Login";
 import Registration from "./component/Authentication/Registration";
-import MyHeader from "./component/Authentication/MyHeader";
 import ForgetPass from "./component/Authentication/ForgetPass";
 import Rate from './component/DrawerOption/RateUs/Rate';
 import Faqs from './component/DrawerOption/Faqs/MainFaqs';
