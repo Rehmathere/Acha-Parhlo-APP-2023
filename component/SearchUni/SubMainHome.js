@@ -211,10 +211,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     SMH_FirstImg_Parent: {
-        width: 65,
+        width: 75,
         height: 60,
         borderWidth: 0.5,
         borderColor: "#EB2F06",
+        // borderColor: "#878686",
         borderRadius: 5,
         padding: 2,
     },
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
     SMH_First_Name: {
         width: "70%",
         // borderWidth: 0.5,
-        // borderColor:"red",
+        borderColor:"red",
         paddingVertical: 10,
     },
     SMH_First_Its_Name: {

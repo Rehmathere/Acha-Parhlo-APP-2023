@@ -9,7 +9,18 @@ import { useNavigation } from '@react-navigation/native'
 export default function DocHome() {
     // 0 - useNavigate
     const navigation = useNavigation();
-    // Modal useState
+    // Modal useState ( Submission Loading )
+    const [E_showStatus, E_setShowStatus] = useState(false)
+    // Set TimeOut
+    const E_ShowModal = () => {
+        // Display
+        E_setShowStatus(true)
+        setTimeout(() => {
+            E_setShowStatus(false);
+            navigation.navigate('S_FinalSubmit'); // Navigate after 3.5 seconds
+        }, 3500)
+    }
+    // Modal useState ( Restricted )
     const [showStatus, setShowStatus] = useState(false)
     // Set TimeOut
     const ShowModal = () => {
@@ -163,7 +174,7 @@ export default function DocHome() {
                 </View>
                 {/* Button */}
                 <View style={styles.DH_Last_Btn_Parent}>
-                    <TouchableOpacity style={styles.DH_Last_Btn_Box} onPress={() => navigation.navigate('S_FinalSubmit')}>
+                    <TouchableOpacity style={styles.DH_Last_Btn_Box} onPress={() => E_ShowModal()}>
                         <Text style={styles.DH_Last_Btn}>Confirm Submit</Text>
                     </TouchableOpacity>
                 </View>
@@ -185,6 +196,22 @@ export default function DocHome() {
                             </View>
                             <Text style={styles.StatusTxt_E}>Restricted</Text>
                             <Text style={styles.StatusTxt}>In Order To Access Documents, Then You Need To Follow A Complete Sequence Processs Starting From University Detail.</Text>
+                        </View>
+                    </View>
+                </Modal>
+                {/* --- Modal For Submission Loading --- */}
+                <Modal
+                    transparent={true}
+                    animationType="fade"
+                    visible={E_showStatus}
+                >
+                    <View style={styles.ParentStatus}>
+                        <View style={styles.sub_ParentStatus}>
+                            <View style={styles.ParentStatusImg}>
+                                <Image source={require('../../Pics/E_Load.gif')} style={styles.StatusImg} />
+                            </View>
+                            <Text style={styles.StatusTxt_E}>Processing ...</Text>
+                            <Text style={styles.StatusTxt}>Please Wait A Moment Your Application Is Under Proccessing</Text>
                         </View>
                     </View>
                 </Modal>
