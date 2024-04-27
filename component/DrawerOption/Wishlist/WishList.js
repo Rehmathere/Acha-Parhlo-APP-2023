@@ -194,17 +194,17 @@ const styles = StyleSheet.create({
     img_fir_Parent: {
         borderWidth: 0.5,
         borderColor: "lightgrey",
-        width: "20%",
-        height: 58,
+        width: "22%",
+        height: "98%",
         marginLeft: 9,
         borderRadius: 5,
         padding: 1,
-    },
-    img_fir: {
-        borderRadius: 3,
+      },
+      img_fir: {
+        borderRadius: 5,
         width: "100%",
-        height: '100%',
-    },
+        height: "100%",
+      },
     sec: {
         letterSpacing: 3,
         textAlign: "center",
