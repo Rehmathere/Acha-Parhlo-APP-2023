@@ -1,0 +1,45 @@
+﻿
+
+const handleLogin - async () => {
+try {
+if (email.length > 0 && password.length > 0) {
+const user = await auth().signInWithEmailAndPassword(email, password);
+console.log(user);
+if (user.user.emailVerified) {
+alert('You Are Verified');
+navigation.dispatch(StackActions.replace('Home'));
+} else {
+alert('Please verify Your Email Checkout Inbox');
+await auth().currentUser.sendEmail verification(); await auth().signout();
+} else {
+}
+alert('Please Enter All Data');
+} catch (err) {
+console.log(err);
+setMessage(err.message);
+
+
+
+
+﻿
+
+const handleSignup async () => {
+try {
+if (email.length > 0 && password. length > 0) {
+const isUserCreated
+email, password,
+);
+await
+auth().createUserWithEmailAndPassword(
+await auth().currentUser.sendEmailVerification();
+await auth().signout();
+alert('Please verify Your Email Check Out Link In Your Inbox');
+navigation.navigate('Login');
+} else {
+}
+alert('Please Enter All Data');
+} catch (err) {
+console.log(err);
+setMessage(err.message);
+}
+};
