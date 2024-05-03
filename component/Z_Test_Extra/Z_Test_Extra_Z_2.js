@@ -1,120 +1,109 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView, StatusBar, Image } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../firestore";
-import { useNavigation } from '@react-navigation/native';
+// Fonts Header File
 import { useFonts } from "expo-font";
 
 export default function Z_Test_Extra_Z_2({ route }) {
-    // Navigation
-    const navigation = useNavigation();
-    // ----- Image Route Logic -----
-    const item = route.params?.item || {};
-    const [noteImage, setNoteImage] = useState(item.MyImage || "");
-    // ----- Image Route Logic -----
-    // Fonts
-    const [fontsLoaded, setFontsLoaded] = useState(false);
-    let [loaded] = useFonts({
-        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
-    });
-    useEffect(() => {
-        if (loaded) {
-            setFontsLoaded(true);
-        }
-    }, [loaded]);
-    if (!fontsLoaded) {
-        return null;
+  // Navigation
+  const navigation = useNavigation();
+  const [noteImage, setNoteImage] = useState(route.params.item.MyImage);
+  const [noteTitle, setNoteTitle] = useState(route.params.item.name1);
+  // ---------- Font Family ----------
+  // 1 - useState
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  // Expo Font Logic
+  let [loaded] = useFonts({
+    Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
+    Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
+    Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
+    HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
+    KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
+    KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
+  });
+  // It Will Load Font
+  useEffect(() => {
+    if (loaded) {
+      setFontsLoaded(true);
     }
-    // Main Body
-    return (
-        <View style={styles.container}>
-            {/* Status Bar */}
-            <StatusBar backgroundColor={"red"} />
-            {/* Heading */}
-            <Text style={styles.Txt1}>Page 2 - ( 2 )</Text>
-            {/* Image Area */}
-            <View style={styles.SMH_First_Logo}>
-                <View style={styles.SMH_FirstImg_Parent}>
-                    <Image source={{ uri: noteImage }} style={styles.SMH_FirstImg} />
-                </View>
-            </View>
-            {/* Image Area */}
-            {/* ------ Move Button ------ */}
-            {/* 1 */}
-            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_3", {
-                item: {
-                    MyImage: item.MyImage,
-                },
-            })}>
-                <Text style={styles.Upload_Btn_Parent_Txt}>Move Page 3</Text>
-            </TouchableOpacity>
-            {/* 2 */}
-            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
-                <Text style={styles.Upload_Btn_Parent_Txt}>Move Back To Page 1</Text>
-            </TouchableOpacity>
-        </View >
-    );
+  }, [loaded]);
+  // It Tells If Font Is Loaded Or If Not Loaded Then Nothing Will Show,
+  if (!fontsLoaded) {
+    return null;
+  }
+  // ---------- Font Family ----------
+  // Main Body
+  return (
+    <View style={styles.container}>
+      {/* StatusBar */}
+      <StatusBar backgroundColor={"red"} />
+      {/* Main */}
+      <Image source={{ uri: noteImage }} style={styles.image} />
+      <Text style={styles.label}>University : </Text>
+      <Text style={styles.text}>{noteTitle}</Text>
+      <View style={styles.buttonView}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("Z_Test_Extra_Z_1")}
+        >
+          <Text style={styles.btnTxt}>Move Back</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 }
 
 // CSS
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "lightgreen",
-    },
-    SMH_First_Logo: {
-        borderWidth: 0.5,
-        paddingVertical: 10,
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "yellow"
-    },
-    SMH_FirstImg_Parent: {
-        width: 150,
-        height: 150,
-        borderWidth: 0.5,
-        borderColor: "#EB2F06",
-        borderRadius: 5,
-        padding: 2,
-    },
-    SMH_FirstImg: {
-        width: "100%",
-        height: "100%",
-    },
-    Txt1: {
-        borderWidth: 0.5,
-        borderColor: "green",
-        backgroundColor: "green",
-        fontFamily: "HeeboExtra",
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        textAlign: "center",
-        letterSpacing: 1.5,
-        fontSize: 20,
-        marginVertical: 10,
-        color: "white",
-    },
-    Upload_Btn_Parent: {
-        backgroundColor: "black",
-        borderWidth: 0.5,
-        borderColor: "transparent",
-        marginVertical: 10,
-        marginHorizontal: 20,
-        paddingVertical: 5,
-        borderRadius: 50,
-    },
-    Upload_Btn_Parent_Txt: {
-        textAlign: "center",
-        borderWidth: 0.5,
-        borderColor: "transparent",
-        fontSize: 18,
-        fontFamily: "Kanit",
-        color: "white",
-        letterSpacing: 1,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+  },
+  label: {
+    fontSize: 16,
+    color: "black",
+    marginBottom: 5,
+  },
+  text: {
+    borderWidth: 0.3,
+    fontSize: 15,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    marginVertical: 10,
+    textAlign: "center",
+    letterSpacing: 2,
+    fontFamily: "KanitBold",
+  },
+  btn: {
+    borderColor: "blue",
+    paddingVertical: 6,
+    paddingHorizontal: 25,
+    borderWidth: 1,
+    borderRadius: 50,
+    backgroundColor: "blue",
+    marginVertical: 10,
+    marginHorizontal: 11,
+    width: "90%",
+  },
+  btnTxt: {
+    fontSize: 15,
+    color: "white",
+    textAlign: "center",
+    fontFamily: "Heebo",
+    letterSpacing: 1.5,
+  },
+  buttonView: {
+    flexDirection: "column",
+  },
+  image: {
+    borderColor: "white",
+    borderWidth: 1,
+    width: "50%",
+    height: 105,
+    marginVertical: 0,
+    marginLeft: 70,
+  },
 });

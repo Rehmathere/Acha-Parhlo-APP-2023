@@ -7,14 +7,14 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  ScrollView
+  ScrollView,
 } from "react-native";
 // Import Extra
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../firestore";
-import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, Entypo } from "@expo/vector-icons";
 // Linear Gradient
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Login() {
   // Navigation Variable
@@ -28,6 +28,11 @@ export default function Login() {
   const loginUser = async (email, password) => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
+      // Clear email and password fields upon successful login
+      setEmail("");
+      setPassword("");
+      // Navigate to MyDrawer screen on successful login
+      navigation.navigate("MyDrawer");
     } catch (error) {
       alert(error.message);
     }
@@ -54,9 +59,9 @@ export default function Login() {
         <View style={styles.E_New_Parent_Extra}>
           {/* Part 1 */}
           {/* <LinearGradient colors={["#FF522B", "#FF8970"]} style={{ paddingVertical: 7, }}> */}
-            <View style={styles.E_New_Parent_Extra_Part_1}>
-              {/* Box Color Area */}
-            </View>
+          <View style={styles.E_New_Parent_Extra_Part_1}>
+            {/* Box Color Area */}
+          </View>
           {/* </LinearGradient> */}
           {/* Part 2 */}
           <View style={styles.E_New_Parent_Extra_Part_2}>
@@ -68,7 +73,10 @@ export default function Login() {
         <View style={styles.Fir_Grand_Parent}>
           <View style={styles.New_fir_Parent}>
             <View style={styles.Sub_New_fir_Parent}>
-              <Image source={require("../Pics/logo2.png")} style={[ styles.New_fir_Img , { tintColor: 'white' } ]} />
+              <Image
+                source={require("../Pics/logo2.png")}
+                style={[styles.New_fir_Img, { tintColor: "white" }]}
+              />
             </View>
           </View>
           {/* 2 - Email Part */}
@@ -78,7 +86,12 @@ export default function Login() {
               <View style={styles.New_Sec_Part_1_Par}>
                 <View style={styles.Sub_New_Sec_Part_1_Par}>
                   <Text style={styles.New_Sec_Part_1_1}>Sign In</Text>
-                  <Text style={styles.New_Sec_Part_1_2} onPress={() => navigation.navigate("Registration")}>Sign Up</Text>
+                  <Text
+                    style={styles.New_Sec_Part_1_2}
+                    onPress={() => navigation.navigate("Registration")}
+                  >
+                    Sign Up
+                  </Text>
                 </View>
               </View>
               {/* 2 */}
@@ -86,10 +99,13 @@ export default function Login() {
                 <View style={styles.Sub_New_Sec_Part_2_Par}>
                   {/* Input 1 */}
                   <View style={styles.New_Sec_Part_2_1}>
-                    <Text style={styles.New_Sec_Part_2_1_Part_1}><MaterialIcons name="email" size={20} color="black" /></Text>
+                    <Text style={styles.New_Sec_Part_2_1_Part_1}>
+                      <MaterialIcons name="email" size={20} color="black" />
+                    </Text>
                     <TextInput
                       style={styles.New_Sec_Part_2_1_Part_2}
                       placeholder=" Enter Your Email "
+                      value={email}
                       onChangeText={(email) => setEmail(email)}
                       autoCapitalize="none"
                       autoCorrect={false}
@@ -97,10 +113,13 @@ export default function Login() {
                   </View>
                   {/* Input 2 */}
                   <View style={styles.New_Sec_Part_2_2}>
-                    <Text style={styles.New_Sec_Part_2_1_Part_1}><Entypo name="lock" size={20} color="black" /></Text>
+                    <Text style={styles.New_Sec_Part_2_1_Part_1}>
+                      <Entypo name="lock" size={20} color="black" />
+                    </Text>
                     <TextInput
                       style={styles.New_Sec_Part_2_2_Part_2}
                       placeholder=" Enter Your Password "
+                      value={password}
                       onChangeText={(password) => setPassword(password)}
                       autoCapitalize="none"
                       autoCorrect={false}
@@ -111,7 +130,11 @@ export default function Login() {
                         <Text style={styles.Hide_See_Pass}>
                           {passwordButtonText}{" "}
                           {showPassword ? (
-                            <Ionicons name="eye-off-sharp" size={18} color="black" />
+                            <Ionicons
+                              name="eye-off-sharp"
+                              size={18}
+                              color="black"
+                            />
                           ) : (
                             <Ionicons name="eye" size={18} color="black" />
                           )}
@@ -125,7 +148,9 @@ export default function Login() {
                       onPress={() => navigation.navigate("ForgetPass")}
                       style={styles.New_Sec_Part_2_3_Forget}
                     >
-                      <Text style={styles.New_Sec_Part_2_3_Forget_Txt}>Forget Password ?</Text>
+                      <Text style={styles.New_Sec_Part_2_3_Forget_Txt}>
+                        Forget Password ?
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -134,16 +159,14 @@ export default function Login() {
                   onPress={() => loginUser(email, password)}
                   style={[styles.Login_Button]}
                 >
-                  <Text
-                    style={styles.Login_Button_Text}
-                  >
-                    Sign In
-                  </Text>
+                  <Text style={styles.Login_Button_Text}>Sign In</Text>
                 </TouchableOpacity>
                 {/* Register Button */}
                 <View style={styles.Register_Parent}>
                   {/* 1 */}
-                  <Text style={styles.Register_Button_1}>Don't Have An Account ?</Text>
+                  <Text style={styles.Register_Button_1}>
+                    Don't Have An Account ?
+                  </Text>
                   {/* 2 */}
                   <TouchableOpacity
                     onPress={() => navigation.navigate("Registration")}
@@ -158,8 +181,8 @@ export default function Login() {
         </View>
         {/* ---------------------- */}
         {/* --  New Logic Code  -- */}
-      </ScrollView >
-    </View >
+      </ScrollView>
+    </View>
   );
 }
 
@@ -403,7 +426,7 @@ const styles = StyleSheet.create({
   Register_Button_2: {
     borderWidth: 0,
     paddingVertical: 3,
-    width: "21%"
+    width: "21%",
   },
   Register_Button_2_Text: {
     borderWidth: 0,

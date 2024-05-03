@@ -1,120 +1,134 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Keyboard, ScrollView, StatusBar, Image } from 'react-native';
-import { firebase } from "../firestore";
-import { useNavigation } from '@react-navigation/native';
-import { useFonts } from "expo-font";
+import React, { useState, useRef } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Image,
+  StatusBar,
+  TextInput,
+  Alert,
+} from "react-native";
+import { FirebaseRecaptchaVerifierModal } from "expo-firebase-recaptcha";
+import firebase from "firebase/compat/app"; // Updated import
+import { auth } from "../firestore"; // Updated import
 
-export default function Z_Test_Extra_Z_4({ route }) {
-    // Navigation
-    const navigation = useNavigation();
-    // ----- Image Route Logic -----
-    const item = route.params?.item || {};
-    const [noteImage, setNoteImage] = useState(item.MyImage || "");
-    // ----- Image Route Logic -----
-    // Fonts
-    const [fontsLoaded, setFontsLoaded] = useState(false);
-    let [loaded] = useFonts({
-        Archivo: require("../../assets/fonts/My_Soul/ArchivoBlack-Regular.ttf"),
-        Kanit: require("../../assets/fonts/My_Soul/Kanit-Light.ttf"),
-        Heebo: require("../../assets/fonts/My_Soul/Heebo-Medium.ttf"),
-        HeeboExtra: require("../../assets/fonts/My_Soul/Heebo-ExtraBold.ttf"),
-        KanitBold: require("../../assets/fonts/My_Soul/Kanit-Bold.ttf"),
-        KanitBlack: require("../../assets/fonts/My_Soul/Kanit-Black.ttf"),
-    });
-    useEffect(() => {
-        if (loaded) {
-            setFontsLoaded(true);
-        }
-    }, [loaded]);
-    if (!fontsLoaded) {
-        return null;
-    }
-    // Main Body
-    return (
-        <View style={styles.container}>
-            {/* Status Bar */}
-            <StatusBar backgroundColor={"red"} />
-            {/* Heading */}
-            <Text style={styles.Txt1}>Page 4 - ( 4 )</Text>
-            {/* Image Area */}
-            <View style={styles.SMH_First_Logo}>
-                <View style={styles.SMH_FirstImg_Parent}>
-                    <Image source={{ uri: noteImage }} style={styles.SMH_FirstImg} />
-                </View>
-            </View>
-            {/* Image Area */}
-            {/* ------ Move Button ------ */}
-            {/* 1 */}
-            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate("Z_Test_Extra_Z_5", {
-                item: {
-                    MyImage: item.MyImage,
-                },
-            })}>
-                <Text style={styles.Upload_Btn_Parent_Txt}>Move Page 5</Text>
-            </TouchableOpacity>
-            {/* 2 */}
-            <TouchableOpacity style={styles.Upload_Btn_Parent} onPress={() => navigation.navigate('Z_Test_Extra_Z_1')}>
-                <Text style={styles.Upload_Btn_Parent_Txt}>Move Back To Page 1</Text>
-            </TouchableOpacity>
-        </View>
-    );
+const firebaseConfig = {
+  apiKey: "AIzaSyCpCthp0DyhjLpm5zbI5G1C_bCkY6Hqde8",
+  authDomain: "awpro-f81b1.firebaseapp.com",
+  databaseURL:
+    "https://awpro-f81b1-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "awpro-f81b1",
+  storageBucket: "awpro-f81b1.appspot.com",
+  messagingSenderId: "313818198041",
+  appId: "1:313818198041:web:b9e32aa1fc2bcc2c193a88",
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
 
-// CSS
+export default function Z_Test_Extra_Z_4() {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [verificationId, setVerificationId] = useState(null);
+  const [verificationCode, setVerificationCode] = useState("");
+  const recaptchaVerifier = useRef(null);
+
+  const sendVerification = () => {
+    const phoneProvider = new firebase.auth.PhoneAuthProvider();
+    phoneProvider
+      .verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
+      .then(setVerificationId)
+      .catch((error) => {
+        console.error("Phone verification error:", error);
+        Alert.alert(
+          "Error",
+          "Failed to send verification code. Please try again."
+        );
+      });
+  };
+
+  const verifyCode = () => {
+    const credential = firebase.auth.PhoneAuthProvider.credential(
+      verificationId,
+      verificationCode
+    );
+    firebase
+      .auth()
+      .signInWithCredential(credential)
+      .then(() => {
+        Alert.alert("Success", "Verification successful!");
+        // If you want to take further actions after successful verification
+        // without automatically signing up the user, you can do it here.
+        // For example, you can navigate to another screen or perform any
+        // other necessary operations.
+      })
+      .catch((error) => {
+        console.error("Verification error:", error);
+        Alert.alert("Error", "Invalid verification code. Please try again.");
+      });
+  };
+
+  return (
+    <View style={styles.container}>
+      <StatusBar backgroundColor={"red"} />
+      <FirebaseRecaptchaVerifierModal
+        ref={recaptchaVerifier}
+        firebaseConfig={firebaseConfig}
+      />
+      <Text style={styles.fir}>Verify Mobile Number</Text>
+      <TextInput
+        style={styles.sec}
+        placeholder="Enter Your Mobile Number - ( +92 ) "
+        onChangeText={setPhoneNumber}
+        keyboardType="phone-pad"
+        autoCompleteType="tel"
+      />
+      <Button
+        color={"green"}
+        title="Send Verification Code"
+        onPress={sendVerification}
+      />
+      <TextInput
+        style={styles.sec}
+        placeholder="Enter Verification Code"
+        onChangeText={setVerificationCode}
+        keyboardType="number-pad"
+        autoCompleteType="off"
+      />
+      <Button color={"blue"} title="Verify Code" onPress={verifyCode} />
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "lightblue",
-    },
-    SMH_First_Logo: {
-        borderWidth: 0.5,
-        paddingVertical: 10,
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "pink"
-    },
-    SMH_FirstImg_Parent: {
-        width: 150,
-        height: 150,
-        borderWidth: 0.5,
-        borderColor: "#EB2F06",
-        borderRadius: 5,
-        padding: 2,
-    },
-    SMH_FirstImg: {
-        width: "100%",
-        height: "100%",
-    },
-    Txt1: {
-        borderWidth: 0.5,
-        borderColor: "blue",
-        backgroundColor: "blue",
-        fontFamily: "HeeboExtra",
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        textAlign: "center",
-        letterSpacing: 1.5,
-        fontSize: 20,
-        marginVertical: 10,
-        color: "white",
-    },
-    Upload_Btn_Parent: {
-        backgroundColor: "black",
-        borderWidth: 0.5,
-        borderColor: "transparent",
-        marginVertical: 10,
-        marginHorizontal: 20,
-        paddingVertical: 5,
-        borderRadius: 50,
-    },
-    Upload_Btn_Parent_Txt: {
-        textAlign: "center",
-        borderWidth: 0.5,
-        borderColor: "transparent",
-        fontSize: 18,
-        fontFamily: "Kanit",
-        color: "white",
-        letterSpacing: 1,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "lightgreen",
+    paddingHorizontal: 15,
+  },
+  fir: {
+    borderColor: "yellow",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 30,
+    marginTop: 3,
+    marginBottom: 50,
+    backgroundColor: "yellow",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  sec: {
+    borderColor: "grey",
+    backgroundColor: "white",
+    borderWidth: 1,
+    color: "black",
+    fontSize: 15,
+    marginTop: 20,
+    marginHorizontal: 20,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    fontWeight: "bold",
+  },
 });

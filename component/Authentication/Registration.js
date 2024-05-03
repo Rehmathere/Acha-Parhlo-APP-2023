@@ -8,12 +8,20 @@ import {
   StatusBar,
   ScrollView,
   Image,
+  Modal,
 } from "react-native";
 import { firebase } from "../firestore";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons, MaterialIcons, Entypo, FontAwesome5 } from '@expo/vector-icons';
+import {
+  Ionicons,
+  MaterialIcons,
+  Entypo,
+  FontAwesome5,
+} from "@expo/vector-icons";
 
 export default function Registration() {
+  // 1 - Modal For Checking Email Message
+  const [showContent, setShowContent] = useState(false);
   // ---- Toggle Password ----
   const [showPassword, setShowPassword] = useState(false); // State to track password visibility
   const [passwordButtonText, setPasswordButtonText] = useState(""); // Button text state
@@ -38,9 +46,7 @@ export default function Registration() {
   // Function
   const registerUser = async () => {
     try {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
       await firebase
         .firestore()
         .collection("users")
@@ -50,9 +56,27 @@ export default function Registration() {
           lastName,
           email,
         });
-      alert("User Registered Successfully !");
+
+      // Wait for email verification
+      const intervalId = setInterval(async () => {
+        // Sending verification email
+        await firebase.auth().currentUser.sendEmailVerification();
+        // ----- Email Checking Message Modal -----
+        // Alert user to verify email
+        alert(
+          "User Registered Successfully! Please check your email for verification."
+        );
+        await firebase.auth().currentUser.reload();
+        if (firebase.auth().currentUser.emailVerified) {
+          clearInterval(intervalId);
+          alert("Email Verified Successfully! You can now login.");
+          setShowContent(false); // Close the modal
+          navigation.navigate("Dashboard"); // Navigate to the next screen
+        }
+      }, 2000); // Checking every 2 seconds
     } catch (error) {
       alert(error.message);
+      return;
     }
   };
   // Main Body
@@ -77,7 +101,10 @@ export default function Registration() {
         <View style={styles.Fir_Grand_Parent}>
           <View style={styles.New_fir_Parent}>
             <View style={styles.Sub_New_fir_Parent}>
-              <Image source={require("../Pics/logo2.png")} style={[styles.New_fir_Img, { tintColor: 'white' }]} />
+              <Image
+                source={require("../Pics/logo2.png")}
+                style={[styles.New_fir_Img, { tintColor: "white" }]}
+              />
             </View>
           </View>
           {/* 2 - Email Part */}
@@ -86,7 +113,12 @@ export default function Registration() {
               {/* 1 */}
               <View style={styles.New_Sec_Part_1_Par}>
                 <View style={styles.Sub_New_Sec_Part_1_Par}>
-                  <Text style={styles.New_Sec_Part_1_2} onPress={() => navigation.navigate("Login")}>Sign In</Text>
+                  <Text
+                    style={styles.New_Sec_Part_1_2}
+                    onPress={() => navigation.navigate("Login")}
+                  >
+                    Sign In
+                  </Text>
                   <Text style={styles.New_Sec_Part_1_1}>Sign Up</Text>
                 </View>
               </View>
@@ -95,8 +127,10 @@ export default function Registration() {
                 <View style={styles.Sub_New_Sec_Part_2_Par}>
                   {/* Names Text Input */}
                   {/* Name 1 */}
-                  <View style={[styles.New_Sec_Part_2_1, { marginBottom: 22, }]}>
-                    <Text style={styles.New_Sec_Part_2_1_Part_1}><FontAwesome5 name="user-tie" size={20} color="black" /></Text>
+                  <View style={[styles.New_Sec_Part_2_1, { marginBottom: 22 }]}>
+                    <Text style={styles.New_Sec_Part_2_1_Part_1}>
+                      <FontAwesome5 name="user-tie" size={20} color="black" />
+                    </Text>
                     <TextInput
                       style={styles.New_Sec_Part_2_1_Part_2}
                       placeholder=" Enter Your First Name "
@@ -105,8 +139,10 @@ export default function Registration() {
                     />
                   </View>
                   {/* Name 2 */}
-                  <View style={[styles.New_Sec_Part_2_1, { marginBottom: 22, }]}>
-                    <Text style={styles.New_Sec_Part_2_1_Part_1}><FontAwesome5 name="user-tie" size={20} color="black" /></Text>
+                  <View style={[styles.New_Sec_Part_2_1, { marginBottom: 22 }]}>
+                    <Text style={styles.New_Sec_Part_2_1_Part_1}>
+                      <FontAwesome5 name="user-tie" size={20} color="black" />
+                    </Text>
                     <TextInput
                       style={styles.New_Sec_Part_2_1_Part_2}
                       placeholder=" Enter Your Last Name "
@@ -116,7 +152,9 @@ export default function Registration() {
                   </View>
                   {/* Input 1 */}
                   <View style={styles.New_Sec_Part_2_1}>
-                    <Text style={styles.New_Sec_Part_2_1_Part_1}><MaterialIcons name="email" size={20} color="black" /></Text>
+                    <Text style={styles.New_Sec_Part_2_1_Part_1}>
+                      <MaterialIcons name="email" size={20} color="black" />
+                    </Text>
                     <TextInput
                       style={styles.New_Sec_Part_2_1_Part_2}
                       placeholder=" Enter Your Email "
@@ -128,7 +166,9 @@ export default function Registration() {
                   </View>
                   {/* Input 2 */}
                   <View style={styles.New_Sec_Part_2_2}>
-                    <Text style={styles.New_Sec_Part_2_1_Part_1}><Entypo name="lock" size={20} color="black" /></Text>
+                    <Text style={styles.New_Sec_Part_2_1_Part_1}>
+                      <Entypo name="lock" size={20} color="black" />
+                    </Text>
                     <TextInput
                       style={styles.New_Sec_Part_2_2_Part_2}
                       placeholder=" Enter Your Password "
@@ -142,7 +182,11 @@ export default function Registration() {
                         <Text style={styles.Hide_See_Pass}>
                           {passwordButtonText}{" "}
                           {showPassword ? (
-                            <Ionicons name="eye-off-sharp" size={18} color="black" />
+                            <Ionicons
+                              name="eye-off-sharp"
+                              size={18}
+                              color="black"
+                            />
                           ) : (
                             <Ionicons name="eye" size={18} color="black" />
                           )}
@@ -153,19 +197,17 @@ export default function Registration() {
                 </View>
                 {/* Login Button */}
                 <TouchableOpacity
-                  onPress={() => registerUser(email, password, firstName, lastName)}
+                  onPress={() => registerUser()}
                   style={[styles.Login_Button]}
                 >
-                  <Text
-                    style={styles.Login_Button_Text}
-                  >
-                    Sign Up
-                  </Text>
+                  <Text style={styles.Login_Button_Text}>Sign Up</Text>
                 </TouchableOpacity>
                 {/* Register Button */}
                 <View style={styles.Register_Parent}>
                   {/* 1 */}
-                  <Text style={styles.Register_Button_1}>Already Have Account ?</Text>
+                  <Text style={styles.Register_Button_1}>
+                    Already Have Account ?
+                  </Text>
                   {/* 2 */}
                   <TouchableOpacity
                     onPress={() => navigation.navigate("Login")}
@@ -181,6 +223,25 @@ export default function Registration() {
         {/* ---------------------- */}
         {/* --  New Logic Code  -- */}
       </ScrollView>
+      {/* Logout Modal */}
+      <Modal animationType="fade" transparent={true} visible={showContent}>
+        <View style={styles.Modal_Parent}>
+          <View style={styles.Modal_Child}>
+            <View style={styles.sub_Modal_Child}>
+              <Text style={styles.Modal_Txt_2}>
+                Kindly Check Your Email Inbox For Verification
+              </Text>
+              {/* - Image Parent - */}
+              <View style={styles.ParentImg}>
+                <Image
+                  source={require("../Pics/E_Load.gif")}
+                  style={styles.Logout_Img}
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -402,7 +463,7 @@ const styles = StyleSheet.create({
   Register_Button_2: {
     borderWidth: 0,
     paddingVertical: 3,
-    width: "21%"
+    width: "21%",
   },
   Register_Button_2_Text: {
     borderWidth: 0,
@@ -412,5 +473,97 @@ const styles = StyleSheet.create({
     fontFamily: "Heebo",
     color: "#EB2F06",
     letterSpacing: 0.5,
+  },
+  Modal_Parent: {
+    flex: 1,
+    // borderWidth: 0.5,
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  Modal_Child: {
+    // borderWidth: 0.5,
+    borderColor: "white",
+    backgroundColor: "white",
+    marginHorizontal: 40,
+    borderRadius: 30,
+    paddingVertical: 13,
+    paddingHorizontal: 11,
+    width: "75%",
+  },
+  sub_Modal_Child: {
+    // borderWidth: 0.5,
+    padding: 10,
+  },
+  Modal_Txt_1: {
+    // borderWidth: 0.5,
+    fontSize: 23,
+    fontFamily: "HeeboExtra",
+    textAlign: "center",
+    textTransform: "uppercase",
+    letterSpacing: 1.5,
+    paddingBottom: 1,
+    paddingTop: 1,
+  },
+  Modal_Txt_2: {
+    // borderWidth: 0.5,
+    fontSize: 14.5,
+    marginVertical: 4,
+    fontFamily: "Kanit",
+    textAlign: "center",
+    color: "grey",
+  },
+  Butt_Parent: {
+    // borderWidth: 0.5,
+    paddingVertical: 10,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  sub_Butt_Parent: {
+    // borderWidth: 1,
+    borderColor: "red",
+  },
+  Butt_Box_1: {
+    // borderWidth: 1,
+    borderRadius: 5,
+    paddingVertical: 6,
+    paddingHorizontal: 15,
+    backgroundColor: "#EB2F06",
+  },
+  Butt_Text_1: {
+    // borderWidth: 1,
+    fontSize: 16,
+    fontFamily: "Kanit",
+    textAlign: "center",
+    color: "white",
+    letterSpacing: 1.5,
+  },
+  Butt_Text_2: {
+    // borderWidth: 1,
+    fontSize: 16,
+    fontFamily: "Kanit",
+    textAlign: "center",
+    color: "black",
+    letterSpacing: 1.5,
+  },
+  Butt_Box_2: {
+    // borderWidth: 1,
+    borderRadius: 5,
+    paddingVertical: 6,
+    paddingHorizontal: 15,
+    backgroundColor: "#D1D6D9",
+  },
+  ParentImg: {
+    // borderWidth: 0.5,
+    marginBottom: 5,
+    paddingVertical: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  Logout_Img: {
+    // borderWidth: 0.5,
+    // borderColor: "black",
+    width: 70,
+    height: 70,
   },
 });

@@ -48,7 +48,8 @@ export default function Screen3() {
                 </View>
                 {/* Touch Button */}
                 <View style={styles.btn_head}>
-                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('App')}>
+                    {/* <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('App')}> */}
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('Login')}>
                         <Text style={styles.txt}>Let's Started</Text>
                     </TouchableOpacity>
                 </View>
