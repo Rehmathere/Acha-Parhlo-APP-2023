@@ -20,30 +20,25 @@ import {
 } from "@expo/vector-icons";
 
 export default function Registration() {
-  // 1 - Modal For Checking Email Message
   const [showContent, setShowContent] = useState(false);
-  // ---- Toggle Password ----
-  const [showPassword, setShowPassword] = useState(false); // State to track password visibility
-  const [passwordButtonText, setPasswordButtonText] = useState(""); // Button text state
-  // Toggle password visibility
+  const [showStatus_Loading, setShowStatus_Loading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordButtonText, setPasswordButtonText] = useState("");
+  const navigation = useNavigation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-    // Change button text based on visibility state
     if (showPassword) {
       setPasswordButtonText("");
     } else {
       setPasswordButtonText("");
     }
   };
-  // ---- Toggle Password ----
-  // 0 - Navigation Variable
-  const navigation = useNavigation();
-  // useState
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  // Function
+
   const registerUser = async () => {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -57,47 +52,37 @@ export default function Registration() {
           email,
         });
 
-      // Wait for email verification
+      await firebase.auth().currentUser.sendEmailVerification();
+      await firebase.auth().currentUser.reload();
+      // ----- 1 - Modal For Verification Mail -----
+      setShowContent(!showContent);
+
       const intervalId = setInterval(async () => {
-        // Sending verification email
-        await firebase.auth().currentUser.sendEmailVerification();
-        // ----- Email Checking Message Modal -----
-        // Alert user to verify email
-        alert(
-          "User Registered Successfully! Please check your email for verification."
-        );
         await firebase.auth().currentUser.reload();
         if (firebase.auth().currentUser.emailVerified) {
+          // ----- 1 - Modal For Verification Mail -----
+          setShowContent(showContent);
           clearInterval(intervalId);
-          alert("Email Verified Successfully! You can now login.");
-          setShowContent(false); // Close the modal
-          navigation.navigate("Dashboard"); // Navigate to the next screen
+          setShowStatus_Loading(true);
+          setTimeout(() => {
+            navigation.navigate("MyDrawer");
+          }, 3000);
         }
-      }, 2000); // Checking every 2 seconds
+      }, 3000);
     } catch (error) {
       alert(error.message);
       return;
     }
   };
-  // Main Body
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <StatusBar backgroundColor={"#EB2F06"} />
-        {/* --  New Logic Code  -- */}
-        {/* New Main Code */}
         <View style={styles.E_New_Parent_Extra}>
-          {/* Part 1 */}
-          <View style={styles.E_New_Parent_Extra_Part_1}>
-            {/* Box Color Area */}
-          </View>
-          {/* Part 2 */}
-          <View style={styles.E_New_Parent_Extra_Part_2}>
-            {/* Box Color Area */}
-          </View>
+          <View style={styles.E_New_Parent_Extra_Part_1}></View>
+          <View style={styles.E_New_Parent_Extra_Part_2}></View>
         </View>
-        {/* ---------------------- */}
-        {/* 1 - Logo Part */}
         <View style={styles.Fir_Grand_Parent}>
           <View style={styles.New_fir_Parent}>
             <View style={styles.Sub_New_fir_Parent}>
@@ -107,10 +92,8 @@ export default function Registration() {
               />
             </View>
           </View>
-          {/* 2 - Email Part */}
           <View style={styles.New_Sec_Parent}>
             <View style={styles.Sub_New_Sec_Parent}>
-              {/* 1 */}
               <View style={styles.New_Sec_Part_1_Par}>
                 <View style={styles.Sub_New_Sec_Part_1_Par}>
                   <Text
@@ -122,11 +105,8 @@ export default function Registration() {
                   <Text style={styles.New_Sec_Part_1_1}>Sign Up</Text>
                 </View>
               </View>
-              {/* 2 */}
               <View style={styles.New_Sec_Part_2_Par}>
                 <View style={styles.Sub_New_Sec_Part_2_Par}>
-                  {/* Names Text Input */}
-                  {/* Name 1 */}
                   <View style={[styles.New_Sec_Part_2_1, { marginBottom: 22 }]}>
                     <Text style={styles.New_Sec_Part_2_1_Part_1}>
                       <FontAwesome5 name="user-tie" size={20} color="black" />
@@ -138,7 +118,6 @@ export default function Registration() {
                       autoCorrect={false}
                     />
                   </View>
-                  {/* Name 2 */}
                   <View style={[styles.New_Sec_Part_2_1, { marginBottom: 22 }]}>
                     <Text style={styles.New_Sec_Part_2_1_Part_1}>
                       <FontAwesome5 name="user-tie" size={20} color="black" />
@@ -150,7 +129,6 @@ export default function Registration() {
                       autoCorrect={false}
                     />
                   </View>
-                  {/* Input 1 */}
                   <View style={styles.New_Sec_Part_2_1}>
                     <Text style={styles.New_Sec_Part_2_1_Part_1}>
                       <MaterialIcons name="email" size={20} color="black" />
@@ -164,7 +142,6 @@ export default function Registration() {
                       keyboardType="email-address"
                     />
                   </View>
-                  {/* Input 2 */}
                   <View style={styles.New_Sec_Part_2_2}>
                     <Text style={styles.New_Sec_Part_2_1_Part_1}>
                       <Entypo name="lock" size={20} color="black" />
@@ -175,7 +152,7 @@ export default function Registration() {
                       onChangeText={(password) => setPassword(password)}
                       autoCapitalize="none"
                       autoCorrect={false}
-                      secureTextEntry={!showPassword} // Toggle password visibility
+                      secureTextEntry={!showPassword}
                     />
                     <View style={styles.New_Sec_Part_2_3_Part_2}>
                       <TouchableOpacity onPress={togglePasswordVisibility}>
@@ -195,20 +172,16 @@ export default function Registration() {
                     </View>
                   </View>
                 </View>
-                {/* Login Button */}
                 <TouchableOpacity
                   onPress={() => registerUser()}
                   style={[styles.Login_Button]}
                 >
                   <Text style={styles.Login_Button_Text}>Sign Up</Text>
                 </TouchableOpacity>
-                {/* Register Button */}
                 <View style={styles.Register_Parent}>
-                  {/* 1 */}
                   <Text style={styles.Register_Button_1}>
                     Already Have Account ?
                   </Text>
-                  {/* 2 */}
                   <TouchableOpacity
                     onPress={() => navigation.navigate("Login")}
                     style={styles.Register_Button_2}
@@ -220,25 +193,41 @@ export default function Registration() {
             </View>
           </View>
         </View>
-        {/* ---------------------- */}
-        {/* --  New Logic Code  -- */}
       </ScrollView>
-      {/* Logout Modal */}
       <Modal animationType="fade" transparent={true} visible={showContent}>
         <View style={styles.Modal_Parent}>
           <View style={styles.Modal_Child}>
             <View style={styles.sub_Modal_Child}>
-              <Text style={styles.Modal_Txt_2}>
-                Kindly Check Your Email Inbox For Verification
-              </Text>
-              {/* - Image Parent - */}
               <View style={styles.ParentImg}>
                 <Image
-                  source={require("../Pics/E_Load.gif")}
+                  source={require("../Pics/Email_Check.gif")}
                   style={styles.Logout_Img}
                 />
               </View>
+              <Text style={styles.Modal_Txt_2}>
+                Kindly Check Your Email Inbox For Verification
+              </Text>
             </View>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        transparent={true}
+        animationType="fade"
+        visible={showStatus_Loading}
+      >
+        <View style={styles.ParentStatus}>
+          <View style={styles.sub_ParentStatus}>
+            <View style={styles.ParentStatusImg}>
+              <Image
+                source={require("../Pics/Email_Check_1.gif")}
+                style={styles.StatusImg_1}
+              />
+            </View>
+            <Text style={styles.StatusTxt_E}>Email Verifed !</Text>
+            <Text style={styles.StatusTxt}>
+              Welcome ! Now You Can Use Our Services
+            </Text>
           </View>
         </View>
       </Modal>
@@ -487,23 +476,22 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginHorizontal: 40,
     borderRadius: 30,
-    paddingVertical: 13,
-    paddingHorizontal: 11,
-    width: "75%",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    width: "77%",
   },
   sub_Modal_Child: {
     // borderWidth: 0.5,
     padding: 10,
   },
   Modal_Txt_1: {
-    // borderWidth: 0.5,
-    fontSize: 23,
-    fontFamily: "HeeboExtra",
+    fontSize: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 30,
     textAlign: "center",
-    textTransform: "uppercase",
+    fontFamily: "HeeboExtra",
     letterSpacing: 1.5,
-    paddingBottom: 1,
-    paddingTop: 1,
+    textTransform: "capitalize",
   },
   Modal_Txt_2: {
     // borderWidth: 0.5,
@@ -565,5 +553,60 @@ const styles = StyleSheet.create({
     // borderColor: "black",
     width: 70,
     height: 70,
+  },
+  ParentStatus: {
+    backgroundColor: "rgba(0, 0, 0, 0.70)",
+    flex: 1,
+    // borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  sub_ParentStatus: {
+    // borderWidth: 1,
+    width: "81%",
+    backgroundColor: "white",
+    paddingVertical: 30,
+    borderRadius: 20,
+  },
+  ParentStatusImg: {
+    // borderWidth: 0.5,
+    paddingTop: 20,
+    paddingBottom: 23,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  StatusImg: {
+    borderWidth: 0.5,
+    borderColor: "transparent",
+    // borderColor: "black",
+    width: 120,
+    height: 150,
+  },
+  StatusImg_1: {
+    borderWidth: 0.5,
+    borderColor: "transparent",
+    borderColor: "black",
+    width: 100,
+    height: 85,
+  },
+  StatusTxt: {
+    // borderWidth: 1,
+    fontSize: 13,
+    paddingBottom: 10,
+    paddingHorizontal: 23,
+    textAlign: "center",
+    fontFamily: "Kanit",
+    letterSpacing: 1.2,
+    textTransform: "capitalize",
+  },
+  StatusTxt_E: {
+    // borderWidth: 1,
+    fontSize: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 30,
+    textAlign: "center",
+    fontFamily: "HeeboExtra",
+    letterSpacing: 1.5,
+    textTransform: "capitalize",
   },
 });
