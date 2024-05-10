@@ -292,7 +292,7 @@ function App() {
             fontSize: 15,
           },
           drawerIcon: () => (
-            <Ionicons name="ios-help-circle" size={27} color="#EA2027" />
+            <Ionicons name="help-circle-sharp" size={27} color="#EA2027" />
           ),
         }}
       />
