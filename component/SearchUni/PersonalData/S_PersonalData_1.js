@@ -21,6 +21,8 @@ export default function S_PersonalData_1({ route }) {
     const [U2_campus, setU2_campus] = useState("");
     const [U3_intake, setU3_intake] = useState("");
     const [U4_courseName, setU4_courseName] = useState("");
+    // Get current user
+    const currentUser = firebase.auth().currentUser;
     // Add Function
     const addData = async () => {
         if (U1_universityName && U1_universityName.length > 0 && U2_campus && U3_intake && U4_courseName) {
@@ -38,7 +40,8 @@ export default function S_PersonalData_1({ route }) {
                 U2_campus,
                 U3_intake,
                 U4_courseName,
-                U_Extra_Uni_Image: base64Image // Add base64Image to the data
+                U_Extra_Uni_Image: base64Image, // Add base64Image to the data
+                My_User: currentUser.email // Add current user's email ID
             };
             const docRef = universityRef.doc(); // Create a new document with a random ID
             docRef

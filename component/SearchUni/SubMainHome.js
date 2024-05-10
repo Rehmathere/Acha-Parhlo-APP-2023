@@ -32,6 +32,11 @@ export default function SubMainHome({ route }) {
             setShowStatus(false)
         }, 2500);
     }
+    // Naivgation
+    const navigation = useNavigation();
+    // Get current user
+    const currentUser = firebase.auth().currentUser;
+    // Add Function
     const handleButtonPress = () => {
         // Pass data to Firebase and store in "5 - App Wishlist" collection
         firebase.firestore().collection("5 - App Wishlist").add({
@@ -40,6 +45,7 @@ export default function SubMainHome({ route }) {
             noteRoom,
             noteAmount,
             noteDuration,
+            My_User: currentUser.email // Add current user's email ID
         })
             .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
@@ -49,8 +55,6 @@ export default function SubMainHome({ route }) {
                 console.error("Error adding document: ", error);
             });
     };
-    // Naivgation
-    const navigation = useNavigation();
     // 1 - useState
     const [fontsLoaded, setFontsLoaded] = useState(false);
     // Expo Font Logic
