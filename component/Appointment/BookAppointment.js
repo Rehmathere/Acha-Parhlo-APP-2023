@@ -56,6 +56,7 @@ export default function BookAppointment() {
       selectedSlot !== -1
     ) {
       ShowModal_Loading(); // Call the function to show loading modal
+      const currentUser = firebase.auth().currentUser;
       const data = {
         value_1: name,
         value_2: email,
@@ -63,6 +64,7 @@ export default function BookAppointment() {
         gender: selectedGender === 0 ? "Male" : "Female",
         Date: selectedDay + 1,
         TimeSlot: slots[selectedSlot].sloT,
+        My_User: currentUser ? currentUser.email : null,
       };
       todoRef
         .add(data)
@@ -86,7 +88,6 @@ export default function BookAppointment() {
       }, 2500);
     }
   };
-
   // ----------- Date And Time Slot Checked ------------
   const [existingAppointments, setExistingAppointments] = useState([]);
   useEffect(() => {

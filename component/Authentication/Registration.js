@@ -220,7 +220,7 @@ export default function Registration() {
           <View style={styles.sub_ParentStatus}>
             <View style={styles.ParentStatusImg}>
               <Image
-                source={require("../Pics/Email_Check_1.gif")}
+                source={require("../Pics/Email_Check_1_E.png")}
                 style={styles.StatusImg_1}
               />
             </View>
@@ -586,8 +586,8 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "transparent",
     borderColor: "black",
-    width: 100,
-    height: 85,
+    width: 90,
+    height: 80,
   },
   StatusTxt: {
     // borderWidth: 1,

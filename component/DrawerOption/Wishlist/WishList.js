@@ -23,10 +23,12 @@ export default function WishList() {
     const [wishList, setWishList] = useState([]);
     useEffect(() => {
         // Real-time listener for changes in Firestore data
-        const unsubscribe = firebase.firestore().collection("5 - App Wishlist").onSnapshot(snapshot => {
-            const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setWishList(data);
-        });
+        const unsubscribe = firebase.firestore().collection("5 - App Wishlist")
+            .where("My_User", "==", firebase.auth().currentUser.email) // Filter by current user's email
+            .onSnapshot(snapshot => {
+                const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setWishList(data);
+            });
 
         // Cleanup function to unsubscribe when component unmounts
         return () => unsubscribe();

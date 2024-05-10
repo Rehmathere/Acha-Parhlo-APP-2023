@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, StatusBar, Image, TouchableOpacity, ScrollView 
 // Fonts Header File
 import { useFonts } from "expo-font";
 // useNavigate
-import { FontAwesome5, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../firestore";
 // Linear Gradient
@@ -13,26 +13,20 @@ export default function ApplicationList() {
     // 0 - useNavigation
     const navigation = useNavigation();
     // ---------- Backend Part Logic ----------
-    const [visible, setVisible] = useState(false);
     const [data, setData] = useState([]);
-    const [search, setSearch] = useState('');
-    const searchRef = useRef();
-    const listRef = useRef();
-    const [ind, setInd] = useState(0);
-    const [oldData, setOldData] = useState([]);
-    const [notes, setNotes] = useState([]);
     useEffect(() => {
         firebase
             .firestore()
             .collection("4 - Student Records")
             .onSnapshot((querySnapshot) => {
+                const currentUser = firebase.auth().currentUser;
                 const newNotes = [];
                 querySnapshot.forEach((doc) => {
-                    const { U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue, U_Extra_Uni_Image } = doc.data();
-                    newNotes.push({ U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue, U_Extra_Uni_Image, id: doc.id });
+                    const { U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue, U_Extra_Uni_Image, My_User } = doc.data();
+                    if (My_User === currentUser.email) {
+                        newNotes.push({ U1_universityName, U2_campus, U3_intake, U4_courseName, buttonValue, U_Extra_Uni_Image, id: doc.id });
+                    }
                 });
-                setNotes(newNotes);
-                setOldData(newNotes);
                 setData(newNotes);
             });
     }, []);

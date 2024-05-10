@@ -25,7 +25,9 @@ export default function Completed({ navigation }) {
     // Real-time listener for changes in Firestore data
     const unsubscribe = firebase.firestore().collection("3 - Appointment").onSnapshot(snapshot => {
       const appointmentsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setAppointments(appointmentsData);
+      const currentUser = firebase.auth().currentUser;
+      const filteredAppointments = appointmentsData.filter(appointment => appointment.My_User === currentUser.email);
+      setAppointments(filteredAppointments);
     });
 
     // Cleanup function to unsubscribe when component unmounts
