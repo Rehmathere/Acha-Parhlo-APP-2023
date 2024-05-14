@@ -367,8 +367,8 @@ export default () => {
             >
               <View
                 style={{
-                  // backgroundColor: "#E0E0E0",
-                  backgroundColor: "#FFD5CB",
+                  backgroundColor: "#EB2F06",
+                  // backgroundColor: "#FFD5CB",
                   borderRadius: 50,
                   borderWidth: 0.5,
                   borderColor: "#FFD5CB",
@@ -377,7 +377,7 @@ export default () => {
                 }}
               >
                 <Text style={{ color: "black", borderRadius: 5 }}>
-                  <Ionicons name="chevron-back" size={24} color="black" />
+                  <Ionicons name="chevron-back" size={24} color="white" />
                 </Text>
               </View>
             </View>
