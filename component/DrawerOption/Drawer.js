@@ -68,7 +68,8 @@ export default function Drawer() {
             {/* 1 - Name */}
             <View style={styles.ParentFirst}>
                 <Text style={styles.fir}>Hey,</Text>
-                <Text style={styles.fir_2}>{email.slice(0, 10)}</Text>
+                {/* <Text style={styles.fir_2}>{email.slice(0, 10)}</Text> */}
+                <Text style={styles.fir_2}>{email.split('@')[0]}</Text>
             </View>
             {/* 2 - Image Slider */}
             <View style={styles.ParentSecond}>
