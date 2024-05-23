@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Acha Parhlo",
-    "slug": "AwesomeProject",
+    "slug": "awesomeproject",
     "plugins": [
       [
         "expo-image-picker",
@@ -32,15 +32,17 @@
       },
       "permissions": [
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "package": "com.rehmat_qazi.AwesomeProject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "d4c67b96-ad7a-433b-bdf0-01fec727b736"
+        "projectId": "97bc9b30-bd35-4cfb-932b-021355d158f4"
       }
-    }
+    },
+    "owner": "rehmat_qazi"
   }
 }
